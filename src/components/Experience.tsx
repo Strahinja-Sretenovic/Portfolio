@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { SectionHeader } from "./SectionHeader";
-import { Briefcase, FolderGit2 } from "lucide-react";
+import { Briefcase, FolderGit2, ExternalLink } from "lucide-react";
 
 export function Experience() {
   const experiences = [
@@ -22,14 +22,39 @@ export function Experience() {
   const projects = [
     {
       title: "Full-Stack Developer",
+      project: "Ada Studio",
+      type: "Web Agency Platform",
+      date: "2026",
+      link: "https://adastudio.rs/",
+      points: [
+        "Engineered a modern, responsive user interface.",
+        "Implemented comprehensive backend functionality.",
+        "Optimised SEO metadata and page performance."
+      ]
+    },
+    {
+      title: "Full-Stack Developer",
       project: "Altara Inmo",
       type: "Real Estate Platform",
-      date: "2024",
+      date: "2025",
+      link: "https://www.altarainmo.com/",
       points: [
         "Built responsive, user-friendly UI.",
         "Implemented backend property CRUD operations.",
         "Integrated third-party REST APIs smoothly.",
         "Optimised platform for SEO."
+      ]
+    },
+    {
+      title: "Full-Stack Developer",
+      project: "Taxi Pro GPS",
+      type: "GPS Tracking App",
+      date: "2025",
+      link: "https://www.taxiprogps.com/",
+      points: [
+        "Developed robust backend for GPS data processing.",
+        "Integrated responsive frontend tracking features.",
+        "Optimised database queries for real-time updates."
       ]
     }
   ];
@@ -106,7 +131,16 @@ export function Experience() {
                     <div className="bg-white dark:bg-[#151515] p-6 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm ml-4 hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-colors">
                       <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400 mb-2 block">{proj.date}</span>
                       <h4 className="text-xl font-bold text-slate-900 dark:text-white">{proj.title}</h4>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1 font-medium">{proj.project} <span className="font-normal opacity-70">({proj.type})</span></p>
+                      <p className="text-slate-600 dark:text-slate-400 mt-1 font-medium">
+                        {proj.link ? (
+                          <a href={proj.link} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors inline-flex items-center gap-1">
+                            {proj.project} <ExternalLink size={14} className="opacity-70" />
+                          </a>
+                        ) : (
+                          proj.project
+                        )}{" "}
+                        <span className="font-normal opacity-70">({proj.type})</span>
+                      </p>
                       
                       <ul className="mt-4 space-y-2">
                         {proj.points.map((point, pIdx) => (

@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { SectionHeader } from "./SectionHeader";
-import { Terminal, Layout, Database, Wrench } from "lucide-react";
+import { Terminal, Layout, Database, Wrench, Cloud, Server, Activity, ShieldCheck, Box } from "lucide-react";
 
 export function Skills() {
   const skillGroups = [
@@ -12,17 +12,37 @@ export function Skills() {
     {
       title: "Frameworks",
       icon: <Layout size={20} />,
-      skills: ["Spring Boot", ".NET / ASP.NET Core", "FastAPI", "React", "Next.js"]
+      skills: ["Spring Boot", ".NET / ASP.NET Core", "FastAPI", "React", "Next.js", "Angular"]
     },
     {
       title: "Databases",
       icon: <Database size={20} />,
-      skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis"]
+      skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Cassandra", "Neo4j", "Elasticsearch"]
     },
     {
-      title: "Tools & DevOps",
-      icon: <Wrench size={20} />,
-      skills: ["Docker", "Git", "REST APIs", "Microservices", "CI/CD"]
+      title: "Architecture",
+      icon: <Box size={20} />,
+      skills: ["Microservices", "REST APIs", "Apache Kafka"]
+    },
+    {
+      title: "DevOps & CI/CD",
+      icon: <Cloud size={20} />,
+      skills: ["Docker", "Kubernetes", "CI/CD", "GitHub Actions"]
+    },
+    {
+      title: "OS & Servers",
+      icon: <Server size={20} />,
+      skills: ["Linux", "Bash", "Nginx", "Apache HTTP Server"]
+    },
+    {
+      title: "Monitoring & Logs",
+      icon: <Activity size={20} />,
+      skills: ["Prometheus", "Grafana", "Logstash", "Sentry"]
+    },
+    {
+      title: "Testing & Tools",
+      icon: <ShieldCheck size={20} />,
+      skills: ["Git", "Postman", "Selenium", "SonarQube", "Trello"]
     }
   ];
 
