@@ -1,38 +1,28 @@
 import { motion } from "motion/react";
 import { SectionHeader } from "./SectionHeader";
-import { Terminal, Layout, Database, Wrench, Cloud, Server, Activity, ShieldCheck, Box } from "lucide-react";
+import { Monitor, Cpu, Database, Cloud, Activity, ShieldCheck } from "lucide-react";
 
 export function Skills() {
   const skillGroups = [
     {
-      title: "Languages",
-      icon: <Terminal size={20} />,
-      skills: ["Java", "C#", "Go (Golang)", "Python", "PHP", "JavaScript", "SQL"]
+      title: "Frontend",
+      icon: <Monitor size={20} />,
+      skills: ["JavaScript", "TypeScript", "React", "Next.js", "Angular", "Sass", "Tailwind CSS", "Bootstrap", "Material UI"]
     },
     {
-      title: "Frameworks",
-      icon: <Layout size={20} />,
-      skills: ["Spring Boot", ".NET / ASP.NET Core", "FastAPI", "React", "Next.js", "Angular"]
+      title: "Backend",
+      icon: <Cpu size={20} />,
+      skills: ["Node.js", "Express.js", "NestJS", "Java", "Spring Boot", "Golang", "C#", ".NET / ASP.NET Core", "Python", "FastAPI", "PHP", "Apache Kafka"]
     },
     {
-      title: "Databases",
+      title: "Database & ORM",
       icon: <Database size={20} />,
-      skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Cassandra", "Neo4j", "Elasticsearch"]
+      skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Cassandra", "Neo4j", "Elasticsearch", "Prisma", "TypeORM", "Sequelize", "Hibernate", "Spring Data JPA", "Liquibase", "Consul"]
     },
     {
-      title: "Architecture",
-      icon: <Box size={20} />,
-      skills: ["Microservices", "REST APIs", "Apache Kafka"]
-    },
-    {
-      title: "DevOps & CI/CD",
+      title: "DevOps / Infrastructure",
       icon: <Cloud size={20} />,
-      skills: ["Docker", "Kubernetes", "CI/CD", "GitHub Actions"]
-    },
-    {
-      title: "OS & Servers",
-      icon: <Server size={20} />,
-      skills: ["Linux", "Bash", "Nginx", "Apache HTTP Server"]
+      skills: ["Docker", "Kubernetes", "CI/CD", "GitHub Actions", "Nginx", "Apache HTTP Server", "Linux", "Shell Script / Bash"]
     },
     {
       title: "Monitoring & Logs",
@@ -40,9 +30,9 @@ export function Skills() {
       skills: ["Prometheus", "Grafana", "Logstash", "Sentry"]
     },
     {
-      title: "Testing & Tools",
+      title: "API, Testing & Productivity",
       icon: <ShieldCheck size={20} />,
-      skills: ["Git", "Postman", "Selenium", "SonarQube", "Trello"]
+      skills: ["Swagger", "Postman", "Git", "Selenium", "SonarQube", "Trello"]
     }
   ];
 
@@ -78,7 +68,7 @@ export function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"
         >
           {skillGroups.map((group, idx) => (
             <motion.div 
