@@ -46,7 +46,7 @@ export function Experience() {
       ]
     },
     {
-      title: "Full-Stack Developer",
+      title: "Backend Developer",
       project: "Taxi Pro GPS",
       type: "GPS Tracking App",
       date: "2025",
