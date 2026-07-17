@@ -36,7 +36,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-xl md:text-2xl font-medium text-slate-700 dark:text-slate-300 mb-6"
         >
-          Junior Backend / Full-Stack Developer
+          Web & Full-Stack Developer
         </motion.h2>
 
         <motion.p
@@ -45,7 +45,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Software and Information Technologies graduate passionate about building scalable, maintainable systems and continuously expanding technical expertise.
+          Full-Stack & Backend Developer specializing in engineering high-performance APIs, robust database architectures, and scalable web solutions designed to solve complex business challenges.
         </motion.p>
 
         <motion.div
