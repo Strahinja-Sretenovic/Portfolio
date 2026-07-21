@@ -3,7 +3,13 @@ import { useTheme } from "./ThemeProvider";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-export function Header() {
+interface HeaderProps {
+  currentView?: "home" | "all-projects";
+  onNavigateHome?: () => void;
+  onOpenProjects?: () => void;
+}
+
+export function Header({ currentView = "home", onNavigateHome, onOpenProjects }: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,21 +26,51 @@ export function Header() {
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
+    { name: "Projects", href: "#projects", isProjects: true },
     { name: "Contact", href: "#contact" },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    if (link.isProjects && onOpenProjects) {
+      if (currentView === "all-projects") {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        // e.preventDefault();
+        // onOpenProjects();
+      }
+    } else if (currentView === "all-projects" && onNavigateHome) {
+      e.preventDefault();
+      onNavigateHome();
+      setTimeout(() => {
+        const elem = document.querySelector(link.href);
+        if (elem) {
+          elem.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (currentView === "all-projects" && onNavigateHome) {
+      e.preventDefault();
+      onNavigateHome();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-slate-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/10 shadow-sm"
+        isScrolled || currentView === "all-projects"
+          ? "bg-slate-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/10 shadow-sm py-3"
           : "bg-transparent py-4"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-between">
         <a 
-          href="#" 
+          href="#"
+          onClick={handleLogoClick}
           className="font-display font-bold text-xl tracking-tight text-slate-900 dark:text-white"
         >
           SSolutions<span className="text-blue-600 dark:text-blue-500">.</span>
@@ -46,6 +82,7 @@ export function Header() {
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link)}
               className="text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
             >
               {link.name}
@@ -91,7 +128,10 @@ export function Header() {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    setIsMobileMenuOpen(false);
+                    handleNavClick(e, link);
+                  }}
                   className="py-3 text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors border-b border-slate-100 dark:border-white/5 last:border-none"
                 >
                   {link.name}

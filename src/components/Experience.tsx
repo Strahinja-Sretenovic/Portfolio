@@ -1,8 +1,13 @@
 import { motion } from "motion/react";
 import { SectionHeader } from "./SectionHeader";
-import { Briefcase, FolderGit2, ExternalLink } from "lucide-react";
+import { Briefcase, FolderGit2, ExternalLink, ArrowRight } from "lucide-react";
+import { projectsData } from "../data/projectsData";
 
-export function Experience() {
+interface ExperienceProps {
+  onViewAllProjects?: () => void;
+}
+
+export function Experience({ onViewAllProjects }: ExperienceProps) {
   const experiences = [
     {
       title: "Software Developer",
@@ -19,45 +24,7 @@ export function Experience() {
     }
   ];
 
-  const projects = [
-    {
-      title: "Full-Stack Developer",
-      project: "Ada Studio",
-      type: "Web Agency Platform",
-      date: "2026",
-      link: "https://adastudio.rs/",
-      points: [
-        "Engineered a modern, responsive user interface.",
-        "Implemented comprehensive backend functionality.",
-        "Optimised SEO metadata and page performance."
-      ]
-    },
-    {
-      title: "Full-Stack Developer",
-      project: "Altara Inmo",
-      type: "Real Estate Platform",
-      date: "2025",
-      link: "https://www.altarainmo.com/",
-      points: [
-        "Built responsive, user-friendly UI.",
-        "Implemented backend property CRUD operations.",
-        "Integrated third-party REST APIs smoothly.",
-        "Optimised platform for SEO."
-      ]
-    },
-    {
-      title: "Backend Developer",
-      project: "Taxi Pro GPS",
-      type: "GPS Tracking App",
-      date: "2025",
-      link: "https://www.taxiprogps.com/",
-      points: [
-        "Developed robust backend for GPS data processing.",
-        "Integrated responsive frontend tracking features.",
-        "Optimised database queries for real-time updates."
-      ]
-    }
-  ];
+  const featuredProjects = projectsData.slice(0, 3);
 
   return (
     <section className="py-20 px-6">
@@ -117,13 +84,13 @@ export function Experience() {
               </div>
 
               <div className="space-y-6">
-                {projects.map((proj, idx) => (
+                {featuredProjects.map((proj, idx) => (
                   <motion.div 
-                    key={idx}
+                    key={proj.id || idx}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
+                    transition={{ delay: 0.1 * idx }}
                     className="relative pl-8 before:absolute before:top-0 before:bottom-0 before:left-[11px] before:w-[2px] before:bg-slate-200 dark:before:bg-white/10"
                   >
                     <div className="absolute left-0 top-1.5 w-6 h-6 bg-white dark:bg-[#0a0a0a] border-2 border-indigo-600 dark:border-indigo-400 rounded-full z-10" />
@@ -154,6 +121,19 @@ export function Experience() {
                   </motion.div>
                 ))}
               </div>
+
+              {/* View All Projects Button */}
+              {onViewAllProjects && (
+                <div className="mt-8 ml-12">
+                  <button
+                    onClick={onViewAllProjects}
+                    className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm transition-all shadow-md hover:shadow-lg shadow-indigo-500/20 active:scale-98"
+                  >
+                    View All Projects ({projectsData.length})
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              )}
             </div>
 
           </div>
