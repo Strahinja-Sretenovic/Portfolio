@@ -31,7 +31,7 @@ export const projectsData: ProjectItem[] = [
     type: "Web Agency Platform",
     date: "2026",
     link: "https://adastudio.rs/",
-    tags: ["React", "Next.js", "Node.js", "Tailwind CSS"],
+    tags: ["WordPress", "Elementor Pro", "ACF Pro"],
     points: [
       "Engineered a modern, responsive user interface.",
       "Implemented comprehensive backend functionality.",
