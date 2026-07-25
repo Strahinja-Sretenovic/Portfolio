@@ -15,8 +15,8 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
   const experiences = [
     {
       title: "Software Developer",
-      company: "Svetlin Soft",
-      period: isSr ? "2025 – Trenutno" : "2025 – Present",
+      company: "Web Developer Serbia, Čačak",
+      period: "Dec 2024 – Dec 2025",
       points: isSr
         ? [
             "Razvoj i održavanje klijentskih i internih softverskih aplikacija.",
