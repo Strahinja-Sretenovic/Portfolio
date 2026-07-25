@@ -19,7 +19,7 @@ export function Hero() {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-block py-1 px-3.5 rounded-full bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-sm font-medium mb-6">
-            {isSr ? "Dostupan za nove projekte i saradnju" : "Available for new opportunities"}
+            {isSr ? "Otvoreno za nove projekte i saradnju" : "Available for new opportunities"}
           </span>
         </motion.div>
         
