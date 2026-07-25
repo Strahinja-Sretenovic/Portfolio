@@ -1,7 +1,8 @@
-import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { Sun, Moon, Menu, X, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLanguage } from "../context/LanguageContext";
 
 interface HeaderProps {
   currentView?: "home" | "all-projects";
@@ -11,23 +12,31 @@ interface HeaderProps {
 
 export function Header({ currentView = "home", onNavigateHome, onOpenProjects }: HeaderProps) {
   const { theme, setTheme } = useTheme();
+  const { language, setLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isSr = language === "sr";
+
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects", isProjects: true },
-    { name: "Contact", href: "#contact" },
+    { name: isSr ? "O meni" : "About", href: "#about" },
+    { name: isSr ? "Veštine" : "Skills", href: "#skills" },
+    { name: isSr ? "Iskustvo" : "Experience", href: "#experience" },
+    { name: isSr ? "Projekti" : "Projects", href: "#projects", isProjects: true },
+    { name: isSr ? "Kontakt" : "Contact", href: "#contact" },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
@@ -35,9 +44,6 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
       if (currentView === "all-projects") {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        // e.preventDefault();
-        // onOpenProjects();
       }
     } else if (currentView === "all-projects" && onNavigateHome) {
       e.preventDefault();
@@ -76,7 +82,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
           SSolutions<span className="text-blue-600 dark:text-blue-500">.</span>
         </a>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
@@ -88,42 +94,101 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
               {link.name}
             </a>
           ))}
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-slate-600 dark:text-slate-300"
-            aria-label="Toggle dark mode"
-          >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
+          
+          <div className="flex items-center gap-2 pl-4 border-l border-slate-200 dark:border-white/10">
+            {/* Language Switcher */}
+            <div className="flex items-center bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full p-1 text-xs font-semibold">
+              <button
+                onClick={() => setLanguage("sr")}
+                className={`px-2.5 py-1 rounded-full transition-all flex items-center gap-1 ${
+                  language === "sr"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
+                title="Srpski jezik"
+              >
+                SR
+              </button>
+              <button
+                onClick={() => setLanguage("en")}
+                className={`px-2.5 py-1 rounded-full transition-all flex items-center gap-1 ${
+                  language === "en"
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                }`}
+                title="English Language"
+              >
+                EN
+              </button>
+            </div>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-2 rounded-full text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+              aria-label="Toggle Theme"
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 top-1.5" />
+            </button>
+          </div>
         </nav>
 
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden flex items-center gap-4">
+        {/* Mobile Navigation Toggle */}
+        <div className="flex md:hidden items-center gap-3">
+          {/* Mobile Language Switcher */}
+          <div className="flex items-center bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full p-0.5 text-xs font-semibold">
+            <button
+              onClick={() => setLanguage("sr")}
+              className={`px-2 py-0.5 rounded-full transition-all ${
+                language === "sr"
+                  ? "bg-blue-600 text-white"
+                  : "text-slate-600 dark:text-slate-400"
+              }`}
+            >
+              SR
+            </button>
+            <button
+              onClick={() => setLanguage("en")}
+              className={`px-2 py-0.5 rounded-full transition-all ${
+                language === "en"
+                  ? "bg-blue-600 text-white"
+                  : "text-slate-600 dark:text-slate-400"
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-slate-600 dark:text-slate-300"
+            className="p-2 rounded-full text-slate-600 dark:text-slate-400"
+            aria-label="Toggle Theme"
           >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            <Sun className="h-5 w-5 dark:hidden" />
+            <Moon className="h-5 w-5 hidden dark:block" />
           </button>
+
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-slate-900 dark:text-white p-1"
+            className="p-2 text-slate-600 dark:text-slate-400"
+            aria-label="Open Menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-200 dark:border-white/10 overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden bg-slate-50 dark:bg-[#0a0a0a] border-b border-slate-200 dark:border-white/10 px-6 py-4 shadow-lg"
           >
-            <nav className="flex flex-col px-6 py-4">
+            <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -132,7 +197,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
                     setIsMobileMenuOpen(false);
                     handleNavClick(e, link);
                   }}
-                  className="py-3 text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors border-b border-slate-100 dark:border-white/5 last:border-none"
+                  className="py-2 text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors border-b border-slate-100 dark:border-white/5 last:border-none"
                 >
                   {link.name}
                 </a>

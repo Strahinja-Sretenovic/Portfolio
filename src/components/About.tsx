@@ -1,32 +1,45 @@
 import { motion } from "motion/react";
 import { SectionHeader } from "./SectionHeader";
 import { GraduationCap, Code } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 export function About() {
+  const { language } = useLanguage();
+  const isSr = language === "sr";
+
   const education = [
     {
-      degree: "B.A.E. – Software & Information Technologies",
-      school: "Faculty of Technical Sciences, Novi Sad",
+      degree: isSr ? "Strukovni inženjer elektrootehnike i računarstva" : "B.A.E. – Software & Information Technologies",
+      school: isSr ? "Fakultet tehničkih nauka, Novi Sad" : "Faculty of Technical Sciences, Novi Sad",
     },
     {
-      degree: "Electronics Technician",
-      school: "Technical School, Čačak",
+      degree: isSr ? "Elektrotehničar računara" : "Electronics Technician",
+      school: isSr ? "Tehnička škola, Čačak" : "Technical School, Čačak",
     },
   ];
 
-  const interests = [
-    "Backend Development",
-    "Microservices",
-    "Web Tech",
-    "AI",
-    "Machine Learning",
-    "Open Source",
-  ];
+  const interests = isSr
+    ? [
+        "Backend Razvoj",
+        "Mikroservisi",
+        "Web Tehnologije",
+        "Veštačka Inteligencija",
+        "Mašinsko Učenje",
+        "Open Source",
+      ]
+    : [
+        "Backend Development",
+        "Microservices",
+        "Web Tech",
+        "AI",
+        "Machine Learning",
+        "Open Source",
+      ];
 
   return (
     <section id="about" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <SectionHeader title="About Me" />
+        <SectionHeader title={isSr ? "O Meni" : "About Me"} />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12 items-start">
           <motion.div
@@ -37,13 +50,14 @@ export function About() {
             className="prose prose-slate dark:prose-invert"
           >
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              I have hands-on experience in backend and full-stack development. 
-              Proficient across multiple programming languages and modern frameworks.
+              {isSr
+                ? "Posedujem praktično iskustvo u backend i full-stack razvoju web aplikacija. Vešt sam u radu sa više savremenih programskih jezika, bazi podataka i radnih okvira."
+                : "I have hands-on experience in backend and full-stack development. Proficient across multiple programming languages and modern frameworks."}
             </p>
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-              Experienced in designing REST APIs, working with databases, and deploying 
-              containerised microservices. I enjoy tackling complex logic problems and 
-              refining system architectures to ensure they are both scalable and efficient.
+              {isSr
+                ? "Iskusan u projektovanju REST API servisa, optimizaciji baza podataka i kontejnerizovanom mikroservisnom okruženju. Posvećen sam rešavanju složenih poslovnih problema i izradi stabilnih sistema."
+                : "Experienced in designing REST APIs, working with databases, and deploying containerised microservices. I enjoy tackling complex logic problems and refining system architectures to ensure they are both scalable and efficient."}
             </p>
           </motion.div>
 
@@ -57,7 +71,7 @@ export function About() {
             >
               <h3 className="flex items-center gap-2 text-xl font-display font-semibold text-slate-900 dark:text-white mb-6">
                 <GraduationCap className="text-blue-600 dark:text-blue-400" />
-                Education
+                {isSr ? "Obrazovanje" : "Education"}
               </h3>
               <div className="space-y-6">
                 {education.map((item, idx) => (
@@ -77,7 +91,7 @@ export function About() {
             >
               <h3 className="flex items-center gap-2 text-xl font-display font-semibold text-slate-900 dark:text-white mb-4 pl-2">
                 <Code className="text-blue-600 dark:text-blue-400" />
-                Key Interests
+                {isSr ? "Ključna interesovanja" : "Key Interests"}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {interests.map((interest, idx) => (

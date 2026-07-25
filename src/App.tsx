@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { LanguageProvider } from "./context/LanguageContext";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
@@ -35,29 +36,30 @@ export default function App() {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between">
-        <Header 
-          currentView={view} 
-          onNavigateHome={navigateHome}
-          onOpenProjects={openAllProjects}
-        />
-        
-        <main className="flex-1">
-          {view === "home" ? (
-            <>
-              <Hero />
-              <About />
-              <Skills />
-              <Experience onViewAllProjects={openAllProjects} />
-            </>
-          ) : (
-            <AllProjects onBack={navigateHome} />
-          )}
-        </main>
+      <LanguageProvider>
+        <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between">
+          <Header 
+            currentView={view} 
+            onNavigateHome={navigateHome}
+            onOpenProjects={openAllProjects}
+          />
+          
+          <main className="flex-1">
+            {view === "home" ? (
+              <>
+                <Hero />
+                <About />
+                <Skills />
+                <Experience onViewAllProjects={openAllProjects} />
+              </>
+            ) : (
+              <AllProjects onBack={navigateHome} />
+            )}
+          </main>
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }
-

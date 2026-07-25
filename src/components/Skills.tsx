@@ -1,13 +1,17 @@
 import { motion } from "motion/react";
 import { SectionHeader } from "./SectionHeader";
 import { Monitor, Cpu, Database, Cloud, Activity, ShieldCheck } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 export function Skills() {
+  const { language } = useLanguage();
+  const isSr = language === "sr";
+
   const skillGroups = [
     {
       title: "Frontend",
       icon: <Monitor size={20} />,
-      skills: ["JavaScript", "TypeScript", "React", "Next.js", "Angular", "Sass", "Tailwind CSS", "Bootstrap", "Material UI"]
+      skills: ["JavaScript", "TypeScript", "React", "Next.js", "Angular", "Sass", "Tailwind CSS", "Bootstrap", "Material UI", "Custom CMS Solutions (WordPress)"]
     },
     {
       title: "Backend",
@@ -15,22 +19,22 @@ export function Skills() {
       skills: ["Node.js", "Express.js", "NestJS", "Java", "Spring Boot", "Golang", "C#", ".NET / ASP.NET Core", "Python", "FastAPI", "PHP", "Apache Kafka"]
     },
     {
-      title: "Database & ORM",
+      title: isSr ? "Baze Podataka & ORM" : "Database & ORM",
       icon: <Database size={20} />,
       skills: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Cassandra", "Neo4j", "Elasticsearch", "Prisma", "TypeORM", "Sequelize", "Hibernate", "Spring Data JPA", "Liquibase", "Consul"]
     },
     {
-      title: "DevOps / Infrastructure",
+      title: "DevOps / Arhitektura",
       icon: <Cloud size={20} />,
       skills: ["Docker", "Kubernetes", "CI/CD", "GitHub Actions", "Nginx", "Apache HTTP Server", "Linux", "Shell Script / Bash"]
     },
     {
-      title: "Monitoring & Logs",
+      title: isSr ? "Praćenje & Logovi" : "Monitoring & Logs",
       icon: <Activity size={20} />,
       skills: ["Prometheus", "Grafana", "Logstash", "Sentry"]
     },
     {
-      title: "API, Testing & Productivity",
+      title: isSr ? "API, Testiranje & Alati" : "API, Testing & Productivity",
       icon: <ShieldCheck size={20} />,
       skills: ["Swagger", "Postman", "Git", "Selenium", "SonarQube", "Trello"]
     }
@@ -59,8 +63,8 @@ export function Skills() {
     <section id="skills" className="py-20 px-6 bg-slate-100/50 dark:bg-white/[0.02] border-y border-slate-200/50 dark:border-white/5">
       <div className="max-w-6xl mx-auto">
         <SectionHeader 
-          title="Technical Skills" 
-          subtitle="My primary stack and the tools I use daily to build robust systems."
+          title={isSr ? "Tehničke Veštine" : "Technical Skills"} 
+          subtitle={isSr ? "Tehnologije i alati koje svakodnevno koristim za izradu pouzdanih i brzih sistema." : "My primary stack and the tools I use daily to build robust systems."}
         />
         
         <motion.div 

@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ExternalLink, ArrowLeft, Search, FolderGit2, ChevronLeft, ChevronRight } from "lucide-react";
-import { projectsData } from "../data/projectsData";
+import { projectsData, getLocalizedProject } from "../data/projectsData";
+import { useLanguage } from "../context/LanguageContext";
 
 interface AllProjectsProps {
   onBack: () => void;
@@ -10,14 +11,20 @@ interface AllProjectsProps {
 const ITEMS_PER_PAGE = 9;
 
 export function AllProjects({ onBack }: AllProjectsProps) {
+  const { language } = useLanguage();
+  const isSr = language === "sr";
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter projects based on search query
+  const localizedProjects = useMemo(() => {
+    return projectsData.map((p) => getLocalizedProject(p, language));
+  }, [language]);
+
   const filteredProjects = useMemo(() => {
-    if (!searchQuery.trim()) return projectsData;
+    if (!searchQuery.trim()) return localizedProjects;
     const query = searchQuery.toLowerCase().trim();
-    return projectsData.filter((proj) => {
+    return localizedProjects.filter((proj) => {
       return (
         proj.project.toLowerCase().includes(query) ||
         proj.title.toLowerCase().includes(query) ||
@@ -26,7 +33,7 @@ export function AllProjects({ onBack }: AllProjectsProps) {
         proj.points.some((p) => p.toLowerCase().includes(query))
       );
     });
-  }, [searchQuery]);
+  }, [searchQuery, localizedProjects]);
 
   // Reset to page 1 on search change
   useEffect(() => {
@@ -57,7 +64,7 @@ export function AllProjects({ onBack }: AllProjectsProps) {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-500/30 transition-all text-sm font-medium shadow-sm"
           >
             <ArrowLeft size={16} />
-            Back to Portfolio
+            {isSr ? "Nazad na Portfolio" : "Back to Portfolio"}
           </button>
         </div>
 
@@ -65,13 +72,15 @@ export function AllProjects({ onBack }: AllProjectsProps) {
         <div className="mb-10 text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <FolderGit2 size={14} />
-            Portfolio Showcase
+            {isSr ? "Portfolio Pregled" : "Portfolio Showcase"}
           </div>
           <h1 className="text-3xl md:text-5xl font-display font-bold text-slate-900 dark:text-white tracking-tight mb-4">
-            All Projects & Portfolio
+            {isSr ? "Svi Projekti & Radovi" : "All Projects & Portfolio"}
           </h1>
           <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg">
-            A comprehensive list of web platforms, backend systems, and client software engineered with performance and modern standards.
+            {isSr
+              ? "Sveobuhvatan pregled web platformi, klijentskih aplikacija i backend sistema izrađenih sa fokusom na performanse i moderan dizajn."
+              : "A comprehensive list of web platforms, backend systems, and client software engineered with performance and modern standards."}
           </p>
         </div>
 
@@ -83,7 +92,7 @@ export function AllProjects({ onBack }: AllProjectsProps) {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search projects by name, tech or domain..."
+              placeholder={isSr ? "Pretraži projekte po nazivu, tehnologiji ili opisu..." : "Search projects by name, tech or domain..."}
               className="w-full pl-11 pr-4 py-3 bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-sm text-sm"
             />
           </div>
@@ -93,13 +102,15 @@ export function AllProjects({ onBack }: AllProjectsProps) {
         {filteredProjects.length === 0 ? (
           <div className="text-center py-16 bg-white dark:bg-[#151515] rounded-3xl border border-slate-200 dark:border-white/10 max-w-xl mx-auto">
             <p className="text-slate-500 dark:text-slate-400 font-medium">
-              No projects found matching &quot;{searchQuery}&quot;.
+              {isSr
+                ? `Nema pronalaženih projekata za frazu "${searchQuery}".`
+                : `No projects found matching "${searchQuery}".`}
             </p>
             <button
               onClick={() => setSearchQuery("")}
               className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium transition-colors"
             >
-              Reset Search
+              {isSr ? "Poništi pretragu" : "Reset Search"}
             </button>
           </div>
         ) : (
@@ -146,7 +157,7 @@ export function AllProjects({ onBack }: AllProjectsProps) {
                       </h3>
 
                       <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-4">
-                        Role: <span className="text-slate-700 dark:text-slate-300">{proj.title}</span>
+                        {isSr ? "Uloga:" : "Role:"} <span className="text-slate-700 dark:text-slate-300">{proj.title}</span>
                       </p>
 
                       <ul className="space-y-2 mb-6">
@@ -179,11 +190,15 @@ export function AllProjects({ onBack }: AllProjectsProps) {
             {/* Pagination Controls */}
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200 dark:border-white/10">
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                Showing <span className="font-semibold text-slate-900 dark:text-white">{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span> to{" "}
+                {isSr ? "Prikazano" : "Showing"}{" "}
+                <span className="font-semibold text-slate-900 dark:text-white">{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span>{" "}
+                {isSr ? "do" : "to"}{" "}
                 <span className="font-semibold text-slate-900 dark:text-white">
                   {Math.min(currentPage * ITEMS_PER_PAGE, filteredProjects.length)}
                 </span>{" "}
-                of <span className="font-semibold text-slate-900 dark:text-white">{filteredProjects.length}</span> projects
+                {isSr ? "od ukupno" : "of"}{" "}
+                <span className="font-semibold text-slate-900 dark:text-white">{filteredProjects.length}</span>{" "}
+                {isSr ? "projekata" : "projects"}
               </p>
 
               {totalPages > 1 && (

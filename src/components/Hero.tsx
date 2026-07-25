@@ -1,7 +1,12 @@
 import { motion } from "motion/react";
 import { Download, Github, Linkedin, ArrowRight } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 export function Hero() {
+  const { language } = useLanguage();
+
+  const isSr = language === "sr";
+
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden px-6">
       {/* Background Decorative Elements */}
@@ -13,8 +18,8 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-sm font-medium mb-6">
-            Available for new opportunities
+          <span className="inline-block py-1 px-3.5 rounded-full bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 text-sm font-medium mb-6">
+            {isSr ? "Dostupan za nove projekte i saradnju" : "Available for new opportunities"}
           </span>
         </motion.div>
         
@@ -24,9 +29,9 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-slate-900 dark:text-white tracking-tight mb-6"
         >
-          Hi, I'm{" "}
+          SSolutions –{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
-            Strahinja Sretenović
+            {isSr ? "Gradimo ono što je važno" : "We Build What Matters"}
           </span>
         </motion.h1>
 
@@ -36,7 +41,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-xl md:text-2xl font-medium text-slate-700 dark:text-slate-300 mb-6"
         >
-          Web & Full-Stack Developer
+          {isSr ? "Web & Full-Stack Developer" : "Web & Full-Stack Developer"}
         </motion.h2>
 
         <motion.p
@@ -45,7 +50,9 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Full-Stack & Backend Developer specializing in engineering high-performance APIs, robust database architectures, and scalable web solutions designed to solve complex business challenges.
+          {isSr
+            ? "Full-Stack & Backend Developer specijalizovan za izradu brzih API servisa, pouzdanih baza podataka i prilagođenih web rešenja dizajniranih da rešavaju konkretne poslovne izazove."
+            : "Full-Stack & Backend Developer specializing in engineering high-performance APIs, robust database architectures, and scalable web solutions designed to solve complex business challenges."}
         </motion.p>
 
         <motion.div
@@ -58,7 +65,7 @@ export function Hero() {
             href="#projects"
             className="w-full sm:w-auto px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group shadow-sm shadow-blue-600/20"
           >
-            View Projects
+            {isSr ? "Pogledaj projekte" : "View Projects"}
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
           <a
@@ -67,7 +74,7 @@ export function Hero() {
             className="w-full sm:w-auto px-6 py-3 rounded-lg bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-medium hover:bg-slate-50 dark:hover:bg-white/5 transition-colors flex items-center justify-center gap-2 shadow-sm"
           >
             <Download size={18} />
-            Download CV
+            {isSr ? "Preuzmi CV" : "Download CV"}
           </a>
           
           <div className="flex items-center gap-3 mt-4 sm:mt-0 sm:ml-4">

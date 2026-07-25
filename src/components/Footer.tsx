@@ -1,7 +1,11 @@
 import { motion } from "motion/react";
 import { Mail, Phone, MapPin, Github, Linkedin, ArrowUp } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 export function Footer() {
+  const { language } = useLanguage();
+  const isSr = language === "sr";
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -16,9 +20,13 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-4xl font-bold text-white mb-6">Let's Connect</h2>
+            <h2 className="font-display text-4xl font-bold text-white mb-6">
+              {isSr ? "Kontakt & Saradnja" : "Let's Connect"}
+            </h2>
             <p className="text-slate-400 max-w-sm mb-8 leading-relaxed">
-              I'm always open to discussing new opportunities, backend challenges, or potential collaborations.
+              {isSr
+                ? "Uvek sam otvoren za poslovne prilike, backend izazove i nove zanimljive projekte."
+                : "I'm always open to discussing new opportunities, backend challenges, or potential collaborations."}
             </p>
             <div className="flex items-center gap-4">
               <a
@@ -54,7 +62,7 @@ export function Footer() {
                 <Mail size={18} className="text-blue-400" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm text-slate-400">Email Me</span>
+                <span className="text-sm text-slate-400">{isSr ? "Pošalji Email" : "Email Me"}</span>
                 <span className="font-medium text-white group-hover:text-blue-400 transition-colors">sretenovic0315@gmail.com</span>
               </div>
             </a>
@@ -64,7 +72,7 @@ export function Footer() {
                 <Phone size={18} className="text-blue-400" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm text-slate-400">Call Me</span>
+                <span className="text-sm text-slate-400">{isSr ? "Pozovi Me" : "Call Me"}</span>
                 <span className="font-medium text-white group-hover:text-blue-400 transition-colors">+381 61 366 0260</span>
               </div>
             </a>
@@ -74,8 +82,8 @@ export function Footer() {
                 <MapPin size={18} className="text-blue-400" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm text-slate-400">Location</span>
-                <span className="font-medium text-white">Čačak, Serbia</span>
+                <span className="text-sm text-slate-400">{isSr ? "Lokacija" : "Location"}</span>
+                <span className="font-medium text-white">{isSr ? "Čačak, Srbija" : "Čačak, Serbia"}</span>
               </div>
             </div>
           </motion.div>
@@ -84,13 +92,13 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 gap-4">
           <p className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} Strahinja Sretenović. All rights reserved.
+            &copy; {new Date().getFullYear()} Strahinja Sretenović (SSolutions). {isSr ? "Sva prava zadržana." : "All rights reserved."}
           </p>
           <button 
             onClick={scrollToTop}
             className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors group"
           >
-            Back to top
+            {isSr ? "Nazad na vrh" : "Back to top"}
             <ArrowUp size={16} className="group-hover:-translate-y-1 transition-transform" />
           </button>
         </div>
