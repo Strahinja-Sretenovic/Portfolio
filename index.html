@@ -7,17 +7,21 @@
     <!-- Primary Browser Title & SEO -->
     <title>SSolutions – Softverska Rešenja & Web Development</title>
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.ssolutions.click/" />
+
     <!-- Primary Meta Tags -->
-    <meta name="description" content="SSolutions pruža vrhunska softverska rešenja, web aplikacije, custom CMS rešenja, backend sisteme i digitalne transformacije za kompanije i preduzetnike." />
-    <meta name="keywords" content="SSolutions, softverska resenja, web development, izrada sajtova, izrada aplikacija, custom software development, web aplikacije, full stack developer, backend engineering, custom CMS, WordPress resenja, React, Next.js, Node.js, Spring Boot, Docker, microservices, digitalna transformacija, software agency, outsourcing Serbia" />
+    <meta name="description" content="SSolutions pruža vrhunska softverska rešenja, web aplikacije, custom CMS rešenja (WordPress), backend sisteme i digitalne transformacije za kompanije i preduzetnike." />
+    <meta name="keywords" content="SSolutions, softverska resenja, web development, izrada sajtova, izrada aplikacija, custom software development, web aplikacije, full stack developer, backend engineering, custom CMS, WordPress resenja, React, Next.js, Node.js, Spring Boot, Docker, microservices, digitalna transformacija, software agency, outsourcing Serbia, IT konsultacije" />
     <meta name="author" content="SSolutions" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="language" content="sr" />
     <meta name="theme-color" content="#2563eb" />
     <meta name="application-name" content="SSolutions" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.ssolutions.click/" />
     <meta property="og:title" content="SSolutions – Custom Software & Web Development Solutions" />
     <meta property="og:description" content="Moderna, skalabilna i pouzdana softverska rešenja za vaš biznis. Izrada aplikacija, web sajtova, custom CMS sistema i kompleksnih backend arhitektura." />
     <meta property="og:site_name" content="SSolutions" />
@@ -26,6 +30,7 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.ssolutions.click/" />
     <meta name="twitter:title" content="SSolutions – Custom Software & Web Development" />
     <meta name="twitter:description" content="Vrhunska softverska rešenja, izrada web aplikacija, custom CMS sistema i pouzdana backend arhitektura za vaše poslovanje." />
 
@@ -34,72 +39,118 @@
 
     <!-- Structured Data for Search Engines (JSON-LD) -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "SSolutions",
-        "url": "https://ssolutions.dev",
-        "logo": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>",
-        "description": "SSolutions pruža profesionalne usluge razvoja softvera, web aplikacija, custom CMS rešenja (WordPress), backend mikroservisa i cloud infrastrukture.",
-        "priceRange": "$$",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Čačak",
-          "addressCountry": "RS"
-        },
-        "knowsAbout": [
-          "Custom Software Development",
-          "Web Development",
-          "Full-Stack Engineering",
-          "Frontend & Backend Architecture",
-          "Custom CMS Solutions (WordPress)",
-          "Cloud Infrastructure & DevOps",
-          "Database Architecture",
-          "API Integration & Microservices"
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Software Development Services",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Custom Web Application Development",
-                "description": "Razvoj modernih, reaktivnih i brzih web aplikacija u React, Next.js i Angular tehnologijama."
-              }
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "@id": "https://www.ssolutions.click/#organization",
+          "name": "SSolutions",
+          "url": "https://www.ssolutions.click/",
+          "logo": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>",
+          "description": "SSolutions pruža profesionalne usluge razvoja softvera, web aplikacija, custom CMS rešenja (WordPress), backend mikroservisa i cloud infrastrukture.",
+          "priceRange": "$$",
+          "telephone": "+381613660260",
+          "email": "sretenovic0315@gmail.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Čačak",
+            "addressCountry": "RS"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+381613660260",
+            "contactType": "customer service",
+            "email": "sretenovic0315@gmail.com",
+            "availableLanguage": ["Serbian", "English"]
+          },
+          "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.ssolutions.click/#contact",
+              "inLanguage": "sr",
+              "actionPlatform": [
+                "http://schema.org/DesktopWebPlatform",
+                "http://schema.org/MobileWebPlatform"
+              ]
             },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Backend & API Engineering",
-                "description": "Izrada pouzdanih, skalabilnih i bezbednih backend servisa (Java, Node.js, Go, .NET, Python)."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Custom CMS Solutions (WordPress)",
-                "description": "Prilagođena CMS rešenja za jednostavno upravljanje sadržajem i visoke performanse sajta."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "DevOps & Cloud Architecture",
-                "description": "Kontejnerizacija (Docker, Kubernetes), CI/CD automatizacija i optimizacija servera."
-              }
+            "result": {
+              "@type": "Reservation",
+              "name": "Besplatne Konsultacije & Procena Projekta"
             }
-          ]
+          },
+          "knowsAbout": [
+            "Custom Software Development",
+            "Web Development",
+            "Full-Stack Engineering",
+            "Frontend & Backend Architecture",
+            "Custom CMS Solutions (WordPress)",
+            "Cloud Infrastructure & DevOps",
+            "Database Architecture",
+            "API Integration & Microservices"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Software Development Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom Web Application Development",
+                  "description": "Razvoj modernih, reaktivnih i brzih web aplikacija u React, Next.js i Angular tehnologijama."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Backend & API Engineering",
+                  "description": "Izrada pouzdanih, skalabilnih i bezbednih backend servisa (Java, Node.js, Go, .NET, Python)."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom CMS Solutions (WordPress)",
+                  "description": "Prilagođena CMS rešenja za jednostavno upravljanje sadržajem i visoke performanse sajta."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "DevOps & Cloud Architecture",
+                  "description": "Kontejnerizacija (Docker, Kubernetes), CI/CD automatizacija i optimizacija servera."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "@id": "https://www.ssolutions.click/#website",
+          "url": "https://www.ssolutions.click/",
+          "name": "SSolutions",
+          "description": "Softverska Rešenja & Web Development Agency"
         }
-      }
+      ]
     </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Static H1 Fallback for Headless SEO Crawlers and Audits -->
+    <noscript>
+      <header>
+        <h1>SSolutions – Softverska Rešenja &amp; Web Development</h1>
+        <p>SSolutions pruža vrhunska softverska rešenja, web aplikacije, custom CMS rešenja (WordPress) i backend arhitekturu.</p>
+        <a href="#contact">Zakažite Besplatne Konsultacije</a>
+      </header>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

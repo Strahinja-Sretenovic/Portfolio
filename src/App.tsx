@@ -7,7 +7,9 @@ import { About } from "./components/About";
 import { Skills } from "./components/Skills";
 import { Experience } from "./components/Experience";
 import { AllProjects } from "./components/AllProjects";
+import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
+import { FloatingContact } from "./components/FloatingContact";
 
 export default function App() {
   const [view, setView] = useState<"home" | "all-projects">("home");
@@ -51,6 +53,7 @@ export default function App() {
                 <About />
                 <Skills />
                 <Experience onViewAllProjects={openAllProjects} />
+                <Contact />
               </>
             ) : (
               <AllProjects onBack={navigateHome} />
@@ -58,6 +61,7 @@ export default function App() {
           </main>
 
           <Footer />
+          <FloatingContact />
         </div>
       </LanguageProvider>
     </ThemeProvider>

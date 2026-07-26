@@ -31,42 +31,39 @@ export function Hero() {
         >
           SSolutions –{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
-            {isSr ? "Gradimo ono što je važno" : "We Build What Matters"}
+            {isSr ? "Softverska Rešenja & Web Development" : "Software Solutions & Web Engineering"}
           </span>
         </motion.h1>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xl md:text-2xl font-medium text-slate-700 dark:text-slate-300 mb-6"
-        >
-          {isSr ? "Web & Full-Stack Developer" : "Web & Full-Stack Developer"}
-        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           {isSr
-            ? "Full-Stack & Backend Developer specijalizovan za izradu brzih API servisa, pouzdanih baza podataka i prilagođenih web rešenja dizajniranih da rešavaju konkretne poslovne izazove."
-            : "Full-Stack & Backend Developer specializing in engineering high-performance APIs, robust database architectures, and scalable web solutions designed to solve complex business challenges."}
+            ? "Razvijamo moderna web i softverska rešenja, prilagođene CMS sisteme (WordPress) i pouzdane backend infrastrukture kreirane da unaprede poslovanje i privuku nove klijente."
+            : "Engineering modern web software, custom CMS solutions (WordPress), and scalable backend infrastructure designed to accelerate business growth and attract new clients."}
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
+            href="#contact"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group shadow-md shadow-blue-600/25"
+          >
+            {isSr ? "Zakaži Besplatne Konsultacije" : "Book Free Consultation"}
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+          <a
             href="#projects"
-            className="w-full sm:w-auto px-6 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group shadow-sm shadow-blue-600/20"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-semibold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors flex items-center justify-center gap-2 shadow-xs"
           >
             {isSr ? "Pogledaj projekte" : "View Projects"}
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
           <a
             href="/folders/resume.pdf"
