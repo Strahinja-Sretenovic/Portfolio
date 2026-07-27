@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, MessageSquare, CheckCircle2, Sparkles, Loader2, AlertCircle } from "lucide-react";
+import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Sparkles, Loader2, AlertCircle } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export function Contact() {
@@ -106,19 +106,6 @@ export function Contact() {
                   <div>
                     <span className="block text-xs text-slate-400">{isSr ? "Pošaljite Email" : "Send an Email"}</span>
                     <span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">sretenovic0315@gmail.com</span>
-                  </div>
-                </a>
-
-                <a 
-                  href="tel:+381613660260" 
-                  className="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 dark:bg-white/5 border border-slate-700/50 hover:border-blue-500/50 transition-all group"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Phone size={18} />
-                  </div>
-                  <div>
-                    <span className="block text-xs text-slate-400">{isSr ? "Pozovite Telefon" : "Call Directly"}</span>
-                    <span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">+381 61 366 0260</span>
                   </div>
                 </a>
 
