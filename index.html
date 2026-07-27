@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Primary Browser Title & SEO -->
+    <!-- Primary Browser Title & SEO (52 characters - optimal length) -->
     <title>SSolutions – Softverska Rešenja & Web Development</title>
     
-    <!-- Canonical URL -->
+    <!-- Canonical Tag -->
     <link rel="canonical" href="https://www.ssolutions.click/" />
 
     <!-- Primary Meta Tags -->
     <meta name="description" content="SSolutions pruža vrhunska softverska rešenja, web aplikacije, custom CMS rešenja (WordPress), backend sisteme i digitalne transformacije za kompanije i preduzetnike." />
-    <meta name="keywords" content="SSolutions, softverska resenja, web development, izrada sajtova, izrada aplikacija, custom software development, web aplikacije, full stack developer, backend engineering, custom CMS, WordPress resenja, React, Next.js, Node.js, Spring Boot, Docker, microservices, digitalna transformacija, software agency, outsourcing Serbia, IT konsultacije" />
-    <meta name="author" content="SSolutions" />
+    <meta name="keywords" content="SSolutions, softverska resenja, web development, izrada sajtova, izrada aplikacija, custom software development, web aplikacije, full stack developer, backend engineering, custom CMS, WordPress resenja, React, Next.js, Node.js, Spring Boot, Docker, microservices, digitalna transformacija, software agency, outsourcing Serbia, IT konsultacije, Čačak software" />
+    <meta name="author" content="SSolutions - Strahinja Sretenović" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="language" content="sr" />
     <meta name="theme-color" content="#2563eb" />
@@ -37,7 +37,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
 
-    <!-- Structured Data for Search Engines (JSON-LD) -->
+    <!-- Structured Data for Search Engines (JSON-LD: ProfessionalService, Person E-E-A-T, BreadcrumbList, FAQPage) -->
     <script type="application/ld+json">
       [
         {
@@ -46,7 +46,7 @@
           "@id": "https://www.ssolutions.click/#organization",
           "name": "SSolutions",
           "url": "https://www.ssolutions.click/",
-          "logo": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>",
+          "logo": "https://www.ssolutions.click/favicon.ico",
           "description": "SSolutions pruža profesionalne usluge razvoja softvera, web aplikacija, custom CMS rešenja (WordPress), backend mikroservisa i cloud infrastrukture.",
           "priceRange": "$$",
           "telephone": "+381613660260",
@@ -55,6 +55,15 @@
             "@type": "PostalAddress",
             "addressLocality": "Čačak",
             "addressCountry": "RS"
+          },
+          "founder": {
+            "@type": "Person",
+            "name": "Strahinja Sretenović",
+            "jobTitle": "Lead Software Engineer & Founder",
+            "sameAs": [
+              "https://github.com/Strahinja-Sretenovic",
+              "https://www.linkedin.com/in/strahinja-sretenovic-22890a352/"
+            ]
           },
           "contactPoint": {
             "@type": "ContactPoint",
@@ -68,11 +77,7 @@
             "target": {
               "@type": "EntryPoint",
               "urlTemplate": "https://www.ssolutions.click/#contact",
-              "inLanguage": "sr",
-              "actionPlatform": [
-                "http://schema.org/DesktopWebPlatform",
-                "http://schema.org/MobileWebPlatform"
-              ]
+              "inLanguage": "sr"
             },
             "result": {
               "@type": "Reservation",
@@ -130,6 +135,64 @@
         },
         {
           "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Početna",
+              "item": "https://www.ssolutions.click/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "O Meni & Usluge",
+              "item": "https://www.ssolutions.click/#about"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Tehničke Veštine",
+              "item": "https://www.ssolutions.click/#skills"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Projekti",
+              "item": "https://www.ssolutions.click/#projects"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Kontakt & Konsultacije",
+              "item": "https://www.ssolutions.click/#contact"
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Koje usluge pruža SSolutions?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "SSolutions se bavi izradom web aplikacija, custom CMS sistema (WordPress), backend i API arhitekturom, mikroservisima i IT konsultacijama za digitalnu transformaciju."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Kako mogu zakazati besplatne konsultacije?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Besplatne konsultacije možete zakazati popunjavanjem kontakt forme na sajtu ili direktnim kontaktom putem e-maila sretenovic0315@gmail.com i telefona +381 61 366 0260."
+              }
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
           "@type": "WebSite",
           "@id": "https://www.ssolutions.click/#website",
           "url": "https://www.ssolutions.click/",
@@ -142,7 +205,7 @@
   <body>
     <div id="root"></div>
 
-    <!-- Static H1 Fallback for Headless SEO Crawlers and Audits -->
+    <!-- Static Content Fallback for Headless SEO Crawlers and Audits -->
     <noscript>
       <header>
         <h1>SSolutions – Softverska Rešenja &amp; Web Development</h1>
