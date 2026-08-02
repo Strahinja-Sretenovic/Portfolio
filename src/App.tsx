@@ -10,9 +10,12 @@ import { AllProjects } from "./components/AllProjects";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { FloatingContact } from "./components/FloatingContact";
+import { SmoothScroll } from "./components/SmoothScroll";
+import { IntroLoader } from "./components/IntroLoader";
 
 export default function App() {
   const [view, setView] = useState<"home" | "all-projects">("home");
+  const [introCompleted, setIntroCompleted] = useState(false);
 
   // Sync hash changes if user uses browser history or direct hash
   useEffect(() => {
@@ -39,31 +42,36 @@ export default function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between">
-          <Header 
-            currentView={view} 
-            onNavigateHome={navigateHome}
-            onOpenProjects={openAllProjects}
-          />
-          
-          <main className="flex-1">
-            {view === "home" ? (
-              <>
-                <Hero />
-                <About />
-                <Skills />
-                <Experience onViewAllProjects={openAllProjects} />
-                <Contact />
-              </>
-            ) : (
-              <AllProjects onBack={navigateHome} />
-            )}
-          </main>
+        {!introCompleted && <IntroLoader onComplete={() => setIntroCompleted(true)} />}
+        <SmoothScroll>
+          <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between">
+            <Header 
+              currentView={view} 
+              onNavigateHome={navigateHome}
+              onOpenProjects={openAllProjects}
+            />
+            
+            <main className="flex-1">
+              {view === "home" ? (
+                <>
+                  <Hero />
+                  <About />
+                  <Skills />
+                  <Experience onViewAllProjects={openAllProjects} />
+                  <Contact />
+                </>
+              ) : (
+                <AllProjects onBack={navigateHome} />
+              )}
+            </main>
 
-          <Footer />
-          <FloatingContact />
-        </div>
+            <Footer />
+            <FloatingContact />
+          </div>
+        </SmoothScroll>
       </LanguageProvider>
     </ThemeProvider>
   );
 }
+
+

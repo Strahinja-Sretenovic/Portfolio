@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { MessageSquare, Phone, Mail, X, Calendar } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { MessageSquare, Phone, X, Calendar } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export function FloatingContact() {
@@ -10,45 +11,67 @@ export function FloatingContact() {
   return (
     <div className="fixed bottom-5 right-5 z-40">
       {/* Expanded Quick Options */}
-      {isOpen && (
-        <div className="mb-3 flex flex-col gap-2.5 items-end animate-in fade-in slide-in-from-bottom-3 duration-200">
-          <a
-            href="https://wa.me/381613660260"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-emerald-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-emerald-500 transition-all hover:scale-105"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: 15, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 15, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="mb-3 flex flex-col gap-2.5 items-end"
           >
-            <span>WhatsApp Chat</span>
-            <MessageSquare size={16} />
-          </a>
+            <motion.a
+              href="https://wa.me/381613660260"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05, x: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-emerald-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-emerald-500 transition-colors"
+            >
+              <span>WhatsApp Chat</span>
+              <MessageSquare size={16} />
+            </motion.a>
 
-          <a
-            href="tel:+381613660260"
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs sm:text-sm shadow-lg hover:bg-slate-800 transition-all hover:scale-105 border border-white/10"
-          >
-            <span>{isSr ? "Pozovite" : "Call Us"}</span>
-            <Phone size={16} />
-          </a>
+            <motion.a
+              href="tel:+381613660260"
+              whileHover={{ scale: 1.05, x: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs sm:text-sm shadow-lg hover:bg-slate-800 transition-colors border border-white/10"
+            >
+              <span>{isSr ? "Pozovite" : "Call Us"}</span>
+              <Phone size={16} />
+            </motion.a>
 
-          <a
-            href="#contact"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-all hover:scale-105"
-          >
-            <span>{isSr ? "Zakaži Konsultaciju" : "Book Meeting"}</span>
-            <Calendar size={16} />
-          </a>
-        </div>
-      )}
+            <motion.a
+              href="#contact"
+              onClick={() => setIsOpen(false)}
+              whileHover={{ scale: 1.05, x: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-colors"
+            >
+              <span>{isSr ? "Zakaži Konsultaciju" : "Book Meeting"}</span>
+              <Calendar size={16} />
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Primary Floating Action Toggle */}
-      <button
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-13 h-13 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-600/30 hover:bg-blue-500 hover:scale-105 active:scale-95 transition-all cursor-pointer border-2 border-white/20"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.92 }}
+        className="w-13 h-13 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-600/30 hover:bg-blue-500 transition-colors cursor-pointer border-2 border-white/20"
         aria-label={isSr ? "Otvori kontakt meni" : "Open contact menu"}
       >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
-      </button>
+        <motion.div
+          animate={{ rotate: isOpen ? 90 : 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        >
+          {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+        </motion.div>
+      </motion.button>
     </div>
   );
 }
+

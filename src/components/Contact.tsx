@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
+import { motion } from "motion/react";
 import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Sparkles, Loader2, AlertCircle } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -18,7 +19,7 @@ export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!formState.email || !formState.message) return;
 
@@ -51,7 +52,6 @@ export function Contact() {
       }
     } catch (err) {
       console.error("Form submission error:", err);
-      // Fallback display so user knows how to contact directly if blocked
       setErrorMessage(
         isSr 
           ? "Došlo je do greške pri slanju. Možete nas kontaktirati direktno na sretenovic0315@gmail.com ili putem WhatsApp-a."
@@ -69,7 +69,13 @@ export function Contact() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
+        >
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <Sparkles size={14} />
             {isSr ? "Kontakt & Sastanak" : "Contact & Booking"}
@@ -82,13 +88,19 @@ export function Contact() {
               ? "Imate ideju za projekat ili vam je potrebno prilagođeno softversko rešenje? Kontaktirajte SSolutions i ostvarite besplatnu procenu i konsultacije."
               : "Have a project idea or need a custom software solution? Get in touch with SSolutions for a free assessment and consultation."}
           </p>
-        </div>
+        </motion.div>
 
         {/* Quick Contact & Booking Options Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Direct Info & Quick Booking Links */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="lg:col-span-5 space-y-6"
+          >
             <div className="bg-slate-800/60 dark:bg-[#111111] p-6 sm:p-8 rounded-2xl border border-slate-700/80 dark:border-white/10 shadow-lg">
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <MessageSquare className="text-blue-400" size={22} />
@@ -96,33 +108,37 @@ export function Contact() {
               </h3>
 
               <div className="space-y-4">
-                <a 
+                <motion.a 
                   href="mailto:sretenovic0315@gmail.com" 
-                  className="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 dark:bg-white/5 border border-slate-700/50 hover:border-blue-500/50 transition-all group"
+                  whileHover={{ y: -3, scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 dark:bg-white/5 border border-slate-700/50 hover:border-blue-500/50 transition-colors group cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     <Mail size={18} />
                   </div>
                   <div>
                     <span className="block text-xs text-slate-400">{isSr ? "Pošaljite Email" : "Send an Email"}</span>
                     <span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">sretenovic0315@gmail.com</span>
                   </div>
-                </a>
+                </motion.a>
 
-                <a 
+                <motion.a 
                   href="https://wa.me/381613660260" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 transition-all group"
+                  whileHover={{ y: -3, scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center gap-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors group cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                     <MessageSquare size={18} />
                   </div>
                   <div>
                     <span className="block text-xs text-emerald-300 font-medium">{isSr ? "Brz Odgovor" : "Instant Chat"}</span>
                     <span className="text-sm font-semibold text-white">WhatsApp / Viber Chat</span>
                   </div>
-                </a>
+                </motion.a>
 
                 <div className="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 dark:bg-white/5 border border-slate-700/50">
                   <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0">
@@ -156,13 +172,23 @@ export function Contact() {
                 </li>
               </ul>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Interactive Contact & Booking Form */}
-          <div className="lg:col-span-7">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="lg:col-span-7"
+          >
             <div className="bg-slate-800/60 dark:bg-[#111111] p-6 sm:p-8 rounded-2xl border border-slate-700/80 dark:border-white/10 shadow-lg">
               {isSubmitted ? (
-                <div className="text-center py-12">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-12"
+                >
                   <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle2 size={36} />
                   </div>
@@ -174,16 +200,18 @@ export function Contact() {
                       ? "Vaš upit je uspešno poslat na sretenovic0315@gmail.com. SSolutions tim će vam odgovoriti u najkraćem mogućem roku."
                       : "Your message has been delivered to sretenovic0315@gmail.com. SSolutions team will get back to you shortly."}
                   </p>
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     onClick={() => {
                       setIsSubmitted(false);
                       setFormState({ name: "", email: "", phone: "", service: "web-app", message: "" });
                     }}
-                    className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all"
+                    className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all cursor-pointer"
                   >
                     {isSr ? "Pošalji novu poruku" : "Send another message"}
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <h3 className="text-xl font-bold text-white mb-4">
@@ -272,7 +300,9 @@ export function Contact() {
                     />
                   </div>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isSubmitting}
                     className="w-full py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition-all flex items-center justify-center gap-2 group cursor-pointer"
@@ -288,11 +318,11 @@ export function Contact() {
                         <span>{isSr ? "Pošalji Upit & Zakaži Konsultacije" : "Submit Inquiry & Book Consultation"}</span>
                       </>
                     )}
-                  </button>
+                  </motion.button>
                 </form>
               )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

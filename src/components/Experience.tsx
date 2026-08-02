@@ -106,15 +106,16 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
                 return (
                   <motion.div 
                     key={proj.id || idx}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.1 * idx }}
+                    transition={{ duration: 0.5, delay: 0.1 * idx, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    whileHover={{ y: -4, scale: 1.01 }}
                     className="relative pl-8 before:absolute before:top-0 before:bottom-0 before:left-[11px] before:w-[2px] before:bg-slate-200 dark:before:bg-white/10"
                   >
-                    <div className="absolute left-0 top-1.5 w-6 h-6 bg-white dark:bg-[#0a0a0a] border-2 border-indigo-600 dark:border-indigo-400 rounded-full z-10" />
+                    <div className="absolute left-0 top-1.5 w-6 h-6 bg-white dark:bg-[#0a0a0a] border-2 border-indigo-600 dark:border-indigo-400 rounded-full z-10 transition-transform group-hover:scale-125" />
                     
-                    <div className="bg-white dark:bg-[#151515] p-6 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-colors group">
+                    <div className="bg-white dark:bg-[#151515] p-6 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-all group">
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
                           {proj.date}
@@ -128,7 +129,7 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
                         {proj.link ? (
                           <a href={proj.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:underline">
                             {proj.project}
-                            <ExternalLink size={16} className="opacity-70 flex-shrink-0" />
+                            <ExternalLink size={16} className="opacity-70 flex-shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                           </a>
                         ) : (
                           proj.project
@@ -155,13 +156,15 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
             {/* View All Projects Button */}
             {onViewAllProjects && (
               <div className="mt-8 ml-8">
-                <button
+                <motion.button
+                  whileHover={{ y: -2, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={onViewAllProjects}
-                  className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-all shadow-md hover:shadow-lg shadow-blue-500/20 active:scale-98"
+                  className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-all shadow-md hover:shadow-lg shadow-blue-500/20 active:scale-98 cursor-pointer"
                 >
                   {isSr ? `Pogledaj sve projekte (${projectsData.length})` : `View All Projects (${projectsData.length})`}
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </button>
+                  <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform duration-200" />
+                </motion.button>
               </div>
             )}
           </div>

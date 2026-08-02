@@ -59,13 +59,15 @@ export function AllProjects({ onBack }: AllProjectsProps) {
       <div className="max-w-7xl mx-auto">
         {/* Navigation / Back Button */}
         <div className="flex items-center justify-between mb-8">
-          <button
+          <motion.button
+            whileHover={{ x: -3, scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
             onClick={onBack}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-500/30 transition-all text-sm font-medium shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-500/30 transition-colors text-sm font-medium shadow-2xs cursor-pointer"
           >
             <ArrowLeft size={16} />
             {isSr ? "Nazad na Portfolio" : "Back to Portfolio"}
-          </button>
+          </motion.button>
         </div>
 
         {/* Page Header */}
@@ -127,8 +129,9 @@ export function AllProjects({ onBack }: AllProjectsProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
+                    whileHover={{ y: -6, scale: 1.015 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-white dark:bg-[#151515] rounded-2xl border border-slate-200 dark:border-white/10 p-6 flex flex-col justify-between hover:border-blue-400 dark:hover:border-blue-500/40 transition-all shadow-sm hover:shadow-md group"
+                    className="bg-white dark:bg-[#151515] rounded-2xl border border-slate-200 dark:border-white/10 p-6 flex flex-col justify-between hover:border-blue-400 dark:hover:border-blue-500/40 transition-all shadow-xs hover:shadow-md group"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-3">
@@ -149,7 +152,7 @@ export function AllProjects({ onBack }: AllProjectsProps) {
                             className="inline-flex items-center gap-1.5 hover:underline"
                           >
                             {proj.project}
-                            <ExternalLink size={16} className="opacity-70 flex-shrink-0" />
+                            <ExternalLink size={16} className="opacity-70 flex-shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                           </a>
                         ) : (
                           proj.project
@@ -173,12 +176,13 @@ export function AllProjects({ onBack }: AllProjectsProps) {
                     {proj.tags && proj.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-white/5">
                         {proj.tags.map((tag, tIdx) => (
-                          <span
+                          <motion.span
                             key={tIdx}
-                            className="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400"
+                            whileHover={{ y: -1, scale: 1.05 }}
+                            className="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                           >
                             {tag}
-                          </span>
+                          </motion.span>
                         ))}
                       </div>
                     )}

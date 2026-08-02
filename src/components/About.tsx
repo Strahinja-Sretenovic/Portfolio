@@ -63,11 +63,11 @@ export function About() {
 
           <div className="space-y-8">
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white dark:bg-[#151515] p-8 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm"
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+              className="bg-white dark:bg-[#151515] p-8 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm hover:border-blue-300 dark:hover:border-blue-500/30 transition-all hover:shadow-md"
             >
               <h3 className="flex items-center gap-2 text-xl font-display font-semibold text-slate-900 dark:text-white mb-6">
                 <GraduationCap className="text-blue-600 dark:text-blue-400" />
@@ -75,19 +75,24 @@ export function About() {
               </h3>
               <div className="space-y-6">
                 {education.map((item, idx) => (
-                  <div key={idx} className="relative pl-6 before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-blue-600 dark:before:bg-blue-400 before:rounded-full">
+                  <motion.div 
+                    key={idx} 
+                    whileHover={{ x: 4 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    className="relative pl-6 before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-blue-600 dark:before:bg-blue-400 before:rounded-full cursor-default"
+                  >
                     <p className="font-semibold text-slate-900 dark:text-white">{item.degree}</p>
                     <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">{item.school}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
             >
               <h3 className="flex items-center gap-2 text-xl font-display font-semibold text-slate-900 dark:text-white mb-4 pl-2">
                 <Code className="text-blue-600 dark:text-blue-400" />
@@ -95,12 +100,15 @@ export function About() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {interests.map((interest, idx) => (
-                  <span
+                  <motion.span
                     key={idx}
-                    className="px-4 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-sm text-slate-700 dark:text-slate-300 font-medium"
+                    whileHover={{ y: -3, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    className="px-4 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-blue-400 dark:hover:border-blue-500/40 rounded-full text-sm text-slate-700 dark:text-slate-300 font-medium cursor-default transition-colors shadow-2xs"
                   >
                     {interest}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </motion.div>

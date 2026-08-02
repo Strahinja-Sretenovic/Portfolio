@@ -22,7 +22,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "sr" ? "en" : "sr"));
+    setLanguage(language === "sr" ? "en" : "sr");
   };
 
   useEffect(() => {

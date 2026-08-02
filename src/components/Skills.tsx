@@ -130,12 +130,15 @@ export function Skills() {
                 {/* Skills Badges Grid/Wrap */}
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 items-start">
                   {currentGroup.skills.map((skill, sIdx) => (
-                    <span
+                    <motion.span
                       key={sIdx}
-                      className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors"
+                      whileHover={{ y: -2, scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors shadow-2xs cursor-default"
                     >
                       {skill}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               </motion.div>
