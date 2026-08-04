@@ -9,13 +9,17 @@ import {
   Activity, 
   ShieldCheck, 
   ChevronLeft, 
-  ChevronRight
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Sparkles
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export function Skills() {
   const { language } = useLanguage();
   const isSr = language === "sr";
+  const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
 
@@ -89,88 +93,135 @@ export function Skills() {
           subtitle={isSr ? "Tehnologije i alati koje svakodnevno koristim u radu." : "My primary stack and tools."}
         />
 
-        {/* Compact Card Slider with Side Arrow Navigation */}
-        <div className="mt-8 relative flex items-center gap-2 sm:gap-4">
-          {/* Left Arrow Button */}
-          <button
-            onClick={handlePrev}
-            className="shrink-0 p-2 sm:p-3 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 dark:hover:bg-blue-600 dark:hover:text-white transition-all shadow-2xs active:scale-95"
-            aria-label={isSr ? "Prethodno" : "Previous"}
+        {/* Toggle Open/Close Button */}
+        <div className="mt-6 flex justify-center">
+          <motion.button
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => setIsOpen(!isOpen)}
+            className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md shadow-blue-500/20 transition-all cursor-pointer"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
+            <Sparkles size={16} />
+            <span>{isOpen ? (isSr ? "Zatvori" : "Close") : (isSr ? "Otvori" : "Open")}</span>
+            <motion.div
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ChevronDown size={18} />
+            </motion.div>
+          </motion.button>
+        </div>
 
-          {/* Card Container */}
-          <div className="grow overflow-hidden">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className="bg-white dark:bg-[#151515] p-4 sm:p-6 md:p-7 rounded-2xl border border-slate-200 dark:border-white/10 shadow-xs"
-              >
-                {/* Header inside Card */}
-                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100 dark:border-white/5">
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold shrink-0">
-                    {currentGroup.icon}
+        {/* Collapsible Skills Content */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
+              className="overflow-hidden"
+            >
+              <div className="pt-8">
+                {/* Compact Card Slider with Side Arrow Navigation */}
+                <div className="relative flex items-center gap-2 sm:gap-4">
+                  {/* Left Arrow Button */}
+                  <button
+                    onClick={handlePrev}
+                    className="shrink-0 p-2 sm:p-3 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 dark:hover:bg-blue-600 dark:hover:text-white transition-all shadow-2xs active:scale-95 cursor-pointer"
+                    aria-label={isSr ? "Prethodno" : "Previous"}
+                  >
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+
+                  {/* Card Container */}
+                  <div className="grow overflow-hidden">
+                    <AnimatePresence mode="wait" custom={direction}>
+                      <motion.div
+                        key={currentIndex}
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        className="bg-white dark:bg-[#151515] p-4 sm:p-6 md:p-7 rounded-2xl border border-slate-200 dark:border-white/10 shadow-xs"
+                      >
+                        {/* Header inside Card */}
+                        <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100 dark:border-white/5">
+                          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold shrink-0">
+                            {currentGroup.icon}
+                          </div>
+                          <div>
+                            <h3 className="text-base sm:text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white leading-tight">
+                              {currentGroup.title}
+                            </h3>
+                            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+                              {currentIndex + 1} / {skillGroups.length}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Skills Badges Grid/Wrap */}
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2 items-start">
+                          {currentGroup.skills.map((skill, sIdx) => (
+                            <motion.span
+                              key={sIdx}
+                              whileHover={{ y: -2, scale: 1.04 }}
+                              whileTap={{ scale: 0.96 }}
+                              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                              className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors shadow-2xs cursor-default"
+                            >
+                              {skill}
+                            </motion.span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
-                  <div>
-                    <h3 className="text-base sm:text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white leading-tight">
-                      {currentGroup.title}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
-                      {currentIndex + 1} / {skillGroups.length}
-                    </p>
-                  </div>
+
+                  {/* Right Arrow Button */}
+                  <button
+                    onClick={handleNext}
+                    className="shrink-0 p-2 sm:p-3 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 dark:hover:bg-blue-600 dark:hover:text-white transition-all shadow-2xs active:scale-95 cursor-pointer"
+                    aria-label={isSr ? "Sledeće" : "Next"}
+                  >
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
                 </div>
 
-                {/* Skills Badges Grid/Wrap */}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 items-start">
-                  {currentGroup.skills.map((skill, sIdx) => (
-                    <motion.span
-                      key={sIdx}
-                      whileHover={{ y: -2, scale: 1.04 }}
-                      whileTap={{ scale: 0.96 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                      className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold hover:border-blue-400 dark:hover:border-blue-500/50 transition-colors shadow-2xs cursor-default"
-                    >
-                      {skill}
-                    </motion.span>
+                {/* Minimal Indicators underneath */}
+                <div className="mt-5 flex items-center justify-center gap-1.5">
+                  {skillGroups.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        setDirection(i > currentIndex ? "right" : "left");
+                        setCurrentIndex(i);
+                      }}
+                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        i === currentIndex ? "w-6 bg-blue-600" : "w-1.5 bg-slate-200 dark:bg-white/10 hover:bg-slate-400"
+                      }`}
+                      aria-label={`Go to item ${i + 1}`}
+                    />
                   ))}
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
 
-          {/* Right Arrow Button */}
-          <button
-            onClick={handleNext}
-            className="shrink-0 p-2 sm:p-3 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-blue-600 hover:text-white hover:border-blue-600 dark:hover:bg-blue-600 dark:hover:text-white transition-all shadow-2xs active:scale-95"
-            aria-label={isSr ? "Sledeće" : "Next"}
-          >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-        </div>
-
-        {/* Minimal Indicators underneath */}
-        <div className="mt-5 flex items-center justify-center gap-1.5">
-          {skillGroups.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                setDirection(i > currentIndex ? "right" : "left");
-                setCurrentIndex(i);
-              }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === currentIndex ? "w-6 bg-blue-600" : "w-1.5 bg-slate-200 dark:bg-white/10 hover:bg-slate-400"
-              }`}
-              aria-label={`Go to item ${i + 1}`}
-            />
-          ))}
-        </div>
+                {/* Bottom Close Button */}
+                <div className="mt-6 flex justify-center">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setIsOpen(false)}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-200/80 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/15 text-slate-700 dark:text-slate-200 font-medium text-xs transition-colors cursor-pointer"
+                  >
+                    <ChevronUp size={16} />
+                    <span>{isSr ? "Zatvori" : "Close"}</span>
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
