@@ -54,8 +54,8 @@ export function Contact() {
       console.error("Form submission error:", err);
       setErrorMessage(
         isSr 
-          ? "Došlo je do greške pri slanju. Možete nas kontaktirati direktno na sretenovic0315@gmail.com ili putem WhatsApp-a."
-          : "An error occurred. You can reach us directly at sretenovic0315@gmail.com or via WhatsApp."
+          ? "Došlo je do greške pri slanju. Možete nas kontaktirati direktno na sretenovic0315@gmail.com."
+          : "An error occurred. You can reach us directly at sretenovic0315@gmail.com."
       );
     } finally {
       setIsSubmitting(false);
@@ -120,23 +120,6 @@ export function Contact() {
                   <div>
                     <span className="block text-xs text-slate-400">{isSr ? "Pošaljite Email" : "Send an Email"}</span>
                     <span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">sretenovic0315@gmail.com</span>
-                  </div>
-                </motion.a>
-
-                <motion.a 
-                  href="https://wa.me/381613660260" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -3, scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors group cursor-pointer"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                    <MessageSquare size={18} />
-                  </div>
-                  <div>
-                    <span className="block text-xs text-emerald-300 font-medium">{isSr ? "Brz Odgovor" : "Instant Chat"}</span>
-                    <span className="text-sm font-semibold text-white">WhatsApp / Viber Chat</span>
                   </div>
                 </motion.a>
 

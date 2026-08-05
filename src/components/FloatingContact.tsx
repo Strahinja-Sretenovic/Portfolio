@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MessageSquare, Phone, X, Calendar } from "lucide-react";
+import { Mail, X, Calendar, MessageSquare } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export function FloatingContact() {
@@ -21,25 +21,13 @@ export function FloatingContact() {
             className="mb-3 flex flex-col gap-2.5 items-end"
           >
             <motion.a
-              href="https://wa.me/381613660260"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:sretenovic0315@gmail.com"
               whileHover={{ scale: 1.05, x: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-emerald-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-emerald-500 transition-colors"
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-colors"
             >
-              <span>WhatsApp Chat</span>
-              <MessageSquare size={16} />
-            </motion.a>
-
-            <motion.a
-              href="tel:+381613660260"
-              whileHover={{ scale: 1.05, x: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs sm:text-sm shadow-lg hover:bg-slate-800 transition-colors border border-white/10"
-            >
-              <span>{isSr ? "Pozovite" : "Call Us"}</span>
-              <Phone size={16} />
+              <span>{isSr ? "Pošaljite Email" : "Send Email"}</span>
+              <Mail size={16} />
             </motion.a>
 
             <motion.a
@@ -47,7 +35,7 @@ export function FloatingContact() {
               onClick={() => setIsOpen(false)}
               whileHover={{ scale: 1.05, x: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-colors"
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs sm:text-sm shadow-lg hover:bg-slate-800 transition-colors border border-white/10"
             >
               <span>{isSr ? "Zakaži Konsultaciju" : "Book Meeting"}</span>
               <Calendar size={16} />
