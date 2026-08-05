@@ -15,27 +15,7 @@ export default defineConfig(() => {
       target: 'es2020',
       cssCodeSplit: true,
       cssMinify: true,
-      minify: 'esbuild',
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              if (id.includes('react') || id.includes('react-dom')) {
-                return 'vendor-react';
-              }
-              if (id.includes('motion')) {
-                return 'vendor-motion';
-              }
-              if (id.includes('lucide-react')) {
-                return 'vendor-icons';
-              }
-              if (id.includes('lenis')) {
-                return 'vendor-lenis';
-              }
-            }
-          },
-        },
-      },
+      minify: 'esbuild' as const,
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
