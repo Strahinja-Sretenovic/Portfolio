@@ -194,15 +194,15 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
               >
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300">
                       {currentProj.date}
                     </span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 font-medium px-2.5 py-1 rounded-full bg-slate-100 dark:bg-white/5">
+                    <span className="text-xs text-slate-700 dark:text-slate-200 font-medium px-2.5 py-1 rounded-full bg-slate-200/80 dark:bg-white/10">
                       {currentProj.type}
                     </span>
                   </div>
 
-                  <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+                  <span className="text-xs text-slate-600 dark:text-slate-300 font-semibold">
                     {currentProjectIndex + 1} / {featuredProjects.length}
                   </span>
                 </div>
@@ -218,13 +218,13 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
                   )}
                 </h4>
 
-                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm mb-4">
-                  {isSr ? "Uloga:" : "Role:"} <span className="text-slate-700 dark:text-slate-300 font-semibold">{currentProj.title}</span>
+                <p className="text-slate-600 dark:text-slate-300 font-medium text-sm mb-4">
+                  {isSr ? "Uloga:" : "Role:"} <span className="text-slate-900 dark:text-white font-semibold">{currentProj.title}</span>
                 </p>
 
                 <ul className="space-y-2 mb-6">
                   {currentProj.points.map((pt, pIdx) => (
-                    <li key={pIdx} className="text-slate-600 dark:text-slate-300 text-sm flex items-start leading-relaxed">
+                    <li key={pIdx} className="text-slate-700 dark:text-slate-200 text-sm flex items-start leading-relaxed">
                       <span className="mr-2.5 mt-1.5 w-1.5 h-1.5 bg-indigo-500 rounded-full flex-shrink-0" />
                       {pt}
                     </li>
@@ -236,7 +236,7 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
                     {currentProj.tags.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="text-xs font-medium px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                        className="text-xs font-medium px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                       >
                         {tag}
                       </span>
@@ -249,8 +249,8 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
 
           {/* Indicators & View All Button */}
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-            {/* Carousel Dot Indicators */}
-            <div className="flex items-center gap-2">
+            {/* Carousel Dot Indicators with 44px minimum touch targets */}
+            <div className="flex items-center gap-1">
               {featuredProjects.map((_, i) => (
                 <button
                   key={i}
@@ -258,11 +258,17 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
                     setDirection(i > currentProjectIndex ? "right" : "left");
                     setCurrentProjectIndex(i);
                   }}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    i === currentProjectIndex ? "w-8 bg-indigo-600" : "w-2 bg-slate-300 dark:bg-white/10 hover:bg-slate-400"
-                  }`}
+                  className="w-11 h-11 flex items-center justify-center cursor-pointer group focus:outline-hidden"
                   aria-label={`Go to project ${i + 1}`}
-                />
+                >
+                  <span
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      i === currentProjectIndex
+                        ? "w-8 bg-indigo-600"
+                        : "w-2.5 bg-slate-300 dark:bg-white/20 group-hover:bg-indigo-400"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 

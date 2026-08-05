@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Download, Github, Linkedin, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export function Hero() {
@@ -52,54 +52,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3, ease: easeOutCustom }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex items-center justify-center"
         >
           <motion.a
-            href="#projects"
+            href="#contact"
             whileHover={{ y: -3, scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group shadow-md shadow-blue-600/25"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group shadow-md shadow-blue-600/25"
           >
-            {isSr ? "Pogledaj projekte" : "View Projects"}
+            {isSr ? "Zakaži Konsultaciju" : "Schedule a Consultation"}
             <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform duration-200" />
           </motion.a>
-
-          <motion.a
-            href="/folders/resume.pdf"
-            download="resume.pdf"
-            whileHover={{ y: -3, scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-medium hover:bg-slate-50 dark:hover:bg-white/5 transition-colors flex items-center justify-center gap-2 shadow-xs"
-          >
-            <Download size={18} />
-            {isSr ? "Preuzmi CV" : "Download CV"}
-          </motion.a>
-          
-          <div className="flex items-center gap-3 mt-4 sm:mt-0 sm:ml-4">
-            <motion.a
-              href="https://github.com/Strahinja-Sretenovic"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -3, scale: 1.1, rotate: 3 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-3.5 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-colors shadow-xs"
-              aria-label="GitHub Profile"
-            >
-              <Github size={20} />
-            </motion.a>
-
-            <motion.a
-              href="https://www.linkedin.com/in/strahinja-sretenovic-22890a352/"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -3, scale: 1.1, rotate: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-3.5 rounded-xl bg-white dark:bg-[#151515] border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors shadow-xs"
-              aria-label="LinkedIn Profile"
-            >
-              <Linkedin size={20} />
-            </motion.a>
-          </div>
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { motion } from "motion/react";
-import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Sparkles, Loader2, AlertCircle } from "lucide-react";
+import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Sparkles, Loader2, AlertCircle, FileText, Download } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 export function Contact() {
@@ -155,6 +155,22 @@ export function Contact() {
                 </li>
               </ul>
             </div>
+
+            {/* CV Download Button - Icon Only */}
+            <div className="flex items-center gap-3 pt-1">
+              <motion.a
+                href="/folders/resume.pdf"
+                download="resume.pdf"
+                whileHover={{ scale: 1.08, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-3.5 rounded-xl bg-slate-800 dark:bg-[#111111] border border-slate-700/80 dark:border-white/10 text-blue-400 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-600 hover:border-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer group"
+                aria-label={isSr ? "Preuzmi CV" : "Download CV"}
+                title={isSr ? "Preuzmi CV" : "Download CV"}
+              >
+                <FileText size={20} className="group-hover:scale-110 transition-transform" />
+                <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
+              </motion.a>
+            </div>
           </motion.div>
 
           {/* Right Column: Interactive Contact & Booking Form */}
@@ -210,10 +226,11 @@ export function Contact() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-slate-300 mb-1">
+                      <label htmlFor="contact-name" className="block text-xs font-medium text-slate-300 mb-1">
                         {isSr ? "Vaše Ime / Kompanija *" : "Your Name / Company *"}
                       </label>
                       <input
+                        id="contact-name"
                         type="text"
                         required
                         value={formState.name}
@@ -224,10 +241,11 @@ export function Contact() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-slate-300 mb-1">
+                      <label htmlFor="contact-email" className="block text-xs font-medium text-slate-300 mb-1">
                         {isSr ? "Email Adresa *" : "Email Address *"}
                       </label>
                       <input
+                        id="contact-email"
                         type="email"
                         required
                         value={formState.email}
@@ -240,10 +258,11 @@ export function Contact() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-slate-300 mb-1">
+                      <label htmlFor="contact-phone" className="block text-xs font-medium text-slate-300 mb-1">
                         {isSr ? "Telefon / Kontakt" : "Phone Number"}
                       </label>
                       <input
+                        id="contact-phone"
                         type="tel"
                         value={formState.phone}
                         onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
@@ -253,10 +272,12 @@ export function Contact() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-slate-300 mb-1">
+                      <label htmlFor="contact-service" className="block text-xs font-medium text-slate-300 mb-1">
                         {isSr ? "Vrsta Usluge" : "Type of Service"}
                       </label>
                       <select
+                        id="contact-service"
+                        aria-label={isSr ? "Vrsta Usluge" : "Type of Service"}
                         value={formState.service}
                         onChange={(e) => setFormState({ ...formState, service: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
@@ -270,10 +291,11 @@ export function Contact() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1">
+                    <label htmlFor="contact-message" className="block text-xs font-medium text-slate-300 mb-1">
                       {isSr ? "Opis Projekta / Poruka *" : "Project Details / Message *"}
                     </label>
                     <textarea
+                      id="contact-message"
                       rows={4}
                       required
                       value={formState.message}

@@ -155,7 +155,7 @@ export function Skills() {
                             <h3 className="text-base sm:text-lg md:text-xl font-display font-bold text-slate-900 dark:text-white leading-tight">
                               {currentGroup.title}
                             </h3>
-                            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+                            <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">
                               {currentIndex + 1} / {skillGroups.length}
                             </p>
                           </div>
@@ -189,8 +189,8 @@ export function Skills() {
                   </button>
                 </div>
 
-                {/* Minimal Indicators underneath */}
-                <div className="mt-5 flex items-center justify-center gap-1.5">
+                {/* Minimal Indicators underneath with 44px minimum touch targets */}
+                <div className="mt-5 flex items-center justify-center gap-1">
                   {skillGroups.map((_, i) => (
                     <button
                       key={i}
@@ -198,11 +198,17 @@ export function Skills() {
                         setDirection(i > currentIndex ? "right" : "left");
                         setCurrentIndex(i);
                       }}
-                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        i === currentIndex ? "w-6 bg-blue-600" : "w-1.5 bg-slate-200 dark:bg-white/10 hover:bg-slate-400"
-                      }`}
-                      aria-label={`Go to item ${i + 1}`}
-                    />
+                      className="w-11 h-11 flex items-center justify-center cursor-pointer group focus:outline-hidden"
+                      aria-label={`Go to skill group ${i + 1}`}
+                    >
+                      <span
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                          i === currentIndex
+                            ? "w-7 bg-blue-600"
+                            : "w-2 bg-slate-300 dark:bg-white/20 group-hover:bg-blue-400"
+                        }`}
+                      />
+                    </button>
                   ))}
                 </div>
 

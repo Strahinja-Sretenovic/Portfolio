@@ -40,7 +40,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="text-slate-500 text-xs sm:text-sm text-center">
+        <p className="text-slate-300 dark:text-slate-400 text-xs sm:text-sm text-center">
           &copy; {new Date().getFullYear()} SSolutions (Strahinja Sretenović). {isSr ? "Sva prava zadržana." : "All rights reserved."}
         </p>
 
