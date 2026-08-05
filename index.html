@@ -206,7 +206,10 @@
     </script>
   </head>
   <body>
-    <div id="root">
+    <div id="root"></div>
+
+    <!-- Static Content Fallback for Non-JS / Headless Crawlers -->
+    <noscript>
       <main>
         <!-- Primary H1 Heading for SEO Crawlers -->
         <header>
@@ -324,15 +327,6 @@
           </ul>
         </section>
       </main>
-    </div>
-
-    <!-- Static Content Fallback for Headless SEO Crawlers and Audits -->
-    <noscript>
-      <header>
-        <h1>SSolutions – Softverska Rešenja &amp; Web Development</h1>
-        <p>SSolutions pruža vrhunska softverska rešenja, web aplikacije, custom CMS rešenja (WordPress) i backend arhitekturu.</p>
-        <a href="#contact">Zakažite Besplatne Konsultacije</a>
-      </header>
     </noscript>
 
     <script type="module" src="/src/main.tsx"></script>
