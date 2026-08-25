@@ -27,7 +27,7 @@ export function Contact() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/sretenovic0315@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/ssolutionsrs@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,8 +54,8 @@ export function Contact() {
       console.error("Form submission error:", err);
       setErrorMessage(
         isSr 
-          ? "Došlo je do greške pri slanju. Možete nas kontaktirati direktno na sretenovic0315@gmail.com."
-          : "An error occurred. You can reach us directly at sretenovic0315@gmail.com."
+          ? "Došlo je do greške pri slanju. Možete nas kontaktirati direktno na ssolutionsrs@gmail.com."
+          : "An error occurred. You can reach us directly at ssolutionsrs@gmail.com."
       );
     } finally {
       setIsSubmitting(false);
@@ -109,7 +109,9 @@ export function Contact() {
 
               <div className="space-y-4">
                 <motion.a 
-                  href="mailto:sretenovic0315@gmail.com" 
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=ssolutionsrs@gmail.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ y: -3, scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 dark:bg-white/5 border border-slate-700/50 hover:border-blue-500/50 transition-colors group cursor-pointer"
@@ -118,8 +120,8 @@ export function Contact() {
                     <Mail size={18} />
                   </div>
                   <div>
-                    <span className="block text-xs text-slate-400">{isSr ? "Pošaljite Email" : "Send an Email"}</span>
-                    <span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">sretenovic0315@gmail.com</span>
+                    <span className="block text-xs text-slate-400">{isSr ? "Pošaljite Gmail Poruku" : "Send Gmail Message"}</span>
+                    <span className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">ssolutionsrs@gmail.com</span>
                   </div>
                 </motion.a>
 
@@ -196,8 +198,8 @@ export function Contact() {
                   </h3>
                   <p className="text-slate-300 text-sm max-w-md mx-auto mb-6">
                     {isSr
-                      ? "Vaš upit je uspešno poslat na sretenovic0315@gmail.com. SSolutions tim će vam odgovoriti u najkraćem mogućem roku."
-                      : "Your message has been delivered to sretenovic0315@gmail.com. SSolutions team will get back to you shortly."}
+                      ? "Vaš upit je uspešno poslat na ssolutionsrs@gmail.com. SSolutions tim će vam odgovoriti u najkraćem mogućem roku."
+                      : "Your message has been delivered to ssolutionsrs@gmail.com. SSolutions team will get back to you shortly."}
                   </p>
                   <motion.button
                     whileHover={{ scale: 1.03 }}

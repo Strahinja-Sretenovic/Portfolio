@@ -58,7 +58,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
   const isSr = language === "sr";
 
   const navLinks = [
-    { id: "about", name: isSr ? "O meni" : "About", href: "#about" },
+    { id: "about", name: isSr ? "O nama" : "About Us", href: "#about" },
     { id: "skills", name: isSr ? "Veštine" : "Skills", href: "#skills" },
     { id: "experience", name: isSr ? "Iskustvo" : "Experience", href: "#experience" },
     { id: "projects", name: isSr ? "Projekti" : "Projects", href: "#projects", isProjects: true },

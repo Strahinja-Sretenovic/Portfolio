@@ -21,12 +21,14 @@ export function FloatingContact() {
             className="mb-3 flex flex-col gap-2.5 items-end"
           >
             <motion.a
-              href="mailto:sretenovic0315@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=ssolutionsrs@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05, x: -2 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-colors"
             >
-              <span>{isSr ? "Pošaljite Email" : "Send Email"}</span>
+              <span>{isSr ? "Pošaljite Gmail" : "Open Gmail"}</span>
               <Mail size={16} />
             </motion.a>
 
