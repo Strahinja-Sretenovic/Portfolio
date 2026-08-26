@@ -55,6 +55,22 @@ export function Contact() {
 
     setIsSubmitting(true);
 
+    const serviceLabelMap: Record<string, string> = {
+      "web-app": isSr ? "Izrada Web Aplikacije & Softvera" : "Custom Web Application & Software",
+      "ecommerce": isSr ? "Online Prodavnica (Web Shop)" : "E-Commerce Web Shop",
+      "booking": isSr ? "Sistem za Zakazivanje & Portali" : "Booking Portal & Directory",
+      "cms": isSr ? "Prezentacioni Sajt / Custom CMS" : "Business Website / Custom CMS",
+      "backend": isSr ? "Backend, Baze & API Razvoj" : "Backend, DB & API Engineering",
+      "consulting": isSr ? "Konsultacije, Redizajn & Ubrzanje" : "Consulting, Redesign & Speedup",
+    };
+
+    const formattedDate = new Date().toLocaleString("sr-RS", {
+      dateStyle: "full",
+      timeStyle: "short",
+    });
+
+    const isBlueprintActive = Boolean(estimatorBlueprint);
+
     try {
       const response = await fetch("https://formsubmit.co/ajax/ssolutionsrs@gmail.com", {
         method: "POST",
@@ -63,19 +79,34 @@ export function Contact() {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          Ime_ili_Firma: formState.name || "Nije navedeno",
-          Email: formState.email,
-          Telefon: formState.phone || "Nije navedeno",
-          Usluga: formState.service,
-          Izabrani_Model_Konfiguratora: estimatorBlueprint ? estimatorBlueprint.projectTitle : "Direktan upit bez konfiguratora",
-          Procenjeni_Rok_Izrade: estimatorBlueprint ? estimatorBlueprint.estimatedTime : "N/A",
-          Broj_Izabranih_Funkcija: estimatorBlueprint ? String(estimatorBlueprint.selectedFeatures.length) : "N/A",
-          Izabrane_Funkcije_Lista: estimatorBlueprint && estimatorBlueprint.featureLabels.length > 0
-            ? estimatorBlueprint.featureLabels.join(", ")
-            : "N/A",
-          Poruka: formState.message,
-          _subject: `[SSolutions] Novi Upit ${estimatorBlueprint ? `(${estimatorBlueprint.projectTitle})` : ""} od ${formState.name || formState.email}`,
-          _template: "table"
+          _subject: `⚡ [SSolutions Lead] ${isBlueprintActive ? `[${estimatorBlueprint?.projectTitle}] ` : ""}${formState.name || formState.email}`,
+          _template: "table",
+          _replyto: formState.email,
+          _captcha: "false",
+          
+          "=== PODACI O KLIJENTU ===": "------------------------------------",
+          "Klijent / Kompanija": formState.name || "Nije navedeno",
+          "Email Adresa": formState.email,
+          "Broj Telefona": formState.phone || "Nije navedeno",
+          "Datum i Vreme Upita": formattedDate,
+
+          "=== DETALJI PROJEKTA ===": "------------------------------------",
+          "Izabrana Primarna Usluga": serviceLabelMap[formState.service] || formState.service,
+          "Izvor Upita": isBlueprintActive ? "🎯 Interaktivni Konfigurator Sajta" : "✉️ Direktna Kontakt Forma",
+          ...(isBlueprintActive && estimatorBlueprint
+            ? {
+                "Model Rešenja": estimatorBlueprint.projectTitle,
+                "Procenjeni Okvirni Rok": estimatorBlueprint.estimatedTime,
+                "Ukupno Izabranih Stavki": `${estimatorBlueprint.selectedFeatures.length} funkcija`,
+                "Spisak Konfigurisanih Funkcija":
+                  estimatorBlueprint.featureLabels.length > 0
+                    ? estimatorBlueprint.featureLabels.map((f, i) => `${i + 1}. ${f}`).join(" | ")
+                    : "Osnovni paket modela",
+              }
+            : {}),
+
+          "=== PORUKA I ZAHTEVI ===": "------------------------------------",
+          "Tekst Poruke": formState.message,
         })
       });
 
