@@ -33,7 +33,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
       return;
     }
 
-    const sections = ["services", "process", "projects", "estimator", "about", "skills", "contact"];
+    const sections = ["services", "process", "projects", "estimator", "about", "skills", "faq", "contact"];
     const handleScrollObserver = () => {
       const scrollPosition = window.scrollY + 200;
 
@@ -62,6 +62,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
     { id: "process", name: isSr ? "Proces" : "Process", href: "#process" },
     { id: "projects", name: isSr ? "Projekti" : "Projects", href: "#projects", isProjects: true },
     { id: "estimator", name: isSr ? "Procena" : "Estimator", href: "#estimator" },
+    { id: "faq", name: isSr ? "FAQ & SEO" : "FAQ", href: "#faq" },
     { id: "about", name: isSr ? "O nama" : "About Us", href: "#about" },
     { id: "contact", name: isSr ? "Kontakt" : "Contact", href: "#contact" },
   ];

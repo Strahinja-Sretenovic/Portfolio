@@ -9,6 +9,7 @@ import { Process } from "./components/Process";
 import { ProjectEstimator } from "./components/ProjectEstimator";
 import { About } from "./components/About";
 import { Skills } from "./components/Skills";
+import { Faq } from "./components/Faq";
 import { Experience } from "./components/Experience";
 import { AllProjects } from "./components/AllProjects";
 import { Contact } from "./components/Contact";
@@ -66,6 +67,7 @@ export default function App() {
                   <ProjectEstimator />
                   <About />
                   <Skills />
+                  <Faq />
                   <Contact />
                 </>
               ) : (

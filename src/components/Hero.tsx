@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   ArrowRight, 
   Sparkles, 
@@ -12,7 +12,12 @@ import {
   MousePointerClick,
   Users,
   Gauge,
-  PhoneCall
+  ShoppingCart,
+  CalendarCheck,
+  FileCheck,
+  MapPin,
+  Clock,
+  Radio
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -21,6 +26,59 @@ export function Hero() {
   const isSr = language === "sr";
 
   const [activeTab, setActiveTab] = useState<"speed" | "leads" | "mobile">("leads");
+  const [currentEventIndex, setCurrentEventIndex] = useState(0);
+
+  const liveEvents = [
+    {
+      id: 1,
+      icon: <ShoppingCart size={15} className="text-emerald-400" />,
+      iconBg: "bg-emerald-500/20 border-emerald-500/40",
+      title: isSr ? "Nova porudžbina u web shopu" : "New Web Shop Order Placed",
+      detail: isSr ? "Automatski generisana adresnica i račun" : "Auto invoice & courier label generated",
+      tag: isSr ? "E-Commerce" : "E-Commerce",
+      location: isSr ? "Beograd" : "Belgrade",
+      time: isSr ? "Pre 12 min" : "12m ago"
+    },
+    {
+      id: 2,
+      icon: <CalendarCheck size={15} className="text-blue-400" />,
+      iconBg: "bg-blue-500/20 border-blue-500/40",
+      title: isSr ? "Zakazan termin za konsultacije" : "Consultation Slot Reserved",
+      detail: isSr ? "Potvrda i podsetnik poslati klijentu na telefon" : "Instant SMS & Email reminder dispatched",
+      tag: isSr ? "Booking" : "Booking",
+      location: isSr ? "Čačak" : "Cacak",
+      time: isSr ? "Danas, 10:45h" : "Today, 10:45"
+    },
+    {
+      id: 3,
+      icon: <TrendingUp size={15} className="text-amber-400" />,
+      iconBg: "bg-amber-500/20 border-amber-500/40",
+      title: isSr ? "Google SEO: #1 pozicija za ključnu reč" : "Google SEO: #1 Rank Achieved",
+      detail: isSr ? "+340% više poseta i upita sa Google pretrage" : "+340% organic search traffic surge",
+      tag: isSr ? "SEO Uspeh" : "SEO Rank",
+      location: isSr ? "Novi Sad" : "Novi Sad",
+      time: isSr ? "Danas, 09:20h" : "Today, 09:20"
+    },
+    {
+      id: 4,
+      icon: <FileCheck size={15} className="text-cyan-400" />,
+      iconBg: "bg-cyan-500/20 border-cyan-500/40",
+      title: isSr ? "Upit za izradu web softvera po meri" : "Bespoke Web App Inquiry Received",
+      detail: isSr ? "Automatski generisana specifikacija i predračun" : "Specification generated via interactive form",
+      tag: isSr ? "B2B Softver" : "B2B App",
+      location: isSr ? "Dijaspora (CH/AT)" : "Global / EU",
+      time: isSr ? "Danas, 08:30h" : "Today, 08:30"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentEventIndex((prev) => (prev + 1) % liveEvents.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [liveEvents.length]);
+
+  const activeEvent = liveEvents[currentEventIndex];
 
   const easeOutCustom = [0.21, 0.47, 0.32, 0.98];
 
@@ -251,15 +309,74 @@ export function Hero() {
                   </span>
                 </div>
 
-                {/* Floating Notification Simulator */}
-                <div className="p-3 rounded-2xl bg-gradient-to-r from-blue-900/60 to-indigo-900/60 border border-blue-500/30 flex items-center gap-3 animate-pulse">
-                  <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
-                    <PhoneCall size={14} className="text-white" />
+                {/* Live Activity Stream (Dynamic Auto-Cycling Telemetry) */}
+                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-slate-800/90 to-slate-900/90 border border-slate-700/80 shadow-lg relative overflow-hidden">
+                  
+                  {/* Top Bar inside Notification */}
+                  <div className="flex items-center justify-between gap-2 pb-2 mb-2 border-b border-slate-700/50 text-[10px]">
+                    <div className="flex items-center gap-1.5 font-bold text-blue-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                      <span>{isSr ? "Aktivnost Sistema Uživo" : "Live Platform Activity"}</span>
+                    </div>
+
+                    {/* Interactive Dots for Switching */}
+                    <div className="flex items-center gap-1">
+                      {liveEvents.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentEventIndex(idx)}
+                          className={`w-1.5 h-1.5 rounded-full transition-all cursor-pointer ${
+                            currentEventIndex === idx ? "bg-blue-400 w-3" : "bg-slate-600 hover:bg-slate-500"
+                          }`}
+                          aria-label={`Show event ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <div className="text-[11px] leading-tight">
-                    <span className="font-bold text-white block">{isSr ? "Novi klijent zakazao termin!" : "New Client Booking Received!"}</span>
-                    <span className="text-blue-200">{isSr ? "Pre 2 minuta preko web sajta" : "2 minutes ago via website"}</span>
-                  </div>
+
+                  {/* Animated Event Item */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeEvent.id}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-start gap-2.5"
+                    >
+                      <div className={`w-8 h-8 rounded-xl ${activeEvent.iconBg} border flex items-center justify-center shrink-0 mt-0.5`}>
+                        {activeEvent.icon}
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-1 mb-0.5">
+                          <span className="font-bold text-white text-xs truncate">
+                            {activeEvent.title}
+                          </span>
+                          <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 shrink-0">
+                            {activeEvent.tag}
+                          </span>
+                        </div>
+
+                        <p className="text-[11px] text-slate-300 leading-tight mb-1">
+                          {activeEvent.detail}
+                        </p>
+
+                        <div className="flex items-center gap-2.5 text-[10px] text-slate-400">
+                          <span className="flex items-center gap-1">
+                            <MapPin size={10} className="text-rose-400" />
+                            {activeEvent.location}
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1 text-slate-300">
+                            <Clock size={10} className="text-blue-400" />
+                            {activeEvent.time}
+                          </span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+
                 </div>
               </div>
             </div>
