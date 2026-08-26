@@ -18,7 +18,7 @@ declare global {
 }
 
 // Measurement ID from Vite environment or default fallback
-const DEFAULT_MEASUREMENT_ID = "G-SSOLUTIONS01";
+const DEFAULT_MEASUREMENT_ID = "G-JBLF6ZPTQ2";
 export const GA_MEASUREMENT_ID = (import.meta.env.VITE_GA_MEASUREMENT_ID as string) || DEFAULT_MEASUREMENT_ID;
 
 let isInitialized = false;
