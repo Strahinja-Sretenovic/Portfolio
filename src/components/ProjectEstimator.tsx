@@ -30,10 +30,12 @@ import {
   RefreshCcw
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { useToast } from "../context/ToastContext";
 import { trackEstimatorInteraction } from "../utils/analytics";
 
 export function ProjectEstimator() {
   const { language } = useLanguage();
+  const { success, info } = useToast();
 
   const isSr = language === "sr";
 
@@ -253,6 +255,14 @@ export function ProjectEstimator() {
       projectType,
       selectedCount: isAdding ? selectedFeatures.length + 1 : selectedFeatures.length - 1,
     });
+
+    if (isAdding && featureItem) {
+      success(
+        isSr ? `Uključena funkcija: ${featureItem.label}` : `Enabled: ${featureItem.label}`,
+        undefined,
+        { duration: 1800 }
+      );
+    }
   };
 
   const selectAllCategory = () => {
@@ -260,8 +270,18 @@ export function ProjectEstimator() {
     const allSelected = currentCategoryFeatureIds.every((id) => selectedFeatures.includes(id));
     if (allSelected) {
       setSelectedFeatures(selectedFeatures.filter((id) => !currentCategoryFeatureIds.includes(id)));
+      info(
+        isSr ? "Isključene funkcije u izabranoj kategoriji" : "Deselected category features",
+        undefined,
+        { duration: 2000 }
+      );
     } else {
       setSelectedFeatures(Array.from(new Set([...selectedFeatures, ...currentCategoryFeatureIds])));
+      success(
+        isSr ? `Označene sve (${currentCategoryFeatureIds.length}) funkcije u kategoriji` : `Selected all (${currentCategoryFeatureIds.length}) features in category`,
+        undefined,
+        { duration: 2000 }
+      );
     }
   };
 
@@ -299,6 +319,24 @@ export function ProjectEstimator() {
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: "smooth" });
     }
+
+    // Trigger toast notification for instantaneous clear feedback
+    success(
+      isSr 
+        ? `Konfiguracija za "${selectedTypeObj.title}" sa ${selectedFeatures.length} označenih funkcija je ubačena u formu ispod!`
+        : `Configuration for "${selectedTypeObj.title}" with ${selectedFeatures.length} selected features is populated below!`,
+      isSr ? "Plan Projekta Spreman" : "Blueprint Configured",
+      { 
+        duration: 5500,
+        action: {
+          label: isSr ? "Idi na polje Ime" : "Focus Name",
+          onClick: () => {
+            const nameField = document.getElementById("contact-name");
+            nameField?.focus();
+          }
+        }
+      }
+    );
   };
 
   return (
@@ -346,13 +384,22 @@ export function ProjectEstimator() {
                   <button
                     key={type.id}
                     onClick={() => {
-                      setProjectType(type.id);
-                      trackEstimatorInteraction({
-                        action: "select_type",
-                        projectType: type.id,
-                        projectTitle: type.title,
-                        selectedCount: selectedFeatures.length
-                      });
+                      if (projectType !== type.id) {
+                        setProjectType(type.id);
+                        trackEstimatorInteraction({
+                          action: "select_type",
+                          projectType: type.id,
+                          projectTitle: type.title,
+                          selectedCount: selectedFeatures.length
+                        });
+                        info(
+                          isSr 
+                            ? `Izabran model: ${type.title} (procenjen rok: ${type.time})`
+                            : `Selected model: ${type.title} (est. time: ${type.time})`,
+                          isSr ? "Model Rešenja" : "Solution Type",
+                          { duration: 2400 }
+                        );
+                      }
                     }}
                     className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between relative group ${
                       isSelected

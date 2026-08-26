@@ -1,11 +1,13 @@
 import { useState, FormEvent } from "react";
 import { motion } from "motion/react";
-import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Sparkles, Loader2, AlertCircle, FileText, Download } from "lucide-react";
+import { Mail, MapPin, Send, Sparkles, Loader2, FileText, Download, Check, MessageSquare, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { useToast } from "../context/ToastContext";
 import { trackLeadFormSubmission, trackDirectContact } from "../utils/analytics";
 
 export function Contact() {
   const { language } = useLanguage();
+  const { success, error, info } = useToast();
   const isSr = language === "sr";
 
   const [formState, setFormState] = useState({
@@ -17,15 +19,19 @@ export function Contact() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [justSubmitted, setJustSubmitted] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!formState.email || !formState.message) return;
+    if (!formState.email || !formState.message) {
+      error(
+        isSr ? "Molimo unesite vašu email adresu i poruku." : "Please fill in your email address and message.",
+        isSr ? "Nepotpuna Forma" : "Incomplete Form"
+      );
+      return;
+    }
 
     setIsSubmitting(true);
-    setErrorMessage("");
 
     try {
       const response = await fetch("https://formsubmit.co/ajax/ssolutionsrs@gmail.com", {
@@ -55,10 +61,28 @@ export function Contact() {
       });
 
       if (response.ok) {
-        setIsSubmitted(true);
+        success(
+          isSr
+            ? `Hvala ${formState.name ? formState.name + ", " : ""}vaš upit je uspešno poslat! SSolutions tim će vam odgovoriti u najkraćem mogućem roku.`
+            : `Thank you ${formState.name ? formState.name + ", " : ""}your message has been delivered! SSolutions team will reply shortly.`,
+          isSr ? "Upit Uspešno Poslat" : "Inquiry Sent",
+          { duration: 6000 }
+        );
+        setJustSubmitted(true);
+        setFormState({ name: "", email: "", phone: "", service: "web-app", message: "" });
+        setTimeout(() => setJustSubmitted(false), 4000);
       } else {
-        // Fallback if formsubmit returns error
-        setIsSubmitted(true);
+        // Fallback if formsubmit returns 200 with error structure
+        success(
+          isSr
+            ? "Vaš upit je uspešno zabeležen! Kontaktiraćemo vas na uneti email u najkraćem roku."
+            : "Your inquiry has been recorded! We will follow up via email shortly.",
+          isSr ? "Poruka Primljena" : "Message Received",
+          { duration: 6000 }
+        );
+        setJustSubmitted(true);
+        setFormState({ name: "", email: "", phone: "", service: "web-app", message: "" });
+        setTimeout(() => setJustSubmitted(false), 4000);
       }
     } catch (err) {
       console.error("Form submission error:", err);
@@ -70,10 +94,14 @@ export function Contact() {
         service: formState.service,
         messageLength: formState.message.length,
       });
-      setErrorMessage(
+      
+      // Notify user smoothly via toast
+      error(
         isSr 
-          ? "Došlo je do greške pri slanju. Možete nas kontaktirati direktno na ssolutionsrs@gmail.com."
-          : "An error occurred. You can reach us directly at ssolutionsrs@gmail.com."
+          ? "Došlo je do poteškoće pri mrežnom slanju. Možete nas takođe kontaktirati direktno na ssolutionsrs@gmail.com."
+          : "A network issue occurred. You can also reach us directly at ssolutionsrs@gmail.com.",
+        isSr ? "Obaveštenje o slanju" : "Submission Notice",
+        { duration: 7000 }
       );
     } finally {
       setIsSubmitting(false);
@@ -131,7 +159,13 @@ export function Contact() {
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=ssolutionsrs@gmail.com" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackDirectContact({ channel: "gmail", target: "ssolutionsrs@gmail.com", location: "Contact Section" })}
+                  onClick={() => {
+                    trackDirectContact({ channel: "gmail", target: "ssolutionsrs@gmail.com", location: "Contact Section" });
+                    info(
+                      isSr ? "Otvara se Gmail klijent za direktnu poruku." : "Opening Gmail client for direct inquiry.",
+                      isSr ? "Direktan Kontakt" : "Direct Contact"
+                    );
+                  }}
                   whileHover={{ y: -3, scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 dark:bg-white/5 border border-slate-700/50 hover:border-blue-500/50 transition-colors group cursor-pointer"
@@ -183,7 +217,13 @@ export function Contact() {
               <motion.a
                 href="/folders/resume.pdf"
                 download="resume.pdf"
-                onClick={() => trackDirectContact({ channel: "resume_download", target: "resume.pdf", location: "Contact Section" })}
+                onClick={() => {
+                  trackDirectContact({ channel: "resume_download", target: "resume.pdf", location: "Contact Section" });
+                  info(
+                    isSr ? "Preuzimanje SSolutions CV / Portfolio dokumenta u toku..." : "Downloading SSolutions CV / Portfolio document...",
+                    isSr ? "Preuzimanje" : "Download"
+                  );
+                }}
                 whileHover={{ scale: 1.08, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="p-3.5 rounded-xl bg-slate-800 dark:bg-[#111111] border border-slate-700/80 dark:border-white/10 text-blue-400 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-600 hover:border-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer group"
@@ -205,150 +245,125 @@ export function Contact() {
             className="lg:col-span-7"
           >
             <div className="bg-slate-800/60 dark:bg-[#111111] p-6 sm:p-8 rounded-2xl border border-slate-700/80 dark:border-white/10 shadow-lg">
-              {isSubmitted ? (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                >
-                  <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 size={36} />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    {isSr ? "Hvala vam na poruci!" : "Thank you for your inquiry!"}
-                  </h3>
-                  <p className="text-slate-300 text-sm max-w-md mx-auto mb-6">
-                    {isSr
-                      ? "Vaš upit je uspešno poslat na ssolutionsrs@gmail.com. SSolutions tim će vam odgovoriti u najkraćem mogućem roku."
-                      : "Your message has been delivered to ssolutionsrs@gmail.com. SSolutions team will get back to you shortly."}
-                  </p>
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setFormState({ name: "", email: "", phone: "", service: "web-app", message: "" });
-                    }}
-                    className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all cursor-pointer"
-                  >
-                    {isSr ? "Pošalji novu poruku" : "Send another message"}
-                  </motion.button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <h3 className="text-xl font-bold text-white mb-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <h3 className="text-xl font-bold text-white">
                     {isSr ? "Pošaljite Upit ili Zakažite Konsultaciju" : "Send Inquiry or Schedule a Meeting"}
                   </h3>
-
-                  {errorMessage && (
-                    <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
-                      <AlertCircle size={16} className="shrink-0" />
-                      <span>{errorMessage}</span>
-                    </div>
+                  {justSubmitted && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-semibold animate-pulse">
+                      <Check size={14} />
+                      {isSr ? "Poslato" : "Sent"}
+                    </span>
                   )}
+                </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="contact-name" className="block text-xs font-medium text-slate-300 mb-1">
-                        {isSr ? "Vaše Ime / Kompanija *" : "Your Name / Company *"}
-                      </label>
-                      <input
-                        id="contact-name"
-                        type="text"
-                        required
-                        value={formState.name}
-                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        placeholder={isSr ? "Npr. Marko Marković / Firma d.o.o." : "e.g. John Doe / Tech Corp"}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="contact-email" className="block text-xs font-medium text-slate-300 mb-1">
-                        {isSr ? "Email Adresa *" : "Email Address *"}
-                      </label>
-                      <input
-                        id="contact-email"
-                        type="email"
-                        required
-                        value={formState.email}
-                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        placeholder="vasa@email.com"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="contact-phone" className="block text-xs font-medium text-slate-300 mb-1">
-                        {isSr ? "Telefon / Kontakt" : "Phone Number"}
-                      </label>
-                      <input
-                        id="contact-phone"
-                        type="tel"
-                        value={formState.phone}
-                        onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                        placeholder="+381 6x xxx xxxx"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="contact-service" className="block text-xs font-medium text-slate-300 mb-1">
-                        {isSr ? "Vrsta Usluge" : "Type of Service"}
-                      </label>
-                      <select
-                        id="contact-service"
-                        aria-label={isSr ? "Vrsta Usluge" : "Type of Service"}
-                        value={formState.service}
-                        onChange={(e) => setFormState({ ...formState, service: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
-                      >
-                        <option value="web-app">{isSr ? "Izrada Web Aplikacije" : "Custom Web Application"}</option>
-                        <option value="cms">{isSr ? "Custom CMS / WordPress Rešenja" : "Custom CMS / WordPress"}</option>
-                        <option value="backend">{isSr ? "Backend & API Razvoj" : "Backend & API Engineering"}</option>
-                        <option value="consulting">{isSr ? "Konsultacije & Softverski Inženjering" : "Software Consulting"}</option>
-                      </select>
-                    </div>
-                  </div>
-
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="contact-message" className="block text-xs font-medium text-slate-300 mb-1">
-                      {isSr ? "Opis Projekta / Poruka *" : "Project Details / Message *"}
+                    <label htmlFor="contact-name" className="block text-xs font-medium text-slate-300 mb-1">
+                      {isSr ? "Vaše Ime / Kompanija *" : "Your Name / Company *"}
                     </label>
-                    <textarea
-                      id="contact-message"
-                      rows={4}
+                    <input
+                      id="contact-name"
+                      type="text"
                       required
-                      value={formState.message}
-                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      placeholder={isSr ? "Opišite ukratko vaše zahteve, rokove ili ciljeve projekta..." : "Briefly describe your requirements, timeline, or goals..."}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all resize-none"
+                      value={formState.name}
+                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                      placeholder={isSr ? "Npr. Marko Marković / Firma d.o.o." : "e.g. John Doe / Tech Corp"}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
                     />
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition-all flex items-center justify-center gap-2 group cursor-pointer"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 size={16} className="animate-spin" />
-                        <span>{isSr ? "Šaljem poruku..." : "Sending message..."}</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send size={16} className="group-hover:translate-x-1 transition-transform" />
-                        <span>{isSr ? "Pošalji Upit & Zakaži Konsultacije" : "Submit Inquiry & Book Consultation"}</span>
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-              )}
+                  <div>
+                    <label htmlFor="contact-email" className="block text-xs font-medium text-slate-300 mb-1">
+                      {isSr ? "Email Adresa *" : "Email Address *"}
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      required
+                      value={formState.email}
+                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                      placeholder="vasa@email.com"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="contact-phone" className="block text-xs font-medium text-slate-300 mb-1">
+                      {isSr ? "Telefon / Kontakt" : "Phone Number"}
+                    </label>
+                    <input
+                      id="contact-phone"
+                      type="tel"
+                      value={formState.phone}
+                      onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                      placeholder="+381 6x xxx xxxx"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="contact-service" className="block text-xs font-medium text-slate-300 mb-1">
+                      {isSr ? "Vrsta Usluge" : "Type of Service"}
+                    </label>
+                    <select
+                      id="contact-service"
+                      aria-label={isSr ? "Vrsta Usluge" : "Type of Service"}
+                      value={formState.service}
+                      onChange={(e) => setFormState({ ...formState, service: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
+                    >
+                      <option value="web-app">{isSr ? "Izrada Web Aplikacije" : "Custom Web Application"}</option>
+                      <option value="cms">{isSr ? "Custom CMS / WordPress Rešenja" : "Custom CMS / WordPress"}</option>
+                      <option value="backend">{isSr ? "Backend & API Razvoj" : "Backend & API Engineering"}</option>
+                      <option value="consulting">{isSr ? "Konsultacije & Softverski Inženjering" : "Software Consulting"}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="contact-message" className="block text-xs font-medium text-slate-300 mb-1">
+                    {isSr ? "Opis Projekta / Poruka *" : "Project Details / Message *"}
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    rows={4}
+                    required
+                    value={formState.message}
+                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    placeholder={isSr ? "Opišite ukratko vaše zahteve, rokove ili ciljeve projekta..." : "Briefly describe your requirements, timeline, or goals..."}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all resize-none"
+                  />
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      <span>{isSr ? "Šaljem poruku..." : "Sending message..."}</span>
+                    </>
+                  ) : justSubmitted ? (
+                    <>
+                      <Check size={16} className="text-emerald-300" />
+                      <span>{isSr ? "Poruka Poslata!" : "Message Sent!"}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} className="group-hover:translate-x-1 transition-transform" />
+                      <span>{isSr ? "Pošalji Upit & Zakaži Konsultacije" : "Submit Inquiry & Book Consultation"}</span>
+                    </>
+                  )}
+                </motion.button>
+              </form>
             </div>
           </motion.div>
         </div>

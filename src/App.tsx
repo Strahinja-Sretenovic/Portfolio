@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider } from "./context/LanguageContext";
+import { ToastProvider } from "./context/ToastContext";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { Services } from "./components/Services";
@@ -58,38 +59,40 @@ export default function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {!introCompleted && <IntroLoader onComplete={() => setIntroCompleted(true)} />}
-        <SmoothScroll>
-          <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between">
-            <Header 
-              currentView={view} 
-              onNavigateHome={navigateHome}
-              onOpenProjects={openAllProjects}
-            />
-            
-            <main className="flex-1">
-              {view === "home" ? (
-                <>
-                  <Hero />
-                  <Services />
-                  <ValueComparison />
-                  <Process />
-                  <Experience onViewAllProjects={openAllProjects} />
-                  <ProjectEstimator />
-                  <About />
-                  <Skills />
-                  <Faq />
-                  <Contact />
-                </>
-              ) : (
-                <AllProjects onBack={navigateHome} />
-              )}
-            </main>
+        <ToastProvider>
+          {!introCompleted && <IntroLoader onComplete={() => setIntroCompleted(true)} />}
+          <SmoothScroll>
+            <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between">
+              <Header 
+                currentView={view} 
+                onNavigateHome={navigateHome}
+                onOpenProjects={openAllProjects}
+              />
+              
+              <main className="flex-1">
+                {view === "home" ? (
+                  <>
+                    <Hero />
+                    <Services />
+                    <ValueComparison />
+                    <Process />
+                    <Experience onViewAllProjects={openAllProjects} />
+                    <ProjectEstimator />
+                    <About />
+                    <Skills />
+                    <Faq />
+                    <Contact />
+                  </>
+                ) : (
+                  <AllProjects onBack={navigateHome} />
+                )}
+              </main>
 
-            <Footer />
-            <FloatingContact />
-          </div>
-        </SmoothScroll>
+              <Footer />
+              <FloatingContact />
+            </div>
+          </SmoothScroll>
+        </ToastProvider>
       </LanguageProvider>
     </ThemeProvider>
   );
