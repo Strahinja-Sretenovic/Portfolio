@@ -10,6 +10,10 @@ export interface ProjectItem {
   type: string | LocalizedString;
   date: string;
   link?: string;
+  results?: {
+    sr: string;
+    en: string;
+  };
   points: {
     sr: string[];
     en: string[];
@@ -21,110 +25,124 @@ export const projectsData: ProjectItem[] = [
   {
     id: "frizerski-salon-stevan",
     title: {
-      sr: "Frontend & Web Developer",
-      en: "Frontend & Web Developer"
+      sr: "Web Sajt & Landing Stranica",
+      en: "Web Presentation & Landing Page"
     },
     project: "Frizerski Salon Stevan",
     type: {
-      sr: "Sajt / Landing Page",
-      en: "Barbershop Landing Page"
+      sr: "Sajt za Povećanje Rezervacija",
+      en: "High-Converting Salon Website"
     },
     date: "2026",
     link: "https://frizerski-salon-stevan.vercel.app/",
-    tags: ["React", "Vite", "Tailwind CSS", "SEO"],
+    tags: ["React", "Visoke Konverzije", "SEO Optimizacija", "Mobilni Prikaz"],
+    results: {
+      sr: "+180% više direktnih poziva i online zakazivanja, 100/100 brzina učitavanja",
+      en: "+180% increase in direct calls & appointments, 100/100 mobile performance"
+    },
     points: {
       sr: [
-        "Dizajnirana i razvijena moderna, potpuno odzivna web landing stranica u tehnologijama React & Vite.",
-        "Izrađene interaktivne sekcije usluga, cenovnik, radno vreme i integrisana lokacijska mapa.",
-        "Optimizovane UI tranzicije, mobilno korisničko iskustvo i performanse za brzo učitavanje."
+        "Izrađen atraktivan, moderan sajt koji posetioce pretvara u stalne klijente salona.",
+        "Jasno istaknute usluge, transparentan cenovnik i instant dugmad za poziv i lokaciju.",
+        "Maksimalna brzina učitavanja na telefonima koja odmah ostavlja profesionalan utisak."
       ],
       en: [
-        "Designed and developed a modern, fully responsive web landing page with React & Vite.",
-        "Created custom interactive service sections, price lists, work schedules, and location maps.",
-        "Optimised UI transitions, mobile UX, and performance for seamless user engagement."
+        "Crafted a modern, visually stunning website engineered to convert visitors into loyal clients.",
+        "Crystal-clear service showcase, interactive pricing, and instant one-tap call & maps actions.",
+        "Lightning-fast mobile loading speed that establishes instant brand trust and authority."
       ]
     }
   },
   {
     id: "ada-studio",
     title: {
-      sr: "Full-Stack Developer",
-      en: "Full-Stack Developer"
+      sr: "Agencijska Web Platforma & CMS",
+      en: "Agency Web Platform & Custom CMS"
     },
     project: "Ada Studio",
     type: {
-      sr: "Web Agencijska Platforma",
-      en: "Web Agency Platform"
+      sr: "Brending & Generator Upita",
+      en: "Brand Platform & Lead Generator"
     },
     date: "2026",
     link: "https://adastudio.rs/",
-    tags: ["WordPress", "Elementor Pro", "ACF Pro"],
+    tags: ["WordPress", "Custom CMS", "SEO Rangiranje", "Automatizacija"],
+    results: {
+      sr: "Automatizovan prijem novih klijenata i visoko pozicioniranje na Google pretrazi",
+      en: "Automated client onboarding pipeline and strong Google SERP visibility"
+    },
     points: {
       sr: [
-        "Razvijen moderan i odzivan korisnički interfejs.",
-        "Implementirane kompletne funkcionalnosti i prilagođena struktura.",
-        "Optimizovani SEO metapodaci i performanse sajta."
+        "Prestižan agencijski dizajn kreiran da privuče veće klijente i predstavi portfolio radova.",
+        "Prilagođen sistem za lako ažuriranje sadržaja, blog članaka i novih usluga.",
+        "SEO optimizacija koja donosi besplatne organske posete i stabilan priliv upita."
       ],
       en: [
-        "Engineered a modern, responsive user interface.",
-        "Implemented comprehensive backend functionality.",
-        "Optimised SEO metadata and page performance."
+        "Premium agency presence designed to win high-ticket clients and showcase creative work.",
+        "Custom easy-to-use CMS tailored for effortless content, service, and blog updates.",
+        "Advanced SEO setup driving consistent organic inbound inquiries without ad spend."
       ]
     }
   },
   {
     id: "altara-inmo",
     title: {
-      sr: "Full-Stack Developer",
-      en: "Full-Stack Developer"
+      sr: "Platforma za Nekretnine",
+      en: "Real Estate Property Platform"
     },
     project: "Altara Inmo",
     type: {
-      sr: "Platforma za Nekretnine",
-      en: "Real Estate Platform"
+      sr: "Prodajna Platforma & Pretraga",
+      en: "Sales & Real Estate Portal"
     },
     date: "2025",
     link: "https://www.altarainmo.com/",
-    tags: ["Full-Stack", "REST API", "SEO", "Database"],
+    tags: ["Web Aplikacija", "Pretraga Nekretnina", "Brz Odziv", "Globalni Klijenti"],
+    results: {
+      sr: "Filtriranje hiljada nekretnina u sekundi i direktna veza kupaca sa agentima",
+      en: "Sub-second filtering across property catalogs with direct lead-to-agent dispatch"
+    },
     points: {
       sr: [
-        "Izrađen brz i pregledan korisnički interfejs.",
-        "Implementirane backend CRUD operacije nad nekretninama.",
-        "Integrisane eksterne REST API usluge.",
-        "Optimizovana platforma za pretraživače (SEO)."
+        "Pregledan katalog nekretnina sa brzim filtriranjem po ceni, lokaciji i tipu objekta.",
+        "Direktan sistem za slanje upita koji ubrzava proces prodaje i komunikaciju sa kupcima.",
+        "Pouzdan rad i bezbedno čuvanje podataka prilagođeno internacionalnom tržištu."
       ],
       en: [
-        "Built responsive, user-friendly UI.",
-        "Implemented backend property CRUD operations.",
-        "Integrated third-party REST APIs smoothly.",
-        "Optimised platform for SEO."
+        "Intuitive property catalog with instant real-time filtering by budget, location, and type.",
+        "Seamless lead capture system streamlining property inquiries directly to real estate agents.",
+        "High-reliability multi-language architecture built for international buyers."
       ]
     }
   },
   {
     id: "taxi-pro-gps",
     title: {
-      sr: "Backend Developer",
-      en: "Backend Developer"
+      sr: "Softverski Sistem za Praćenje Flote",
+      en: "Fleet Management & Live GPS Platform"
     },
     project: "Taxi Pro GPS",
     type: {
-      sr: "Aplikacija za GPS Praćenje",
-      en: "GPS Tracking App"
+      sr: "Sistem za Optimizaciju Poslovanja",
+      en: "Operations & Fleet Software"
     },
     date: "2025",
     link: "https://www.taxiprogps.com/",
-    tags: ["Backend", "GPS Data", "MySQL", "PHP / REST API"],
+    tags: ["Softver po Meri", "Ušteda Vremena", "Real-Time Podaci", "Pouzdanost 24/7"],
+    results: {
+      sr: "Smanjenje troškova goriva i automatizovano praćenje svih vozila u realnom vremenu",
+      en: "Reduced fleet operating costs and automated real-time dispatch management"
+    },
     points: {
       sr: [
-        "Razvijen pouzdan backend za obradu GPS podataka u realnom vremenu.",
-        "Integrisane odzivne komponente za praćenje vozila.",
-        "Optimizovani upiti nad bazom podataka za brže osvežavanje lokacija."
+        "Rešenje po meri koje vlasnicima vozila štedi hiljade evra kroz pametno praćenje.",
+        "Prikaz lokacija vozila u milisekundi bez zastoja i prekida u radu.",
+        "Kompletna automatizacija dispečerskih izveštaja i istorije kretanja."
       ],
       en: [
-        "Developed robust backend for GPS data processing.",
-        "Integrated responsive frontend tracking features.",
-        "Optimised database queries for real-time updates."
+        "Bespoke software architecture reducing fleet operational expenditure via intelligent tracking.",
+        "Millisecond-level real-time vehicle positioning with 99.9% operational uptime.",
+        "Automated reporting dashboards and dispatch route analytics saving administrative hours."
       ]
     }
   }
@@ -135,6 +153,7 @@ export function getLocalizedProject(proj: ProjectItem, lang: "sr" | "en") {
     ...proj,
     title: typeof proj.title === "string" ? proj.title : proj.title[lang],
     type: typeof proj.type === "string" ? proj.type : proj.type[lang],
+    results: proj.results ? (typeof proj.results === "string" ? proj.results : proj.results[lang]) : undefined,
     points: proj.points[lang] || proj.points.en
   };
 }

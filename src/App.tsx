@@ -3,6 +3,10 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
+import { Services } from "./components/Services";
+import { ValueComparison } from "./components/ValueComparison";
+import { Process } from "./components/Process";
+import { ProjectEstimator } from "./components/ProjectEstimator";
 import { About } from "./components/About";
 import { Skills } from "./components/Skills";
 import { Experience } from "./components/Experience";
@@ -55,9 +59,13 @@ export default function App() {
               {view === "home" ? (
                 <>
                   <Hero />
+                  <Services />
+                  <ValueComparison />
+                  <Process />
+                  <Experience onViewAllProjects={openAllProjects} />
+                  <ProjectEstimator />
                   <About />
                   <Skills />
-                  <Experience onViewAllProjects={openAllProjects} />
                   <Contact />
                 </>
               ) : (

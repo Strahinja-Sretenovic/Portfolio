@@ -33,7 +33,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
       return;
     }
 
-    const sections = ["about", "skills", "experience", "projects", "contact"];
+    const sections = ["services", "process", "projects", "estimator", "about", "skills", "contact"];
     const handleScrollObserver = () => {
       const scrollPosition = window.scrollY + 200;
 
@@ -58,10 +58,11 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
   const isSr = language === "sr";
 
   const navLinks = [
-    { id: "about", name: isSr ? "O nama" : "About Us", href: "#about" },
-    { id: "skills", name: isSr ? "Veštine" : "Skills", href: "#skills" },
-    { id: "experience", name: isSr ? "Iskustvo" : "Experience", href: "#experience" },
+    { id: "services", name: isSr ? "Usluge" : "Services", href: "#services" },
+    { id: "process", name: isSr ? "Proces" : "Process", href: "#process" },
     { id: "projects", name: isSr ? "Projekti" : "Projects", href: "#projects", isProjects: true },
+    { id: "estimator", name: isSr ? "Procena" : "Estimator", href: "#estimator" },
+    { id: "about", name: isSr ? "O nama" : "About Us", href: "#about" },
     { id: "contact", name: isSr ? "Kontakt" : "Contact", href: "#contact" },
   ];
 

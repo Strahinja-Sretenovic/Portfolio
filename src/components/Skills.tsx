@@ -89,8 +89,8 @@ export function Skills() {
     <section id="skills" className="py-12 sm:py-16 px-3 sm:px-6 bg-slate-100/50 dark:bg-white/[0.02] border-y border-slate-200/50 dark:border-white/5">
       <div className="max-w-3xl mx-auto">
         <SectionHeader 
-          title={isSr ? "Tehničke Veštine" : "Technical Skills"} 
-          subtitle={isSr ? "Tehnologije i alati koje svakodnevno koristim u radu." : "My primary stack and tools."}
+          title={isSr ? "Naš Tehnički Stack (Za one koje zanima)" : "Enterprise Tech Stack"} 
+          subtitle={isSr ? "Pouzdane svetske tehnologije koje obezbeđuju 99.9% stabilnost i maksimalnu brzinu svakog projekta." : "World-class technologies powering sub-second performance and 99.9% uptime."}
         />
 
         {/* Toggle Open/Close Button */}
