@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { ExternalLink, ArrowLeft, Search, FolderGit2, ChevronLeft, ChevronRight } from "lucide-react";
 import { projectsData, getLocalizedProject } from "../data/projectsData";
 import { useLanguage } from "../context/LanguageContext";
+import { trackProjectClick, trackEvent } from "../utils/analytics";
 
 interface AllProjectsProps {
   onBack: () => void;
 }
+
 
 const ITEMS_PER_PAGE = 9;
 
@@ -149,6 +151,12 @@ export function AllProjects({ onBack }: AllProjectsProps) {
                             href={proj.link}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={() => trackProjectClick({
+                              projectName: proj.project,
+                              projectType: proj.type,
+                              projectUrl: proj.link,
+                              action: "open_external_demo"
+                            })}
                             className="inline-flex items-center gap-1.5 hover:underline"
                           >
                             {proj.project}

@@ -14,9 +14,11 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { trackConsultationCtaClick } from "../utils/analytics";
 
 export function ValueComparison() {
   const { language } = useLanguage();
+
   const isSr = language === "sr";
   const [activeTab, setActiveTab] = useState<"comparison" | "stats">("comparison");
 
@@ -164,6 +166,12 @@ export function ValueComparison() {
               </span>
               <a
                 href="#contact"
+                onClick={() => trackConsultationCtaClick({
+                  location: "Value_Comparison",
+                  ctaText: isSr ? "Želim ovakav sajt" : "Upgrade My Website",
+                  target: "#contact",
+                  serviceContext: "Value Comparison High-Conversion Pitch"
+                })}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-600/20 transition-all hover:scale-105 active:scale-95"
               >
                 <span>{isSr ? "Želim ovakav sajt" : "Upgrade My Website"}</span>

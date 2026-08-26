@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react";
 import { motion } from "motion/react";
 import { Mail, MapPin, Send, MessageSquare, CheckCircle2, Sparkles, Loader2, AlertCircle, FileText, Download } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { trackLeadFormSubmission, trackDirectContact } from "../utils/analytics";
 
 export function Contact() {
   const { language } = useLanguage();
@@ -44,6 +45,15 @@ export function Contact() {
         })
       });
 
+      // Track conversion in Google Analytics 4
+      trackLeadFormSubmission({
+        name: formState.name,
+        email: formState.email,
+        phone: formState.phone,
+        service: formState.service,
+        messageLength: formState.message.length,
+      });
+
       if (response.ok) {
         setIsSubmitted(true);
       } else {
@@ -52,6 +62,14 @@ export function Contact() {
       }
     } catch (err) {
       console.error("Form submission error:", err);
+      // Track conversion even if external formsubmit gateway had network issue
+      trackLeadFormSubmission({
+        name: formState.name,
+        email: formState.email,
+        phone: formState.phone,
+        service: formState.service,
+        messageLength: formState.message.length,
+      });
       setErrorMessage(
         isSr 
           ? "Došlo je do greške pri slanju. Možete nas kontaktirati direktno na ssolutionsrs@gmail.com."
@@ -61,6 +79,7 @@ export function Contact() {
       setIsSubmitting(false);
     }
   };
+
 
   return (
     <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-900 dark:bg-[#050505] text-white relative overflow-hidden">
@@ -112,6 +131,7 @@ export function Contact() {
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=ssolutionsrs@gmail.com" 
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackDirectContact({ channel: "gmail", target: "ssolutionsrs@gmail.com", location: "Contact Section" })}
                   whileHover={{ y: -3, scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/60 dark:bg-white/5 border border-slate-700/50 hover:border-blue-500/50 transition-colors group cursor-pointer"
@@ -163,6 +183,7 @@ export function Contact() {
               <motion.a
                 href="/folders/resume.pdf"
                 download="resume.pdf"
+                onClick={() => trackDirectContact({ channel: "resume_download", target: "resume.pdf", location: "Contact Section" })}
                 whileHover={{ scale: 1.08, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="p-3.5 rounded-xl bg-slate-800 dark:bg-[#111111] border border-slate-700/80 dark:border-white/10 text-blue-400 hover:text-white hover:bg-blue-600 dark:hover:bg-blue-600 hover:border-blue-500 transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer group"

@@ -16,9 +16,11 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { trackServiceInteraction, trackConsultationCtaClick } from "../utils/analytics";
 
 export function Services() {
   const { language } = useLanguage();
+
   const isSr = language === "sr";
 
   const [activeService, setActiveService] = useState<number>(0);
@@ -265,6 +267,12 @@ export function Services() {
                 </span>
                 <a
                   href="#contact"
+                  onClick={() => trackServiceInteraction({
+                    action: "request_quote_click",
+                    serviceId: service.id,
+                    serviceTitle: service.title,
+                    serviceIndex: idx
+                  })}
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-400 dark:hover:text-white font-semibold text-xs transition-all cursor-pointer group/btn shadow-xs"
                 >
                   <span>{isSr ? "Zatražite ponudu" : "Get a Quote"}</span>
@@ -295,6 +303,12 @@ export function Services() {
           </div>
           <a
             href="#contact"
+            onClick={() => trackConsultationCtaClick({
+              location: "Services_Banner",
+              ctaText: isSr ? "Zakaži Besplatnu Procenu" : "Claim Free Consultation",
+              target: "#contact",
+              serviceContext: "Services Section Bottom Banner"
+            })}
             className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-900 hover:bg-blue-50 font-bold text-sm shadow-md transition-all hover:scale-105 active:scale-95"
           >
             {isSr ? "Zakaži Besplatnu Procenu" : "Claim Free Consultation"}

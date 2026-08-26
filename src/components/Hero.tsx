@@ -20,9 +20,11 @@ import {
   Radio
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { trackConsultationCtaClick, trackEvent } from "../utils/analytics";
 
 export function Hero() {
   const { language } = useLanguage();
+
   const isSr = language === "sr";
 
   const [activeTab, setActiveTab] = useState<"speed" | "leads" | "mobile">("leads");
@@ -153,6 +155,12 @@ export function Hero() {
           >
             <motion.a
               href="#contact"
+              onClick={() => trackConsultationCtaClick({
+                location: "Hero",
+                ctaText: isSr ? "Zakažite Besplatne Konsultacije" : "Book Free Consultation",
+                target: "#contact",
+                serviceContext: "Hero Section Primary CTA"
+              })}
               whileHover={{ y: -3, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-blue-500/25 cursor-pointer group"
@@ -163,6 +171,11 @@ export function Hero() {
 
             <motion.a
               href="#projects"
+              onClick={() => trackEvent("select_content", {
+                content_type: "Navigation_CTA",
+                item_name: "Hero_View_Projects",
+                destination: "#projects"
+              })}
               whileHover={{ y: -2, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white dark:bg-white/10 hover:bg-slate-100 dark:hover:bg-white/15 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
@@ -170,6 +183,7 @@ export function Hero() {
               <span>{isSr ? "Pogledajte Naše Radove" : "View Client Results"}</span>
             </motion.a>
           </motion.div>
+
 
           {/* Value Micro-Trust Checklist */}
           <motion.div

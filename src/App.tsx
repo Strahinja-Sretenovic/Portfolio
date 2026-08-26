@@ -17,10 +17,20 @@ import { Footer } from "./components/Footer";
 import { FloatingContact } from "./components/FloatingContact";
 import { SmoothScroll } from "./components/SmoothScroll";
 import { IntroLoader } from "./components/IntroLoader";
+import { trackPageView } from "./utils/analytics";
 
 export default function App() {
   const [view, setView] = useState<"home" | "all-projects">("home");
   const [introCompleted, setIntroCompleted] = useState(false);
+
+  // Track initial page view & view switches
+  useEffect(() => {
+    if (view === "all-projects") {
+      trackPageView("/projects-all", "Svi Projekti & Portfolio | SSolutions");
+    } else {
+      trackPageView("/", "SSolutions – Izrada Sajtova, Web Aplikacija & SEO Optimizacija");
+    }
+  }, [view]);
 
   // Sync hash changes if user uses browser history or direct hash
   useEffect(() => {
@@ -33,6 +43,7 @@ export default function App() {
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
+
 
   const openAllProjects = () => {
     setView("all-projects");

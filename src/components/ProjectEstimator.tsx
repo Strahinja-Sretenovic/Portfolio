@@ -30,9 +30,11 @@ import {
   RefreshCcw
 } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { trackEstimatorInteraction } from "../utils/analytics";
 
 export function ProjectEstimator() {
   const { language } = useLanguage();
+
   const isSr = language === "sr";
 
   const [projectType, setProjectType] = useState<string>("website");
@@ -237,11 +239,20 @@ export function ProjectEstimator() {
   ];
 
   const toggleFeature = (id: string) => {
+    const isAdding = !selectedFeatures.includes(id);
+    const featureItem = featuresList.find((f) => f.id === id);
     if (selectedFeatures.includes(id)) {
       setSelectedFeatures(selectedFeatures.filter((f) => f !== id));
     } else {
       setSelectedFeatures([...selectedFeatures, id]);
     }
+    trackEstimatorInteraction({
+      action: "toggle_feature",
+      featureId: id,
+      featureLabel: featureItem?.label,
+      projectType,
+      selectedCount: isAdding ? selectedFeatures.length + 1 : selectedFeatures.length - 1,
+    });
   };
 
   const selectAllCategory = () => {
@@ -264,12 +275,20 @@ export function ProjectEstimator() {
   const handleRequestClick = () => {
     const featureLabels = selectedFeatures
       .map((fId) => featuresList.find((f) => f.id === fId)?.label)
-      .filter(Boolean)
-      .join(", ");
+      .filter(Boolean) as string[];
     
+    // Track high intent conversion in GA4
+    trackEstimatorInteraction({
+      action: "request_blueprint_quote",
+      projectType: selectedTypeObj.id,
+      projectTitle: selectedTypeObj.title,
+      selectedCount: selectedFeatures.length,
+      featuresList: featureLabels,
+    });
+
     const message = isSr 
-      ? `Zdravo SSolutions, želeo bih besplatnu procenu i ponudu za rešenje: ${selectedTypeObj.title}. Odabrane željene stavke i funkcije (${selectedFeatures.length}): ${featureLabels}.`
-      : `Hello SSolutions, I would like a free assessment and proposal for: ${selectedTypeObj.title}. Selected features (${selectedFeatures.length}): ${featureLabels}.`;
+      ? `Zdravo SSolutions, želeo bih besplatnu procenu i ponudu za rešenje: ${selectedTypeObj.title}. Odabrane željene stavke i funkcije (${selectedFeatures.length}): ${featureLabels.join(", ")}.`
+      : `Hello SSolutions, I would like a free assessment and proposal for: ${selectedTypeObj.title}. Selected features (${selectedFeatures.length}): ${featureLabels.join(", ")}.`;
 
     const messageInput = document.getElementById("contact-message") as HTMLTextAreaElement | null;
     if (messageInput) {
@@ -326,7 +345,15 @@ export function ProjectEstimator() {
                 return (
                   <button
                     key={type.id}
-                    onClick={() => setProjectType(type.id)}
+                    onClick={() => {
+                      setProjectType(type.id);
+                      trackEstimatorInteraction({
+                        action: "select_type",
+                        projectType: type.id,
+                        projectTitle: type.title,
+                        selectedCount: selectedFeatures.length
+                      });
+                    }}
                     className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between relative group ${
                       isSelected
                         ? "bg-blue-50/90 dark:bg-blue-600/10 border-blue-600 dark:border-blue-500 shadow-md ring-2 ring-blue-500/25 scale-[1.02]"

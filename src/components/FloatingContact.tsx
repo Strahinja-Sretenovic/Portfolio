@@ -2,11 +2,20 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Mail, X, Calendar, MessageSquare } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { trackConsultationCtaClick, trackDirectContact, trackEvent } from "../utils/analytics";
 
 export function FloatingContact() {
   const { language } = useLanguage();
   const isSr = language === "sr";
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    const nextState = !isOpen;
+    setIsOpen(nextState);
+    if (nextState) {
+      trackEvent("floating_contact_open", { location: "Floating Action Button" });
+    }
+  };
 
   return (
     <div className="fixed bottom-5 right-5 z-40">
@@ -24,9 +33,13 @@ export function FloatingContact() {
               href="https://mail.google.com/mail/?view=cm&fs=1&to=ssolutionsrs@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackDirectContact({ channel: "gmail", target: "ssolutionsrs@gmail.com", location: "Floating Quick Menu" });
+                setIsOpen(false);
+              }}
               whileHover={{ scale: 1.05, x: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-colors"
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-colors cursor-pointer"
             >
               <span>{isSr ? "Pošaljite Gmail" : "Open Gmail"}</span>
               <Mail size={16} />
@@ -34,10 +47,18 @@ export function FloatingContact() {
 
             <motion.a
               href="#contact"
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                trackConsultationCtaClick({
+                  location: "Floating_Menu",
+                  ctaText: isSr ? "Zakaži Konsultaciju" : "Book Meeting",
+                  target: "#contact",
+                  serviceContext: "Floating Quick Menu Consultation CTA"
+                });
+                setIsOpen(false);
+              }}
               whileHover={{ scale: 1.05, x: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs sm:text-sm shadow-lg hover:bg-slate-800 transition-colors border border-white/10"
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs sm:text-sm shadow-lg hover:bg-slate-800 transition-colors border border-white/10 cursor-pointer"
             >
               <span>{isSr ? "Zakaži Konsultaciju" : "Book Meeting"}</span>
               <Calendar size={16} />
@@ -48,7 +69,7 @@ export function FloatingContact() {
 
       {/* Primary Floating Action Toggle */}
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
         className="w-13 h-13 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-600/30 hover:bg-blue-500 transition-colors cursor-pointer border-2 border-white/20"
@@ -64,4 +85,5 @@ export function FloatingContact() {
     </div>
   );
 }
+
 

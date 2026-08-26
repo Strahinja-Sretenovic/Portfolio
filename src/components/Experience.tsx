@@ -4,10 +4,12 @@ import { SectionHeader } from "./SectionHeader";
 import { FolderGit2, ExternalLink, ArrowRight, ChevronLeft, ChevronRight, TrendingUp, Sparkles } from "lucide-react";
 import { projectsData, getLocalizedProject } from "../data/projectsData";
 import { useLanguage } from "../context/LanguageContext";
+import { trackProjectClick } from "../utils/analytics";
 
 interface ExperienceProps {
   onViewAllProjects?: () => void;
 }
+
 
 export function Experience({ onViewAllProjects }: ExperienceProps) {
   const { language } = useLanguage();
@@ -147,6 +149,12 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
                       href={currentProj.link} 
                       target="_blank" 
                       rel="noopener noreferrer" 
+                      onClick={() => trackProjectClick({
+                        projectName: currentProj.project,
+                        projectType: currentProj.type,
+                        projectUrl: currentProj.link,
+                        action: "open_external_demo"
+                      })}
                       className="inline-flex items-center gap-2.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/link"
                     >
                       <span>{currentProj.project}</span>
@@ -202,6 +210,12 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
                       href={currentProj.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackProjectClick({
+                        projectName: currentProj.project,
+                        projectType: currentProj.type,
+                        projectUrl: currentProj.link,
+                        action: "open_external_demo"
+                      })}
                       className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline"
                     >
                       <span>{isSr ? "Pogledajte sajt uživo" : "Visit Live Site"}</span>
@@ -243,7 +257,14 @@ export function Experience({ onViewAllProjects }: ExperienceProps) {
               <motion.button
                 whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={onViewAllProjects}
+                onClick={() => {
+                  trackProjectClick({
+                    projectName: "All Projects Gallery",
+                    projectType: "Portfolio View",
+                    action: "view_all_portfolio"
+                  });
+                  onViewAllProjects();
+                }}
                 className="group inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-400 dark:hover:text-white font-bold text-xs sm:text-sm transition-all shadow-md active:scale-98 cursor-pointer"
               >
                 <Sparkles size={16} />
