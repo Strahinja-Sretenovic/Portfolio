@@ -32,6 +32,7 @@ import {
 import { useLanguage } from "../context/LanguageContext";
 import { useToast } from "../context/ToastContext";
 import { trackEstimatorInteraction } from "../utils/analytics";
+import { scrollToTarget } from "./SmoothScroll";
 
 export function ProjectEstimator() {
   const { language } = useLanguage();
@@ -338,26 +339,16 @@ export function ProjectEstimator() {
       })
     );
 
-    // Smooth scroll directly to contact form section
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      const headerOffset = 80;
-      const elementPosition = contactSection.getBoundingClientRect().top;
-      const targetY = elementPosition + window.pageYOffset - headerOffset;
+    // Scroll directly to contact form section (Lenis smooth scroll + native fallback)
+    scrollToTarget("#contact", 80);
 
-      window.scrollTo({
-        top: targetY,
-        behavior: "smooth",
-      });
-
-      // Focus the name input on the form after scrolling
-      setTimeout(() => {
-        const nameField = document.getElementById("contact-name");
-        if (nameField) {
-          nameField.focus({ preventScroll: true });
-        }
-      }, 600);
-    }
+    // Focus the name input on the form after scrolling
+    setTimeout(() => {
+      const nameField = document.getElementById("contact-name");
+      if (nameField) {
+        nameField.focus({ preventScroll: true });
+      }
+    }, 400);
 
     // Trigger toast notification for instantaneous feedback
     success(
