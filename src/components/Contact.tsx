@@ -1,9 +1,10 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { motion } from "motion/react";
-import { Mail, MapPin, Send, Sparkles, Loader2, FileText, Download, Check, MessageSquare, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Send, Sparkles, Loader2, FileText, Download, Check, MessageSquare, CheckCircle2, SlidersHorizontal, X } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { useToast } from "../context/ToastContext";
 import { trackLeadFormSubmission, trackDirectContact } from "../utils/analytics";
+import { ProjectEstimatorBlueprint } from "../types";
 
 export function Contact() {
   const { language } = useLanguage();
@@ -18,8 +19,29 @@ export function Contact() {
     message: "",
   });
 
+  const [estimatorBlueprint, setEstimatorBlueprint] = useState<ProjectEstimatorBlueprint | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [justSubmitted, setJustSubmitted] = useState(false);
+
+  useEffect(() => {
+    const handleApplyBlueprint = (e: Event) => {
+      const customEvent = e as CustomEvent<ProjectEstimatorBlueprint>;
+      if (customEvent.detail) {
+        const data = customEvent.detail;
+        setEstimatorBlueprint(data);
+        setFormState((prev) => ({
+          ...prev,
+          service: data.serviceCategory || prev.service,
+          message: data.formattedMessage || prev.message,
+        }));
+      }
+    };
+
+    window.addEventListener("ssolutions:apply_blueprint", handleApplyBlueprint);
+    return () => {
+      window.removeEventListener("ssolutions:apply_blueprint", handleApplyBlueprint);
+    };
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -45,8 +67,14 @@ export function Contact() {
           Email: formState.email,
           Telefon: formState.phone || "Nije navedeno",
           Usluga: formState.service,
+          Izabrani_Model_Konfiguratora: estimatorBlueprint ? estimatorBlueprint.projectTitle : "Direktan upit bez konfiguratora",
+          Procenjeni_Rok_Izrade: estimatorBlueprint ? estimatorBlueprint.estimatedTime : "N/A",
+          Broj_Izabranih_Funkcija: estimatorBlueprint ? String(estimatorBlueprint.selectedFeatures.length) : "N/A",
+          Izabrane_Funkcije_Lista: estimatorBlueprint && estimatorBlueprint.featureLabels.length > 0
+            ? estimatorBlueprint.featureLabels.join(", ")
+            : "N/A",
           Poruka: formState.message,
-          _subject: `[SSolutions] Novi Upit od ${formState.name || formState.email}`,
+          _subject: `[SSolutions] Novi Upit ${estimatorBlueprint ? `(${estimatorBlueprint.projectTitle})` : ""} od ${formState.name || formState.email}`,
           _template: "table"
         })
       });
@@ -70,6 +98,7 @@ export function Contact() {
         );
         setJustSubmitted(true);
         setFormState({ name: "", email: "", phone: "", service: "web-app", message: "" });
+        setEstimatorBlueprint(null);
         setTimeout(() => setJustSubmitted(false), 4000);
       } else {
         // Fallback if formsubmit returns 200 with error structure
@@ -82,6 +111,7 @@ export function Contact() {
         );
         setJustSubmitted(true);
         setFormState({ name: "", email: "", phone: "", service: "web-app", message: "" });
+        setEstimatorBlueprint(null);
         setTimeout(() => setJustSubmitted(false), 4000);
       }
     } catch (err) {
@@ -258,6 +288,47 @@ export function Contact() {
                   )}
                 </div>
 
+                {/* Active Blueprint Summary from Estimator */}
+                {estimatorBlueprint && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    className="p-3.5 sm:p-4 rounded-xl bg-blue-500/10 dark:bg-blue-900/20 border border-blue-500/30 text-blue-200 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-inner"
+                  >
+                    <div className="flex items-start gap-2.5 min-w-0">
+                      <SlidersHorizontal size={16} className="text-blue-400 shrink-0 mt-0.5" />
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-bold text-white text-xs sm:text-sm">
+                            {estimatorBlueprint.projectTitle}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-semibold">
+                            {estimatorBlueprint.selectedFeatures.length} {isSr ? "funkcija" : "features"}
+                          </span>
+                          <span className="text-[11px] text-slate-300">
+                            {isSr ? "Rok:" : "Time:"} {estimatorBlueprint.estimatedTime}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-1">
+                          {isSr ? "Konfiguracija iz interaktivnog konfiguratora je automatski dodata u poruku ispod." : "Blueprint configuration from estimator is attached below."}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEstimatorBlueprint(null);
+                        setFormState((prev) => ({ ...prev, message: "" }));
+                      }}
+                      className="inline-flex items-center gap-1 text-[11px] text-slate-400 hover:text-white px-2 py-1 rounded-md hover:bg-white/10 transition-colors shrink-0 cursor-pointer self-end sm:self-center"
+                    >
+                      <X size={13} />
+                      <span>{isSr ? "Poništi konfiguraciju" : "Clear setup"}</span>
+                    </button>
+                  </motion.div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="contact-name" className="block text-xs font-medium text-slate-300 mb-1">
@@ -316,26 +387,35 @@ export function Contact() {
                       onChange={(e) => setFormState({ ...formState, service: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all"
                     >
-                      <option value="web-app">{isSr ? "Izrada Web Aplikacije" : "Custom Web Application"}</option>
-                      <option value="cms">{isSr ? "Custom CMS / WordPress Rešenja" : "Custom CMS / WordPress"}</option>
-                      <option value="backend">{isSr ? "Backend & API Razvoj" : "Backend & API Engineering"}</option>
-                      <option value="consulting">{isSr ? "Konsultacije & Softverski Inženjering" : "Software Consulting"}</option>
+                      <option value="web-app">{isSr ? "Izrada Web Aplikacije & Softvera" : "Custom Web Application & Software"}</option>
+                      <option value="ecommerce">{isSr ? "Online Prodavnica (Web Shop)" : "E-Commerce Web Shop"}</option>
+                      <option value="booking">{isSr ? "Sistem za Zakazivanje & Portali" : "Booking Portal & Directory"}</option>
+                      <option value="cms">{isSr ? "Prezentacioni Sajt / Custom CMS" : "Business Website / Custom CMS"}</option>
+                      <option value="backend">{isSr ? "Backend, Baze & API Razvoj" : "Backend, DB & API Engineering"}</option>
+                      <option value="consulting">{isSr ? "Konsultacije, Redizajn & Ubrzanje" : "Consulting, Redesign & Speedup"}</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="contact-message" className="block text-xs font-medium text-slate-300 mb-1">
-                    {isSr ? "Opis Projekta / Poruka *" : "Project Details / Message *"}
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label htmlFor="contact-message" className="block text-xs font-medium text-slate-300">
+                      {isSr ? "Opis Projekta / Poruka *" : "Project Details / Message *"}
+                    </label>
+                    {formState.message && (
+                      <span className="text-[11px] text-slate-400">
+                        {formState.message.length} {isSr ? "karaktera" : "characters"}
+                      </span>
+                    )}
+                  </div>
                   <textarea
                     id="contact-message"
-                    rows={4}
+                    rows={5}
                     required
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     placeholder={isSr ? "Opišite ukratko vaše zahteve, rokove ili ciljeve projekta..." : "Briefly describe your requirements, timeline, or goals..."}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-sm focus:outline-hidden transition-all resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/80 dark:bg-[#0a0a0a] border border-slate-700/80 focus:border-blue-500 text-white text-xs sm:text-sm focus:outline-hidden transition-all resize-y min-h-[110px] leading-relaxed font-sans"
                   />
                 </div>
 

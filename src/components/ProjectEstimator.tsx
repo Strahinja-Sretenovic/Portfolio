@@ -306,30 +306,69 @@ export function ProjectEstimator() {
       featuresList: featureLabels,
     });
 
+    let serviceCategory = "web-app";
+    if (selectedTypeObj.id === "website") serviceCategory = "cms";
+    else if (selectedTypeObj.id === "ecommerce") serviceCategory = "ecommerce";
+    else if (selectedTypeObj.id === "booking") serviceCategory = "booking";
+    else if (selectedTypeObj.id === "app" || selectedTypeObj.id === "saas") serviceCategory = "web-app";
+    else if (selectedTypeObj.id === "redesign") serviceCategory = "consulting";
+
+    const featureListText = featureLabels.length > 0
+      ? featureLabels.map((label, idx) => `  ${idx + 1}. ${label}`).join("\n")
+      : (isSr ? "  (Osnovni paket rešenja)" : "  (Core solution package)");
+
     const message = isSr 
-      ? `Zdravo SSolutions, želeo bih besplatnu procenu i ponudu za rešenje: ${selectedTypeObj.title}. Odabrane željene stavke i funkcije (${selectedFeatures.length}): ${featureLabels.join(", ")}.`
-      : `Hello SSolutions, I would like a free assessment and proposal for: ${selectedTypeObj.title}. Selected features (${selectedFeatures.length}): ${featureLabels.join(", ")}.`;
+      ? `Zdravo SSolutions tim,\n\nŽeleo/la bih besplatnu procenu i ponudu za sledeću konfiguraciju projekta:\n\n• Model rešenja: ${selectedTypeObj.title}\n• Procenjen rok izrade: ${selectedTypeObj.time}\n• Izabrane funkcije i stavke (${selectedFeatures.length}):\n${featureListText}\n\nMolim vas za termin za besplatne konsultacije i pripremu zvanične ponude.`
+      : `Hello SSolutions team,\n\nI would like to request a free quote and consultation for the following project setup:\n\n• Solution model: ${selectedTypeObj.title}\n• Estimated timeline: ${selectedTypeObj.time}\n• Selected features (${selectedFeatures.length}):\n${featureListText}\n\nPlease get in touch regarding a free assessment and formal proposal.`;
 
-    const messageInput = document.getElementById("contact-message") as HTMLTextAreaElement | null;
-    if (messageInput) {
-      messageInput.value = message;
-    }
+    const blueprintPayload = {
+      projectTypeId: selectedTypeObj.id,
+      projectTitle: selectedTypeObj.title,
+      estimatedTime: selectedTypeObj.time,
+      selectedFeatures,
+      featureLabels,
+      formattedMessage: message,
+      serviceCategory,
+    };
 
+    // Broadcast custom event so Contact.tsx updates its React state
+    window.dispatchEvent(
+      new CustomEvent("ssolutions:apply_blueprint", {
+        detail: blueprintPayload,
+      })
+    );
+
+    // Smooth scroll directly to contact form section
     const contactSection = document.getElementById("contact");
     if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
+      const headerOffset = 80;
+      const elementPosition = contactSection.getBoundingClientRect().top;
+      const targetY = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+
+      // Focus the name input on the form after scrolling
+      setTimeout(() => {
+        const nameField = document.getElementById("contact-name");
+        if (nameField) {
+          nameField.focus({ preventScroll: true });
+        }
+      }, 600);
     }
 
-    // Trigger toast notification for instantaneous clear feedback
+    // Trigger toast notification for instantaneous feedback
     success(
       isSr 
         ? `Konfiguracija za "${selectedTypeObj.title}" sa ${selectedFeatures.length} označenih funkcija je ubačena u formu ispod!`
         : `Configuration for "${selectedTypeObj.title}" with ${selectedFeatures.length} selected features is populated below!`,
-      isSr ? "Plan Projekta Spreman" : "Blueprint Configured",
+      isSr ? "Plan Projekta Ubačen u Formu" : "Blueprint Ready",
       { 
-        duration: 5500,
+        duration: 6000,
         action: {
-          label: isSr ? "Idi na polje Ime" : "Focus Name",
+          label: isSr ? "Pogledaj Upit" : "View Form",
           onClick: () => {
             const nameField = document.getElementById("contact-name");
             nameField?.focus();
