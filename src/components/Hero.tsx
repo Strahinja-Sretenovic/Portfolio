@@ -83,17 +83,17 @@ export function Hero() {
         >
           {isSr ? (
             <>
-              Vaš problem nije „nemate sajt“. <br className="hidden sm:inline" />
+              Ne treba vam samo bolji sajt. <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 dark:from-blue-400 dark:via-indigo-300 dark:to-cyan-400">
-                Problem je šta vaš sajt ne radi
+                Treba vam sajt koji bolje radi
               </span>{" "}
               za vaš biznis.
             </>
           ) : (
             <>
-              Your issue isn't "not having a website." <br className="hidden sm:inline" />
+              You don't just need a better-looking website. <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 dark:from-blue-400 dark:via-indigo-300 dark:to-cyan-400">
-                It's that your website doesn't produce results
+                You need a website that works harder
               </span>{" "}
               for your business.
             </>
@@ -108,8 +108,8 @@ export function Hero() {
           className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal"
         >
           {isSr
-            ? "Analiziramo kako vas klijenti pronalaze, šta ih sprečava da vas izaberu i gde gubite prilike — zatim projektujemo i razvijamo web rešenje koje to popravlja."
-            : "We analyze how clients find you, what stops them from choosing you, and where you leak opportunities — then design and build the digital solution that fixes it."}
+            ? "Analiziram kako vas potencijalni klijenti pronalaze, šta ih sprečava da vas izaberu i gde gubite prilike — zatim projektujem i razvijam rešenje koje uklanja te prepreke."
+            : "I analyze how prospective clients find you, what stops them from choosing you, and where you leak opportunities — then engineer the solution that removes those bottlenecks."}
         </motion.p>
 
         {/* Primary and Secondary CTAs */}
@@ -117,13 +117,13 @@ export function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: easeOutCustom }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-10"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4"
         >
           <button
             onClick={() => {
               trackConsultationCtaClick({
                 location: "Hero_Primary",
-                ctaText: isSr ? "Zakažite besplatnu konsultaciju" : "Book Free Consultation",
+                ctaText: isSr ? "Zatraži besplatnu analizu" : "Request Free Analysis",
                 target: "#contact",
                 serviceContext: "Hero Primary Action"
               });
@@ -131,7 +131,7 @@ export function Hero() {
             }}
             className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-blue-500/25 cursor-pointer group"
           >
-            <span>{isSr ? "Zakažite besplatnu konsultaciju" : "Book Free Consultation"}</span>
+            <span>{isSr ? "Zatraži besplatnu analizu" : "Request Free Analysis"}</span>
             <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform duration-200" />
           </button>
 
@@ -139,18 +139,18 @@ export function Hero() {
             onClick={() => {
               trackEvent("select_content", {
                 content_type: "Navigation_CTA",
-                item_name: "Hero_View_How_We_Work",
+                item_name: "Hero_View_How_I_Work",
                 destination: "#how-i-think"
               });
               scrollToTarget("#how-i-think", 80);
             }}
             className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
           >
-            <span>{isSr ? "Pogledajte kako radimo" : "See How We Work"}</span>
+            <span>{isSr ? "Pogledaj kako radim" : "See How I Work"}</span>
           </button>
         </motion.div>
 
-        {/* Small Trust Statement */}
+        {/* Microcopy Trust Line */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -158,8 +158,8 @@ export function Hero() {
           className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mb-12"
         >
           {isSr 
-            ? "✓ Bez generičkih paketa. Prvo razumemo problem, pa biramo rešenje." 
-            : "✓ No cookie-cutter packages. We diagnose the business problem first, then engineer the solution."}
+            ? "Pre razgovora pregledam vaš trenutni digitalni nastup kako bismo pričali konkretno o vašem biznisu." 
+            : "Before our call, I review your current digital channels so our conversation focuses on your specific business."}
         </motion.p>
 
         {/* Interactive Live Diagnostic Pulse Preview */}

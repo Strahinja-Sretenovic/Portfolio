@@ -93,17 +93,17 @@ export function AuditExample() {
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <Sparkles size={14} />
-            <span>{isSr ? "Praktična Dijagnostika" : "Real-World Diagnostic"}</span>
+            <span>{isSr ? "Edukativni Primer" : "Educational Walkthrough"}</span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Primer kako analiziramo jedan biznis" : "An example of how we audit a business"}
+            {isSr ? "Kako izgleda jedna analiza?" : "What does an actual analysis look like?"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {isSr
-              ? "Pogledajte kako izgleda analiza tipičnog puta klijenta i gde se najčešće gubi novac pre nego što uopšte progovorimo o dizajnu."
-              : "Here is how we diagnose the customer journey and locate where revenue leaks before writing a single line of code."}
+              ? "Pogledajte primer puta kupca i gde najčešće nastaju prepreke. Rešenje nije automatski „pravimo novi sajt“ — rešenje zavisi od tačne dijagnoze."
+              : "See how a real customer journey unfolds and where drop-offs happen. The answer isn't automatically 'build a new website' — it depends on where the real friction is."}
           </p>
         </div>
 
@@ -202,6 +202,40 @@ export function AuditExample() {
                 {current.consultantTakeaway}
               </p>
             </div>
+          </div>
+
+          {/* Solution is not automatically a website - list of practical recommendations */}
+          <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <span className="text-xs font-mono text-slate-400 font-bold uppercase tracking-wider">
+                {isSr ? "Moguće preporuke nakon ovakve analize:" : "Possible diagnostic recommendations:"}
+              </span>
+              <span className="text-xs font-semibold text-blue-400">
+                {isSr ? "Poslovni cilj diktira alat" : "Outcome dictates the tool"}
+              </span>
+            </div>
+            
+            <div className="flex flex-wrap gap-2 pt-1">
+              {[
+                isSr ? "Optimizacija Google profila" : "Google Business optimization",
+                isSr ? "Jasnije predstavljanje usluga i cena" : "Transparent service & pricing clarity",
+                isSr ? "Ciljana landing stranica" : "Focused high-intent landing page",
+                isSr ? "Pojednostavljeno online zakazivanje" : "Self-serve frictionless booking",
+                isSr ? "Automatizacija čestih pitanja (FAQ)" : "Automated FAQ & inquiry filtering",
+                isSr ? "Prikupljanje stvarnih recenzija" : "Systematic review generation",
+                isSr ? "Lokalni SEO za Čačak / Beograd" : "Local search engine visibility"
+              ].map((rec, i) => (
+                <span key={i} className="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-xs text-slate-300 font-medium">
+                  • {rec}
+                </span>
+              ))}
+            </div>
+
+            <p className="text-xs text-slate-400 pt-2 border-t border-slate-800 font-medium italic">
+              {isSr 
+                ? "Sajt je alat. Poslovni problem određuje koji alat ima smisla koristiti." 
+                : "A website is a tool. The business problem dictates which tool makes financial sense to deploy."}
+            </p>
           </div>
 
         </motion.div>

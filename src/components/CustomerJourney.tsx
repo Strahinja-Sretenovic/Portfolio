@@ -107,13 +107,13 @@ export function CustomerJourney() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-white tracking-tight">
-            {isSr ? "Ne gledamo samo sajt. Gledamo ceo put do klijenta." : "We don't look at pages in isolation. We engineer the entire customer journey."}
+            {isSr ? "Ne gledam samo sajt. Gledam ceo put do klijenta." : "I don't look at pages in isolation. I engineer the entire customer journey."}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
             {isSr
-              ? "Sajt je samo jedna karika u prodajnom lancu. Ako problem postoji pre ili posle sajta, samo novi dizajn stranica neće rešiti vaš poslovni problem."
-              : "A website is one node in a larger commercial chain. If friction occurs before discovery or after inquiry, merely repainting pages will not produce revenue."}
+              ? "Ako problem nastaje na jednom od ovih koraka, lepši dizajn sam po sebi neće ga rešiti. Zato analiziram celokupan tok pre bilo kakvog rada na kodu."
+              : "If friction occurs at any single step in this journey, visual polish alone will not fix your business. That's why I diagnose the entire funnel before touching code."}
           </p>
         </div>
 

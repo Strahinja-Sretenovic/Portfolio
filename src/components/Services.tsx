@@ -31,85 +31,93 @@ export function Services() {
       id: "redesign",
       badge: isSr ? "Za postojeće sajtove" : "For Existing Websites",
       title: isSr ? "Website Strategy & Redesign" : "Website Strategy & Redesign",
+      forWhom: isSr ? "Za firme koje već imaju sajt, ali nisu sigurne da li radi svoj posao i donosi upite." : "For businesses with an existing website that fails to convert visitors into inquiries.",
+      problemSolved: isSr ? "Zastareo izgled, loše korisničko iskustvo, nejasan sadržaj i gubljenje posetilaca." : "Outdated visuals, poor mobile UX, confusing content, and leaking prospective buyers.",
       subtitle: isSr 
-        ? "Za biznise čiji postojeći sajt ne donosi očekivane rezultate i gubi potencijalne klijente." 
-        : "For established businesses whose current website fails to convert visitors into inquiries.",
+        ? "Za firme koje već imaju sajt, ali nisu sigurne da li radi svoj posao." 
+        : "For businesses that already have a website, but aren't sure if it's doing its job.",
       icon: <RefreshCw className="w-6 h-6 text-blue-500" />,
       includes: [
-        isSr ? "Detaljan audit postojećeg sajta i tačaka napuštanja" : "Comprehensive website UX & drop-off audit",
-        isSr ? "Analiza ponuda i pozicioniranja konkurencije" : "Competitor positioning & messaging analysis",
+        isSr ? "Detaljan audit postojećeg sajta, poruke i tačaka napuštanja" : "Comprehensive website UX, messaging & drop-off audit",
+        isSr ? "Analiza ponuda i pozicioniranja direktne konkurencije" : "Competitor positioning & messaging landscape analysis",
         isSr ? "Nova informaciona arhitektura i struktura stranica" : "Restructured information architecture & user journeys",
-        isSr ? "Strategija sadržaja i jasne prodajne poruke" : "High-intent content strategy & value propositions",
-        isSr ? "Potpuni UX/UI redizajn i razvoj na čistom kodu" : "Complete modern UX/UI redesign & clean code development",
-        isSr ? "Postavljanje analitike za merenje novih upita" : "Custom GA4 telemetry & conversion event tracking"
+        isSr ? "Strategija sadržaja sa jasnim pozivima na akciju (CTA)" : "High-intent content strategy & value propositions",
+        isSr ? "Potpuni UX/UI redizajn i razvoj na čistom kodu" : "Complete modern UX/UI redesign & clean code engineering",
+        isSr ? "Postavljanje analitike za praćenje novih upita i poziva" : "Custom GA4 telemetry & conversion event tracking"
       ],
-      ctaText: isSr ? "Analizirajte naš postojeći sajt" : "Audit Our Existing Website",
+      ctaText: isSr ? "Analiziraj moj postojeći sajt" : "Audit My Existing Website",
       contextMessage: isSr 
-        ? "Želimo analizu i redizajn postojećeg sajta" 
-        : "We want an audit and redesign of our current website"
+        ? "Želim analizu i redizajn postojećeg sajta" 
+        : "I want an audit and redesign of my current website"
     },
     {
       id: "new-site",
       badge: isSr ? "Novi digitalni temelj" : "New Digital Foundation",
       title: isSr ? "New Business Website" : "New Business Website",
+      forWhom: isSr ? "Za nove biznise ili firme koje prvi put prave ozbiljan, samostalan digitalni nastup." : "For new companies or businesses building an authoritative digital hub for the first time.",
+      problemSolved: isSr ? "Zavisnost od društvenih mreža, manjak autoriteta kod ozbiljnih klijenata i nevidljivost na Google-u." : "Over-reliance on social media, lack of B2B credibility, and absence from Google search.",
       subtitle: isSr 
         ? "Za biznise kojima je potreban profesionalan, brz i strateški osmišljen digitalni centar." 
         : "For companies requiring an authoritative, high-speed digital foundation engineered for trust.",
       icon: <Sparkles className="w-6 h-6 text-indigo-500" />,
       includes: [
-        isSr ? "Discovery radionica: razumevanje biznisa i ciljne grupe" : "Discovery session: business model & audience deep dive",
+        isSr ? "Discovery sesija: razumevanje biznisa, kupaca i ciljeva" : "Discovery session: business model & audience deep dive",
         isSr ? "Strateški plan strukture sajta i korisničkih puteva" : "Strategic sitemap planning & decision paths",
         isSr ? "Moderan, responzivan dizajn prilagođen mobilnim uređajima" : "Bespoke, accessible UX/UI designed mobile-first",
-        isSr ? "Inženjerska izrada u TypeScript-u (<0.5s učitavanje)" : "High-performance TypeScript engineering (<0.5s load)",
+        isSr ? "Inženjerska izrada u čistom kodu (<0.5s učitavanje)" : "High-performance clean code engineering (<0.5s load)",
         isSr ? "Tehnički SEO temelj i Google Search Console indeksiranje" : "Technical SEO foundations & Google schema indexing",
         isSr ? "Jednostavan sistem za samostalno ažuriranje sadržaja" : "Intuitive CMS for seamless content updates"
       ],
-      ctaText: isSr ? "Želimo novi sajt" : "We Need a New Website",
+      ctaText: isSr ? "Želim novi sajt" : "I Need a New Website",
       contextMessage: isSr 
-        ? "Potreban nam je novi profesionalni sajt" 
-        : "We need a new professional business website"
+        ? "Potreban mi je novi profesionalni sajt" 
+        : "I need a new professional business website"
     },
     {
       id: "automation",
       badge: isSr ? "Efikasnost & Ušteda Vremena" : "Operations & Automation",
       title: isSr ? "Web Applications & Automation" : "Web Applications & Automation",
+      forWhom: isSr ? "Za uslužne i operativne biznise koji gube sate na ručne procese i pozive." : "For service and operational businesses losing hours on manual bookings, DMs, and duplicate tasks.",
+      problemSolved: isSr ? "Ručno zakazivanje, zaboravljeni termini, pretrpane linije i spora administracija." : "Manual scheduling overhead, missed appointments, clogged phones, and slow back-office operations.",
       subtitle: isSr 
-        ? "Za biznise koji gube sate na ručne rezervacije, duplu administraciju i ponavljajuće poslove." 
-        : "For businesses wasting hours on repetitive manual booking, phone calls, and paperwork.",
+        ? "Za biznise koji žele da automatizuju rezervacije, upite i internu administraciju." 
+        : "For businesses looking to automate booking, inquiries, and internal workflows.",
       icon: <Cpu className="w-6 h-6 text-cyan-500" />,
       includes: [
         isSr ? "Interaktivni sistemi za online zakazivanje termina 24/7" : "Interactive 24/7 client booking engines",
         isSr ? "Automatski SMS i email podsetnici za klijente" : "Automated SMS & email appointment alerts",
         isSr ? "Korisnički portali i interne kontrolne table (dashboards)" : "Client portals & internal management dashboards",
         isSr ? "Automatsko generisanje PDF ugovora, ponuda i računa" : "Automated PDF contract & invoice generation",
-        isSr ? "Integracija sa platnim karticama banaka i kurirskim službama" : "Bank payment gateways & courier API integrations",
+        isSr ? "Integracija sa platnim karticama banaka i servisima" : "Bank payment gateways & external API integrations",
         isSr ? "Povezivanje eksternih baza i softvera (API)" : "Custom API integrations & database synchronization"
       ],
-      ctaText: isSr ? "Imamo proces za automatizaciju" : "We Have a Process to Automate",
+      ctaText: isSr ? "Imam proces za automatizaciju" : "I Have a Process to Automate",
       contextMessage: isSr 
-        ? "Želimo automatizaciju procesa ili web aplikaciju" 
-        : "We want process automation or custom web software"
+        ? "Želim automatizaciju procesa ili web aplikaciju" 
+        : "I want process automation or custom web software"
     },
     {
       id: "growth",
       badge: isSr ? "Maksimalan povrat" : "Revenue & CRO",
-      title: isSr ? "Growth & Optimization" : "Growth & Optimization",
+      title: isSr ? "Growth / CRO / SEO" : "Growth / CRO / SEO",
+      forWhom: isSr ? "Za sajtove koji već imaju stabilan saobraćaj, ali žele više upita i veći prihod." : "For websites with established traffic wanting to extract substantially higher conversion and revenue.",
+      problemSolved: isSr ? "Niska stopa konverzije, slab ROI na marketing budžet i propuštene prilike na Google-u." : "Low conversion rate, weak ROI from advertising spend, and untapped organic search intent.",
       subtitle: isSr 
         ? "Za biznise koji već imaju posete, ali žele veći procenat konverzije i bolju poziciju na Google-u." 
         : "For established websites with traffic looking to extract significantly higher conversion rates.",
       icon: <TrendingUp className="w-6 h-6 text-emerald-500" />,
       includes: [
         isSr ? "Duboka analitika ponašanja posetilaca i toplotne mape" : "Heatmap analysis & visitor journey telemetry",
-        isSr ? "Optimizacija konverzije (CRO) i uklanjanje frikcija u toku naručivanja" : "Conversion Rate Optimization (CRO) & funnel tuning",
+        isSr ? "Optimizacija konverzije (CRO) i uklanjanje frikcija u toku upita" : "Conversion Rate Optimization (CRO) & funnel tuning",
         isSr ? "Namenske landing stranice za Google Ads i marketing kampanje" : "High-converting campaign landing page engineering",
         isSr ? "Napredni lokalni i tehnički SEO za preuzimanje tržišta" : "Advanced local & technical search engine optimization",
         isSr ? "Tehnička optimizacija brzine (Core Web Vitals)" : "Core Web Vitals & runtime performance hardening",
         isSr ? "Mesečni izveštaji i iterativno unapređenje na osnovu podataka" : "Monthly strategic telemetry & evidence-based iterations"
       ],
-      ctaText: isSr ? "Želimo veći rast iz postojećeg sajta" : "We Want Better Conversion from Our Site",
+      ctaText: isSr ? "Želim veći rast iz postojećeg sajta" : "I Want Better Conversion from My Site",
       contextMessage: isSr 
-        ? "Želimo optimizaciju konverzije i rast rezultata" 
-        : "We want growth, CRO and higher conversion from our site"
+        ? "Želim optimizaciju konverzije i rast rezultata" 
+        : "I want growth, CRO and higher conversion from our site"
     }
   ];
 
@@ -193,32 +201,56 @@ export function Services() {
             className="p-7 sm:p-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl space-y-8"
           >
             {/* Header of Active Service */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100 dark:border-slate-800">
-              <div className="space-y-2">
+            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-6 border-b border-slate-100 dark:border-slate-800">
+              <div className="space-y-3 max-w-2xl">
                 <span className="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider">
                   {current.badge}
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                   {current.title}
                 </h3>
-                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-2xl">
-                  {current.subtitle}
-                </p>
+                
+                {/* 1. Za koga je? & 2. Koji problem rešava? */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200/60 dark:border-slate-800/80">
+                    <div className="text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
+                      {isSr ? "1. Za koga je?" : "1. Who is this for?"}
+                    </div>
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                      {current.forWhom}
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200/60 dark:border-slate-800/80">
+                    <div className="text-[11px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
+                      {isSr ? "2. Koji problem rešava?" : "2. Problem solved"}
+                    </div>
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                      {current.problemSolved}
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <button
-                onClick={() => handleCta(current)}
-                className="w-full lg:w-auto px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all cursor-pointer shrink-0"
-              >
-                <span>{current.ctaText}</span>
-                <ArrowRight size={16} />
-              </button>
+              <div className="w-full lg:w-auto shrink-0 pt-2">
+                <div className="text-[11px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 text-left lg:text-right">
+                  {isSr ? "4. Sledeći korak" : "4. Next Step"}
+                </div>
+                <button
+                  onClick={() => handleCta(current)}
+                  className="w-full lg:w-auto px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all cursor-pointer"
+                >
+                  <span>{current.ctaText}</span>
+                  <ArrowRight size={16} />
+                </button>
+              </div>
             </div>
 
-            {/* Deliverables & Strategic Inclusions */}
+            {/* Deliverables & Strategic Inclusions: 3. Šta dobijam? */}
             <div className="space-y-4">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
-                {isSr ? "Šta ovaj angažman obuhvata:" : "Engagement Scope & Deliverables:"}
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono flex items-center gap-2">
+                <span className="text-emerald-500">3.</span>
+                <span>{isSr ? "Šta dobijate kroz ovaj angažman:" : "What is included & delivered:"}</span>
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

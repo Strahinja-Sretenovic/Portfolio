@@ -20,70 +20,75 @@ export function Process() {
   const stages = [
     {
       number: "01",
-      title: isSr ? "Discovery & Razumevanje" : "Discovery & Business Audit",
-      subtitle: isSr ? "Šta stvarno treba popraviti" : "Locating the root problem",
+      title: isSr ? "Discovery & Razumevanje" : "Discovery & Assessment",
+      subtitle: isSr ? "Šta stvarno treba popraviti" : "Diagnosing the root problem",
       icon: <Search className="w-5 h-5 text-blue-500" />,
       focus: isSr 
-        ? "Detaljno prolazimo kroz vaš biznis model, idealne kupce, usluge, konkurenciju, trenutni prodajni proces i gde nastaju uska grla." 
-        : "Deep dive into your business model, customer segments, sales pipeline, and existing operational friction.",
+        ? "Razumemo vaš biznis, profil kupaca, ponudu, ciljeve, trenutni prodajni proces i gde nastaju uska grla." 
+        : "Understanding your business model, target audience, core offer, sales process, and operational friction.",
       output: isSr 
-        ? "Izlaz: Jasna definicija problema i kriterijuma uspeha." 
-        : "Deliverable: Clear problem definition & success criteria."
+        ? "Rezultat: Jasno definisan problem i cilj projekta." 
+        : "Deliverable: Clearly defined problem statement and project goals."
     },
     {
       number: "02",
-      title: isSr ? "Istraživanje & Strategija" : "Research & Strategy",
-      subtitle: isSr ? "Ponašanje kupaca i tržište" : "Market intent & digital plan",
+      title: isSr ? "Research & Istraživanje" : "Research & Market Analysis",
+      subtitle: isSr ? "Konkurencija i ponašanje kupaca" : "Customer intent & competitor signals",
+      icon: <Compass className="w-5 h-5 text-indigo-500" />,
       focus: isSr 
-        ? "Analiziramo ponašanje kupaca na pretrazi, strategije konkurencije, postojeći sajt (ako postoji) i Google prisustvo." 
-        : "Auditing search intent, competitor vulnerabilities, and organic market share opportunities.",
+        ? "Proveravamo konkurenciju, kupce, Google pretrage, postojeći sajt i analitiku (gde je dostupna)." 
+        : "Auditing competitors, search intent, existing site friction, and analytics data.",
       output: isSr 
-        ? "Izlaz: Digitalna strategija i definisani prioriteti." 
-        : "Deliverable: Digital strategy roadmap & channel priorities."
+        ? "Rezultat: Prioritizovane prilike i pravac delovanja." 
+        : "Deliverable: Prioritized commercial opportunities."
     },
     {
       number: "03",
-      title: isSr ? "Informaciona Arhitektura & Sadržaj" : "Information Architecture & Copy",
-      subtitle: isSr ? "Struktura po meri odluke kupca" : "Decision path structuring",
+      title: isSr ? "Strategy & Informaciona Arhitektura" : "Strategy & Information Architecture",
+      subtitle: isSr ? "Plan sistema pre developmenta" : "System architecture blueprint",
+      icon: <Layers className="w-5 h-5 text-emerald-500" />,
       focus: isSr 
-        ? "Definišemo sitemap, hijerarhiju stranica, korisničke rute, sadržajne celine i jasne pozive na akciju (CTA) bez lutanja." 
-        : "Mapping intuitive sitemaps, decision journeys, content hierarchy, and friction-free conversion paths.",
+        ? "Definišemo put klijenta (customer journey), sitemap, navigaciju, hijerarhiju sadržaja i konverzijske rute." 
+        : "Defining the customer journey, sitemap, navigation, content hierarchy, and conversion paths.",
       output: isSr 
-        ? "Izlaz: Struktura sajta bazirana na načinu na koji klijenti odlučuju." 
-        : "Deliverable: Decision-aligned sitemap & wireframed content strategy."
+        ? "Rezultat: Plan sistema pre početka pisanja koda." 
+        : "Deliverable: Complete architectural blueprint before development."
     },
     {
       number: "04",
-      title: isSr ? "UX & Dizajn" : "UX & Interface Design",
-      subtitle: isSr ? "Upotrebljivost pre dekoracije" : "Usability before visual styling",
+      title: isSr ? "UX & Dizajn Interfejsa" : "UX & Interface Design",
+      subtitle: isSr ? "Upotrebljivost pre dekoracije" : "Usability before aesthetics",
+      icon: <Palette className="w-5 h-5 text-amber-500" />,
       focus: isSr 
-        ? "Kreiramo responzivne prikaze, jasnu vizuelnu hijerarhiju i mobilno iskustvo koje uliva sigurnost i vodi ka kontaktu." 
-        : "Engineering accessible, high-contrast layouts and responsive mobile UX optimized for credibility.",
+        ? "Izrađujemo wireframe modele, responzivni UX, vizuelnu hijerarhiju komponenata i interaktivni prototip." 
+        : "Developing wireframes, responsive mobile UX, component visual hierarchy, and interactive prototypes.",
       output: isSr 
-        ? "Izlaz: Kompletan prototip i dizajn sistem." 
-        : "Deliverable: High-fidelity interactive prototype & design system."
+        ? "Rezultat: Validiran pravac i interfejs sistema." 
+        : "Deliverable: Validated interface direction and design system."
     },
     {
       number: "05",
-      title: isSr ? "Razvoj & Optimizacija" : "Engineering & Optimization",
-      subtitle: isSr ? "Čist kod i performanse" : "High-speed clean TypeScript",
+      title: isSr ? "Development & Inženjering" : "Engineering & Development",
+      subtitle: isSr ? "Čist kod, brzina i integracije" : "Clean code, sub-second speed & APIs",
+      icon: <Code2 className="w-5 h-5 text-cyan-500" />,
       focus: isSr 
-        ? "Inženjerska izrada u čistom kodu, integracije sa bazama, SMS/email servisima, SEO temelji i responzivna brzina (<0.5s)." 
-        : "Bespoke TypeScript engineering, API/database integrations, structured SEO schema, and sub-second load times.",
+        ? "Implementacija na čistom kodu, jednostavan CMS, integracije sa servisima, tehnički SEO temelj, pristupačnost i analitika." 
+        : "Clean code implementation, intuitive CMS, external integrations, technical SEO foundations, and analytics tracking.",
       output: isSr 
-        ? "Izlaz: Tehnički robustan, testiran i bezbedan sistem." 
-        : "Deliverable: Production-ready, hardened web system."
+        ? "Rezultat: Produkciono spreman, brz i stabilan sistem." 
+        : "Deliverable: Production-ready, hardened digital system."
     },
     {
       number: "06",
-      title: isSr ? "Launch, Merenje & Unapređenje" : "Launch, Telemetry & Growth",
-      subtitle: isSr ? "Podaci umesto nagađanja" : "Evidence-based iteration",
+      title: isSr ? "Measure & Unapređenje" : "Measure & Continuous Optimization",
+      subtitle: isSr ? "Stvarni podaci umesto nagađanja" : "Evidence-based iteration",
+      icon: <LineChart className="w-5 h-5 text-rose-500" />,
       focus: isSr 
-        ? "Puštanje u rad, provera analitike, praćenje ponašanja posetilaca i uklanjanje frikcija na osnovu stvarnih podataka." 
-        : "Deployment, telemetry validation, conversion funnel inspection, and continuous evidence-based iteration.",
+        ? "Pratimo posete, događaje (events), konverzije, ponašanje korisnika i uklanjamo uočene tačke odustajanja." 
+        : "Monitoring traffic, events, conversions, user behavior, and eliminating observed drop-off points.",
       output: isSr 
-        ? "Izlaz: Mesečni uvidi i kontinuirana optimizacija." 
-        : "Deliverable: Actionable analytics & conversion optimization."
+        ? "Rezultat: Backlog unapređenja na osnovu stvarnih podataka." 
+        : "Deliverable: Evidence-based improvement backlog."
     }
   ];
 

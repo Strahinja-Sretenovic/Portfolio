@@ -18,26 +18,34 @@ export function AuditOffer() {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  const auditCheckpoints = [
+  const fourSteps = [
     {
-      icon: <Eye size={16} className="text-blue-400" />,
-      title: isSr ? "Postojeći sajt & korisničko iskustvo" : "Website & User Experience",
-      desc: isSr ? "Kako sajt izgleda kupcu i gde najčešće odustaje" : "Where visitors get confused and bounce"
+      step: "01",
+      title: isSr ? "Pošaljete mi svoj biznis" : "Share your business details",
+      desc: isSr 
+        ? "Link ka sajtu, Instagram profilu, Google profilu ili samo naziv firme i delatnost."
+        : "Website link, Instagram profile, Google Business profile, or simply your company name and industry."
     },
     {
-      icon: <Search size={16} className="text-emerald-400" />,
-      title: isSr ? "Google prisustvo & lokalna vidljivost" : "Google Search & Local Signals",
-      desc: isSr ? "Da li se pojavljujete kada neko traži vašu uslugu" : "Whether you rank when prospects search"
+      step: "02",
+      title: isSr ? "Ja radim domaći zadatak" : "I do the background research",
+      desc: isSr 
+        ? "Pre razgovora proveravam mobilno iskustvo, brzinu, Google vidljivost, jasnoću ponude, konkurenciju i tačke gde posetioci odustaju."
+        : "Before our meeting, I inspect mobile UX, load speeds, Google presence, offer clarity, competitor positioning, and conversion friction."
     },
     {
-      icon: <TrendingUp size={16} className="text-amber-400" />,
-      title: isSr ? "Analiza ponude konkurencije" : "Competitor Landscape",
-      desc: isSr ? "Šta rade lideri u vašoj niši i gde je vaša prednost" : "How market leaders position their offer"
+      step: "03",
+      title: isSr ? "Razgovaramo konkretno" : "We discuss concrete observations",
+      desc: isSr 
+        ? "Umesto generičke prodajne prezentacije, 15–30 minuta prolazimo kroz ono što sam zapravo primetio na vašem primeru."
+        : "Instead of a generic sales pitch, we spend 15–30 minutes walking through specific bottlenecks I identified."
     },
     {
-      icon: <Smartphone size={16} className="text-cyan-400" />,
-      title: isSr ? "Mobilna brzina i put naručivanja" : "Mobile Speed & Conversion Flow",
-      desc: isSr ? "Da li je jednostavno pozvati vas ili zakazati sa telefona" : "Ease of mobile booking and calling"
+      step: "04",
+      title: isSr ? "Dobijate preporuku" : "You receive actionable priorities",
+      desc: isSr 
+        ? "Jasno vam kažem šta bih prvo rešavao i kojim redosledom kako biste dobili najveći povrat uloženog."
+        : "I provide an honest recommendation on what to fix first and in what priority to generate maximum return on effort."
     }
   ];
 
@@ -49,69 +57,69 @@ export function AuditOffer() {
           {/* Subtle Ambient Glow */}
           <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div className="space-y-10 relative z-10">
             
-            {/* Left Column: Offer Details */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+            {/* Header */}
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
                 <Sparkles size={14} />
                 <span>{isSr ? "Besplatna Početna Analiza" : "Free Initial Assessment"}</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-white tracking-tight leading-tight">
                 {isSr 
-                  ? "Ne znate šta vam zapravo treba? Pogledajmo vaš biznis zajedno." 
-                  : "Not sure what you actually need? Let's audit your business first."}
+                  ? "Šta zapravo dobijate na besplatnoj analizi?" 
+                  : "What do you actually get from the free analysis?"}
               </h2>
 
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
                 {isSr
-                  ? "Pre razgovora ćemo detaljno pregledati vaš digitalni nastup kako bismo 15–30 minuta iskoristili za konkretne stvari, a ne za generičke priče."
-                  : "Before we talk, we review your digital footprint so our 15–30 minute discussion focuses on real observations and concrete opportunities."}
+                  ? "Nema generičkih slajdova i nema praznih prodajnih priča. Pripremam se unapred kako bi svaki minut razgovora imao direktnu vrednost za vaš biznis."
+                  : "No generic sales decks or fluff. I do targeted research beforehand so every minute of our conversation provides actionable value."}
               </p>
-
-              {/* Checkpoints Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                {auditCheckpoints.map((item, idx) => (
-                  <div key={idx} className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                    <div className="flex items-center gap-2 text-xs font-bold text-white">
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </div>
-                    <p className="text-[11px] text-slate-400">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* No-Pitch Guarantee */}
-              <div className="p-4 rounded-xl bg-blue-950/40 border border-blue-500/20 text-xs text-blue-200 flex items-center gap-3">
-                <ShieldCheck size={20} className="shrink-0 text-blue-400" />
-                <span>
-                  {isSr
-                    ? "Nećemo vam odmah nuditi ili prodavati sajt. Pokazaćemo vam šta smo primetili i šta bismo prvo rešavali."
-                    : "No aggressive sales pitch. We highlight what we observed and prioritize what to fix first."}
-                </span>
-              </div>
             </div>
 
-            {/* Right Column: High-Conversion CTA Card */}
-            <div className="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-6">
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">
-                  <Clock size={14} />
-                  <span>{isSr ? "15–30 min • Bez obaveze" : "15–30 min • Zero Obligation"}</span>
+            {/* 4 Steps Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {fourSteps.map((item) => (
+                <div key={item.step} className="p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3 flex flex-col justify-between">
+                  <div>
+                    <div className="text-xs font-mono font-bold text-blue-400 mb-1">
+                      {item.step}
+                    </div>
+                    <h3 className="text-base font-bold text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-white">
-                  {isSr ? "Zatražite besplatnu analizu" : "Request Free Digital Audit"}
-                </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  {isSr 
-                    ? "Ostavite link ka sajtu ili Instagram profilu. Javljamo se u roku od 24h sa kratkim zapažanjima."
-                    : "Share your website or Instagram link. We'll follow up within 24h with initial diagnostic observations."}
-                </p>
+              ))}
+            </div>
+
+            {/* Highly Prominent Trust Statement & Action */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
+              <div className="lg:col-span-8 p-5 sm:p-6 rounded-2xl bg-blue-950/50 border border-blue-500/30 flex items-start gap-4">
+                <ShieldCheck size={26} className="shrink-0 text-blue-400 mt-0.5" />
+                <div className="space-y-1">
+                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-blue-400">
+                    {isSr ? "GARANCIJA ISKRENOSTI" : "HONESTY GUARANTEE"}
+                  </div>
+                  <p className="text-sm sm:text-base font-bold text-white">
+                    {isSr
+                      ? "Ako mislim da vam novi sajt trenutno nije potreban, reći ću vam."
+                      : "If I believe you don't need a new website right now, I will tell you directly."}
+                  </p>
+                  <p className="text-xs text-slate-300">
+                    {isSr 
+                      ? "Cilj analize je pronalazak pravog uzroka, a ne prodaja nečega što vam ne donosi rezultat." 
+                      : "The goal is finding the real bottleneck, not pushing services that won't deliver ROI."}
+                  </p>
+                </div>
               </div>
 
-              <div className="space-y-3">
+              <div className="lg:col-span-4 space-y-2">
                 <button
                   onClick={() => {
                     trackConsultationCtaClick({
@@ -124,17 +132,13 @@ export function AuditOffer() {
                   }}
                   className="w-full py-4 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
                 >
-                  <span>{isSr ? "Zatraži besplatnu analizu" : "Request Free Audit"}</span>
+                  <span>{isSr ? "Zatraži besplatnu analizu" : "Request Free Analysis"}</span>
                   <ArrowRight size={16} />
                 </button>
 
-                <div className="flex items-center justify-center gap-4 text-[11px] text-slate-400 text-center">
-                  <span className="flex items-center gap-1">
-                    <CheckCircle2 size={13} className="text-emerald-400" />
-                    {isSr ? "100% besplatno" : "100% free"}
-                  </span>
-                  <span>•</span>
-                  <span>{isSr ? "Direktan razgovor sa timom" : "Talk directly with our team"}</span>
+                <div className="flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
+                  <Clock size={12} className="text-emerald-400" />
+                  <span>{isSr ? "15–30 min • 100% besplatno • Bez obaveze" : "15–30 min • 100% free • Zero obligation"}</span>
                 </div>
               </div>
             </div>
