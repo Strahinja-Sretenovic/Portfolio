@@ -20,75 +20,75 @@ export function Process() {
   const stages = [
     {
       number: "01",
-      title: isSr ? "Discovery & Razumevanje" : "Discovery & Assessment",
-      subtitle: isSr ? "Šta stvarno treba popraviti" : "Diagnosing the root problem",
+      title: isSr ? "Dijagnostika i biznis logika" : "Diagnosis & Business Logic",
+      subtitle: isSr ? "Analiza problema, kupca, ponude i cilja" : "Problem, buyer, offer & goal analysis",
       icon: <Search className="w-5 h-5 text-blue-500" />,
       focus: isSr 
-        ? "Razumemo vaš biznis, profil kupaca, ponudu, ciljeve, trenutni prodajni proces i gde nastaju uska grla." 
-        : "Understanding your business model, target audience, core offer, sales process, and operational friction.",
+        ? "Razumemo vaš biznis, profil kupaca, ponudu, trenutni prodajni proces i gde tačno nastaju uska grla." 
+        : "Understanding your business model, customer profiles, offer, sales process, and exact bottleneck points.",
       output: isSr 
-        ? "Rezultat: Jasno definisan problem i cilj projekta." 
-        : "Deliverable: Clearly defined problem statement and project goals."
+        ? "Rezultat: Jasno definisana svrha i pravac projekta." 
+        : "Output: Clearly defined project purpose and roadmap."
     },
     {
       number: "02",
-      title: isSr ? "Research & Istraživanje" : "Research & Market Analysis",
-      subtitle: isSr ? "Konkurencija i ponašanje kupaca" : "Customer intent & competitor signals",
+      title: isSr ? "Struktura i copywriting" : "Structure & Copywriting",
+      subtitle: isSr ? "Šta tačno govorimo, kojim redom i zašto" : "What we say, in what sequence and why",
       icon: <Compass className="w-5 h-5 text-indigo-500" />,
       focus: isSr 
-        ? "Proveravamo konkurenciju, kupce, Google pretrage, postojeći sajt i analitiku (gde je dostupna)." 
-        : "Auditing competitors, search intent, existing site friction, and analytics data.",
+        ? "Kreiramo tekstove i hijerarhiju informacija koji vode posetioca od prvog utiska do jasne odluke o kontaktu." 
+        : "Crafting copy and information architecture that guides visitors from first glance to confident action.",
       output: isSr 
-        ? "Rezultat: Prioritizovane prilike i pravac delovanja." 
-        : "Deliverable: Prioritized commercial opportunities."
+        ? "Rezultat: Sadržaj i poruke prilagođene vašim kupcima." 
+        : "Output: Tailored messaging and persuasive content hierarchy."
     },
     {
       number: "03",
-      title: isSr ? "Strategy & Informaciona Arhitektura" : "Strategy & Information Architecture",
-      subtitle: isSr ? "Plan sistema pre developmenta" : "System architecture blueprint",
-      icon: <Layers className="w-5 h-5 text-emerald-500" />,
+      title: isSr ? "UI/UX dizajn" : "UI/UX Design",
+      subtitle: isSr ? "Vizuelni autoritet, preglednost i mobile UX" : "Visual authority, clarity & mobile UX",
+      icon: <Palette className="w-5 h-5 text-amber-500" />,
       focus: isSr 
-        ? "Definišemo put klijenta (customer journey), sitemap, navigaciju, hijerarhiju sadržaja i konverzijske rute." 
-        : "Defining the customer journey, sitemap, navigation, content hierarchy, and conversion paths.",
+        ? "Projektujemo moderan, čist interfejs gde se svaka informacija lako pronalazi, a navigacija je besprekorna na telefonima." 
+        : "Designing clean, modern interfaces where key information is instant to find with flawless mobile UX.",
       output: isSr 
-        ? "Rezultat: Plan sistema pre početka pisanja koda." 
-        : "Deliverable: Complete architectural blueprint before development."
+        ? "Rezultat: Pregledan dizajn koji gradi poverenje." 
+        : "Output: High-trust visual design system."
     },
     {
       number: "04",
-      title: isSr ? "UX & Dizajn Interfejsa" : "UX & Interface Design",
-      subtitle: isSr ? "Upotrebljivost pre dekoracije" : "Usability before aesthetics",
-      icon: <Palette className="w-5 h-5 text-amber-500" />,
+      title: isSr ? "Tehnička izrada i performanse" : "Engineering & Performance",
+      subtitle: isSr ? "Brzina, sigurnost i tehnički SEO temelj" : "Sub-second speed, security & technical SEO",
+      icon: <Code2 className="w-5 h-5 text-cyan-500" />,
       focus: isSr 
-        ? "Izrađujemo wireframe modele, responzivni UX, vizuelnu hijerarhiju komponenata i interaktivni prototip." 
-        : "Developing wireframes, responsive mobile UX, component visual hierarchy, and interactive prototypes.",
+        ? "Pišemo čist, optimizovan kod. Sajt se učitava munjevito brzo, stabilan je i tehnički prilagođen Google indeksiranju." 
+        : "Writing clean, performant code. Instant page loads, robust security, and proper Google crawlability.",
       output: isSr 
-        ? "Rezultat: Validiran pravac i interfejs sistema." 
-        : "Deliverable: Validated interface direction and design system."
+        ? "Rezultat: Tehnički besprekoran i brz sistem." 
+        : "Output: High-performance, production-ready website."
     },
     {
       number: "05",
-      title: isSr ? "Development & Inženjering" : "Engineering & Development",
-      subtitle: isSr ? "Čist kod, brzina i integracije" : "Clean code, sub-second speed & APIs",
-      icon: <Code2 className="w-5 h-5 text-cyan-500" />,
+      title: isSr ? "Integracije i automatizacija" : "Integrations & Automation",
+      subtitle: isSr ? "Google, booking, kontakt forme i analytics" : "Google, booking, contact forms & telemetry",
+      icon: <Layers className="w-5 h-5 text-emerald-500" />,
       focus: isSr 
-        ? "Implementacija na čistom kodu, jednostavan CMS, integracije sa servisima, tehnički SEO temelj, pristupačnost i analitika." 
-        : "Clean code implementation, intuitive CMS, external integrations, technical SEO foundations, and analytics tracking.",
+        ? "Povezujemo sisteme za zakazivanje, pametne forme, obaveštenja na email/telefon i analitiku za merenje konverzija." 
+        : "Connecting scheduling engines, smart forms, automated lead notifications, and analytics tracking.",
       output: isSr 
-        ? "Rezultat: Produkciono spreman, brz i stabilan sistem." 
-        : "Deliverable: Production-ready, hardened digital system."
+        ? "Rezultat: Automatizovan proces koji štedi vaše vreme." 
+        : "Output: Automated workflows saving you daily operational time."
     },
     {
       number: "06",
-      title: isSr ? "Measure & Unapređenje" : "Measure & Continuous Optimization",
-      subtitle: isSr ? "Stvarni podaci umesto nagađanja" : "Evidence-based iteration",
+      title: isSr ? "Lansiranje, merenje i podrška" : "Launch, Measurement & Support",
+      subtitle: isSr ? "Testiranje, puštanje uživo i praćenje rezultata" : "Testing, live launch & real-world telemetry",
       icon: <LineChart className="w-5 h-5 text-rose-500" />,
       focus: isSr 
-        ? "Pratimo posete, događaje (events), konverzije, ponašanje korisnika i uklanjamo uočene tačke odustajanja." 
-        : "Monitoring traffic, events, conversions, user behavior, and eliminating observed drop-off points.",
+        ? "Temeljno testiramo sve funkcionalnosti, puštamo sajt na domen i pratimo kako se stvarni korisnici ponašaju." 
+        : "Thoroughly QA testing every interaction, pointing live domain, and monitoring user behavior.",
       output: isSr 
-        ? "Rezultat: Backlog unapređenja na osnovu stvarnih podataka." 
-        : "Deliverable: Evidence-based improvement backlog."
+        ? "Rezultat: Bezbedno lansiran sajt sa praćenjem rezultata." 
+        : "Output: Safe live deployment with ongoing measurement."
     }
   ];
 
@@ -100,11 +100,11 @@ export function Process() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <Compass size={14} />
-            <span>{isSr ? "Konsultantski & Inženjerski Proces" : "Consulting & Engineering Process"}</span>
+            <span>{isSr ? "Profesionalan Proces" : "Professional Process"}</span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Kako izgleda profesionalan web projekat" : "How a professional web project unfolds"}
+            {isSr ? "Kako izgleda profesionalan proces rada" : "How a professional web process works"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -161,12 +161,12 @@ export function Process() {
           <div className="space-y-1 text-center sm:text-left">
             <div className="text-base sm:text-lg font-bold text-white flex items-center gap-2 justify-center sm:justify-start">
               <Sparkles size={18} className="text-blue-400" />
-              <span>{isSr ? "Launch nije kraj projekta. Tek tada dobijamo stvarne podatke." : "Launch is not the finish line. That's when real telemetry begins."}</span>
+              <span>{isSr ? "Ne preskačemo korake, jer svaki korak štiti vašu investiciju." : "We don't skip steps, because every step protects your investment."}</span>
             </div>
             <p className="text-xs sm:text-sm text-slate-300">
               {isSr 
-                ? "Nakon puštanja u rad, pratimo kako se stvarni kupci ponašaju i vršimo fina podešavanja za maksimalan rezultat."
-                : "Post-launch, we analyze real visitor journeys and perform high-leverage CRO adjustments."}
+                ? "Od prvog razgovora do merenja rezultata nakon lansiranja, radimo planski i transparentno."
+                : "From the initial conversation to post-launch telemetry, we execute with structured transparency."}
             </p>
           </div>
 
@@ -174,7 +174,7 @@ export function Process() {
             onClick={() => scrollToTarget("#contact", 80)}
             className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shrink-0"
           >
-            <span>{isSr ? "Pokrenimo vaš projekat" : "Start Your Project"}</span>
+            <span>{isSr ? "Zatraži besplatnu analizu" : "Request Free Analysis"}</span>
             <ArrowRight size={16} />
           </button>
         </div>

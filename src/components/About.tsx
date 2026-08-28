@@ -49,8 +49,8 @@ export function About() {
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {isSr
-              ? "Jedan inženjer i konsultant. Radite direktno sa osobom koja razmišlja o vašem poslovanju, projektuje arhitekturu i piše kod — bez posrednika i bez pokvarenog telefona."
-              : "A single engineer & consultant. You collaborate directly with the person who diagnoses your business, architects the solution, and writes the code — no handoffs, no game of telephone."}
+              ? "Spoj inženjeringa, web strategije i poslovne logike. Radite direktno sa stručnjacima koji razmišljaju o vašem poslovanju, projektuju arhitekturu i pišu kod — bez posrednika i bez pokvarenog telefona."
+              : "A fusion of engineering, web strategy, and business logic. You work directly with specialists who understand your business, architect the solution, and write the code — no middlemen, no communication gaps."}
           </p>
         </div>
 
@@ -61,19 +61,19 @@ export function About() {
           <div className="lg:col-span-7 space-y-6">
             <div className="p-7 sm:p-9 rounded-3xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-5">
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                {isSr ? "Počeo sam iz softverskog inženjeringa — ali sam shvatio šta zapravo pravi razliku" : "Started in software engineering — realized what truly drives commercial impact"}
+                {isSr ? "Počeli smo iz softverskog inženjeringa — ali smo shvatili šta zapravo pravi razliku" : "We started in software engineering — and realized what truly makes the commercial difference"}
               </h3>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {isSr
-                  ? "Godinama sam gledao kako se novac ulaže u skupe web sajtove koji izgledaju lepo na prezentacijama, ali u praksi ne donose ni jedan jedini upit. Problem nikada nije bio u izboru CSS animacija, već u tome što niko nije pitao: 'Ko je kupac i šta ga sprečava da se javi?'"
-                  : "For years I watched businesses invest in flashy websites that looked great in pitch decks but generated zero inquiries. The breakdown was never in visual styling — it was that nobody asked: 'Who is the buyer and what stops them from reaching out?'"}
+                  ? "Godinama smo gledali kako se novac ulaže u skupe web sajtove koji izgledaju lepo na prezentacijama, ali u praksi ne donose rezultate. Problem nikada nije bio u izboru šablona ili animacija, već u tome što niko nije pitao: 'Ko je kupac i šta ga sprečava da se javi?'"
+                  : "For years we watched businesses invest in flashy websites that looked fine in presentations but generated zero inquiries. The breakdown was never aesthetics — it was that nobody asked: 'Who is the buyer and what stops them from reaching out?'"}
               </p>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {isSr
-                  ? "U SSolutions-u spajam duboko tehničko znanje (brz TypeScript kod, web aplikacije, automatizacije) sa poslovnom strategijom i psihologijom kupaca. Zato svaki projekat počinje dijagnostikom, a ne šablonom."
-                  : "At SSolutions, I unite deep engineering capability (blazing fast TypeScript, custom web apps, integrations) with commercial strategy and buyer psychology. That is why every project begins with diagnosis, not a template."}
+                  ? "U SSolutions-u spajamo duboko tehničko inženjerstvo (brz TypeScript kod, web aplikacije, automatizacije) sa poslovnom strategijom i psihologijom kupaca. Zato svaki projekat počinjemo dijagnostikom, a ne šablonom."
+                  : "At SSolutions, we unite deep technical engineering (blazing fast TypeScript, custom web apps, automation) with business strategy and buyer psychology. That is why every project starts with diagnosis, not a template."}
               </p>
 
               {/* 3 Pillars */}

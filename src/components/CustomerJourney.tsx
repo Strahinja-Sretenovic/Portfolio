@@ -116,7 +116,7 @@ export function CustomerJourney() {
   ];
 
   return (
-    <section id="how-i-think" className="py-20 px-4 sm:px-6 relative bg-slate-950 text-white overflow-hidden border-t border-slate-900">
+    <section id="how-we-think" className="py-20 px-4 sm:px-6 relative bg-slate-950 text-white overflow-hidden border-t border-slate-900">
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
@@ -127,13 +127,13 @@ export function CustomerJourney() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-white tracking-tight">
-            {isSr ? "Ne gledam samo sajt. Gledam ceo put do klijenta." : "I don't look at pages in isolation. I examine the entire customer journey."}
+            {isSr ? "Ne gledamo samo sajt. Gledamo ceo put do klijenta." : "We don't just look at the website. We look at the entire journey to the client."}
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto">
             {isSr
-              ? "Ako potencijalnog klijenta izgubite na jednom od ovih koraka, lepši dizajn sam po sebi neće rešiti problem. Zato analiziram ceo put, a ne samo pojedinačnu stranicu."
-              : "If you lose a prospective client at any one of these stages, better design alone won't solve the problem. That's why I diagnose the entire journey, not just a single page."}
+              ? "Ako potencijalnog klijenta izgubite na jednom od ovih koraka, lepši dizajn sam po sebi neće rešiti problem."
+              : "If you lose a prospective client at one of these steps, better design alone will not solve the problem."}
           </p>
         </div>
 

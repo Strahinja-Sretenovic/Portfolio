@@ -23,7 +23,7 @@ export function WhyChooseUs() {
   const trustSignals = [
     {
       icon: <UserCheck className="w-5 h-5 text-blue-500" />,
-      title: isSr ? "Direktan rad sa inženjerom" : "Direct engineer collaboration",
+      title: isSr ? "Direktan rad sa inženjerima" : "Direct engineer collaboration",
       desc: isSr ? "Bez posrednika, juniora i prenošenja poruka kroz account managere." : "No intermediaries, junior handoffs, or lost context."
     },
     {
@@ -46,7 +46,7 @@ export function WhyChooseUs() {
   const fitFor = [
     isSr ? "Biznisi koji žele ozbiljnu digitalnu prezentaciju ili web aplikaciju" : "Businesses needing an authoritative digital foundation or web application",
     isSr ? "Firme koje razumeju da sajt treba da donosi upite, a ne samo da 'postoji'" : "Companies that understand a website must convert visitors, not just exist",
-    isSr ? "Vlasnici koji žele direktnu, iskrenu komunikaciju sa inženjerom/konsultantom" : "Owners who appreciate direct, transparent partnership with the consultant",
+    isSr ? "Vlasnici koji žele direktnu, iskrenu komunikaciju sa inženjerima i konsultantima" : "Owners who appreciate direct, transparent partnership with engineers and consultants",
     isSr ? "Biznisi koji žele sistem koji dugoročno radi, a ne jeftinu privremenu zakrpu" : "Businesses investing in a sustainable system rather than a cheap cosmetic fix"
   ];
 
@@ -74,8 +74,8 @@ export function WhyChooseUs() {
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {isSr
-              ? "Cenim vaše i svoje vreme. Najbolji rezultati nastaju kada delimo iste principe o kvalitetu, direktnoj komunikaciji i svrsi digitalnog sistema."
-              : "I value your time and mine. The strongest outcomes happen when we share identical standards for engineering quality, transparency, and business focus."}
+              ? "Cenimo vaše i naše vreme. Najbolji rezultati nastaju kada delimo iste principe o kvalitetu, direktnoj komunikaciji i svrsi digitalnog sistema."
+              : "We value your time and ours. The strongest outcomes happen when we share identical standards for engineering quality, transparency, and business focus."}
           </p>
         </div>
 

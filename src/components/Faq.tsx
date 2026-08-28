@@ -20,8 +20,8 @@ export function Faq() {
     {
       question: isSr ? "Šta ako mi uopšte nije potreban novi sajt?" : "What if I don't actually need a new website?",
       answer: isSr
-        ? "Iskreno ću vam reći. Ponekad je problem u loše podešenom Google profilu, nejasnoj strukturi ponude, odsustvu recenzija ili nepovezanom Instagramu. Ako jednostavne korekcije rešavaju problem, nema potrebe za velikim troškom novog sajta."
-        : "I will tell you directly. Often the bottleneck is a poorly configured Google Business profile, unclear offer messaging, lack of reviews, or friction in booking. If a minor strategic tweak solves the issue, a full new build is unnecessary."
+        ? "Iskreno ćemo vam reći. Ponekad je problem u loše podešenom Google profilu, nejasnoj strukturi ponude, odsustvu recenzija ili nepovezanom Instagramu. Ako jednostavne korekcije rešavaju problem, nema potrebe za velikim troškom novog sajta."
+        : "We will tell you directly. Often the bottleneck is a poorly configured Google Business profile, unclear offer messaging, lack of reviews, or friction in booking. If a minor strategic tweak solves the issue, a full new build is unnecessary."
     },
     {
       question: isSr ? "Zašto ne počinjete odmah dizajnom ili kodom?" : "Why don't you start immediately with design or code?",
@@ -32,8 +32,8 @@ export function Faq() {
     {
       question: isSr ? "Ko zapravo radi na mom projektu?" : "Who actually works on my project?",
       answer: isSr
-        ? "Radite direktno sa mnom (inženjer i konsultant). Nema prebacivanja zadataka na neiskusne juniore, nema gubitka informacija kroz pet nivoa menadžera nalik velikim agencijama — potpuna odgovornost i direktna komunikacija od početka do kraja."
-        : "You work directly with me (engineer & consultant). No handoffs to inexperienced juniors, no lost-in-translation agency account managers — full engineering accountability and direct communication from start to launch."
+        ? "Radite direktno sa nama (inženjeri i konsultanti). Nema prebacivanja zadataka na neiskusne juniore, nema gubitka informacija kroz pet nivoa menadžera nalik velikim agencijama — potpuna odgovornost i direktna komunikacija od početka do kraja."
+        : "You work directly with us (engineers & consultants). No handoffs to inexperienced juniors, no lost-in-translation agency account managers — full engineering accountability and direct communication from start to launch."
     },
     {
       question: isSr ? "Koliko košta i koliko traje izrada projekta?" : "How much does a project cost and how long does it take?",
@@ -44,8 +44,8 @@ export function Faq() {
     {
       question: isSr ? "Kako izgleda besplatna početna analiza?" : "What happens during the free initial analysis?",
       answer: isSr
-        ? "Pošaljete link ka svom biznisu, ja pre razgovora pregledam vaš sajt, mobilno iskustvo, Google profil i konkurenciju. Na razgovoru (15–30 min) ne gledamo prodajne slajdove već odmah prelazimo na konkretna zapažanja i preporuke."
-        : "You send your business link, and I inspect your mobile UX, search presence, competitor positioning, and conversion friction beforehand. On our call (15–30 mins), we bypass sales pitches and discuss actionable observations immediately."
+        ? "Pošaljete link ka svom biznisu, a mi pre razgovora pregledamo vaš sajt, mobilno iskustvo, Google profil i konkurenciju. Na razgovoru (15–30 min) ne gledamo prodajne slajdove već odmah prelazimo na konkretna zapažanja i preporuke."
+        : "You send your business link, and we inspect your mobile UX, search presence, competitor positioning, and conversion friction beforehand. On our call (15–30 mins), we bypass sales pitches and discuss actionable observations immediately."
     },
     {
       question: isSr ? "Da li sam vezan ugovorom ili mesečnim rentiranjem?" : "Am I locked into monthly maintenance contracts?",
