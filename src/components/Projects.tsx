@@ -36,12 +36,18 @@ export function Projects() {
       strategy: isSr 
         ? "Reorganizacija arhitekture: izdvojene namenske stranice za najprofitabilnije usluge (implantologija, protetika), postavljen transparentan cenovni vodič i integrisan 1-klik sistem zakazivanja."
         : "Information restructuring: dedicated landing sections for high-margin procedures, transparent price expectations, and a 1-click booking calendar.",
+      uxDecisions: isSr
+        ? "Mobilni fokus: telefon i zakazivanje fiksirani na dnu ekrana. Formular skraćen sa 8 polja na samo 3 (ime, telefon, željeni termin)."
+        : "Mobile-first: sticky bottom contact bar. Scheduling form reduced from 8 input fields to just 3 (name, phone, preferred slot).",
       solution: isSr 
         ? "Brzo TypeScript web rešenje (<0.5s), integrisani SMS podsetnici za zakazane termine i lokalni Google Schema mikro-podaci za pozicioniranje u regionu."
         : "Ultra-fast custom TypeScript portal (<0.5s load), automated patient SMS reminders, and rich LocalBusiness Schema markup for top local rankings.",
       result: isSr 
-        ? "Preko 60 novih online zakazivanja mesečno, smanjenje nedolazaka na termine za 45% i #1 pozicija na Google pretrazi za ključne stomatološke usluge u gradu."
-        : "60+ qualified online appointments per month, 45% reduction in appointment no-shows, and #1 rank on Google Maps pack.",
+        ? "Preko 60 novih online zakazivanja mesečno, smanjenje nedolazaka na termine za 45% i stabilna #1 pozicija na lokalnoj Google pretrazi."
+        : "60+ qualified online appointments per month, 45% reduction in appointment no-shows, and top rank on Google Maps pack.",
+      nextSteps: isSr
+        ? "Sledeći korak: uvođenje automatskog upitnika za pripremu pacijenta pre prvog pregleda i digitalne ankete za prikupljanje Google recenzija nakon intervencije."
+        : "Next iteration: introducing an automated pre-visit patient questionnaire and post-treatment Google review feedback triggers.",
       metrics: [
         { label: isSr ? "Google Pozicija" : "Google Search", value: "#1", note: isSr ? "u lokalnom regionu" : "in target region" },
         { label: isSr ? "Smanjenje Nedolazaka" : "No-Shows", value: "-45%", note: isSr ? "putem SMS podsetnika" : "via automated SMS" },
@@ -62,12 +68,18 @@ export function Projects() {
       strategy: isSr 
         ? "Kreiranje prodavnice fokusirane na uklanjanje prepreka: 2-step checkout, kalkulator dimenzija i automatska generacija kurirskih naloga."
         : "Frictionless store architecture: 2-step checkout, dimension guide, and automated API courier dispatch.",
+      uxDecisions: isSr
+        ? "Eliminacija obavezne registracije, automatsko popunjavanje adrese i jasan vizuelni pregled troškova dostave pre unosa kartice."
+        : "Guest checkout by default, address autofill, and transparent delivery costs displayed before payment step.",
       solution: isSr 
         ? "Namenski e-commerce sistem sa integrisanim platnim karticama banaka, automatskom štampom adresnica za PostExpress i GA4 praćenjem korpe."
         : "Custom e-commerce infrastructure with bank card integration, automated courier label generation, and full GA4 checkout funnel telemetry.",
       result: isSr 
         ? "Ušteda preko 2.5 sata ručnog rada svakog dana, +38% veća prosečna vrednost porudžbine i 0 napora oko kurirskih pošiljki."
         : "Over 2.5 hours saved daily on manual order entry, +38% increase in average order value, and instant automated shipping.",
+      nextSteps: isSr
+        ? "Sledeći korak: uvođenje napuštene korpe (abandoned cart) automatizacije putem email-a i kalkulatora mesečnih rata za veće kupovine."
+        : "Next iteration: introducing automated abandoned cart recovery sequences and an interactive monthly installment simulator.",
       metrics: [
         { label: isSr ? "Ušteda Vremena" : "Time Saved", value: "2.5h/dan", note: isSr ? "u administraciji" : "manual admin eliminated" },
         { label: isSr ? "Rast Prodaje" : "Sales Growth", value: "+38%", note: isSr ? "kroz 2-step checkout" : "via simplified checkout" },
@@ -88,12 +100,18 @@ export function Projects() {
       strategy: isSr 
         ? "Razvoj interaktivnog booking motora sa automatskim proračunom sezonskih cena, depozita i instant potvrdom na email/WhatsApp."
         : "Interactive rental engine with automated seasonal pricing, deposit rules, and instant confirmation via email/WhatsApp.",
+      uxDecisions: isSr
+        ? "Jednostavan filter flote po tipu menjača i kategoriji, transparentan kalkulator osiguranja i mogućnost preuzimanja na aerodromu u 2 klika."
+        : "Intuitive transmission/category filters, transparent excess insurance toggle, and 2-click airport pickup option.",
       solution: isSr 
         ? "Web aplikacija sa kontrolnom tablom za menadžere (kalendar zauzetosti, servisni intervali vozila i automatsko kreiranje ugovora u PDF formatu)."
         : "Custom web app with fleet management dashboard, automated PDF rental agreements, and multi-currency calculation.",
       result: isSr 
         ? "85% svih rezervacija sada stiže automatski van radnog vremena, bez potrebe za telefonskim pozivima, uz 0 preklapanja termina."
         : "85% of bookings now occur automatically 24/7 without manual staff intervention, with zero scheduling errors.",
+      nextSteps: isSr
+        ? "Sledeći korak: povezivanje sa lokalnim hotelima i turističkim agencijama kroz partnerski API portal za automatsku proviziju."
+        : "Next iteration: launching a localized B2B affiliate portal for partner hotels and travel agencies with automated commission attribution.",
       metrics: [
         { label: isSr ? "Automatski Najmovi" : "Automated Bookings", value: "85%", note: isSr ? "van radnog vremena" : "handled 24/7" },
         { label: isSr ? "Greške u Rasporedu" : "Double Bookings", value: "0", note: isSr ? "potpuna eliminacija" : "completely eliminated" },
@@ -207,7 +225,7 @@ export function Projects() {
                 </p>
               </div>
 
-              {/* Strategy & UX */}
+              {/* Strategy & IA */}
               <div className="p-5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-2">
                 <span className="text-xs font-bold text-blue-400 uppercase tracking-wider block font-mono">
                   {isSr ? "03. Strateška Odluka" : "03. Strategy & IA"}
@@ -217,10 +235,20 @@ export function Projects() {
                 </p>
               </div>
 
+              {/* UX Decisions */}
+              <div className="p-5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-2">
+                <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider block font-mono">
+                  {isSr ? "04. UX Odluke & Tok" : "04. UX & Flow Design"}
+                </span>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {currentStudy.uxDecisions}
+                </p>
+              </div>
+
               {/* Technical Solution */}
               <div className="p-5 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-2">
                 <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider block font-mono">
-                  {isSr ? "04. Tehničko Rešenje" : "04. Engineering Solution"}
+                  {isSr ? "05. Tehničko Rešenje" : "05. Engineering Solution"}
                 </span>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {currentStudy.solution}
@@ -228,13 +256,23 @@ export function Projects() {
               </div>
 
               {/* Measurable Result */}
-              <div className="md:col-span-2 p-5 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-950 to-slate-950 border border-emerald-500/30 space-y-2">
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/50 via-slate-950 to-slate-950 border border-emerald-500/30 space-y-2">
                 <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block font-mono flex items-center gap-1.5">
                   <Check size={14} />
-                  <span>{isSr ? "05. Stvarni Poslovni Rezultat" : "05. Measurable Outcome"}</span>
+                  <span>{isSr ? "06. Stvarni Poslovni Rezultat" : "06. Measurable Outcome"}</span>
                 </span>
                 <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
                   {currentStudy.result}
+                </p>
+              </div>
+
+              {/* What I would improve next (demonstrates ongoing thinking) */}
+              <div className="lg:col-span-3 p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-2">
+                <span className="text-xs font-bold text-purple-400 uppercase tracking-wider block font-mono">
+                  {isSr ? "07. Šta bih sledeće unapredio (Iterativno razmišljanje)" : "07. What I would improve next (Iterative mindset)"}
+                </span>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {currentStudy.nextSteps}
                 </p>
               </div>
 

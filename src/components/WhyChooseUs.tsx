@@ -65,17 +65,17 @@ export function WhyChooseUs() {
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <Sparkles size={14} />
-            <span>{isSr ? "Transparentnost i Principi" : "Trust & Fit Matrix"}</span>
+            <span>{isSr ? "Matrica Usklađenosti" : "Fit & Partnership Matrix"}</span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Zašto SSolutions i kako sarađujemo" : "Why partner with SSolutions?"}
+            {isSr ? "Da li smo dobar fit za saradnju?" : "Are we a good fit to work together?"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {isSr
-              ? "Verujemo u jasne odnose, direktan inženjerski rad i rešenja koja imaju merljiv uticaj na vaše poslovanje."
-              : "We believe in direct relationships, pragmatic engineering, and solutions that move the needle for your business."}
+              ? "Cenim vaše i svoje vreme. Najbolji rezultati nastaju kada delimo iste principe o kvalitetu, direktnoj komunikaciji i svrsi digitalnog sistema."
+              : "I value your time and mine. The strongest outcomes happen when we share identical standards for engineering quality, transparency, and business focus."}
           </p>
         </div>
 

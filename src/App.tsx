@@ -46,37 +46,37 @@ export default function App() {
                 {/* 2. Problem Recognition: "Možda vam ne treba novi sajt" */}
                 <ProblemRecognition />
 
-                {/* 3. Customer Journey: "Ne gledamo samo sajt. Gledamo ceo put do kupca." */}
+                {/* 3. Customer Journey: "Ne gledamo samo sajt. Gledam ceo put do klijenta." */}
                 <CustomerJourney />
 
-                {/* 4. Services: 4 Business Need-Based Categories */}
-                <Services />
-
-                {/* 5. Diagnostic Case Walkthrough: "Primer kako analiziramo jedan biznis" */}
-                <AuditExample />
-
-                {/* 6. Free Initial Audit Offer */}
+                {/* 4. Free Initial Audit Offer */}
                 <AuditOffer />
 
-                {/* 7. 6-Stage Consulting & Engineering Lifecycle */}
+                {/* 5. Diagnostic Case Walkthrough: "Kako izgleda kada analiziram jedan biznis" */}
+                <AuditExample />
+
+                {/* 6. 6-Stage Consulting & Engineering Lifecycle */}
                 <Process />
+
+                {/* 7. Services: 6 Business Need-Based Categories */}
+                <Services />
 
                 {/* 8. Case Studies & Evidence */}
                 <Projects />
 
-                {/* 9. Core Differentiators: "Zašto SSolutions" */}
+                {/* 9. Authentic Consulting Philosophy & About: "Ko stoji iza SSolutions-a?" */}
+                <About />
+
+                {/* 10. Fit Matrix: "Da li smo dobar fit?" */}
                 <WhyChooseUs />
 
-                {/* 10. Scope & Investment Planning Advisor */}
+                {/* 11. Scope & Investment Planning Advisor */}
                 <ProjectEstimator />
-
-                {/* 11. Authentic Consulting Philosophy & About */}
-                <About />
 
                 {/* 12. Honest Objection Handling FAQ */}
                 <Faq />
 
-                {/* 13. Qualifying Lead & Consultation Form */}
+                {/* 13. Final CTA & Qualifying Lead Consultation Form */}
                 <Contact />
               </main>
 

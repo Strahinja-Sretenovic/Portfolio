@@ -40,17 +40,17 @@ export function About() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <Compass size={14} />
-            <span>{isSr ? "O Nama & Pristup" : "About Us & Approach"}</span>
+            <span>{isSr ? "Ko Stoji Iza SSolutions-a" : "Who Stands Behind SSolutions"}</span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Zašto SSolutions pristupa drugačije?" : "Why SSolutions works differently"}
+            {isSr ? "Ko stoji iza SSolutions-a?" : "Who is behind SSolutions?"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {isSr
-              ? "SSolutions je nastao iz jednostavnog problema: previše sajtova se pravi tako što se prvo bira šablon ili tehnologija, a tek kasnije razmišlja šta taj sajt zapravo treba da uradi za biznis."
-              : "SSolutions was born from an obvious industry flaw: too many websites are built starting with a theme or framework, leaving business objectives as an afterthought."}
+              ? "Jedan inženjer i konsultant. Radite direktno sa osobom koja razmišlja o vašem poslovanju, projektuje arhitekturu i piše kod — bez posrednika i bez pokvarenog telefona."
+              : "A single engineer & consultant. You collaborate directly with the person who diagnoses your business, architects the solution, and writes the code — no handoffs, no game of telephone."}
           </p>
         </div>
 
@@ -61,19 +61,19 @@ export function About() {
           <div className="lg:col-span-7 space-y-6">
             <div className="p-7 sm:p-9 rounded-3xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-5">
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                {isSr ? "Stratezi i inženjeri koji razumeju vaš biznis — a ne samo teoriju" : "Strategists who engineer — not just advisors"}
+                {isSr ? "Počeo sam iz softverskog inženjeringa — ali sam shvatio šta zapravo pravi razliku" : "Started in software engineering — realized what truly drives commercial impact"}
               </h3>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {isSr
-                  ? "Kada radite sa tradicionalnim agencijama, vaša ideja prolazi kroz lanac prodavaca, projekt menadžera i junior programera. Suština se često izgubi u prenosu."
-                  : "In traditional agency setups, your business goals are passed through sales reps, account managers, and junior coders. Essential context is lost in translation."}
+                  ? "Godinama sam gledao kako se novac ulaže u skupe web sajtove koji izgledaju lepo na prezentacijama, ali u praksi ne donose ni jedan jedini upit. Problem nikada nije bio u izboru CSS animacija, već u tome što niko nije pitao: 'Ko je kupac i šta ga sprečava da se javi?'"
+                  : "For years I watched businesses invest in flashy websites that looked great in pitch decks but generated zero inquiries. The breakdown was never in visual styling — it was that nobody asked: 'Who is the buyer and what stops them from reaching out?'"}
               </p>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {isSr
-                  ? "U SSolutions-u sarađujete direktno sa timom koji radi dijagnostiku vašeg poslovanja, projektuje informacionu arhitekturu i razvija softver. Nema 'gluvih telefona' i nema praznih obećanja."
-                  : "At SSolutions, you collaborate directly with the team that diagnoses your business, architects your information flow, and builds the software."}
+                  ? "U SSolutions-u spajam duboko tehničko znanje (brz TypeScript kod, web aplikacije, automatizacije) sa poslovnom strategijom i psihologijom kupaca. Zato svaki projekat počinje dijagnostikom, a ne šablonom."
+                  : "At SSolutions, I unite deep engineering capability (blazing fast TypeScript, custom web apps, integrations) with commercial strategy and buyer psychology. That is why every project begins with diagnosis, not a template."}
               </p>
 
               {/* 3 Pillars */}
