@@ -4,15 +4,17 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { ToastProvider } from "./context/ToastContext";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
+import { ProblemRecognition } from "./components/ProblemRecognition";
+import { CustomerJourney } from "./components/CustomerJourney";
 import { Services } from "./components/Services";
-import { ValueComparison } from "./components/ValueComparison";
+import { AuditExample } from "./components/AuditExample";
+import { AuditOffer } from "./components/AuditOffer";
 import { Process } from "./components/Process";
+import { Projects } from "./components/Projects";
+import { WhyChooseUs } from "./components/WhyChooseUs";
 import { ProjectEstimator } from "./components/ProjectEstimator";
 import { About } from "./components/About";
-import { Skills } from "./components/Skills";
 import { Faq } from "./components/Faq";
-import { Experience } from "./components/Experience";
-import { AllProjects } from "./components/AllProjects";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { FloatingContact } from "./components/FloatingContact";
@@ -21,40 +23,11 @@ import { IntroLoader } from "./components/IntroLoader";
 import { trackPageView } from "./utils/analytics";
 
 export default function App() {
-  const [view, setView] = useState<"home" | "all-projects">("home");
   const [introCompleted, setIntroCompleted] = useState(false);
 
-  // Track initial page view & view switches
   useEffect(() => {
-    if (view === "all-projects") {
-      trackPageView("/projects-all", "Svi Projekti & Portfolio | SSolutions");
-    } else {
-      trackPageView("/", "SSolutions – Izrada Sajtova, Web Aplikacija & SEO Optimizacija");
-    }
-  }, [view]);
-
-  // Sync hash changes if user uses browser history or direct hash
-  useEffect(() => {
-    const handleHashChange = () => {
-      if (window.location.hash === "#all-projects" || window.location.hash === "#projects-all") {
-        setView("all-projects");
-      }
-    };
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    trackPageView("/", "SSolutions — Web Strategija, UX i Development Partner");
   }, []);
-
-
-  const openAllProjects = () => {
-    setView("all-projects");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const navigateHome = () => {
-    setView("home");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <ThemeProvider>
@@ -62,30 +35,49 @@ export default function App() {
         <ToastProvider>
           {!introCompleted && <IntroLoader onComplete={() => setIntroCompleted(true)} />}
           <SmoothScroll>
-            <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between">
-              <Header 
-                currentView={view} 
-                onNavigateHome={navigateHome}
-                onOpenProjects={openAllProjects}
-              />
+            <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between bg-white dark:bg-[#07090e] text-slate-900 dark:text-slate-100">
+              
+              <Header />
               
               <main className="flex-1">
-                {view === "home" ? (
-                  <>
-                    <Hero />
-                    <Services />
-                    <ValueComparison />
-                    <Process />
-                    <Experience onViewAllProjects={openAllProjects} />
-                    <ProjectEstimator />
-                    <About />
-                    <Skills />
-                    <Faq />
-                    <Contact />
-                  </>
-                ) : (
-                  <AllProjects onBack={navigateHome} />
-                )}
+                {/* 1. Hero: Strategic Value Proposition */}
+                <Hero />
+
+                {/* 2. Problem Recognition: "Možda vam ne treba novi sajt" */}
+                <ProblemRecognition />
+
+                {/* 3. Customer Journey: "Ne gledam samo sajt. Gledam ceo put do klijenta." */}
+                <CustomerJourney />
+
+                {/* 4. Services: 4 Business Need-Based Categories */}
+                <Services />
+
+                {/* 5. Diagnostic Case Walkthrough: "Primer kako analiziram jedan biznis" */}
+                <AuditExample />
+
+                {/* 6. Free Initial Audit Offer */}
+                <AuditOffer />
+
+                {/* 7. 6-Stage Consulting & Engineering Lifecycle */}
+                <Process />
+
+                {/* 8. Case Studies & Evidence */}
+                <Projects />
+
+                {/* 9. Core Differentiators: "Zašto SSolutions" */}
+                <WhyChooseUs />
+
+                {/* 10. Scope & Investment Planning Advisor */}
+                <ProjectEstimator />
+
+                {/* 11. Authentic Consulting Philosophy & About */}
+                <About />
+
+                {/* 12. Honest Objection Handling FAQ */}
+                <Faq />
+
+                {/* 13. Qualifying Lead & Consultation Form */}
+                <Contact />
               </main>
 
               <Footer />
@@ -97,5 +89,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-
-
