@@ -1,6 +1,6 @@
 {
-  "name": "SSolutions - Softverska Rešenja & Web Development",
-  "description": "SSolutions pruža vrhunska softverska rešenja, web aplikacije, custom CMS rešenja i backend arhitekturu.",
+  "name": "SSolutions — Web Strategija, UX & Razvoj Digitalnih Rešenja",
+  "description": "Strateški web i UX konsalting i inženjerski razvoj digitalnih rešenja koja prepoznaju poslovne probleme i donose merljive rezultate.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
