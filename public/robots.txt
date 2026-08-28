@@ -1,4 +1,7 @@
+# SSolutions Robots.txt for Search Engines
 User-agent: *
 Allow: /
 
+# Direct Sitemap URL for Googlebot, Bingbot, Yandex, etc.
 Sitemap: https://www.ssolutions.click/sitemap.xml
+
