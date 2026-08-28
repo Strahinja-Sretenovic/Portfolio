@@ -18,46 +18,40 @@ export function Faq() {
 
   const faqs = [
     {
-      question: isSr ? "Koliko košta izrada ili redizajn sajta?" : "How much does a website strategy or redesign cost?",
+      question: isSr ? "Šta ako mi uopšte nije potreban novi sajt?" : "What if I don't actually need a new website?",
       answer: isSr
-        ? "Investicija zavisi od problema koji rešavamo. Jednostavan prezentacioni sajt i kompleksan sistem za zakazivanje sa automatizacijama ili online prodavnicom zahtevaju različit obim rada. Nakon kratkog discovery razgovora i uvida u vaše potrebe, dobijate jasan predlog obima, precizan rok i fiksnu cenu — bez skrivenih troškova."
-        : "Pricing is scoped directly against the business problem we solve. A modern corporate presentation site vs a custom booking workflow with SMS reminders and payment gateways require different technical depth. Following a brief discovery call, you receive a transparent fixed quote with zero hidden fees."
+        ? "Iskreno ću vam reći. Ponekad je problem u loše podešenom Google profilu, nejasnoj strukturi ponude, odsustvu recenzija ili nepovezanom Instagramu. Ako jednostavne korekcije rešavaju problem, nema potrebe za velikim troškom novog sajta."
+        : "I will tell you directly. Often the bottleneck is a poorly configured Google Business profile, unclear offer messaging, lack of reviews, or friction in booking. If a minor strategic tweak solves the issue, a full new build is unnecessary."
     },
     {
-      question: isSr ? "Koliko traje ceo projekat od početka do puštanja u rad?" : "How long does a typical project take from start to launch?",
+      question: isSr ? "Zašto ne počinjete odmah dizajnom ili kodom?" : "Why don't you start immediately with design or code?",
       answer: isSr
-        ? "Standardan strateški redizajn ili prezentacioni sajt traje okvirno 2 do 4 nedelje. Zahtevnije web aplikacije, booking platforme i e-commerce sistemi obično traju između 3 i 6 nedelja. Rok se precizno definiše pre početka i garantuje ugovorom."
-        : "Standard strategic redesigns or business presentation sites typically take 2 to 4 weeks. Custom web applications, booking portals, and e-commerce platforms take 3 to 6 weeks. Timelines are committed to in advance."
+        ? "Zato što je građenje pogrešne stvari najskuplja greška u poslovanju. Pre nego što napišemo liniju koda ili nacrtamo piksel, moramo tačno znati ko je vaš kupac, gde trenutno nastaje prekid i šta taj digitalni sistem mora da postigne."
+        : "Because building the wrong thing is the most expensive mistake in business. Before writing code or designing screens, we must diagnose the real bottleneck, understand your buyer, and define exact success criteria."
     },
     {
-      question: isSr ? "Da li mi uopšte treba novi sajt ako već imam neki?" : "Do I actually need a new website if I already have one?",
+      question: isSr ? "Ko zapravo radi na mom projektu?" : "Who actually works on my project?",
       answer: isSr
-        ? "Ne nužno. Ponekad je problem u slaboj vidljivosti na Google-u, nejasnoj poruci, sporom učitavanju ili lošem toku zakazivanja na mobilnom telefonu. Tokom besplatne početne analize, otvoreno vam kažemo da li ima smisla unaprediti postojeći sajt ili je isplativije postaviti novu, stabilnu osnovu."
-        : "Not necessarily. Sometimes the issue lies in poor search visibility, unclear messaging, slow load times, or a clunky mobile checkout. During our initial audit, we evaluate whether optimizing your current site or building a clean new foundation produces the highest return on investment."
+        ? "Radite direktno sa mnom (inženjer i konsultant). Nema prebacivanja zadataka na neiskusne juniore, nema gubitka informacija kroz pet nivoa menadžera nalik velikim agencijama — potpuna odgovornost i direktna komunikacija od početka do kraja."
+        : "You work directly with me (engineer & consultant). No handoffs to inexperienced juniors, no lost-in-translation agency account managers — full engineering accountability and direct communication from start to launch."
     },
     {
-      question: isSr ? "Da li radite SEO optimizaciju?" : "Do you handle SEO (Search Engine Optimization)?",
+      question: isSr ? "Koliko košta i koliko traje izrada projekta?" : "How much does a project cost and how long does it take?",
       answer: isSr
-        ? "Da. Svaki projekat dobija tehnički SEO temelj: čistu semantičku HTML strukturu, semantičke Schema.org mikropodatke za lokalni biznis, OpenGraph tagove, kompresovane slike i automatsko povezivanje sa Google Search Console-om. Takođe radimo istraživanje ključnih reči za vašu delatnost kako bi vas kupci lakše pronalazili."
-        : "Yes. Every project includes structured technical SEO: semantic schema markup, LocalBusiness metadata, open graph tags, sub-second performance, and Google Search Console registration. We also align page structure with high-intent search queries."
+        ? "Investicija i rok zavise od problema koji rešavamo: standardni strateški redizajn ili prezentacioni sajt traje 2–4 nedelje, dok namenske web aplikacije i automatizacije traju 3–6 nedelja. Nakon kratkog razgovora dobijate precizan predlog obima i fiksnu cenu bez skrivenih troškova."
+        : "Investment and timeline depend on scope: a strategic redesign or authoritative presentation site takes 2–4 weeks, while custom web applications or automated booking systems take 3–6 weeks. Following our discovery session, you receive a clear scope and fixed-price commitment."
     },
     {
-      question: isSr ? "Da li vi pišete tekstove i pripremate sadržaj za sajt?" : "Do you write the copy and prepare content for the site?",
+      question: isSr ? "Kako izgleda besplatna početna analiza?" : "What happens during the free initial analysis?",
       answer: isSr
-        ? "Da. U sklopu strategije sadržaja pomažemo vam da strukturišete i formulišete jasne, prodajne tekstove. Umesto komplikovanog žargona, tekstove pišemo tako da kupac u 10 sekundi razume vašu ponudu, prednosti i razloge zašto da izabere baš vas."
-        : "Yes. As part of content strategy, we architect clear, high-converting copy. We translate your expertise into straightforward messaging that communicates value and eliminates buyer hesitation."
+        ? "Pošaljete link ka svom biznisu, ja pre razgovora pregledam vaš sajt, mobilno iskustvo, Google profil i konkurenciju. Na razgovoru (15–30 min) ne gledamo prodajne slajdove već odmah prelazimo na konkretna zapažanja i preporuke."
+        : "You send your business link, and I inspect your mobile UX, search presence, competitor positioning, and conversion friction beforehand. On our call (15–30 mins), we bypass sales pitches and discuss actionable observations immediately."
     },
     {
-      question: isSr ? "Da li mogu samostalno da menjam cene, tekstove i slike?" : "Can I update prices, text, and images myself after launch?",
+      question: isSr ? "Da li sam vezan ugovorom ili mesečnim rentiranjem?" : "Am I locked into monthly maintenance contracts?",
       answer: isSr
-        ? "Apsolutno. Postavljamo jednostavan i pregledan administrativni panel prilagođen vama, gde bez ikakvog tehničkog znanja možete menjati cene, dodavati slike radova, pisati blog članke ili unositi nove usluge."
-        : "Absolutely. We configure an intuitive content management interface where you can effortlessly edit prices, upload photos, manage blog posts, or adjust service descriptions without any technical knowledge."
-    },
-    {
-      question: isSr ? "Šta se dešava nakon puštanja sajta u rad (Launch)?" : "What happens after the website is launched?",
-      answer: isSr
-        ? "Launch nije kraj saradnje. Postavljamo analitiku i pratimo stvarne podatke: gde posetioci klikću, kako dolaze i gde eventualno odustaju. Na raspolaganju smo za redovno tehničko održavanje, bezbednosna ažuriranja i strateško unapređenje konverzije."
-        : "Launch is the starting point of real data collection. We monitor live analytics, track conversion pathways, and identify optimization opportunities. We also provide ongoing maintenance and security hosting."
+        ? "Ne. Dobijate 100% vlasnički, čist kod i jednostavan administrativni panel. Možete samostalno menjati cene i sadržaj. Za održavanje i tehničku podršku možete nas angažovati samo ako vi to želite."
+        : "No. You own 100% of your source code and have an intuitive CMS to update prices, photos, and copy freely. Ongoing technical maintenance is entirely optional."
     }
   ];
 

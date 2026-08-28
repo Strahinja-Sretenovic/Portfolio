@@ -40,14 +40,11 @@ export function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const goalOptions = [
-    { id: "analysis", label: isSr ? "Nisam siguran — želim analizu" : "Not sure — I want an audit" },
-    { id: "leads", label: isSr ? "Potrebno nam je više upita" : "We need more qualified inquiries" },
-    { id: "new-site", label: isSr ? "Potreban nam je novi sajt" : "We need a new business website" },
-    { id: "redesign", label: isSr ? "Postojeći sajt ne daje rezultate" : "Current website isn't producing results" },
-    { id: "ecommerce", label: isSr ? "Potrebna nam je online prodavnica" : "We need an e-commerce store" },
-    { id: "automation", label: isSr ? "Želimo automatizaciju procesa / zakazivanja" : "We need workflow / booking automation" },
-    { id: "webapp", label: isSr ? "Potrebna nam je web aplikacija" : "We need a custom web application" },
-    { id: "seo", label: isSr ? "SEO / Bolja Google vidljivost" : "SEO & Google local visibility" }
+    { id: "analysis", label: isSr ? "Ne znam tačno — želim analizu" : "Not sure — I want an audit" },
+    { id: "redesign", label: isSr ? "Redizajn postojećeg sajta" : "Redesign existing website" },
+    { id: "new-site", label: isSr ? "Izrada novog poslovnog sajta" : "Build a new business website" },
+    { id: "seo", label: isSr ? "Više klijenata sa Google-a / SEO" : "More Google search clients / SEO" },
+    { id: "automation", label: isSr ? "Sistem zakazivanja / web aplikacija / automatizacija" : "Booking system / web application / automation" }
   ];
 
   const handleSubmit = async (e: FormEvent) => {
@@ -230,13 +227,14 @@ export function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                          {isSr ? "Postojeći sajt ili Instagram link" : "Website or Instagram profile link"}
+                          {isSr ? "Website / Instagram profil / Naziv firme *" : "Website / Instagram / Business name *"}
                         </label>
                         <input
                           type="text"
+                          required
                           value={formData.link}
                           onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                          placeholder="www.primer.rs ili @vasprofil"
+                          placeholder={isSr ? "npr. www.mojsajt.rs ili @mojprofil" : "e.g. www.mysite.com or @myhandle"}
                           className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:border-blue-500 focus:outline-hidden"
                         />
                       </div>
@@ -249,7 +247,7 @@ export function Contact() {
                           type="text"
                           value={formData.businessType}
                           onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                          placeholder={isSr ? "npr. Frizerski salon, Stomatologija, Rent-a-car" : "e.g. Medical, E-Commerce, Legal"}
+                          placeholder={isSr ? "npr. Frizerski salon, Stomatologija, Proizvodnja" : "e.g. Salon, Clinic, Manufacturing"}
                           className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:border-blue-500 focus:outline-hidden"
                         />
                       </div>

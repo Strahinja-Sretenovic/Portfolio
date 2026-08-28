@@ -26,72 +26,92 @@ export function CustomerJourney() {
     {
       id: 0,
       icon: <Search className="w-5 h-5 text-blue-400" />,
-      stage: isSr ? "01. Pronalazak" : "01. Discovery",
-      title: isSr ? "Google / Preporuka / Mreže" : "Search / Social / Referral",
+      stage: isSr ? "01. Kanal" : "01. Discovery",
+      title: isSr ? "Google / Instagram / preporuka" : "Google / Instagram / Referral",
       desc: isSr 
-        ? "Kupac ima problem i traži rešenje. Ako vas ne pronalazi na prvoj strani ili kroz preporuku, ceo lanac se prekida pre početka."
-        : "Prospect experiences a need and initiates search. If you lack visibility, the commercial chain breaks immediately.",
-      friction: isSr ? "Rizik: Niste vidljivi gde kupac traži." : "Risk: Invisible on key search channels."
+        ? "Kupac traži rešenje svog problema ili nailazi na vaš profil. Ako niste vidljivi ili vas nema gde traži, ceo proces se prekida pre nego što počne."
+        : "Prospect looks for a solution. If you lack search or social presence where they look, the journey breaks before starting.",
+      friction: isSr ? "Pitanje: Da li vas potencijalni kupac uopšte pronalazi?" : "Diagnostic: Can prospective clients actually discover you?"
     },
     {
       id: 1,
       icon: <Share2 className="w-5 h-5 text-cyan-400" />,
-      stage: isSr ? "02. Prvi Utisak" : "02. First Touch",
-      title: isSr ? "Prvi kontakt sa brendom" : "Initial Impression",
+      stage: isSr ? "02. Utisak" : "02. First Touch",
+      title: isSr ? "Prvi utisak" : "First Impression",
       desc: isSr 
-        ? "Prvih 5 sekundi. Korisnik podsvesno odlučuje da li delujete stručno, ozbiljno i sigurno."
-        : "The first 5 seconds. Prospects subconsciously gauge authority, speed, and whether you are legitimate.",
-      friction: isSr ? "Rizik: Spor sajt, zastareo izgled, 'jeftin' utisak." : "Risk: Slow load time, broken visual hierarchy."
+        ? "Prvih 5 sekundi. Korisnik podsvesno procenjuje da li delujete profesionalno, sigurno i relevantno za njegov problem."
+        : "The first 5 seconds. Visitors evaluate credibility, cleanliness, and whether you are trustworthy.",
+      friction: isSr ? "Pitanje: Da li ulivate poverenje i delujete ozbiljno?" : "Diagnostic: Do you project immediate credibility and clarity?"
     },
     {
       id: 2,
-      icon: <Globe className="w-5 h-5 text-indigo-400" />,
-      stage: isSr ? "03. Web Lokacija" : "03. Hub & Landing",
-      title: isSr ? "Sajt / Landing stranica" : "Website / Destination",
+      icon: <FileText className="w-5 h-5 text-indigo-400" />,
+      stage: isSr ? "03. Relevancija" : "03. Offer Match",
+      title: isSr ? "Da li nudite ono što mi treba?" : "Do you offer what I need?",
       desc: isSr 
-        ? "Vaša digitalna kancelarija. Ovde kupac dobija potpunu kontrolu nad informacijama bez lutanja."
-        : "Your dedicated digital storefront. Prospects expect clear navigation and instant clarity.",
-      friction: isSr ? "Rizik: Korisnik se izgubi u pretrpanom meniju." : "Risk: Cluttered menu and unfocused layout."
+        ? "Posetilac traži jasan odgovor: 'Da li ova firma rešava moj specifičan problem?'. Ako je ponuda nejasna, odmah napušta stranicu."
+        : "The prospect checks if your services solve their exact situation. Vague wording leads to an immediate bounce.",
+      friction: isSr ? "Pitanje: Da li je ponuda kristalno jasna bez nagađanja?" : "Diagnostic: Is the core service offering instantly obvious?"
     },
     {
       id: 3,
-      icon: <FileText className="w-5 h-5 text-emerald-400" />,
-      stage: isSr ? "04. Jasnoća" : "04. Value Prop",
-      title: isSr ? "Razumevanje ponude" : "Offer Comprehension",
+      icon: <ShieldCheck className="w-5 h-5 text-emerald-400" />,
+      stage: isSr ? "04. Poverenje" : "04. Trust",
+      title: isSr ? "Mogu li da vam verujem?" : "Can I trust you?",
       desc: isSr 
-        ? "Zašto vi? Šta tačno dobija? Koje probleme rešavate i koliko to okvirno košta ili traje?"
-        : "What specific outcomes do you produce? Transparent scope and pricing expectations.",
-      friction: isSr ? "Rizik: Previše marketinškog žargona bez suštine." : "Risk: Vague corporate buzzwords without substance."
+        ? "Kupac traži dokaze: stvarne reference, primere radova, utiske drugih klijenata i objašnjenje kako radite."
+        : "Prospect looks for proof: past client work, reviews, and a transparent explanation of how you operate.",
+      friction: isSr ? "Pitanje: Postoje li opipljivi dokazi stručnosti i rezultata?" : "Diagnostic: Is there authentic proof backing up your claims?"
     },
     {
       id: 4,
-      icon: <ShieldCheck className="w-5 h-5 text-amber-400" />,
-      stage: isSr ? "05. Poverenje" : "05. Trust & Proof",
-      title: isSr ? "Dokazi i reference" : "Evidence & Trust",
+      icon: <Scale className="w-5 h-5 text-amber-400" />,
+      stage: isSr ? "05. Poređenje" : "05. Comparison",
+      title: isSr ? "Poređenje sa konkurencijom" : "Comparing alternatives",
       desc: isSr 
-        ? "Studije slučaja, stvarne recenzije i jasna metodologija rada koja uklanja strah od lošeg izbora."
-        : "Verified case studies, transparent methodology, and social proof mitigating perceived buyer risk.",
-      friction: isSr ? "Rizik: Nema dokaza da ste već uspešno rešavali taj problem." : "Risk: Zero credible proof or vague claims."
+        ? "Retko ko kupuje od prve opcije. Kupac upoređuje vas i konkurente — šta dobija, kako se komunicira i zašto bi izabrao vas."
+        : "Buyers weigh alternatives. What makes your offer clearer, easier, or more reliable than others?",
+      friction: isSr ? "Pitanje: Zašto bi kupac izabrao baš vas, a ne drugog?" : "Diagnostic: Is your unique differentiator evident?"
     },
     {
       id: 5,
-      icon: <PhoneCall className="w-5 h-5 text-rose-400" />,
-      stage: isSr ? "06. Akcija" : "06. Conversion",
-      title: isSr ? "Poziv / Rezervacija / Kupovina" : "Inquiry / Booking / Sale",
+      icon: <Info className="w-5 h-5 text-orange-400" />,
+      stage: isSr ? "06. Odluka" : "06. Decision Info",
+      title: isSr ? "Cena / informacije / dokaz" : "Pricing / Information / Proof",
       desc: isSr 
-        ? "Jednostavan 1-klik formular, direktan poziv sa mobilnog ili automatski sistem za rezervaciju bez čekanja."
-        : "Frictionless 1-tap contact, mobile direct calling, or instant self-service booking.",
-      friction: isSr ? "Rizik: Komplikovan formular sa previše obaveznih polja." : "Risk: High-friction forms or missing phone triggers."
+        ? "Kupcu su potrebne praktične informacije: raspon cena, rokovi, radno vreme, lokacija ili šta je tačno sledeći korak."
+        : "Prospect needs clarity on practical details: pricing expectations, timeframes, or next steps.",
+      friction: isSr ? "Pitanje: Ima li kupac dovoljno informacija da donese odluku?" : "Diagnostic: Are next steps and parameters crystal clear?"
     },
     {
       id: 6,
-      icon: <Repeat className="w-5 h-5 text-purple-400" />,
-      stage: isSr ? "07. Lojalnost" : "07. Retention",
-      title: isSr ? "Klijent & Preporuka" : "Client & Advocacy",
+      icon: <PhoneCall className="w-5 h-5 text-rose-400" />,
+      stage: isSr ? "07. Akcija" : "07. Action",
+      title: isSr ? "Poziv / poruka / rezervacija / kupovina" : "Call / Message / Booking / Purchase",
       desc: isSr 
-        ? "Zadovoljan klijent koji se vraća i preporučuje vaš biznis drugima, zatvarajući krug organskog rasta."
-        : "A delighted client who returns and refers peers, fueling compounding organic business growth.",
-      friction: isSr ? "Cilj: Sistem koji olakšava kontinuiranu saradnju." : "Goal: Systems facilitating effortless repeat business."
+        ? "Trenutak konverzije. Formular, telefonski poziv, online zakazivanje ili kupovina moraju raditi bez ijedne nepotrebne prepreke."
+        : "The moment of conversion. The form, direct call, or booking must be completely frictionless.",
+      friction: isSr ? "Pitanje: Koliko je lako i jednostavno napraviti kontakt?" : "Diagnostic: Is contacting or booking effortless?"
+    },
+    {
+      id: 7,
+      icon: <UserCheck className="w-5 h-5 text-teal-400" />,
+      stage: isSr ? "08. Klijent" : "08. Customer",
+      title: isSr ? "Klijent i realizacija" : "Client Experience",
+      desc: isSr 
+        ? "Isporuka usluge i saradnja. Iskustvo klijenta potvrđuje da je doneo pravu odluku."
+        : "Service delivery and execution, confirming the client made the right decision.",
+      friction: isSr ? "Cilj: Profesionalno iskustvo koje opravdava očekivanja." : "Goal: Exceeding expectations through clean delivery."
+    },
+    {
+      id: 8,
+      icon: <Repeat className="w-5 h-5 text-purple-400" />,
+      stage: isSr ? "09. Lojalnost" : "09. Advocacy",
+      title: isSr ? "Ponovna kupovina / preporuka" : "Repeat business & Referrals",
+      desc: isSr 
+        ? "Zadovoljan klijent se vraća i preporučuje vas drugima, stvarajući stabilan organski rast."
+        : "A satisfied client returns and recommends you, creating sustainable word-of-mouth growth.",
+      friction: isSr ? "Cilj: Dugoročna vrednost i preporuke bez dodatnog marketinga." : "Goal: Organic compounding growth through delighted clients."
     }
   ];
 
@@ -107,25 +127,25 @@ export function CustomerJourney() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-white tracking-tight">
-            {isSr ? "Ne gledam samo sajt. Gledam ceo put do klijenta." : "I don't look at pages in isolation. I engineer the entire customer journey."}
+            {isSr ? "Ne gledam samo sajt. Gledam ceo put do klijenta." : "I don't look at pages in isolation. I examine the entire customer journey."}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
             {isSr
-              ? "Ako problem nastaje na jednom od ovih koraka, lepši dizajn sam po sebi neće ga rešiti. Zato analiziram celokupan tok pre bilo kakvog rada na kodu."
-              : "If friction occurs at any single step in this journey, visual polish alone will not fix your business. That's why I diagnose the entire funnel before touching code."}
+              ? "Ako potencijalnog klijenta izgubite na jednom od ovih koraka, lepši dizajn sam po sebi neće rešiti problem. Zato analiziram ceo put, a ne samo pojedinačnu stranicu."
+              : "If you lose a prospective client at any one of these stages, better design alone won't solve the problem. That's why I diagnose the entire journey, not just a single page."}
           </p>
         </div>
 
-        {/* Journey Steps Horizontal Interactive Trail */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
+        {/* Journey Steps Responsive Flow Trail */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2.5 mb-8">
           {steps.map((step) => {
             const isSelected = activeStep === step.id;
             return (
               <button
                 key={step.id}
                 onClick={() => setActiveStep(step.id)}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? "bg-blue-600/20 border-blue-500 shadow-lg shadow-blue-500/20 ring-1 ring-blue-500"
                     : "bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200"
@@ -133,16 +153,16 @@ export function CustomerJourney() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <div className="p-2 rounded-lg bg-slate-950 border border-slate-800">
+                    <div className="p-1.5 rounded-lg bg-slate-950 border border-slate-800">
                       {step.icon}
                     </div>
                     <span className="text-[10px] font-mono text-slate-400">{step.stage.split(".")[0]}</span>
                   </div>
-                  <span className="text-xs font-bold text-white block leading-tight line-clamp-1">
+                  <span className="text-xs font-bold text-white block leading-tight">
                     {step.stage.split(".")[1]}
                   </span>
                 </div>
-                <span className="text-[11px] text-slate-400 mt-2 block font-medium">
+                <span className="text-[10px] text-slate-400 mt-2 block font-medium line-clamp-1">
                   {step.title.split("/")[0]}
                 </span>
               </button>

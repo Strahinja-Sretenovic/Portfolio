@@ -197,12 +197,24 @@ export function ProjectEstimator() {
               </div>
             </div>
 
+            {/* Why pricing varies note */}
+            <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+              <div className="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">
+                {isSr ? "Zašto se cene i obim razlikuju?" : "Why does investment vary?"}
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                {isSr
+                  ? "Cena zavisi od poslovnog cilja, kompleksnosti integracija (npr. online plaćanja, booking sistemi), pripremljenosti materijala i tehničkih zahteva — ne od proizvoljnih šablonskih paketa."
+                  : "Pricing depends on your business objectives, integration complexity (payments, self-serve booking), material readiness, and custom technical requirements."}
+              </p>
+            </div>
+
             {/* Action */}
             <button
               onClick={() => {
                 trackConsultationCtaClick({
                   location: "Estimator_Summary",
-                  ctaText: isSr ? "Zakažite razgovor za procenu" : "Schedule Scope Consultation",
+                  ctaText: isSr ? "Zakaži besplatnu analizu za tačnu ponudu" : "Request Scope Assessment",
                   target: "#contact",
                   serviceContext: `Estimator: ${projectType} with ${scopeFeatures.length} features`
                 });
@@ -210,7 +222,7 @@ export function ProjectEstimator() {
               }}
               className="w-full py-4 px-6 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all cursor-pointer"
             >
-              <span>{isSr ? "Zakažite razgovor za preciznu ponudu" : "Schedule Scope Consultation"}</span>
+              <span>{isSr ? "Zakaži besplatnu analizu za tačnu ponudu" : "Schedule Consultation for Exact Quote"}</span>
               <ArrowRight size={16} />
             </button>
           </div>

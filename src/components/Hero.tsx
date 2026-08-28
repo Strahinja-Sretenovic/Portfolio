@@ -83,33 +83,43 @@ export function Hero() {
         >
           {isSr ? (
             <>
-              Ne treba vam samo bolji sajt. <br className="hidden sm:inline" />
+              Ne počinjem kodom. <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 dark:from-blue-400 dark:via-indigo-300 dark:to-cyan-400">
-                Treba vam sajt koji bolje radi
-              </span>{" "}
-              za vaš biznis.
+                Počinjem problemom.
+              </span>
             </>
           ) : (
             <>
-              You don't just need a better-looking website. <br className="hidden sm:inline" />
+              I don't start with code. <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 dark:from-blue-400 dark:via-indigo-300 dark:to-cyan-400">
-                You need a website that works harder
-              </span>{" "}
-              for your business.
+                I start with the problem.
+              </span>
             </>
           )}
         </motion.h1>
+
+        {/* Supporting Headline */}
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: easeOutCustom }}
+          className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mb-4"
+        >
+          {isSr
+            ? "Pre nego što napravim sajt, prvo utvrđujem šta taj sajt treba da popravi u vašem biznisu."
+            : "Before I build a website, I first determine what problem that website needs to solve for your business."}
+        </motion.h2>
 
         {/* Supporting Copy */}
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: easeOutCustom }}
-          className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal"
+          className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal"
         >
           {isSr
-            ? "Analiziram kako vas potencijalni klijenti pronalaze, šta ih sprečava da vas izaberu i gde gubite prilike — zatim projektujem i razvijam rešenje koje uklanja te prepreke."
-            : "I analyze how prospective clients find you, what stops them from choosing you, and where you leak opportunities — then engineer the solution that removes those bottlenecks."}
+            ? "Analiziram kako vas potencijalni klijenti pronalaze, šta vide kada vas pronađu i gde odustaju — a zatim projektujem i razvijam rešenje koje uklanja te prepreke."
+            : "I analyze how prospective clients find you, what they see when they land, and where they drop off — then engineer the solution that removes those obstacles."}
         </motion.p>
 
         {/* Primary and Secondary CTAs */}

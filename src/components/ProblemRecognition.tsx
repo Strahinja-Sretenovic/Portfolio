@@ -26,55 +26,55 @@ export function ProblemRecognition() {
       id: 1,
       icon: <MessageSquareWarning className="w-5 h-5 text-amber-500" />,
       question: isSr ? "Imate posete, ali malo upita?" : "Traffic comes in, but inquiries don't?",
-      diagnosis: isSr ? "Problem sa porukom, poverenjem ili konverzijom" : "Messaging, trust or conversion friction",
+      diagnosis: isSr ? "Problem sa porukom, poverenjem ili preprekama" : "Messaging, trust or conversion friction",
       description: isSr
-        ? "Posetioci dođu na sajt, ali brzo napuste jer ponuda nije jasna, nedostaju dokazi o kvalitetu ili je kontakt previše komplikovan."
-        : "Visitors land on your page but bounce quickly because the offer lacks clarity, social proof is missing, or contacting you feels tedious."
+        ? "Ljudi dolaze, ali ih nešto sprečava da naprave sledeći korak. Možda ponuda nije jasna, nedostaje dokaz o kvalitetu ili je kontakt previše komplikovan."
+        : "Visitors arrive, but something stops them from taking the next step. The offer might be unclear, proof is missing, or contact is cumbersome."
     },
     {
       id: 2,
       icon: <HelpCircle className="w-5 h-5 text-blue-500" />,
       question: isSr ? "Ljudi ne razumeju jasno šta nudite?" : "People don't clearly understand what you offer?",
-      diagnosis: isSr ? "Problem sa sadržajem i informacionom arhitekturom" : "Content & information architecture issue",
+      diagnosis: isSr ? "Struktura informacija i ponuda" : "Content & information architecture issue",
       description: isSr
-        ? "Ključne informacije su skrivene u dugačkim pasusima, struktura je konfuzna ili posetioci ne vide razliku između vaših usluga."
-        : "Critical information is buried, structure is confusing, or prospects cannot quickly distinguish between your key services."
+        ? "Problem možda nije dizajn, već način na koji su ponuda i informacije predstavljeni. Ključne stvari su skrivene ili posetioci ne vide razliku u odnosu na druge."
+        : "The problem might not be design, but how the offer and information are structured. Key details are hidden or visitors can't tell the difference."
     },
     {
       id: 3,
       icon: <Search className="w-5 h-5 text-emerald-500" />,
-      question: isSr ? "Ne pojavljujete se kada ljudi traže vašu uslugu?" : "Invisible when prospects search for your service?",
-      diagnosis: isSr ? "SEO / Discoverability problem" : "SEO & search discoverability problem",
+      question: isSr ? "Konkurencija se pojavljuje pre vas na Google-u?" : "Competitors show up before you on Google?",
+      diagnosis: isSr ? "Google vidljivost i lokalni signali" : "Search discoverability & local signals",
       description: isSr
-        ? "Kupci sa visokom namerom traže rešenje na Google-u, ali pronalaze konkurente jer vaš digitalni profil nema tehničke i lokalne signale."
-        : "High-intent buyers search for solutions on Google, but find competitors because your web presence lacks technical and local search signals."
+        ? "Potencijalni klijent možda vas ni ne vidi u trenutku kada traži vašu uslugu. Traži rešenje na Google-u i završava kod konkurencije."
+        : "A prospective client might not even see you when searching for your service. They search Google and land with a competitor instead."
     },
     {
       id: 4,
       icon: <Compass className="w-5 h-5 text-rose-500" />,
       question: isSr ? "Zavisite gotovo potpuno od Instagrama?" : "Almost 100% dependent on Instagram?",
-      diagnosis: isSr ? "Rizična zavisnost od jednog kanala" : "Single-channel platform risk",
+      diagnosis: isSr ? "Zavisnost od jednog kanala" : "Single-channel platform risk",
       description: isSr
-        ? "Društvene mreže su odlične za pažnju, ali potencijalni klijenti koji vas traže drugim kanalima (Google, preporuka) možda vas ne pronalaze dovoljno lako."
-        : "Social channels build awareness, but buyers researching via Google or formal B2B evaluations cannot verify your credibility."
+        ? "Vaš biznis zavisi od kanala koji ne kontrolišete i možda propuštate ljude koji traže drugačije (Google pretraga, preporuka, ozbiljne procene)."
+        : "Your business relies on a channel you don't control, and you might miss clients who search differently (Google, referrals, formal evaluations)."
     },
     {
       id: 5,
       icon: <Clock className="w-5 h-5 text-indigo-500" />,
       question: isSr ? "Stalno odgovarate na ista pitanja?" : "Constantly answering the exact same questions?",
-      diagnosis: isSr ? "Informacije nisu dostupne na pravom mestu" : "Information not accessible at the right touchpoint",
+      diagnosis: isSr ? "Informacije nisu dostupne na pravom mestu" : "Information not accessible upfront",
       description: isSr
-        ? "Gubite sate u porukama i pozivima objašnjavajući cene, radno vreme, proceduru ili dostupnost umesto da to sajt sam rešava."
-        : "You waste hours in DMs and phone calls explaining pricing, timelines, or procedures that a structured website should answer upfront."
+        ? "Informacije možda nisu dostupne kupcu kada su mu potrebne. Gubite sate objašnjavajući cene, radno vreme ili proceduru umesto da to sajt reši."
+        : "Information might not be available when the buyer needs it. You spend hours explaining pricing, hours, or procedures that a site should clarify."
     },
     {
       id: 6,
       icon: <BarChart3 className="w-5 h-5 text-cyan-500" />,
-      question: isSr ? "Gubite vreme na pozive, poruke i ručne rezervacije?" : "Losing time on calls, DMs and manual booking?",
-      diagnosis: isSr ? "Proces koji može da se automatizuje" : "Manual friction that can be automated",
+      question: isSr ? "Gubite vreme na pozive, poruke i ručno zakazivanje?" : "Losing time on calls, DMs and manual booking?",
+      diagnosis: isSr ? "Proces koji može da se pojednostavi" : "Process that can be simplified",
       description: isSr
-        ? "Ručno vođenje kalendara, slanje ponuda i potvrda termina troši vašu energiju i stvara prostor za greške i izgubljene termine."
-        : "Manual scheduling, PDF emailing, and tracking reminders drains your time and creates drop-offs from busy prospects."
+        ? "Deo procesa možda može da se pojednostavi ili automatizuje. Ručno vođenje kalendara i poruka troši energiju i stvara prostor za greške."
+        : "Part of the process could be simplified or automated. Manual scheduling and DM handling consumes energy and leads to dropped appointments."
     }
   ];
 

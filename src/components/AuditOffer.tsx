@@ -21,31 +21,31 @@ export function AuditOffer() {
   const fourSteps = [
     {
       step: "01",
-      title: isSr ? "Pošaljete mi svoj biznis" : "Share your business details",
+      title: isSr ? "Pošaljete mi svoj biznis" : "Send me your business details",
       desc: isSr 
-        ? "Link ka sajtu, Instagram profilu, Google profilu ili samo naziv firme i delatnost."
-        : "Website link, Instagram profile, Google Business profile, or simply your company name and industry."
+        ? "Pošaljete website, Instagram profil, Google profil ili samo naziv firme i čime se bavite."
+        : "Send your website, Instagram profile, Google Business profile, or simply your company name."
     },
     {
       step: "02",
-      title: isSr ? "Ja radim domaći zadatak" : "I do the background research",
+      title: isSr ? "Pregledam vaš nastup" : "I review your current presence",
       desc: isSr 
-        ? "Pre razgovora proveravam mobilno iskustvo, brzinu, Google vidljivost, jasnoću ponude, konkurenciju i tačke gde posetioci odustaju."
-        : "Before our meeting, I inspect mobile UX, load speeds, Google presence, offer clarity, competitor positioning, and conversion friction."
+        ? "Pregledam sajt, mobilno iskustvo, Google vidljivost, jasnoću ponude, konkurenciju, osnovni SEO i očigledne prepreke."
+        : "I inspect your site, mobile UX, Google visibility, offer clarity, competitors, basic SEO, and obvious drop-off points."
     },
     {
       step: "03",
-      title: isSr ? "Razgovaramo konkretno" : "We discuss concrete observations",
+      title: isSr ? "Dolazim pripremljen" : "I come fully prepared",
       desc: isSr 
-        ? "Umesto generičke prodajne prezentacije, 15–30 minuta prolazimo kroz ono što sam zapravo primetio na vašem primeru."
-        : "Instead of a generic sales pitch, we spend 15–30 minutes walking through specific bottlenecks I identified."
+        ? "Na razgovoru ne trošimo vreme da objašnjavate stvari koje sam mogao sam da vidim — odmah pričamo o onome što sam primetio."
+        : "We don't waste call time explaining things I could check myself — we jump straight into specific findings."
     },
     {
       step: "04",
-      title: isSr ? "Dobijate preporuku" : "You receive actionable priorities",
+      title: isSr ? "Preporuka za sledeći korak" : "Clear next step recommendation",
       desc: isSr 
-        ? "Jasno vam kažem šta bih prvo rešavao i kojim redosledom kako biste dobili najveći povrat uloženog."
-        : "I provide an honest recommendation on what to fix first and in what priority to generate maximum return on effort."
+        ? "Dobijate preporuku: unapređenje sajta, redizajn, bolji Google profil, landing stranica, booking, automatizacija — ili ništa od toga."
+        : "You get a recommendation: site tweaks, redesign, Google profile, landing page, booking, automation — or no project needed."
     }
   ];
 
@@ -63,19 +63,19 @@ export function AuditOffer() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
                 <Sparkles size={14} />
-                <span>{isSr ? "Besplatna Početna Analiza" : "Free Initial Assessment"}</span>
+                <span>{isSr ? "Početna Dijagnostika" : "Initial Assessment"}</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-white tracking-tight leading-tight">
                 {isSr 
-                  ? "Šta zapravo dobijate na besplatnoj analizi?" 
-                  : "What do you actually get from the free analysis?"}
+                  ? "Šta dobijate na besplatnoj početnoj analizi?" 
+                  : "What do you get in the free initial analysis?"}
               </h2>
 
               <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
                 {isSr
-                  ? "Nema generičkih slajdova i nema praznih prodajnih priča. Pripremam se unapred kako bi svaki minut razgovora imao direktnu vrednost za vaš biznis."
-                  : "No generic sales decks or fluff. I do targeted research beforehand so every minute of our conversation provides actionable value."}
+                  ? "Ne dolazim na razgovor da vam pokažem generičku prodajnu prezentaciju. Pre razgovora radim domaći."
+                  : "I don't show up with a generic sales pitch. I do my homework before we speak."}
               </p>
             </div>
 
@@ -104,17 +104,17 @@ export function AuditOffer() {
                 <ShieldCheck size={26} className="shrink-0 text-blue-400 mt-0.5" />
                 <div className="space-y-1">
                   <div className="text-xs font-mono font-bold uppercase tracking-wider text-blue-400">
-                    {isSr ? "GARANCIJA ISKRENOSTI" : "HONESTY GUARANTEE"}
+                    {isSr ? "ISPRED SVEGA ISKRENOST" : "HONESTY FIRST"}
                   </div>
-                  <p className="text-sm sm:text-base font-bold text-white">
+                  <p className="text-base sm:text-lg font-bold text-white">
                     {isSr
                       ? "Ako mislim da vam novi sajt trenutno nije potreban, reći ću vam."
                       : "If I believe you don't need a new website right now, I will tell you directly."}
                   </p>
                   <p className="text-xs text-slate-300">
                     {isSr 
-                      ? "Cilj analize je pronalazak pravog uzroka, a ne prodaja nečega što vam ne donosi rezultat." 
-                      : "The goal is finding the real bottleneck, not pushing services that won't deliver ROI."}
+                      ? "Cilj prvog razgovora je da razumemo gde nastaje problem, a ne da vam prodam nešto po svaku cenu." 
+                      : "The goal of our first conversation is to understand the problem, not to sell you a project at all costs."}
                   </p>
                 </div>
               </div>
@@ -137,8 +137,7 @@ export function AuditOffer() {
                 </button>
 
                 <div className="flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
-                  <Clock size={12} className="text-emerald-400" />
-                  <span>{isSr ? "15–30 min • 100% besplatno • Bez obaveze" : "15–30 min • 100% free • Zero obligation"}</span>
+                  <span>{isSr ? "Bez obaveze. Pričamo konkretno o vašem biznisu." : "Zero obligation. Focused on your real business."}</span>
                 </div>
               </div>
             </div>

@@ -24,221 +24,190 @@ export function AuditExample() {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  const [activeNiche, setActiveNiche] = useState<"salon" | "clinic" | "b2b">("salon");
-
-  const niches = {
-    salon: {
-      name: isSr ? "Lokalni Uslužni Biznis (npr. Frizerski / Beauty Salon)" : "Local Service (e.g. Hair & Beauty Salon)",
-      icon: <Scissors size={16} />,
-      query: isSr ? "„frizerski salon cene i zakazivanje“" : "“hair salon pricing & booking”",
-      steps: [
-        { label: isSr ? "Google Pretraga & Mape" : "Google Search & Maps", status: "ok", text: isSr ? "Kupac traži uslugu u blizini" : "User searches nearby" },
-        { label: isSr ? "Google Profil & Ocene" : "Google Profile & Reviews", status: "ok", text: isSr ? "Vidi ocene i klikne na link ka sajtu" : "Checks reviews and taps website" },
-        { label: isSr ? "Sajt / Landing Stranica" : "Website / Landing Page", status: "warning", text: isSr ? "Otvara se, ali nema istaknutog cenovnika" : "Opens, but no clear price list" },
-        { label: isSr ? "Razumevanje Usluga" : "Service Clarity", status: "warning", text: isSr ? "Predugačak nepovezan tekst, nema slika radova" : "Dense text block, lacking photo proof" },
-        { label: isSr ? "Zakazivanje Termina" : "Booking Friction", status: "danger", text: isSr ? "Piše samo: 'Zovite telefonom' (a sada je 22h)" : "Only says 'Call by phone' (at 10 PM)" },
-      ],
-      frictionSummary: isSr 
-        ? "Kupac je hteo da zakaže termin u 22h. Pošto salon nema online kalendar niti transparentan cenovnik, kupac je otišao na Google i zakazao kod drugog salona."
-        : "Prospect wanted to book at 10 PM. Because the business lacked self-serve scheduling and transparent pricing, the customer booked with a competitor.",
-      consultantTakeaway: isSr
-        ? "Ne bismo počeli pitanjem 'kakav dizajn želite?' Počeli bismo pitanjem 'koliko termina gubite jer ljudi ne mogu da zakažu van radnog vremena?'"
-        : "We don't ask 'what color scheme do you like?' We ask 'how much revenue do you leak because clients cannot book after business hours?'"
+  const checkpoints = [
+    {
+      number: "1",
+      title: isSr ? "Vidljivost" : "Visibility & Discovery",
+      question: isSr ? "Da li se salon pojavljuje kada potencijalni klijent traži ovu uslugu?" : "Does the business appear when prospects search for this service?",
+      focus: isSr ? "Google Business profil, lokalni SEO i relevantnost naziva usluga u Čačku / lokaciji." : "Google Business profile, local search signals, and service relevance.",
+      status: "warning",
+      statusLabel: isSr ? "Čest problem" : "Common friction"
     },
-    clinic: {
-      name: isSr ? "Specijalistička Ordinacija / Klinika" : "Specialist Medical Clinic",
-      icon: <Stethoscope size={16} />,
-      query: isSr ? "„implantologija zuba iskustva cene“" : "“dental implants cost & specialist”",
-      steps: [
-        { label: isSr ? "Google Pretraga" : "Google Search", status: "ok", text: isSr ? "Traženje rešenja za specifičan zdravstveni problem" : "Search for specialized high-ticket care" },
-        { label: isSr ? "Namenska Stranica Usluge" : "Dedicated Landing Page", status: "warning", text: isSr ? "Sve usluge nagurane na jednu dugačku stranu" : "All services lumped into single page" },
-        { label: isSr ? "Kredibilitet Doktora" : "Doctor Credentials", status: "warning", text: isSr ? "Nema biografije lekara niti dokaza o iskustvu" : "Missing doctor bios and certificates" },
-        { label: isSr ? "FAQ & Odgovori na Strahove" : "Anxiety & FAQ Relief", status: "danger", text: isSr ? "Pacijent se plaši bola i cene, a nema odgovora" : "No pricing guide or pain-free guarantees" },
-        { label: isSr ? "Prvi Korak / Konsultacija" : "1st Step Appointment", status: "warning", text: isSr ? "Prezahtevan formular sa 10 polja" : "Overly long 10-field contact form" },
-      ],
-      frictionSummary: isSr 
-        ? "Pacijent traži skupu proceduru, ali zbog nedostatka dokaza o stručnosti i straha od skrivenih troškova napušta sajt bez poziva."
-        : "Patient seeks high-value treatment, but due to lack of doctor authority and price transparency, bounces without scheduling an audit.",
-      consultantTakeaway: isSr
-        ? "Rešenje nije samo lep sajt, već strukturirane stranice za profitabilne usluge koje grade poverenje i uklanjaju strahove pacijenata."
-        : "The solution isn't cosmetic design—it is dedicated high-intent service architectures engineered to build trust and eliminate fear."
+    {
+      number: "2",
+      title: isSr ? "Prvi utisak" : "First Impression",
+      question: isSr ? "Da li osoba za nekoliko sekundi razume kakav je salon i kome je namenjen?" : "Does a visitor understand within seconds what kind of salon this is?",
+      focus: isSr ? "Brzina učitavanja, mobilni prikaz, vizuelni autoritet i profesionalnost." : "Load speed, mobile layout, visual authority, and clarity.",
+      status: "ok",
+      statusLabel: "OK"
     },
-    b2b: {
-      name: isSr ? "B2B Proizvodnja & Usluge" : "B2B Manufacturing & Logistics",
-      icon: <Briefcase size={16} />,
-      query: isSr ? "„industrijski nameštaj po meri za hotele“" : "“custom hotel furniture manufacturer”",
-      steps: [
-        { label: isSr ? "Pretraga / Preporuka" : "Search / Referral", status: "ok", text: isSr ? "Direktor nabavke proverava firmu pre slanja tendera" : "Procurement manager vets credibility" },
-        { label: isSr ? "Portfolio & Reference" : "Case Studies & Proof", status: "danger", text: isSr ? "Samo male slike bez opisa šta je tačno urađeno" : "Thumbnails without scope or context" },
-        { label: isSr ? "Kapaciteti & Standardi" : "Production Capacity", status: "warning", text: isSr ? "Nije navedeno sa kojim materijalima i rokovima radite" : "No technical specs, certifications or SLAs" },
-        { label: isSr ? "Kvalifikacija Upita" : "Request for Proposal", status: "warning", text: isSr ? "Samo generički mail office@ bez jasnog upitnika" : "Only generic office@ email with no brief" },
-        { label: isSr ? "Zaključenje Posla" : "Deal Closure", status: "danger", text: isSr ? "Klijent šalje upit konkurenciji koja deluje ozbiljnije" : "Lead chooses a competitor with proof" },
-      ],
-      frictionSummary: isSr 
-        ? "Firma ima vrhunsku proizvodnju u stvarnosti, ali na internetu izgleda kao da radi u garaži. Posao od 20.000€ odlazi konkurenciji."
-        : "The manufacturer has world-class facility, but digitally looks like a small amateur shop. A €20k contract defaults to a polished competitor.",
-      consultantTakeaway: isSr
-        ? "Digitalni nastup mora da oslikava stvaran nivo stručnosti firme i omogući B2B kupcu da brzo proceni pouzdanost partnera."
-        : "Digital presence must accurately mirror real-world industrial excellence so enterprise buyers can vet credibility in seconds."
+    {
+      number: "3",
+      title: isSr ? "Poverenje" : "Trust & Social Proof",
+      question: isSr ? "Da li salon koristi stvarne dokaze: recenzije, fotografije radova i iskustvo?" : "Does the business show real proof: reviews, real photo work, and experience?",
+      focus: isSr ? "Autentične recenzije sa Google-a i fotografije stvarnih rezultata umesto stock slika." : "Authentic client reviews and genuine portfolio results.",
+      status: "warning",
+      statusLabel: isSr ? "Propuštena prilika" : "Missed opportunity"
+    },
+    {
+      number: "4",
+      title: isSr ? "Ponuda" : "Offer Structure",
+      question: isSr ? "Da li je jasno koje usluge postoje, kome su namenjene i šta klijent može da očekuje?" : "Is it clear what services exist, who they are for, and what to expect?",
+      focus: isSr ? "Jasno razdvojeni tretmani, trajanje i šta svaki paket obuhvata bez nerazumljivih naziva." : "Categorized treatments, expected durations, and package scopes.",
+      status: "warning",
+      statusLabel: isSr ? "Čest problem" : "Common friction"
+    },
+    {
+      number: "5",
+      title: isSr ? "Cena" : "Pricing Transparency",
+      question: isSr ? "Da li potencijalni klijent ima dovoljno informacija da napravi sledeći korak?" : "Does the prospect have enough clarity to confidently take the next step?",
+      focus: isSr ? "Okvirni cenovnik ili raspon koji uklanja strah od neprijatnih iznenađenja." : "Pricing ranges or transparent guides eliminating purchase anxiety.",
+      status: "danger",
+      statusLabel: isSr ? "Glavno usko grlo" : "Main bottleneck"
+    },
+    {
+      number: "6",
+      title: isSr ? "Booking" : "Booking & Friction",
+      question: isSr ? "Koliko koraka je potrebno da osoba zakaže termin i šta se dešava van radnog vremena?" : "How many steps to book, and what happens outside working hours?",
+      focus: isSr ? "Mogućnost zakazivanja u 22h bez čekanja da se neko javi na Instagram DM ili telefon." : "24/7 self-service reservation without phone/DM back-and-forth.",
+      status: "danger",
+      statusLabel: isSr ? "Gubitak klijenata" : "Customer leak"
+    },
+    {
+      number: "7",
+      title: isSr ? "Merenje" : "Measurement & Data",
+      question: isSr ? "Da li vlasnik zna koliko novih klijenata dolazi preko Google-a, mreža ili preporuka?" : "Does the owner know exactly where new paying clients originate from?",
+      focus: isSr ? "Praćenje klikova na pozive, poruke i popunjene rezervacije po izvorima." : "Source-attribution telemetry for calls, forms, and bookings.",
+      status: "warning",
+      statusLabel: isSr ? "Nepoznato" : "Blind spot"
     }
-  };
-
-  const current = niches[activeNiche];
+  ];
 
   return (
     <section id="audit-example" className="py-20 px-4 sm:px-6 relative bg-white dark:bg-slate-900/60 border-t border-slate-200/60 dark:border-white/5">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto space-y-12">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <Sparkles size={14} />
             <span>{isSr ? "Edukativni Primer" : "Educational Walkthrough"}</span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Kako izgleda jedna analiza?" : "What does an actual analysis look like?"}
+            {isSr ? "Kako izgleda kada analiziram jedan biznis?" : "What does an actual diagnostic analysis look like?"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {isSr
               ? "Pogledajte primer puta kupca i gde najčešće nastaju prepreke. Rešenje nije automatski „pravimo novi sajt“ — rešenje zavisi od tačne dijagnoze."
-              : "See how a real customer journey unfolds and where drop-offs happen. The answer isn't automatically 'build a new website' — it depends on where the real friction is."}
+              : "See how a customer journey unfolds and where drop-offs happen. The answer isn't automatically 'build a new website' — it depends on the diagnosis."}
           </p>
         </div>
 
-        {/* Niche Selector */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
-          {(["salon", "clinic", "b2b"] as const).map((key) => (
-            <button
-              key={key}
-              onClick={() => setActiveNiche(key)}
-              className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer flex items-center gap-2 ${
-                activeNiche === key
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 border border-blue-500"
-                  : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
-              }`}
-            >
-              {niches[key].icon}
-              <span>{niches[key].name.split("(")[0].trim()}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Interactive Audit Diagnostic Dashboard */}
-        <motion.div
-          key={activeNiche}
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="p-6 sm:p-9 rounded-3xl bg-slate-950 text-white border border-slate-800 shadow-2xl space-y-8"
-        >
-          {/* Diagnostic Context Bar */}
+        {/* Diagnostic Case Card */}
+        <div className="p-6 sm:p-9 rounded-3xl bg-slate-950 text-white border border-slate-800 shadow-2xl space-y-8">
+          
+          {/* Scenario Context Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
             <div>
-              <span className="text-xs font-mono text-blue-400 uppercase tracking-wider block mb-1">
-                {isSr ? "Simulacija Puta Kupca" : "Customer Journey Simulation"}
-              </span>
+              <div className="inline-flex items-center gap-2 text-xs font-mono text-blue-400 uppercase tracking-wider mb-1">
+                <Scissors size={14} />
+                <span>{isSr ? "Primer: lokalni frizerski salon (Edukativna simulacija)" : "Example: Local Hair Salon (Educational Simulation)"}</span>
+              </div>
               <h3 className="text-lg sm:text-xl font-bold text-white">
-                {current.name}
+                {isSr ? "Put kupca: od pretrage do zakazanog termina" : "Customer Journey: Search query to booked appointment"}
               </h3>
             </div>
+
             <div className="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
-              {isSr ? "Početna pretraga: " : "Search Query: "}<span className="text-blue-400 font-semibold">{current.query}</span>
+              {isSr ? "Pretraga kupca: " : "Search: "}<span className="text-blue-400 font-semibold">{isSr ? "„frizerski salon Čačak“" : "“hair salon near me”"}</span>
             </div>
           </div>
 
-          {/* Friction Steps Chain */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
-              {isSr ? "Gde nastaje prekid lanca (Tačke Odustajanja):" : "Where Friction Breaks The Chain:"}
-            </h4>
-            
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
-              {current.steps.map((step, idx) => (
+          {/* 7 Diagnostic Checkpoints */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
+                {isSr ? "7 Dijagnostičkih tačaka analize:" : "7 Diagnostic Checkpoints:"}
+              </h4>
+              <span className="text-[11px] text-slate-400 font-mono">
+                {isSr ? "Gde kupac nastavlja, a gde odustaje?" : "Where does the prospect drop off?"}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">
+              {checkpoints.map((cp) => (
                 <div 
-                  key={idx} 
-                  className={`p-4 rounded-xl border flex flex-col justify-between ${
-                    step.status === "danger"
-                      ? "bg-rose-950/40 border-rose-500/40"
-                      : step.status === "warning"
-                      ? "bg-amber-950/30 border-amber-500/40"
+                  key={cp.number}
+                  className={`p-4 rounded-xl border flex flex-col justify-between space-y-3 ${
+                    cp.status === "danger"
+                      ? "bg-rose-950/30 border-rose-500/40"
+                      : cp.status === "warning"
+                      ? "bg-amber-950/25 border-amber-500/40"
                       : "bg-slate-900 border-slate-800"
                   }`}
                 >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-[10px] font-mono text-slate-400">Korak 0{idx + 1}</span>
-                      {step.status === "danger" && <span className="text-[10px] font-bold text-rose-400 px-1.5 py-0.5 rounded bg-rose-500/20">Prekid!</span>}
-                      {step.status === "warning" && <span className="text-[10px] font-bold text-amber-400 px-1.5 py-0.5 rounded bg-amber-500/20">Frikcija</span>}
-                      {step.status === "ok" && <span className="text-[10px] font-bold text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-500/20">OK</span>}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[11px] font-mono text-blue-400 font-bold">Tačka 0{cp.number}</span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        cp.status === "danger" 
+                          ? "bg-rose-500/20 text-rose-300"
+                          : cp.status === "warning"
+                          ? "bg-amber-500/20 text-amber-300"
+                          : "bg-emerald-500/20 text-emerald-300"
+                      }`}>
+                        {cp.statusLabel}
+                      </span>
                     </div>
-                    <div className="text-xs font-bold text-white mb-1">{step.label}</div>
+                    <div className="text-sm font-bold text-white">{cp.title}</div>
+                    <p className="text-xs text-slate-300 font-medium leading-snug">{cp.question}</p>
                   </div>
-                  <div className="text-[11px] text-slate-300 mt-2 leading-relaxed">{step.text}</div>
+                  <p className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-2 leading-relaxed">
+                    {cp.focus}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Friction Summary & Consultant Takeaway Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4 border-t border-slate-800">
-            <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-rose-400 uppercase tracking-wider font-mono">
-                <AlertTriangle size={15} />
-                <span>{isSr ? "Posledica po poslovanje" : "Commercial Consequence"}</span>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                {current.frictionSummary}
-              </p>
+          {/* Diagnostic Conclusion */}
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-indigo-950/50 border border-blue-500/30 space-y-4">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-blue-400 uppercase tracking-wider">
+              <CheckCircle2 size={16} />
+              <span>{isSr ? "Zaključak analize: Rešenje nije automatski „novi sajt“" : "Diagnostic takeaway: The solution isn't automatically a new website"}</span>
             </div>
 
-            <div className="p-5 rounded-2xl bg-blue-950/30 border border-blue-500/30 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider font-mono">
-                <CheckCircle2 size={15} />
-                <span>{isSr ? "Konsultantski zaključak" : "Consultant Takeaway"}</span>
-              </div>
-              <p className="text-xs sm:text-sm text-blue-200 leading-relaxed font-medium">
-                {current.consultantTakeaway}
-              </p>
-            </div>
-          </div>
+            <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+              {isSr
+                ? "Nakon ovakve analize, preporuka može biti samo nekoliko strateških poteza koji odmah daju rezultat:"
+                : "Following this audit, recommendations may focus on a few high-impact improvements:"}
+            </p>
 
-          {/* Solution is not automatically a website - list of practical recommendations */}
-          <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <span className="text-xs font-mono text-slate-400 font-bold uppercase tracking-wider">
-                {isSr ? "Moguće preporuke nakon ovakve analize:" : "Possible diagnostic recommendations:"}
-              </span>
-              <span className="text-xs font-semibold text-blue-400">
-                {isSr ? "Poslovni cilj diktira alat" : "Outcome dictates the tool"}
-              </span>
-            </div>
-            
             <div className="flex flex-wrap gap-2 pt-1">
               {[
-                isSr ? "Optimizacija Google profila" : "Google Business optimization",
-                isSr ? "Jasnije predstavljanje usluga i cena" : "Transparent service & pricing clarity",
-                isSr ? "Ciljana landing stranica" : "Focused high-intent landing page",
-                isSr ? "Pojednostavljeno online zakazivanje" : "Self-serve frictionless booking",
-                isSr ? "Automatizacija čestih pitanja (FAQ)" : "Automated FAQ & inquiry filtering",
-                isSr ? "Prikupljanje stvarnih recenzija" : "Systematic review generation",
-                isSr ? "Lokalni SEO za Čačak / Beograd" : "Local search engine visibility"
+                isSr ? "1. Optimizacija Google profila & recenzija" : "1. Google profile & reviews optimization",
+                isSr ? "2. Jasnija struktura usluga i očekivanja cene" : "2. Transparent services & pricing guide",
+                isSr ? "3. Sistem za online zakazivanje 24/7" : "3. 24/7 frictionless booking",
+                isSr ? "4. Automatizacija odgovora na česta pitanja" : "4. FAQ automation for recurring queries",
+                isSr ? "5. Postavljanje merenja i analitike" : "5. Telemetry & source measurement",
+                isSr ? "6. Tek onda eventualno novi sajt / redizajn" : "6. Only then redesign / build new website"
               ].map((rec, i) => (
-                <span key={i} className="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-xs text-slate-300 font-medium">
-                  • {rec}
+                <span key={i} className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-blue-200 font-medium">
+                  {rec}
                 </span>
               ))}
             </div>
 
-            <p className="text-xs text-slate-400 pt-2 border-t border-slate-800 font-medium italic">
+            <p className="text-xs text-slate-400 pt-2 border-t border-slate-800 font-semibold italic">
               {isSr 
                 ? "Sajt je alat. Poslovni problem određuje koji alat ima smisla koristiti." 
-                : "A website is a tool. The business problem dictates which tool makes financial sense to deploy."}
+                : "A website is a tool. The business problem dictates which tool makes sense to deploy."}
             </p>
           </div>
 
-        </motion.div>
+        </div>
 
       </div>
     </section>
