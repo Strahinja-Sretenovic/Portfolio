@@ -28,8 +28,8 @@ export function WhyChooseUs() {
       icon: <BrainCircuit className="w-6 h-6 text-indigo-500" />,
       title: isSr ? "Razmišljanje + realizacija" : "Strategic thinking + hands-on engineering",
       description: isSr
-        ? "Ista osoba razume poslovni model, psihologiju kupca i tehnički sprovodi ceo sistem u kod."
-        : "The same expert diagnoses commercial friction, architects UX, and executes clean code with zero agency disconnect."
+        ? "Isti tim razume poslovni model, psihologiju kupca i tehnički sprovodi ceo sistem u kod."
+        : "Our team diagnoses commercial friction, architects UX, and executes clean code with zero agency disconnect."
     },
     {
       icon: <MessageSquare className="w-6 h-6 text-cyan-500" />,

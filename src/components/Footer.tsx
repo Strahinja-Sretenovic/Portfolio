@@ -91,7 +91,7 @@ export function Footer() {
                   onClick={(e) => { e.preventDefault(); scrollToTarget("#how-i-think", 80); }}
                   className="hover:text-white transition-colors"
                 >
-                  {isSr ? "Kako radim (Put)" : "How I Think"}
+                  {isSr ? "Kako radimo (Put)" : "How We Think"}
                 </a>
               </li>
               <li>
@@ -139,8 +139,8 @@ export function Footer() {
               {isSr ? "Kontakt" : "Contact"}
             </h4>
             <div className="space-y-2 text-xs">
-              <a href="mailto:kontakt@ssolutions.click" className="block text-slate-300 hover:text-white transition-colors">
-                kontakt@ssolutions.click
+              <a href="mailto:ssolutionsrs@gmail.com" className="block text-slate-300 hover:text-white transition-colors">
+                ssolutionsrs@gmail.com
               </a>
               <div className="text-slate-500">
                 Čačak • Beograd • Srbija & Remote

@@ -108,8 +108,8 @@ export function Hero() {
           className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal"
         >
           {isSr
-            ? "Analiziram kako vas klijenti pronalaze, šta ih sprečava da vas izaberu i gde gubite prilike — zatim projektujem i razvijam web rešenje koje to popravlja."
-            : "I analyze how clients find you, what stops them from choosing you, and where you leak opportunities — then design and build the digital solution that fixes it."}
+            ? "Analiziramo kako vas klijenti pronalaze, šta ih sprečava da vas izaberu i gde gubite prilike — zatim projektujemo i razvijamo web rešenje koje to popravlja."
+            : "We analyze how clients find you, what stops them from choosing you, and where you leak opportunities — then design and build the digital solution that fixes it."}
         </motion.p>
 
         {/* Primary and Secondary CTAs */}
@@ -139,14 +139,14 @@ export function Hero() {
             onClick={() => {
               trackEvent("select_content", {
                 content_type: "Navigation_CTA",
-                item_name: "Hero_View_How_I_Think",
+                item_name: "Hero_View_How_We_Work",
                 destination: "#how-i-think"
               });
               scrollToTarget("#how-i-think", 80);
             }}
             className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
           >
-            <span>{isSr ? "Pogledajte kako radim" : "See How I Work"}</span>
+            <span>{isSr ? "Pogledajte kako radimo" : "See How We Work"}</span>
           </button>
         </motion.div>
 

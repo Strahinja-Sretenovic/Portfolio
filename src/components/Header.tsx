@@ -63,7 +63,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
     { id: "process", name: isSr ? "Proces" : "Process", href: "#process" },
     { id: "projects", name: isSr ? "Studije Slučaja" : "Case Studies", href: "#projects", isProjects: true },
     { id: "why-ssolutions", name: isSr ? "Zašto SSolutions" : "Why Us", href: "#why-ssolutions" },
-    { id: "about", name: isSr ? "O meni" : "About", href: "#about" },
+    { id: "about", name: isSr ? "O nama" : "About Us", href: "#about" },
     { id: "faq", name: isSr ? "FAQ" : "FAQ", href: "#faq" },
   ];
 

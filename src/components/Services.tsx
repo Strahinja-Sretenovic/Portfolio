@@ -43,10 +43,10 @@ export function Services() {
         isSr ? "Potpuni UX/UI redizajn i razvoj na čistom kodu" : "Complete modern UX/UI redesign & clean code development",
         isSr ? "Postavljanje analitike za merenje novih upita" : "Custom GA4 telemetry & conversion event tracking"
       ],
-      ctaText: isSr ? "Analizirajte moj postojeći sajt" : "Audit My Existing Website",
+      ctaText: isSr ? "Analizirajte naš postojeći sajt" : "Audit Our Existing Website",
       contextMessage: isSr 
-        ? "Želim analizu i redizajn postojećeg sajta" 
-        : "I want an audit and redesign of my current website"
+        ? "Želimo analizu i redizajn postojećeg sajta" 
+        : "We want an audit and redesign of our current website"
     },
     {
       id: "new-site",
@@ -64,10 +64,10 @@ export function Services() {
         isSr ? "Tehnički SEO temelj i Google Search Console indeksiranje" : "Technical SEO foundations & Google schema indexing",
         isSr ? "Jednostavan sistem za samostalno ažuriranje sadržaja" : "Intuitive CMS for seamless content updates"
       ],
-      ctaText: isSr ? "Želim novi sajt" : "I Need a New Website",
+      ctaText: isSr ? "Želimo novi sajt" : "We Need a New Website",
       contextMessage: isSr 
-        ? "Potreban mi je novi profesionalni sajt" 
-        : "I need a new professional business website"
+        ? "Potreban nam je novi profesionalni sajt" 
+        : "We need a new professional business website"
     },
     {
       id: "automation",
@@ -85,10 +85,10 @@ export function Services() {
         isSr ? "Integracija sa platnim karticama banaka i kurirskim službama" : "Bank payment gateways & courier API integrations",
         isSr ? "Povezivanje eksternih baza i softvera (API)" : "Custom API integrations & database synchronization"
       ],
-      ctaText: isSr ? "Imam proces koji želim da automatizujem" : "I Have a Process to Automate",
+      ctaText: isSr ? "Imamo proces za automatizaciju" : "We Have a Process to Automate",
       contextMessage: isSr 
-        ? "Želim automatizaciju procesa ili web aplikaciju" 
-        : "I want process automation or custom web software"
+        ? "Želimo automatizaciju procesa ili web aplikaciju" 
+        : "We want process automation or custom web software"
     },
     {
       id: "growth",
@@ -106,10 +106,10 @@ export function Services() {
         isSr ? "Tehnička optimizacija brzine (Core Web Vitals)" : "Core Web Vitals & runtime performance hardening",
         isSr ? "Mesečni izveštaji i iterativno unapređenje na osnovu podataka" : "Monthly strategic telemetry & evidence-based iterations"
       ],
-      ctaText: isSr ? "Želim više rezultata iz postojećeg sajta" : "I Want Better Conversion from My Site",
+      ctaText: isSr ? "Želimo veći rast iz postojećeg sajta" : "We Want Better Conversion from Our Site",
       contextMessage: isSr 
-        ? "Želim optimizaciju konverzije i rast rezultata" 
-        : "I want growth, CRO and higher conversion from my site"
+        ? "Želimo optimizaciju konverzije i rast rezultata" 
+        : "We want growth, CRO and higher conversion from our site"
     }
   ];
 

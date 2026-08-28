@@ -32,7 +32,7 @@ export function Faq() {
     {
       question: isSr ? "Da li mi uopšte treba novi sajt ako već imam neki?" : "Do I actually need a new website if I already have one?",
       answer: isSr
-        ? "Ne nužno. Ponekad je problem u slaboj vidljivosti na Google-u, nejasnoj poruci, sporom učitavanju ili lošem toku zakazivanja na mobilnom telefonu. Tokom besplatne početne analize, otvoreno vam kažem da li ima smisla unaprediti postojeći sajt ili je isplativije postaviti novu, stabilnu osnovu."
+        ? "Ne nužno. Ponekad je problem u slaboj vidljivosti na Google-u, nejasnoj poruci, sporom učitavanju ili lošem toku zakazivanja na mobilnom telefonu. Tokom besplatne početne analize, otvoreno vam kažemo da li ima smisla unaprediti postojeći sajt ili je isplativije postaviti novu, stabilnu osnovu."
         : "Not necessarily. Sometimes the issue lies in poor search visibility, unclear messaging, slow load times, or a clunky mobile checkout. During our initial audit, we evaluate whether optimizing your current site or building a clean new foundation produces the highest return on investment."
     },
     {
@@ -130,7 +130,7 @@ export function Faq() {
               {isSr ? "Imate pitanje koje ovde nije navedeno?" : "Have a question not listed here?"}
             </div>
             <div className="text-xs text-slate-400 mt-0.5">
-              {isSr ? "Rado ću odgovoriti na sva vaša pitanja bez ikakve obaveze." : "Happy to discuss your specific situation with zero pressure."}
+              {isSr ? "Rado ćemo odgovoriti na sva vaša pitanja bez ikakve obaveze." : "Happy to discuss your specific situation with zero pressure."}
             </div>
           </div>
 

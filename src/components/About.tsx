@@ -40,7 +40,7 @@ export function About() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
             <Compass size={14} />
-            <span>{isSr ? "Filozofija & Pristup" : "Philosophy & Approach"}</span>
+            <span>{isSr ? "O Nama & Pristup" : "About Us & Approach"}</span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -61,7 +61,7 @@ export function About() {
           <div className="lg:col-span-7 space-y-6">
             <div className="p-7 sm:p-9 rounded-3xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-5">
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                {isSr ? "Konsultant koji ume da kodira — a ne samo da savetuje" : "A strategist who engineers — not just an advisor"}
+                {isSr ? "Stratezi i inženjeri koji razumeju vaš biznis — a ne samo teoriju" : "Strategists who engineer — not just advisors"}
               </h3>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -72,8 +72,8 @@ export function About() {
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {isSr
-                  ? "U SSolutions-u razgovarate direktno sa osobom koja radi dijagnostiku vašeg poslovanja, projektuje informacionu arhitekturu i lično piše kod. Nema 'gluvih telefona' i nema praznih obećanja."
-                  : "At SSolutions, you collaborate directly with the strategist who diagnoses your business, architects your information flow, and personally crafts the code."}
+                  ? "U SSolutions-u sarađujete direktno sa timom koji radi dijagnostiku vašeg poslovanja, projektuje informacionu arhitekturu i razvija softver. Nema 'gluvih telefona' i nema praznih obećanja."
+                  : "At SSolutions, you collaborate directly with the team that diagnoses your business, architects your information flow, and builds the software."}
               </p>
 
               {/* 3 Pillars */}

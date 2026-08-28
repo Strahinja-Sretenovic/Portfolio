@@ -66,8 +66,8 @@ export function AuditOffer() {
 
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                 {isSr
-                  ? "Pre razgovora ću detaljno pregledati vaš digitalni nastup kako bismo 15–30 minuta iskoristili za konkretne stvari, a ne za generičke priče."
-                  : "Before we talk, I review your digital footprint so our 15–30 minute discussion focuses on real observations and concrete opportunities."}
+                  ? "Pre razgovora ćemo detaljno pregledati vaš digitalni nastup kako bismo 15–30 minuta iskoristili za konkretne stvari, a ne za generičke priče."
+                  : "Before we talk, we review your digital footprint so our 15–30 minute discussion focuses on real observations and concrete opportunities."}
               </p>
 
               {/* Checkpoints Grid */}
@@ -88,7 +88,7 @@ export function AuditOffer() {
                 <ShieldCheck size={20} className="shrink-0 text-blue-400" />
                 <span>
                   {isSr
-                    ? "Neću vam odmah prodavati sajt. Pokazaću vam šta sam primetio i šta bih prvo rešavao."
+                    ? "Nećemo vam odmah nuditi ili prodavati sajt. Pokazaćemo vam šta smo primetili i šta bismo prvo rešavali."
                     : "No aggressive sales pitch. We highlight what we observed and prioritize what to fix first."}
                 </span>
               </div>
@@ -106,7 +106,7 @@ export function AuditOffer() {
                 </h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   {isSr 
-                    ? "Ostavite link ka sajtu ili Instagram profilu. Javljam se u roku od 24h sa kratkim zapažanjima."
+                    ? "Ostavite link ka sajtu ili Instagram profilu. Javljamo se u roku od 24h sa kratkim zapažanjima."
                     : "Share your website or Instagram link. We'll follow up within 24h with initial diagnostic observations."}
                 </p>
               </div>
@@ -134,7 +134,7 @@ export function AuditOffer() {
                     {isSr ? "100% besplatno" : "100% free"}
                   </span>
                   <span>•</span>
-                  <span>{isSr ? "Direktan razgovor sa inženjerom" : "Talk directly with the strategist"}</span>
+                  <span>{isSr ? "Direktan razgovor sa timom" : "Talk directly with our team"}</span>
                 </div>
               </div>
             </div>

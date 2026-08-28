@@ -46,13 +46,13 @@ export default function App() {
                 {/* 2. Problem Recognition: "Možda vam ne treba novi sajt" */}
                 <ProblemRecognition />
 
-                {/* 3. Customer Journey: "Ne gledam samo sajt. Gledam ceo put do klijenta." */}
+                {/* 3. Customer Journey: "Ne gledamo samo sajt. Gledamo ceo put do kupca." */}
                 <CustomerJourney />
 
                 {/* 4. Services: 4 Business Need-Based Categories */}
                 <Services />
 
-                {/* 5. Diagnostic Case Walkthrough: "Primer kako analiziram jedan biznis" */}
+                {/* 5. Diagnostic Case Walkthrough: "Primer kako analiziramo jedan biznis" */}
                 <AuditExample />
 
                 {/* 6. Free Initial Audit Offer */}

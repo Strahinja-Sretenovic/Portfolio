@@ -42,7 +42,7 @@ export function AuditExample() {
         ? "Kupac je hteo da zakaže termin u 22h. Pošto salon nema online kalendar niti transparentan cenovnik, kupac je otišao na Google i zakazao kod drugog salona."
         : "Prospect wanted to book at 10 PM. Because the business lacked self-serve scheduling and transparent pricing, the customer booked with a competitor.",
       consultantTakeaway: isSr
-        ? "Ne bih počeo pitanjem 'kakav dizajn želite?' Počeo bih pitanjem 'koliko termina gubite jer ljudi ne mogu da zakažu van radnog vremena?'"
+        ? "Ne bismo počeli pitanjem 'kakav dizajn želite?' Počeli bismo pitanjem 'koliko termina gubite jer ljudi ne mogu da zakažu van radnog vremena?'"
         : "We don't ask 'what color scheme do you like?' We ask 'how much revenue do you leak because clients cannot book after business hours?'"
     },
     clinic: {
@@ -97,7 +97,7 @@ export function AuditExample() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Primer kako analiziram jedan biznis" : "An example of how we audit a business"}
+            {isSr ? "Primer kako analiziramo jedan biznis" : "An example of how we audit a business"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">

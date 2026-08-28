@@ -169,7 +169,7 @@ export function ProblemRecognition() {
         <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-slate-900 border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1 text-center sm:text-left">
             <h4 className="text-lg font-bold text-white">
-              {isSr ? "Pre nego što predložim rešenje, utvrđujem gde je stvarni problem." : "Before prescribing a solution, we diagnose the exact root problem."}
+              {isSr ? "Pre nego što predložimo rešenje, utvrđujemo gde je stvarni problem." : "Before prescribing a solution, we diagnose the exact root problem."}
             </h4>
             <p className="text-xs sm:text-sm text-slate-300">
               {isSr 

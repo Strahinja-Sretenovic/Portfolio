@@ -68,7 +68,7 @@ export function Contact() {
 
     showToast(
       isSr ? "Uspešno poslato!" : "Inquiry Received!",
-      isSr ? "Pregledaću vaš digitalni nastup pre našeg razgovora." : "We will review your digital channels before our call.",
+      isSr ? "Pregledaćemo vaš digitalni nastup pre našeg razgovora." : "We will review your digital channels before our call.",
       "success"
     );
   };
@@ -93,7 +93,7 @@ export function Contact() {
 
           <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
             {isSr
-              ? "15–30 minuta. Bez obaveze. Pre razgovora ću pogledati vaš sajt ili profile kako bismo pričali konkretno o vašem biznisu, a ne o praznim teorijama."
+              ? "15–30 minuta. Bez obaveze. Pre razgovora ćemo pogledati vaš sajt ili profile kako bismo pričali konkretno o vašem biznisu, a ne o praznim teorijama."
               : "15–30 minutes. Zero obligation. We audit your website and channels beforehand so our conversation focuses purely on actionable opportunities."}
           </p>
         </div>
@@ -119,7 +119,7 @@ export function Contact() {
                   </div>
                   <div>
                     <strong className="text-white block">{isSr ? "1. Detaljan pregled" : "1. Review"}</strong>
-                    {isSr ? "Pregledam vaš postojeći sajt, brzinu, konkurenciju i Google profil." : "We examine your current site, mobile UX, speed, and local rankings."}
+                    {isSr ? "Pregledamo vaš postojeći sajt, brzinu, konkurenciju i Google profil." : "We examine your current site, mobile UX, speed, and local rankings."}
                   </div>
                 </div>
 
@@ -129,7 +129,7 @@ export function Contact() {
                   </div>
                   <div>
                     <strong className="text-white block">{isSr ? "2. Kratak fokusiran razgovor" : "2. Focused Call"}</strong>
-                    {isSr ? "Prezentujem vam šta sam primetio i koje su tačke gde gubite klijente." : "We share what we observed and locate where you might be losing clients."}
+                    {isSr ? "Prezentujemo vam šta smo primetili i koje su tačke gde gubite klijente." : "We share what we observed and locate where you might be losing clients."}
                   </div>
                 </div>
 
@@ -147,20 +147,13 @@ export function Contact() {
               {/* Direct Contact Points */}
               <div className="pt-6 border-t border-slate-800 space-y-3 text-xs sm:text-sm text-slate-300">
                 <a 
-                  href="mailto:kontakt@ssolutions.click" 
-                  className="flex items-center gap-3 p-3 rounded-xl bg-slate-950 hover:bg-slate-800 transition-colors border border-slate-800"
+                  href="mailto:ssolutionsrs@gmail.com" 
+                  className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-950 hover:bg-slate-800 transition-colors border border-slate-800"
                 >
                   <Mail size={16} className="text-blue-400 shrink-0" />
-                  <span>kontakt@ssolutions.click</span>
+                  <span>ssolutionsrs@gmail.com</span>
                 </a>
-                <a 
-                  href="tel:+381640000000" 
-                  className="flex items-center gap-3 p-3 rounded-xl bg-slate-950 hover:bg-slate-800 transition-colors border border-slate-800"
-                >
-                  <Phone size={16} className="text-emerald-400 shrink-0" />
-                  <span>+381 (0) 64 / Po dogovoru</span>
-                </a>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-400">
+                <div className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-400">
                   <MapPin size={16} className="text-rose-400 shrink-0" />
                   <span>Čačak • Beograd • Dijaspora & Remote</span>
                 </div>
@@ -189,8 +182,8 @@ export function Contact() {
 
                     <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
                       {isSr
-                        ? "Pre nego što vam se javim, detaljno ću pogledati vaš sajt/digitalni nastup kako bismo prvi razgovor iskoristili za konkretne stvari."
-                        : "Before following up, I will inspect your digital presence so we can jump straight into high-leverage insights on our call."}
+                        ? "Pre nego što vam se javimo, detaljno ćemo pogledati vaš sajt/digitalni nastup kako bismo prvi razgovor iskoristili za konkretne stvari."
+                        : "Before following up, we will inspect your digital presence so we can jump straight into high-leverage insights on our call."}
                     </p>
 
                     <button
@@ -294,34 +287,19 @@ export function Contact() {
                       />
                     </div>
 
-                    {/* Email and Phone */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                          {isSr ? "Email adresa *" : "Email Address *"}
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="vasa@adresa.rs"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:border-blue-500 focus:outline-hidden"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-                          {isSr ? "Broj telefona" : "Phone Number"}
-                        </label>
-                        <input
-                          type="tel"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+381 6..."
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:border-blue-500 focus:outline-hidden"
-                        />
-                      </div>
+                    {/* Email Address */}
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        {isSr ? "Email adresa za kontakt *" : "Contact Email Address *"}
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="vasa@adresa.rs"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:border-blue-500 focus:outline-hidden"
+                      />
                     </div>
 
                     {/* Submit Button */}
