@@ -1,41 +1,53 @@
-import { motion } from "motion/react";
-import { AlertTriangle, ZapOff, Sparkles } from "lucide-react";
+import { ZapOff } from "lucide-react";
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface BreakSceneProps {
-  progress: number; // 0.30 to 0.38
+  progress: number; // 0.295 to 0.385
 }
 
 export function BreakScene({ progress }: BreakSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  // Normalize 0.0 to 1.0 within 0.30 - 0.38
-  const norm = Math.min(1, Math.max(0, (progress - 0.30) / 0.08));
+  // Normalize 0.0 to 1.0 within 0.295 - 0.385
+  const norm = Math.min(1, Math.max(0, (progress - 0.295) / 0.09));
 
   // Subphases:
-  // 0.0 - 0.50: The Snap fracture! "I TU STE GA IZGUBILI"
-  // 0.50 - 1.00: 3D pull back, 8 alternative broken vulnerability nodes light up
+  // 0.00 - 0.38: The Snap fracture! "I TU STE GA IZGUBILI." (HOLD)
+  // 0.38 - 0.55: "A možda nikada nećete znati zašto." (HOLD)
+  // 0.55 - 0.88: 9 alternative vulnerability nodes pulse sequentially: "Problem nije uvek tamo gde izgleda."
+  // 0.88 - 1.00: Clean exit fade to WrongPrescriptionScene
 
-  const isSnapping = norm < 0.5;
-  const isOrbiting = norm >= 0.45;
+  const isSnapping = norm < 0.38;
+  const isWhyQuestion = norm >= 0.38 && norm < 0.55;
+  const isOrbiting = norm >= 0.55 && norm < 0.88;
 
   const vulnerabilityNodes = [
-    { nameSr: "PRETRAGA", nameEn: "SEARCH", x: -220, y: -100 },
-    { nameSr: "PONUDA", nameEn: "OFFER", x: 220, y: -100 },
-    { nameSr: "POVERENJE", nameEn: "TRUST", x: -240, y: 10 },
-    { nameSr: "CENA", nameEn: "PRICE", x: 240, y: 10 },
-    { nameSr: "BOOKING", nameEn: "BOOKING", x: -180, y: 120 },
-    { nameSr: "MOBILNI UX", nameEn: "MOBILE UX", x: 180, y: 120 },
-    { nameSr: "BRZINA", nameEn: "SPEED", x: -80, y: -160 },
-    { nameSr: "ODZIV", nameEn: "FOLLOW-UP", x: 80, y: -160 }
+    { nameSr: "VIDLJIVOST", nameEn: "VISIBILITY", x: -220, y: -110 },
+    { nameSr: "PONUDA", nameEn: "OFFER", x: 220, y: -110 },
+    { nameSr: "POVERENJE", nameEn: "TRUST", x: -250, y: 0 },
+    { nameSr: "CENA", nameEn: "PRICE", x: 250, y: 0 },
+    { nameSr: "MOBILE", nameEn: "MOBILE UX", x: -180, y: 120 },
+    { nameSr: "BOOKING", nameEn: "BOOKING", x: 180, y: 120 },
+    { nameSr: "KONTAKT", nameEn: "CONTACT", x: -90, y: -160 },
+    { nameSr: "BRZINA", nameEn: "SPEED", x: 90, y: -160 },
+    { nameSr: "FOLLOW-UP", nameEn: "FOLLOW-UP", x: 0, y: 150 }
   ];
 
   // Active lighting node based on sub-progress
-  const activeNodeIdx = isOrbiting ? Math.floor(((norm - 0.45) / 0.55) * vulnerabilityNodes.length) % vulnerabilityNodes.length : 0;
+  const activeNodeIdx = isOrbiting ? Math.floor(((norm - 0.55) / 0.33) * vulnerabilityNodes.length) % vulnerabilityNodes.length : 0;
+
+  const sceneOpacity = norm < 0.10 
+    ? norm / 0.10 
+    : norm > 0.88 
+    ? Math.max(0, (1 - norm) / 0.12) 
+    : 1;
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none pointer-events-none overflow-hidden">
+    <div 
+      className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
       {/* Red ambient warning bloom */}
       <div 
@@ -45,9 +57,9 @@ export function BreakScene({ progress }: BreakSceneProps) {
 
       {/* Main Snap Climax Headline */}
       <div 
-        className="space-y-4 max-w-4xl z-20 transition-all duration-500"
+        className="space-y-4 max-w-4xl z-20 transition-all duration-300"
         style={{
-          transform: `scale(${isSnapping ? 1 : 0.9}) translateY(${isSnapping ? 0 : -30}px)`
+          transform: `scale(${isSnapping ? 1 : 0.95}) translateY(${isSnapping ? 0 : -16}px)`
         }}
       >
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-500 font-mono text-xs font-bold uppercase tracking-widest">
@@ -59,18 +71,24 @@ export function BreakScene({ progress }: BreakSceneProps) {
           {isSr ? "I TU STE GA IZGUBILI." : "AND RIGHT HERE YOU LOST THEM."}
         </h2>
 
+        {isWhyQuestion && (
+          <p className="text-lg sm:text-3xl font-mono text-slate-800 dark:text-slate-200 font-bold max-w-2xl mx-auto pt-2 animate-fade-in">
+            {isSr ? "A možda nikada nećete znati zašto." : "And you might never know why."}
+          </p>
+        )}
+
         {isOrbiting && (
           <p className="text-base sm:text-2xl font-mono text-slate-700 dark:text-slate-200 font-semibold max-w-2xl mx-auto pt-2">
-            {isSr ? "Problem nije uvek tamo gde mislite." : "The problem is not always where you think."}
+            {isSr ? "Problem nije uvek tamo gde izgleda." : "The problem is not always where it looks."}
           </p>
         )}
       </div>
 
       {/* Center Fractured Circuit / Broken Node */}
       <div 
-        className="mt-8 relative w-64 h-32 flex items-center justify-center transition-all duration-700"
+        className="mt-8 relative w-64 h-32 flex items-center justify-center transition-all duration-500"
         style={{
-          transform: `perspective(800px) rotateX(${norm * 20}deg) scale(${isSnapping ? 1.1 : 0.85})`
+          transform: `perspective(800px) rotateX(${norm * 15}deg) scale(${isSnapping ? 1.1 : 0.9})`
         }}
       >
         <div className="absolute w-3 h-3 rounded-full bg-red-500 shadow-[0_0_20px_rgba(239,68,68,1)] animate-ping" />
@@ -82,7 +100,7 @@ export function BreakScene({ progress }: BreakSceneProps) {
         <div className="w-24 h-0.5 bg-slate-400/20 ml-6" />
       </div>
 
-      {/* 8 Orbiting Alternative Vulnerability Nodes */}
+      {/* 9 Sequentially Pulsing Alternative Vulnerability Nodes */}
       {isOrbiting && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none hidden sm:flex">
           {vulnerabilityNodes.map((node, i) => {
@@ -108,7 +126,10 @@ export function BreakScene({ progress }: BreakSceneProps) {
       )}
 
       {/* Bottom Subtitle */}
-      <div className="absolute bottom-10 max-w-lg text-xs font-mono text-slate-500 dark:text-slate-400">
+      <div 
+        className="absolute bottom-10 max-w-lg text-xs font-mono text-slate-500 dark:text-slate-400 transition-opacity duration-300"
+        style={{ opacity: norm > 0.20 && norm < 0.88 ? 1 : 0 }}
+      >
         {isSr
           ? "Kupac ne javlja zašto je otišao. Jednostavno zatvori prozor i ode kod konkurencije."
           : "Customers never explain why they bounced. They simply close the tab and call a competitor."}

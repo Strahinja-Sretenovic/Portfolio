@@ -13,10 +13,10 @@ export function RiskReversalScene({ progress }: RiskReversalSceneProps) {
   // Normalize 0.0 to 1.0 within 0.82 - 0.88
   const norm = Math.min(1, Math.max(0, (progress - 0.82) / 0.06));
 
-  // Subphases:
-  // 0.0 - 0.40: "A šta ako vam novi sajt nije potreban?"
-  // 0.40 - 0.70: "Odlično. Reći ćemo vam."
-  // 0.70 - 1.00: 7 Honest Alternative Paths branch out + "Cilj nije da prodamo najveći projekat. Cilj je da pronađemo sledeći pravi potez."
+  // Subphases strictly partitioned:
+  // 0.00 - 0.36: Phase 1 "A šta ako vam novi sajt uopšte nije potreban?"
+  // 0.36 - 0.66: Phase 2 "Odlično. Reći ćemo vam to odmah."
+  // 0.66 - 1.00: Phase 3 "Cilj nije da prodamo najveći projekat. Cilj je da pronađemo sledeći pravi potez." + 7 Chips
 
   const alternativePaths = [
     { nameSr: "Google Profil", nameEn: "Google Maps Profile", isNewSite: false },
@@ -28,12 +28,21 @@ export function RiskReversalScene({ progress }: RiskReversalSceneProps) {
     { nameSr: "Kompletan Novi Sajt", nameEn: "Full New Web Platform", isNewSite: true }
   ];
 
+  const sceneOpacity = norm < 0.10 
+    ? norm / 0.10 
+    : norm > 0.88 
+    ? Math.max(0, (1 - norm) / 0.12) 
+    : 1;
+
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none pointer-events-none overflow-hidden">
+    <div 
+      className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
       {/* Phase 1: The Provocative Honest Question */}
-      {norm < 0.45 && (
-        <div className="space-y-4 max-w-4xl transition-all duration-500">
+      {norm < 0.36 && (
+        <div className="space-y-4 max-w-4xl transition-all duration-300">
           <div className="text-xs font-mono text-blue-500 font-bold uppercase tracking-widest">
             {isSr ? "10 / ISKRENA PROCENA" : "10 / RADICAL HONESTY"}
           </div>
@@ -44,8 +53,8 @@ export function RiskReversalScene({ progress }: RiskReversalSceneProps) {
       )}
 
       {/* Phase 2: "Odlično. Reći ćemo vam." */}
-      {norm >= 0.45 && norm < 0.75 && (
-        <div className="space-y-3 max-w-3xl transition-all duration-500">
+      {norm >= 0.36 && norm < 0.66 && (
+        <div className="space-y-3 max-w-3xl transition-all duration-300">
           <div className="text-5xl sm:text-7xl md:text-9xl font-display font-extrabold text-emerald-500 tracking-tight">
             {isSr ? "Odlično." : "Great."}
           </div>
@@ -56,8 +65,8 @@ export function RiskReversalScene({ progress }: RiskReversalSceneProps) {
       )}
 
       {/* Phase 3: The 7 Alternative Paths & Philosophy */}
-      {norm >= 0.65 && (
-        <div className="space-y-6 max-w-4xl transition-all duration-500">
+      {norm >= 0.66 && (
+        <div className="space-y-6 max-w-4xl transition-all duration-300">
           
           <div className="space-y-2">
             <h3 className="text-2xl sm:text-4xl md:text-5xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -90,8 +99,8 @@ export function RiskReversalScene({ progress }: RiskReversalSceneProps) {
 
       {/* Bottom Subtitle */}
       <div 
-        className="absolute bottom-10 max-w-md text-xs font-mono text-slate-400"
-        style={{ opacity: norm > 0.3 ? 1 : 0 }}
+        className="absolute bottom-10 max-w-md text-xs font-mono text-slate-400 transition-opacity duration-300"
+        style={{ opacity: norm > 0.20 && norm < 0.88 ? 1 : 0 }}
       >
         {isSr 
           ? "Ukoliko je prioritet popravka postojećeg Google profila ili landing stranica, nećemo vam nuditi sistem od 3.000€." 

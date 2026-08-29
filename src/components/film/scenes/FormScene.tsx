@@ -83,8 +83,15 @@ export function FormScene({ progress, onOpenServiceModal, onOpenProjectsModal, o
     }, 1200);
   };
 
+  const norm = Math.min(1, Math.max(0, (progress - 0.88) / 0.12));
+  const sceneOpacity = Math.min(1, norm / 0.08);
+
   return (
-    <div id="form-scene-anchor" className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none overflow-hidden">
+    <div 
+      id="form-scene-anchor" 
+      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none overflow-hidden transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
       {/* Dynamic Ambient Horizon Light */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-blue-600/10 to-transparent pointer-events-none" />

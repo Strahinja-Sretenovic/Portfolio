@@ -1,17 +1,16 @@
-import { motion } from "motion/react";
-import { Search, Compass, Layers, Code2, LineChart, CheckCircle2, ArrowRight } from "lucide-react";
+import { Search, Compass, Layers, Palette, Code2, LineChart } from "lucide-react";
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface MachineSceneProps {
-  progress: number; // 0.65 to 0.74
+  progress: number; // 0.645 to 0.745
 }
 
 export function MachineScene({ progress }: MachineSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  // Normalize 0.0 to 1.0 within 0.65 - 0.74
-  const norm = Math.min(1, Math.max(0, (progress - 0.65) / 0.09));
+  // Normalize 0.0 to 1.0 within 0.645 - 0.745
+  const norm = Math.min(1, Math.max(0, (progress - 0.645) / 0.10));
 
   // 6 Mechanical Stages:
   const stages = [
@@ -19,67 +18,79 @@ export function MachineScene({ progress }: MachineSceneProps) {
       num: "01",
       nameSr: "DISCOVERY",
       nameEn: "DISCOVERY",
-      descSr: "Linija prikuplja poslovne podatke",
-      descEn: "Path collects business telemetry",
+      descSr: "Razumemo biznis",
+      descEn: "We understand the business",
       icon: <Search size={14} />
     },
     {
       num: "02",
       nameSr: "RESEARCH",
       nameEn: "RESEARCH",
-      descSr: "Signali ponašanja kupaca",
-      descEn: "Customer decision signals emerge",
+      descSr: "Tražimo dokaze",
+      descEn: "We gather empirical evidence",
       icon: <Compass size={14} />
     },
     {
       num: "03",
-      nameSr: "STRATEGY",
-      nameEn: "STRATEGY",
-      descSr: "Putanja se ispravlja",
-      descEn: "The path aligns with commercial goals",
+      nameSr: "STRATEGY & IA",
+      nameEn: "STRATEGY & IA",
+      descSr: "Definišemo pravi put",
+      descEn: "We define the right architecture",
       icon: <Layers size={14} />
     },
     {
       num: "04",
-      nameSr: "IA & UX",
-      nameEn: "IA & UX",
-      descSr: "Putanja postaje kristalno jasna",
-      descEn: "Information hierarchy crystallizes",
-      icon: <CheckCircle2 size={14} />
+      nameSr: "UX & DESIGN",
+      nameEn: "UX & DESIGN",
+      descSr: "Projektujemo iskustvo",
+      descEn: "We engineer the experience",
+      icon: <Palette size={14} />
     },
     {
       num: "05",
       nameSr: "DEVELOPMENT",
       nameEn: "DEVELOPMENT",
-      descSr: "Putanja postaje radni sistem",
-      descEn: "Engineered into resilient software",
+      descSr: "Gradimo rešenje",
+      descEn: "We build the software",
       icon: <Code2 size={14} />
     },
     {
       num: "06",
       nameSr: "MEASURE",
       nameEn: "MEASURE",
-      descSr: "Metrike i povrat investicije",
-      descEn: "Continuous conversion tracking",
+      descSr: "Proveravamo šta se stvarno dogodilo",
+      descEn: "We verify what actually happened",
       icon: <LineChart size={14} />
     }
   ];
 
   // Active step (0 to 5) as progress advances
-  const currentStep = Math.min(5, Math.floor(norm * 6));
+  const currentStep = Math.min(5, Math.floor(norm * 6.2));
+  const isLaunchMoment = norm >= 0.75;
+
+  const sceneOpacity = norm < 0.10 
+    ? norm / 0.10 
+    : norm > 0.88 
+    ? Math.max(0, (1 - norm) / 0.12) 
+    : 1;
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden">
+    <div 
+      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
       {/* Top Headline */}
       <div className="space-y-3 max-w-4xl z-20 transition-all duration-500 mb-8">
         <div className="text-xs font-mono text-blue-500 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
-          <span>{isSr ? "08 / SSOLUTIONS MAŠINA" : "08 / THE SSOLUTIONS MACHINE"}</span>
+          <span>{isSr ? "08 / SSOLUTIONS SISTEM" : "08 / THE SSOLUTIONS SYSTEM"}</span>
         </div>
         
         <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-          {isSr ? "Od problema do sistema." : "From problem to working system."}
+          {isLaunchMoment
+            ? (isSr ? "Launch nije kraj." : "Launch is not the end.")
+            : (isSr ? "Od problema do stabilnog sistema." : "From problem to stable system.")}
         </h2>
       </div>
 
@@ -138,12 +149,12 @@ export function MachineScene({ progress }: MachineSceneProps) {
       {/* Bottom Subtitle */}
       <div 
         className="mt-8 max-w-xl text-center transition-all duration-500"
-        style={{ opacity: norm > 0.3 ? 1 : 0 }}
+        style={{ opacity: norm > 0.25 ? 1 : 0 }}
       >
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
           {isSr 
-            ? "Lansiranje sajta nije kraj — već početak merenja i generisanja realnog poslovnog rezultata." 
-            : "Launch is not the end — it's the beginning of measuring and compounding real commercial return."}
+            ? "Tek nakon lansiranja dobijamo stvarne podatke korisnika i optimizujemo rezultat." 
+            : "Only after launch do we receive real telemetry and compound commercial return."}
         </p>
       </div>
 

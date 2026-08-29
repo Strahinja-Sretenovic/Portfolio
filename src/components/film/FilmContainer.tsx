@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Volume2, VolumeX, Eye, EyeOff, Sparkles, ChevronDown } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 import { sound } from "../../utils/sound";
-import { CustomerPathCanvas } from "./CustomerPathCanvas";
 import { PrologueScene } from "./scenes/PrologueScene";
 import { SearchScene } from "./scenes/SearchScene";
 import { DecisionTunnelScene } from "./scenes/DecisionTunnelScene";
@@ -136,9 +135,6 @@ export function FilmContainer({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.06)_0,transparent_70%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40" />
 
-        {/* Global Vector Customer Path Layer */}
-        <CustomerPathCanvas progress={scrollProgress} />
-
         {/* Top Control Overlay (Sound toggle & chapter badge) */}
         <div className="absolute top-20 inset-x-0 px-6 sm:px-10 flex items-center justify-between z-40 pointer-events-none">
           {/* Chapter Indicator */}
@@ -177,57 +173,57 @@ export function FilmContainer({
         <div className="relative flex-1 flex items-center justify-center">
           
           {/* 01: Prologue (0.00 - 0.08) */}
-          {scrollProgress < 0.09 && (
+          {scrollProgress < 0.085 && (
             <PrologueScene progress={scrollProgress} />
           )}
 
           {/* 02: Search & Comparison (0.08 - 0.18) */}
-          {scrollProgress >= 0.07 && scrollProgress < 0.19 && (
+          {scrollProgress >= 0.075 && scrollProgress < 0.185 && (
             <SearchScene progress={scrollProgress} />
           )}
 
           {/* 03: Decision Tunnel & Website Morph (0.18 - 0.30) */}
-          {scrollProgress >= 0.17 && scrollProgress < 0.31 && (
+          {scrollProgress >= 0.175 && scrollProgress < 0.305 && (
             <DecisionTunnelScene progress={scrollProgress} />
           )}
 
           {/* 04: The Break / Line Fracture (0.30 - 0.38) */}
-          {scrollProgress >= 0.29 && scrollProgress < 0.39 && (
+          {scrollProgress >= 0.295 && scrollProgress < 0.385 && (
             <BreakScene progress={scrollProgress} />
           )}
 
           {/* 05: The Wrong Prescription & Freeze (0.38 - 0.46) */}
-          {scrollProgress >= 0.37 && scrollProgress < 0.47 && (
+          {scrollProgress >= 0.375 && scrollProgress < 0.465 && (
             <WrongPrescriptionScene progress={scrollProgress} />
           )}
 
           {/* 06: Diagnosis Radar (0.46 - 0.56) */}
-          {scrollProgress >= 0.45 && scrollProgress < 0.57 && (
+          {scrollProgress >= 0.455 && scrollProgress < 0.565 && (
             <DiagnosisScene progress={scrollProgress} />
           )}
 
           {/* 07: Solution Morph / 4 Pathways (0.56 - 0.65) */}
-          {scrollProgress >= 0.55 && scrollProgress < 0.66 && (
+          {scrollProgress >= 0.555 && scrollProgress < 0.655 && (
             <SolutionMorphScene progress={scrollProgress} />
           )}
 
           {/* 08: The SSolutions Machine (0.65 - 0.74) */}
-          {scrollProgress >= 0.64 && scrollProgress < 0.75 && (
+          {scrollProgress >= 0.645 && scrollProgress < 0.745 && (
             <MachineScene progress={scrollProgress} />
           )}
 
           {/* 09: Real Work / Case Studies (0.74 - 0.82) */}
-          {scrollProgress >= 0.73 && scrollProgress < 0.83 && (
+          {scrollProgress >= 0.735 && scrollProgress < 0.825 && (
             <RealWorkScene progress={scrollProgress} />
           )}
 
           {/* 10: Risk Reversal & Radical Honesty (0.82 - 0.88) */}
-          {scrollProgress >= 0.81 && scrollProgress < 0.89 && (
+          {scrollProgress >= 0.815 && scrollProgress < 0.885 && (
             <RiskReversalScene progress={scrollProgress} />
           )}
 
           {/* 11: The Form as the Scene (0.88 - 1.00) */}
-          {scrollProgress >= 0.87 && (
+          {scrollProgress >= 0.875 && (
             <FormScene
               progress={scrollProgress}
               onOpenServiceModal={() => onOpenServiceModal && onOpenServiceModal()}

@@ -14,9 +14,10 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
   const norm = Math.min(1, Math.max(0, (progress - 0.46) / 0.10));
 
   // Subphases:
-  // 0.0 - 0.35: Radar grows, "Zato prvo tražimo uzrok."
-  // 0.35 - 0.70: 9 diagnostic nodes settle, "Ne menjamo sve."
-  // 0.70 - 1.00: Broken bottleneck identified, "Menjamo ono što koči rezultat."
+  // 0.00 - 0.20: Radar expands, "Zato prvo tražimo uzrok."
+  // 0.20 - 0.65: 9 diagnostic nodes settle cleanly, "Ne menjamo sve."
+  // 0.65 - 0.88: Bottlenecks (Conversion / Process) light up clearly, "Menjamo ono što koči rezultat."
+  // 0.88 - 1.00: Clean transition handoff to SolutionMorphScene
 
   const diagnosticLayers = [
     { id: "vis", nameSr: "VIDLJIVOST", nameEn: "VISIBILITY", icon: <Eye size={13} />, descSr: "Google profil & lokalni ranking", descEn: "Local Maps & SERP ranking" },
@@ -32,15 +33,24 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
 
   const currentHeadline = norm < 0.35 
     ? (isSr ? "Zato prvo tražimo uzrok." : "That's why we find the root cause first.")
-    : norm < 0.70
+    : norm < 0.68
     ? (isSr ? "Ne menjamo sve." : "We don't replace everything.")
     : (isSr ? "Menjamo ono što koči rezultat." : "We fix what throttles your results.");
 
+  const sceneOpacity = norm < 0.10 
+    ? norm / 0.10 
+    : norm > 0.88 
+    ? Math.max(0, (1 - norm) / 0.12) 
+    : 1;
+
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 text-center select-none pointer-events-none overflow-hidden">
+    <div 
+      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
       {/* Top Headline */}
-      <div className="space-y-2 max-w-4xl z-20 transition-all duration-500 mb-6">
+      <div className="space-y-2 max-w-4xl z-20 transition-all duration-300 mb-6">
         <div className="text-xs font-mono text-blue-500 font-bold uppercase tracking-widest">
           {isSr ? "06 / DIJAGNOSTIČKI RADAR" : "06 / DIAGNOSTIC RADAR"}
         </div>
@@ -55,11 +65,11 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
         {/* Concentric Radar Rings */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div 
-            className="w-48 sm:w-80 h-48 sm:h-80 rounded-full border border-blue-500/20 transition-all duration-700"
+            className="w-48 sm:w-80 h-48 sm:h-80 rounded-full border border-blue-500/20 transition-all duration-500"
             style={{ transform: `scale(${0.5 + norm * 0.7})`, opacity: Math.min(1, norm / 0.3) }}
           />
           <div 
-            className="w-72 sm:w-[480px] h-72 sm:h-[480px] rounded-full border border-dashed border-blue-500/15 transition-all duration-700"
+            className="w-72 sm:w-[480px] h-72 sm:h-[480px] rounded-full border border-dashed border-blue-500/15 transition-all duration-500"
             style={{ transform: `scale(${0.4 + norm * 0.8})`, opacity: Math.min(1, norm / 0.4) }}
           />
           <div className="absolute w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,1)]" />
@@ -68,9 +78,9 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
         {/* 9 Diagnostic Structured Nodes in 3x3 Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full max-w-3xl z-10">
           {diagnosticLayers.map((layer, idx) => {
-            const appearNorm = Math.min(1, Math.max(0, (norm - 0.2) / 0.6));
+            const appearNorm = Math.min(1, Math.max(0, (norm - 0.15) / 0.55));
             const isBottleneck = layer.id === "cro" || layer.id === "pro";
-            const isHighlighted = norm >= 0.7 && isBottleneck;
+            const isHighlighted = norm >= 0.68 && isBottleneck;
 
             return (
               <div
@@ -82,7 +92,7 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
                 }`}
                 style={{
                   opacity: Math.min(1, appearNorm * (idx + 1) * 0.25),
-                  transform: `translateY(${(1 - appearNorm) * 20}px)`
+                  transform: `translateY(${(1 - appearNorm) * 15}px)`
                 }}
               >
                 <div className="flex items-center justify-between mb-1">
@@ -108,8 +118,8 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
 
       {/* Bottom Subtitle */}
       <div 
-        className="mt-6 max-w-lg text-center transition-all duration-500"
-        style={{ opacity: norm > 0.4 ? 1 : 0 }}
+        className="mt-6 max-w-lg text-center transition-all duration-300"
+        style={{ opacity: norm > 0.30 && norm < 0.88 ? 1 : 0 }}
       >
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
           {isSr 

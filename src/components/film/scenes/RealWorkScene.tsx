@@ -67,8 +67,17 @@ export function RealWorkScene({ progress }: RealWorkSceneProps) {
 
   const currentProject = projects[activeProjectIdx];
 
+  const sceneOpacity = norm < 0.10 
+    ? norm / 0.10 
+    : norm > 0.88 
+    ? Math.max(0, (1 - norm) / 0.12) 
+    : 1;
+
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden">
+    <div 
+      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
       {/* Top Headline */}
       <div className="space-y-2 max-w-4xl z-20 transition-all duration-500 mb-6">

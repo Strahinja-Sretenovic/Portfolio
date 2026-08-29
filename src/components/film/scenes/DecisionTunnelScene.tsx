@@ -14,12 +14,13 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
   const norm = Math.min(1, Math.max(0, (progress - 0.18) / 0.12));
 
   // Determine active internal question (0 to 3) based on scroll progress:
-  // 0.0 - 0.25: Q1 "Da li radite ono što mi treba?" -> Highlights Services
-  // 0.25 - 0.50: Q2 "Da li mogu da vam verujem?" -> Highlights Reviews & Proof
-  // 0.50 - 0.75: Q3 "Koliko me ovo približno košta?" -> Highlights Pricing
-  // 0.75 - 1.00: Q4 "Kako da napravim sledeći korak?" -> Highlights Booking Action
+  // 0.00 - 0.22: Q1 "Da li radite ono što mi treba?" -> Highlights Services
+  // 0.22 - 0.44: Q2 "Da li mogu da vam verujem?" -> Highlights Reviews & Proof
+  // 0.44 - 0.66: Q3 "Koliko me ovo približno košta?" -> Highlights Pricing
+  // 0.66 - 0.88: Q4 "Kako da napravim sledeći korak?" -> Highlights Booking Action
+  // 0.88 - 1.00: Exit & Handoff to Fracture Scene
 
-  const activeQuestionIndex = Math.min(3, Math.floor(norm * 4));
+  const activeQuestionIndex = Math.min(3, Math.floor(norm * 4.2));
 
   const questions = [
     {
@@ -52,8 +53,17 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
     }
   ];
 
+  const sceneOpacity = norm < 0.08 
+    ? norm / 0.08 
+    : norm > 0.88 
+    ? Math.max(0, (1 - norm) / 0.12) 
+    : 1;
+
   return (
-    <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-4 sm:p-8 gap-8 select-none pointer-events-none">
+    <div 
+      className="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-4 sm:p-8 gap-8 select-none pointer-events-none transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
       {/* Left Column: The Customer's Internal Mental Monologue */}
       <div className="w-full md:w-5/12 space-y-6 text-left">

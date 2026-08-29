@@ -1,27 +1,29 @@
-import { motion } from "motion/react";
-import { Star, MapPin, Phone, ShieldCheck, Check, Sparkles, Clock, Compass } from "lucide-react";
+import { Star, MapPin, Sparkles, Clock, Compass } from "lucide-react";
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface SearchSceneProps {
-  progress: number; // 0.08 to 0.18
+  progress: number; // 0.075 to 0.185
 }
 
 export function SearchScene({ progress }: SearchSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  // Normalize progress 0.0 to 1.0 within 0.08 - 0.18
-  const norm = Math.min(1, Math.max(0, (progress - 0.08) / 0.10));
+  // Normalize progress 0.0 to 1.0 within 0.075 - 0.185
+  const norm = Math.min(1, Math.max(0, (progress - 0.075) / 0.11));
 
   // Subphases:
-  // 0.0 - 0.35: Search bar moves up, 3 search results materialize below
-  // 0.35 - 0.65: Gaze passes across cards, "Vaš klijent ne vidi samo vas"
-  // 0.65 - 1.0: Cards spread apart in 3D space, "Poredi", decision signals pulse
+  // 0.00 - 0.18: Factor 1 - Reviews ("Gleda ocene.") -> Card 0 focus
+  // 0.18 - 0.36: Factor 2 - Photos/Work ("Gleda rad.") -> Card 1 focus
+  // 0.36 - 0.54: Factor 3 - Location ("Gleda gde ste.") -> Card 2 focus
+  // 0.54 - 0.72: Factor 4 - Offer ("Pokušava da razume šta nudite.") -> Card 1
+  // 0.72 - 0.86: Factor 5 - Booking ("Traži najlakši sledeći korak.") -> Card 1
+  // 0.86 - 1.00: Climax ("Vaš klijent već bira. A još nije ni otvorio vaš sajt.")
 
   const searchResults = [
     {
       id: "result-1",
-      name: isSr ? "Salon Elegance" : "Salon Elegance",
+      name: "Salon Elegance",
       rating: "4.8",
       reviews: "124",
       distance: "350m",
@@ -39,13 +41,13 @@ export function SearchScene({ progress }: SearchSceneProps) {
       distance: "420m",
       statusSr: "Online zakazivanje • 100/100 brzina",
       statusEn: "Online Booking • Instant Speed",
-      tagSr: "Najbolje ocenjeno",
-      tagEn: "Top Rated",
+      tagSr: "Izbor klijenta",
+      tagEn: "Client Pick",
       isTarget: true
     },
     {
       id: "result-3",
-      name: isSr ? "Studio Style & Beauty" : "Style & Beauty Lounge",
+      name: "Studio Style & Beauty",
       rating: "4.3",
       reviews: "48",
       distance: "750m",
@@ -57,44 +59,73 @@ export function SearchScene({ progress }: SearchSceneProps) {
     }
   ];
 
-  const signals = [
-    { nameSr: "RECENZIJE", nameEn: "REVIEWS", x: -180, y: -90, color: "text-amber-400 border-amber-500/40 bg-amber-500/10" },
-    { nameSr: "LOKACIJA", nameEn: "LOCATION", x: 190, y: -70, color: "text-blue-400 border-blue-500/40 bg-blue-500/10" },
-    { nameSr: "FOTOGRAFIJE", nameEn: "PHOTOS", x: -210, y: 30, color: "text-indigo-400 border-indigo-500/40 bg-indigo-500/10" },
-    { nameSr: "CENA & PONUDA", nameEn: "PRICING & OFFER", x: 200, y: 50, color: "text-emerald-400 border-emerald-500/40 bg-emerald-500/10" },
-    { nameSr: "POVERENJE", nameEn: "TRUST SIGNALS", x: 0, y: 130, color: "text-purple-400 border-purple-500/40 bg-purple-500/10" }
-  ];
+  // Current single decision factor label
+  let factorLabelSr = "Gleda ocene.";
+  let factorLabelEn = "Looking at reviews.";
+  let activeFocusIndex = 0;
 
-  // Selected card index focus (0 -> 1 -> 2 -> 1)
-  const activeFocusIndex = norm < 0.3 ? 0 : norm < 0.6 ? 2 : 1;
-  const isComparing = norm >= 0.55;
+  if (norm >= 0.18 && norm < 0.36) {
+    factorLabelSr = "Gleda rad.";
+    factorLabelEn = "Looking at previous work.";
+    activeFocusIndex = 1;
+  } else if (norm >= 0.36 && norm < 0.54) {
+    factorLabelSr = "Gleda gde ste.";
+    factorLabelEn = "Looking at location.";
+    activeFocusIndex = 2;
+  } else if (norm >= 0.54 && norm < 0.72) {
+    factorLabelSr = "Pokušava da razume šta nudite.";
+    factorLabelEn = "Trying to understand the offer.";
+    activeFocusIndex = 1;
+  } else if (norm >= 0.72 && norm < 0.86) {
+    factorLabelSr = "Traži najlakši sledeći korak.";
+    factorLabelEn = "Looking for the easiest next step.";
+    activeFocusIndex = 1;
+  } else if (norm >= 0.86) {
+    factorLabelSr = "Vaš klijent već bira.";
+    factorLabelEn = "Your client is already choosing.";
+    activeFocusIndex = 1;
+  }
+
+  const isFinalChoice = norm >= 0.86;
+
+  // Scene-level opacity transitions
+  const sceneOpacity = norm < 0.10 
+    ? norm / 0.10 
+    : norm > 0.88 
+    ? Math.max(0, (1 - norm) / 0.12) 
+    : 1;
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 select-none pointer-events-none">
+    <div 
+      className="absolute inset-0 flex flex-col items-center justify-center p-4 select-none pointer-events-none transition-opacity duration-200"
+      style={{ opacity: sceneOpacity }}
+    >
       
-      {/* Background Kinetic Headline */}
+      {/* Top Single Focal Point Headline */}
       <div 
-        className="absolute top-16 sm:top-20 max-w-4xl text-center space-y-2 transition-all duration-500"
+        className="absolute top-16 sm:top-20 max-w-4xl text-center space-y-2 transition-all duration-300"
         style={{
-          opacity: norm < 0.1 ? norm / 0.1 : norm > 0.9 ? (1 - norm) / 0.1 : 1,
-          transform: `translateY(${norm < 0.5 ? 0 : -10}px)`
+          transform: `translateY(${norm < 0.5 ? 0 : -8}px)`
         }}
       >
         <div className="text-xs font-mono text-blue-500 font-bold uppercase tracking-widest">
-          {isSr ? "02 / TRENUTAK POREĐENJA" : "02 / THE COMPARISON MOMENT"}
+          {isSr ? "02 / TRENUTAK ODLUKE" : "02 / THE MOMENT OF CHOICE"}
         </div>
-        <h2 className="text-2xl sm:text-4xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-          {isComparing 
-            ? (isSr ? "Poredi." : "They compare.")
-            : (isSr ? "Vaš klijent ne vidi samo vas." : "Your client doesn't only see you.")}
+        <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
+          {isSr ? factorLabelSr : factorLabelEn}
         </h2>
+        {isFinalChoice && (
+          <p className="text-sm sm:text-xl font-mono text-blue-600 dark:text-blue-400 font-bold pt-1 animate-fade-in">
+            {isSr ? "A još nije ni otvorio vaš sajt." : "And they haven't even opened your website yet."}
+          </p>
+        )}
       </div>
 
       {/* The 3 Materialized Search Cards */}
       <div 
-        className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-4 transition-all duration-700 mt-12"
+        className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-4 transition-all duration-500 mt-16"
         style={{
-          transform: `perspective(1000px) rotateX(${isComparing ? 6 : 0}deg) scale(${isComparing ? 1.02 : 0.98})`
+          transform: `perspective(1000px) rotateX(${isFinalChoice ? 6 : 0}deg) scale(${isFinalChoice ? 1.02 : 0.98})`
         }}
       >
         {searchResults.map((res, i) => {
@@ -102,18 +133,22 @@ export function SearchScene({ progress }: SearchSceneProps) {
           const isWinner = res.isTarget;
 
           // Spread offset when comparing
-          const spreadX = isComparing ? (i - 1) * 24 : 0;
+          const spreadX = isFinalChoice ? (i - 1) * 20 : 0;
+
+          // Fade non-winners on final selection
+          const itemOpacity = isFinalChoice && !isWinner ? 0.35 : isCurrentActive ? 1 : 0.65;
 
           return (
             <div
               key={res.id}
-              className={`w-full md:w-80 p-4 sm:p-5 rounded-2xl border transition-all duration-500 relative flex flex-col justify-between ${
+              className={`w-full md:w-80 p-4 sm:p-5 rounded-2xl border transition-all duration-300 relative flex flex-col justify-between ${
                 isCurrentActive
                   ? "bg-white/95 dark:bg-slate-900/95 border-blue-500 shadow-2xl shadow-blue-500/25 ring-2 ring-blue-500/30 scale-105 z-20"
-                  : "bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 opacity-70 z-10 scale-95"
+                  : "bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 z-10 scale-95"
               }`}
               style={{
-                transform: `translateX(${spreadX}px)`
+                transform: `translateX(${spreadX}px)`,
+                opacity: itemOpacity
               }}
             >
               <div className="space-y-2.5">
@@ -149,11 +184,11 @@ export function SearchScene({ progress }: SearchSceneProps) {
 
               {/* Action Buttons Mock */}
               <div className="mt-4 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-400">{isSr ? "Pregled sajta" : "Visit Website"}</span>
+                <span className="text-slate-400">{isSr ? "Pregled profila" : "View Profile"}</span>
                 <span className={`px-2 py-1 rounded-md text-[11px] font-bold ${
                   isCurrentActive ? "bg-blue-600 text-white" : "bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300"
                 }`}>
-                  {isSr ? "Otvori →" : "Open →"}
+                  {isSr ? "Izaberi →" : "Select →"}
                 </span>
               </div>
             </div>
@@ -161,39 +196,18 @@ export function SearchScene({ progress }: SearchSceneProps) {
         })}
       </div>
 
-      {/* Orbiting Decision Factor Badges when Comparing */}
-      {isComparing && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none hidden md:flex">
-          {signals.map((sig, idx) => {
-            const delayNorm = Math.min(1, Math.max(0, (norm - 0.6) / 0.35));
-            return (
-              <div
-                key={idx}
-                className={`absolute px-3 py-1 rounded-full border text-[10px] font-mono font-bold tracking-wider uppercase transition-all duration-700 shadow-lg ${sig.color}`}
-                style={{
-                  transform: `translate(${sig.x * delayNorm}px, ${sig.y * delayNorm}px) scale(${0.7 + delayNorm * 0.3})`,
-                  opacity: delayNorm
-                }}
-              >
-                {isSr ? sig.nameSr : sig.nameEn}
-              </div>
-            );
-          })}
-        </div>
-      )}
-
       {/* Bottom Subtitle Insight */}
       <div 
-        className="absolute bottom-12 text-center max-w-xl transition-all duration-500"
+        className="absolute bottom-10 text-center max-w-xl transition-all duration-300"
         style={{
-          opacity: norm > 0.4 ? 1 : 0,
-          transform: `translateY(${(1 - norm) * 10}px)`
+          opacity: norm > 0.20 && norm < 0.88 ? 1 : 0,
+          transform: `translateY(${norm > 0.20 ? 0 : 8}px)`
         }}
       >
-        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-mono">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
           {isSr 
-            ? "Odluka traje manje od 5 sekundi. Pobeđuje onaj ko uliva instant poverenje." 
-            : "The decision takes under 5 seconds. Whoever inspires instant trust wins."}
+            ? "Odluka traje manje od 5 sekundi. Pobeđuje onaj ko uliva instant poverenje i pruža najlakši sledeći korak." 
+            : "The decision takes under 5 seconds. Whoever inspires instant trust and frictionless booking wins."}
         </p>
       </div>
     </div>
