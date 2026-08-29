@@ -2,15 +2,12 @@ import { Search, Compass, Layers, Palette, Code2, LineChart } from "lucide-react
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface MachineSceneProps {
-  progress: number; // 0.645 to 0.745
+  progress: number; // Normalized 0.0 to 1.0
 }
 
-export function MachineScene({ progress }: MachineSceneProps) {
+export function MachineScene({ progress: norm }: MachineSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
-
-  // Normalize 0.0 to 1.0 within 0.645 - 0.745
-  const norm = Math.min(1, Math.max(0, (progress - 0.645) / 0.10));
 
   // 6 Mechanical Stages:
   const stages = [
@@ -66,41 +63,51 @@ export function MachineScene({ progress }: MachineSceneProps) {
 
   // Active step (0 to 5) as progress advances
   const currentStep = Math.min(5, Math.floor(norm * 6.2));
-  const isLaunchMoment = norm >= 0.75;
-
-  const sceneOpacity = norm < 0.10 
-    ? norm / 0.10 
-    : norm > 0.88 
-    ? Math.max(0, (1 - norm) / 0.12) 
-    : 1;
+  const head1Opacity = norm < 0.68 ? 1 : Math.max(0, 1 - (norm - 0.68) / 0.10);
+  const head2Opacity = norm < 0.70 ? 0 : Math.min(1, (norm - 0.70) / 0.10);
 
   return (
-    <div 
-      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
-      style={{ opacity: sceneOpacity }}
-    >
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden">
       
-      {/* Top Headline */}
-      <div className="space-y-3 max-w-4xl z-20 transition-all duration-500 mb-8">
+      {/* Top Headline with smooth cross-fade */}
+      <div className="space-y-3 max-w-4xl z-20 mb-8 px-4">
         <div className="text-xs font-mono text-blue-500 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
           <span>{isSr ? "08 / SSOLUTIONS SISTEM" : "08 / THE SSOLUTIONS SYSTEM"}</span>
         </div>
         
-        <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-          {isLaunchMoment
-            ? (isSr ? "Launch nije kraj." : "Launch is not the end.")
-            : (isSr ? "Od problema do stabilnog sistema." : "From problem to stable system.")}
-        </h2>
+        <div className="relative min-h-[50px] sm:min-h-[70px] flex items-center justify-center">
+          <h2 
+            className="absolute text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight"
+            style={{
+              opacity: head1Opacity,
+              transform: `translateY(${(1 - head1Opacity) * -8}px)`,
+              visibility: head1Opacity > 0.001 ? "visible" : "hidden"
+            }}
+          >
+            {isSr ? "Od problema do stabilnog sistema." : "From problem to stable system."}
+          </h2>
+
+          <h2 
+            className="absolute text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight"
+            style={{
+              opacity: head2Opacity,
+              transform: `translateY(${(1 - head2Opacity) * 8}px)`,
+              visibility: head2Opacity > 0.001 ? "visible" : "hidden"
+            }}
+          >
+            {isSr ? "Launch nije kraj." : "Launch is not the end."}
+          </h2>
+        </div>
       </div>
 
       {/* The 6-Stage Mechanical Engine Line */}
       <div className="w-full max-w-5xl relative">
         
-        {/* Horizontal glowing rail track */}
+        {/* Horizontal rail track */}
         <div className="h-1 w-full bg-slate-200 dark:bg-white/10 rounded-full relative mb-8 overflow-hidden hidden md:block">
           <div 
-            className="h-full bg-gradient-to-r from-blue-600 to-cyan-400 transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,1)]"
+            className="h-full bg-gradient-to-r from-blue-600 to-cyan-400 shadow-sm"
             style={{ width: `${Math.min(100, (norm + 0.1) * 100)}%` }}
           />
         </div>
@@ -114,12 +121,12 @@ export function MachineScene({ progress }: MachineSceneProps) {
             return (
               <div
                 key={stage.num}
-                className={`p-3.5 rounded-2xl border text-left transition-all duration-300 relative flex flex-col justify-between ${
+                className={`p-3.5 rounded-2xl border text-left relative flex flex-col justify-between ${
                   isActive
-                    ? "bg-blue-600 text-white border-blue-400 shadow-xl shadow-blue-500/30 scale-105 ring-2 ring-blue-400/50 z-20"
+                    ? "bg-blue-600 text-white border-blue-400 shadow-lg shadow-blue-500/30 scale-105 ring-2 ring-blue-400/50 z-20"
                     : isCompleted
-                    ? "bg-slate-100 dark:bg-slate-900/90 border-blue-500/40 text-slate-900 dark:text-white opacity-85 z-10"
-                    : "bg-white/50 dark:bg-white/5 border-slate-200 dark:border-white/5 text-slate-400 opacity-40"
+                    ? "bg-slate-100 dark:bg-slate-900 border-blue-500/40 text-slate-900 dark:text-white opacity-85 z-10"
+                    : "bg-white dark:bg-white/5 border-slate-200 dark:border-white/5 text-slate-400 opacity-40"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">

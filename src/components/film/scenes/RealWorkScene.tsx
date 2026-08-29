@@ -4,15 +4,12 @@ import { useLanguage } from "../../../context/LanguageContext";
 import { projectsData } from "../../../data/projectsData";
 
 interface RealWorkSceneProps {
-  progress: number; // 0.74 to 0.82
+  progress: number; // Normalized 0.0 to 1.0
 }
 
-export function RealWorkScene({ progress }: RealWorkSceneProps) {
+export function RealWorkScene({ progress: norm }: RealWorkSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
-
-  // Normalize 0.0 to 1.0 within 0.74 - 0.82
-  const norm = Math.min(1, Math.max(0, (progress - 0.74) / 0.08));
 
   // Projects to display (3 projects)
   const activeProjectIdx = Math.min(2, Math.floor(norm * 3));
@@ -67,20 +64,11 @@ export function RealWorkScene({ progress }: RealWorkSceneProps) {
 
   const currentProject = projects[activeProjectIdx];
 
-  const sceneOpacity = norm < 0.10 
-    ? norm / 0.10 
-    : norm > 0.88 
-    ? Math.max(0, (1 - norm) / 0.12) 
-    : 1;
-
   return (
-    <div 
-      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
-      style={{ opacity: sceneOpacity }}
-    >
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none pointer-events-none overflow-hidden">
       
       {/* Top Headline */}
-      <div className="space-y-2 max-w-4xl z-20 transition-all duration-500 mb-6">
+      <div className="space-y-2 max-w-4xl z-20 mb-6 px-4">
         <div className="text-xs font-mono text-blue-500 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
           <ShieldCheck size={14} />
           <span>{isSr ? "09 / VERIFIKOVANI RADOVI" : "09 / VERIFIED EVIDENCE"}</span>
@@ -93,7 +81,7 @@ export function RealWorkScene({ progress }: RealWorkSceneProps) {
 
       {/* Dynamic Project Morphing Frame */}
       <div className="w-full max-w-3xl">
-        <div className="p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-slate-900/95 border border-slate-300 dark:border-white/15 shadow-2xl shadow-blue-500/10 text-left space-y-6 backdrop-blur-xl">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-white/15 shadow-xl text-left space-y-6">
           
           {/* Project Header Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 dark:border-white/10">
@@ -161,7 +149,7 @@ export function RealWorkScene({ progress }: RealWorkSceneProps) {
               {[0, 1, 2].map((dot) => (
                 <div
                   key={dot}
-                  className={`w-2 h-2 rounded-full transition-all ${
+                  className={`w-2 h-2 rounded-full ${
                     dot === activeProjectIdx ? "w-6 bg-blue-500" : "bg-slate-300 dark:bg-white/20"
                   }`}
                 />

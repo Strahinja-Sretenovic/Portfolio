@@ -43,13 +43,13 @@ export function FilmContainer({
     }
   }, []);
 
-  // Synchronized scroll tracking for the pinned master stage
+  // Synchronized ultra-performant scroll tracking for the pinned master stage
   useEffect(() => {
     if (reducedMotion) return;
 
-    let rafId: number;
+    let ticking = false;
 
-    const handleScroll = () => {
+    const updateScrollProgress = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const totalScrollable = containerRef.current.offsetHeight - window.innerHeight;
@@ -58,20 +58,22 @@ export function FilmContainer({
         const currentScroll = -rect.top;
         const rawProgress = currentScroll / totalScrollable;
         const clamped = Math.min(1, Math.max(0, rawProgress));
-        setScrollProgress(clamped);
+        setScrollProgress(prev => (Math.abs(prev - clamped) > 0.0001 ? clamped : prev));
+      }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollProgress);
+        ticking = true;
       }
     };
 
-    const onScrollLoop = () => {
-      handleScroll();
-      rafId = requestAnimationFrame(onScrollLoop);
-    };
-
-    rafId = requestAnimationFrame(onScrollLoop);
+    updateScrollProgress();
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [reducedMotion]);
@@ -83,23 +85,100 @@ export function FilmContainer({
 
   // Chapter labels for the subtle lateral HUD
   const chapters = [
-    { range: [0.00, 0.08], nameSr: "Početak", nameEn: "Spark" },
-    { range: [0.08, 0.18], nameSr: "Pretraga", nameEn: "Search" },
-    { range: [0.18, 0.30], nameSr: "Tunel", nameEn: "Tunnel" },
-    { range: [0.30, 0.38], nameSr: "Prekid", nameEn: "Break" },
-    { range: [0.38, 0.46], nameSr: "Nagađanje", nameEn: "Guess" },
-    { range: [0.46, 0.56], nameSr: "Dijagnoza", nameEn: "Diagnosis" },
-    { range: [0.56, 0.65], nameSr: "Rešenja", nameEn: "Solutions" },
-    { range: [0.65, 0.74], nameSr: "Proces", nameEn: "Process" },
-    { range: [0.74, 0.82], nameSr: "Dokazi", nameEn: "Proof" },
-    { range: [0.82, 0.88], nameSr: "Procena", nameEn: "Honesty" },
-    { range: [0.88, 1.00], nameSr: "Analiza", nameEn: "Audit" }
+    { range: [0.00, 0.09], nameSr: "Početak", nameEn: "Spark" },
+    { range: [0.09, 0.19], nameSr: "Pretraga", nameEn: "Search" },
+    { range: [0.19, 0.31], nameSr: "Tunel", nameEn: "Tunnel" },
+    { range: [0.31, 0.40], nameSr: "Prekid", nameEn: "Break" },
+    { range: [0.40, 0.49], nameSr: "Nagađanje", nameEn: "Guess" },
+    { range: [0.49, 0.59], nameSr: "Dijagnoza", nameEn: "Diagnosis" },
+    { range: [0.59, 0.68], nameSr: "Rešenja", nameEn: "Solutions" },
+    { range: [0.68, 0.77], nameSr: "Proces", nameEn: "Process" },
+    { range: [0.77, 0.85], nameSr: "Dokazi", nameEn: "Proof" },
+    { range: [0.85, 0.91], nameSr: "Procena", nameEn: "Honesty" },
+    { range: [0.91, 1.00], nameSr: "Analiza", nameEn: "Audit" }
   ];
 
   const activeChapterIndex = chapters.findIndex(
     ch => scrollProgress >= ch.range[0] && scrollProgress <= ch.range[1]
   );
   const activeChapter = chapters[activeChapterIndex] || chapters[0];
+
+  // Scene Definitions for Cinematic Cross-Dissolve Orchestration
+  const sceneList = [
+    {
+      id: "prologue",
+      start: 0.00,
+      end: 0.09,
+      component: (norm: number) => <PrologueScene progress={norm} />
+    },
+    {
+      id: "search",
+      start: 0.09,
+      end: 0.19,
+      component: (norm: number) => <SearchScene progress={norm} />
+    },
+    {
+      id: "tunnel",
+      start: 0.19,
+      end: 0.31,
+      component: (norm: number) => <DecisionTunnelScene progress={norm} />
+    },
+    {
+      id: "break",
+      start: 0.31,
+      end: 0.40,
+      component: (norm: number) => <BreakScene progress={norm} />
+    },
+    {
+      id: "wrong",
+      start: 0.40,
+      end: 0.49,
+      component: (norm: number) => <WrongPrescriptionScene progress={norm} />
+    },
+    {
+      id: "diagnosis",
+      start: 0.49,
+      end: 0.59,
+      component: (norm: number) => <DiagnosisScene progress={norm} />
+    },
+    {
+      id: "solution",
+      start: 0.59,
+      end: 0.68,
+      component: (norm: number) => <SolutionMorphScene progress={norm} />
+    },
+    {
+      id: "machine",
+      start: 0.68,
+      end: 0.77,
+      component: (norm: number) => <MachineScene progress={norm} />
+    },
+    {
+      id: "realwork",
+      start: 0.77,
+      end: 0.85,
+      component: (norm: number) => <RealWorkScene progress={norm} />
+    },
+    {
+      id: "riskreversal",
+      start: 0.85,
+      end: 0.91,
+      component: (norm: number) => <RiskReversalScene progress={norm} />
+    },
+    {
+      id: "form",
+      start: 0.91,
+      end: 1.00,
+      component: (norm: number) => (
+        <FormScene
+          progress={norm}
+          onOpenServiceModal={() => onOpenServiceModal && onOpenServiceModal()}
+          onOpenProjectsModal={onOpenProjectsModal}
+          onOpenFaqModal={onOpenFaqModal}
+        />
+      )
+    }
+  ];
 
   if (reducedMotion) {
     return (
@@ -121,6 +200,8 @@ export function FilmContainer({
       </div>
     );
   }
+
+  const fadeMargin = 0.025; // 2.5% overlap for velvety smooth cross-fades
 
   return (
     <div
@@ -168,70 +249,71 @@ export function FilmContainer({
         </div>
 
         {/* ===================================================================
-            CONTINUOUS FILM SCENES (Active scene rendered with smooth morphing)
+            CONTINUOUS FILM SCENES WITH SEAMLESS CROSS-DISSOLVE
            =================================================================== */}
-        <div className="relative flex-1 flex items-center justify-center">
-          
-          {/* 01: Prologue (0.00 - 0.08) */}
-          {scrollProgress < 0.085 && (
-            <PrologueScene progress={scrollProgress} />
-          )}
+        <div className="relative flex-1 w-full h-full flex items-center justify-center overflow-hidden">
+          {sceneList.map((scene) => {
+            const isVisible =
+              scrollProgress >= scene.start - fadeMargin &&
+              scrollProgress <= scene.end + fadeMargin;
 
-          {/* 02: Search & Comparison (0.08 - 0.18) */}
-          {scrollProgress >= 0.075 && scrollProgress < 0.185 && (
-            <SearchScene progress={scrollProgress} />
-          )}
+            if (!isVisible) return null;
 
-          {/* 03: Decision Tunnel & Website Morph (0.18 - 0.30) */}
-          {scrollProgress >= 0.175 && scrollProgress < 0.305 && (
-            <DecisionTunnelScene progress={scrollProgress} />
-          )}
+            // Normalized local timeline within the scene: 0.0 to 1.0
+            const norm = Math.min(
+              1,
+              Math.max(0, (scrollProgress - scene.start) / (scene.end - scene.start))
+            );
 
-          {/* 04: The Break / Line Fracture (0.30 - 0.38) */}
-          {scrollProgress >= 0.295 && scrollProgress < 0.385 && (
-            <BreakScene progress={scrollProgress} />
-          )}
+            // Compute enter / hold / exit opacity
+            let opacity = 1;
+            if (scrollProgress < scene.start) {
+              if (scene.start === 0) {
+                opacity = 1;
+              } else {
+                opacity = Math.max(
+                  0,
+                  Math.min(1, (scrollProgress - (scene.start - fadeMargin)) / fadeMargin)
+                );
+              }
+            } else if (scrollProgress > scene.end) {
+              if (scene.end === 1) {
+                opacity = 1;
+              } else {
+                opacity = Math.max(
+                  0,
+                  Math.min(1, (scene.end + fadeMargin - scrollProgress) / fadeMargin)
+                );
+              }
+            }
 
-          {/* 05: The Wrong Prescription & Freeze (0.38 - 0.46) */}
-          {scrollProgress >= 0.375 && scrollProgress < 0.465 && (
-            <WrongPrescriptionScene progress={scrollProgress} />
-          )}
+            // Subtle spatial depth shift during transitions
+            let translateY = 0;
+            let scale = 1;
+            if (scrollProgress < scene.start && scene.start > 0) {
+              translateY = (1 - opacity) * 26;
+              scale = 0.97 + 0.03 * opacity;
+            } else if (scrollProgress > scene.end && scene.end < 1) {
+              translateY = -(1 - opacity) * 26;
+              scale = 1.00 - 0.02 * (1 - opacity);
+            }
 
-          {/* 06: Diagnosis Radar (0.46 - 0.56) */}
-          {scrollProgress >= 0.455 && scrollProgress < 0.565 && (
-            <DiagnosisScene progress={scrollProgress} />
-          )}
-
-          {/* 07: Solution Morph / 4 Pathways (0.56 - 0.65) */}
-          {scrollProgress >= 0.555 && scrollProgress < 0.655 && (
-            <SolutionMorphScene progress={scrollProgress} />
-          )}
-
-          {/* 08: The SSolutions Machine (0.65 - 0.74) */}
-          {scrollProgress >= 0.645 && scrollProgress < 0.745 && (
-            <MachineScene progress={scrollProgress} />
-          )}
-
-          {/* 09: Real Work / Case Studies (0.74 - 0.82) */}
-          {scrollProgress >= 0.735 && scrollProgress < 0.825 && (
-            <RealWorkScene progress={scrollProgress} />
-          )}
-
-          {/* 10: Risk Reversal & Radical Honesty (0.82 - 0.88) */}
-          {scrollProgress >= 0.815 && scrollProgress < 0.885 && (
-            <RiskReversalScene progress={scrollProgress} />
-          )}
-
-          {/* 11: The Form as the Scene (0.88 - 1.00) */}
-          {scrollProgress >= 0.875 && (
-            <FormScene
-              progress={scrollProgress}
-              onOpenServiceModal={() => onOpenServiceModal && onOpenServiceModal()}
-              onOpenProjectsModal={onOpenProjectsModal}
-              onOpenFaqModal={onOpenFaqModal}
-            />
-          )}
-
+            return (
+              <div
+                key={scene.id}
+                className="absolute inset-0 w-full h-full flex items-center justify-center"
+                style={{
+                  opacity,
+                  transform: `translate3d(0, ${translateY}px, 0) scale(${scale})`,
+                  pointerEvents: opacity > 0.4 ? "auto" : "none",
+                  visibility: opacity > 0.001 ? "visible" : "hidden",
+                  willChange: "transform, opacity"
+                }}
+              >
+                {scene.component(norm)}
+              </div>
+            );
+          })}
         </div>
 
         {/* Global Bottom Cinematic Progress Baseline Bar */}
@@ -240,7 +322,7 @@ export function FilmContainer({
             <span>01</span>
             <div className="w-24 sm:w-48 h-1 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-blue-600 shadow-[0_0_8px_rgba(59,130,246,0.8)] transition-all duration-150"
+                className="h-full bg-blue-600 shadow-[0_0_8px_rgba(59,130,246,0.8)]"
                 style={{ width: `${scrollProgress * 100}%` }}
               />
             </div>

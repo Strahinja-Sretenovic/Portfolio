@@ -3,21 +3,12 @@ import { Radar, Eye, MessageSquare, ShieldCheck, Smartphone, Search, Target, Cpu
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface DiagnosisSceneProps {
-  progress: number; // 0.46 to 0.56
+  progress: number; // Normalized 0.0 to 1.0
 }
 
-export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
+export function DiagnosisScene({ progress: norm }: DiagnosisSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
-
-  // Normalize 0.0 to 1.0 within 0.46 - 0.56
-  const norm = Math.min(1, Math.max(0, (progress - 0.46) / 0.10));
-
-  // Subphases:
-  // 0.00 - 0.20: Radar expands, "Zato prvo tražimo uzrok."
-  // 0.20 - 0.65: 9 diagnostic nodes settle cleanly, "Ne menjamo sve."
-  // 0.65 - 0.88: Bottlenecks (Conversion / Process) light up clearly, "Menjamo ono što koči rezultat."
-  // 0.88 - 1.00: Clean transition handoff to SolutionMorphScene
 
   const diagnosticLayers = [
     { id: "vis", nameSr: "VIDLJIVOST", nameEn: "VISIBILITY", icon: <Eye size={13} />, descSr: "Google profil & lokalni ranking", descEn: "Local Maps & SERP ranking" },
@@ -31,32 +22,53 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
     { id: "dat", nameSr: "PODACI", nameEn: "TELEMETRY", icon: <Radar size={13} />, descSr: "Merenje stvarnih poseta i poziva", descEn: "Real visit & call tracking" }
   ];
 
-  const currentHeadline = norm < 0.35 
-    ? (isSr ? "Zato prvo tražimo uzrok." : "That's why we find the root cause first.")
-    : norm < 0.68
-    ? (isSr ? "Ne menjamo sve." : "We don't replace everything.")
-    : (isSr ? "Menjamo ono što koči rezultat." : "We fix what throttles your results.");
-
-  const sceneOpacity = norm < 0.10 
-    ? norm / 0.10 
-    : norm > 0.88 
-    ? Math.max(0, (1 - norm) / 0.12) 
-    : 1;
+  const h1Opacity = norm < 0.28 ? 1 : Math.max(0, 1 - (norm - 0.28) / 0.10);
+  const h2Opacity = norm < 0.30 ? 0 : norm < 0.38 ? (norm - 0.30) / 0.08 : norm < 0.62 ? 1 : Math.max(0, 1 - (norm - 0.62) / 0.08);
+  const h3Opacity = norm < 0.64 ? 0 : Math.min(1, (norm - 0.64) / 0.08);
 
   return (
-    <div 
-      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
-      style={{ opacity: sceneOpacity }}
-    >
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-6 text-center select-none pointer-events-none overflow-hidden">
       
-      {/* Top Headline */}
-      <div className="space-y-2 max-w-4xl z-20 transition-all duration-300 mb-6">
+      {/* Top Headline with smooth cross-dissolve */}
+      <div className="space-y-2 max-w-4xl z-20 mb-6 px-4">
         <div className="text-xs font-mono text-blue-500 font-bold uppercase tracking-widest">
           {isSr ? "06 / DIJAGNOSTIČKI RADAR" : "06 / DIAGNOSTIC RADAR"}
         </div>
-        <h2 className="text-2xl sm:text-4xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-          {currentHeadline}
-        </h2>
+
+        <div className="relative min-h-[50px] sm:min-h-[70px] flex items-center justify-center">
+          <h2 
+            className="absolute text-2xl sm:text-4xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight"
+            style={{
+              opacity: h1Opacity,
+              transform: `translateY(${(1 - h1Opacity) * -8}px)`,
+              visibility: h1Opacity > 0.001 ? "visible" : "hidden"
+            }}
+          >
+            {isSr ? "Zato prvo tražimo uzrok." : "That's why we find the root cause first."}
+          </h2>
+
+          <h2 
+            className="absolute text-2xl sm:text-4xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight"
+            style={{
+              opacity: h2Opacity,
+              transform: `translateY(${norm < 0.38 ? (0.38 - norm) * 10 : (norm - 0.62) * -10}px)`,
+              visibility: h2Opacity > 0.001 ? "visible" : "hidden"
+            }}
+          >
+            {isSr ? "Ne menjamo sve." : "We don't replace everything."}
+          </h2>
+
+          <h2 
+            className="absolute text-2xl sm:text-4xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight"
+            style={{
+              opacity: h3Opacity,
+              transform: `translateY(${(1 - h3Opacity) * 8}px)`,
+              visibility: h3Opacity > 0.001 ? "visible" : "hidden"
+            }}
+          >
+            {isSr ? "Menjamo ono što koči rezultat." : "We fix what throttles your results."}
+          </h2>
+        </div>
       </div>
 
       {/* Center Radar Scanner Field & 9 Matrix Nodes */}
@@ -65,14 +77,14 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
         {/* Concentric Radar Rings */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div 
-            className="w-48 sm:w-80 h-48 sm:h-80 rounded-full border border-blue-500/20 transition-all duration-500"
+            className="w-48 sm:w-80 h-48 sm:h-80 rounded-full border border-blue-500/20"
             style={{ transform: `scale(${0.5 + norm * 0.7})`, opacity: Math.min(1, norm / 0.3) }}
           />
           <div 
-            className="w-72 sm:w-[480px] h-72 sm:h-[480px] rounded-full border border-dashed border-blue-500/15 transition-all duration-500"
+            className="w-72 sm:w-[480px] h-72 sm:h-[480px] rounded-full border border-dashed border-blue-500/15"
             style={{ transform: `scale(${0.4 + norm * 0.8})`, opacity: Math.min(1, norm / 0.4) }}
           />
-          <div className="absolute w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,1)]" />
+          <div className="absolute w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
         </div>
 
         {/* 9 Diagnostic Structured Nodes in 3x3 Grid */}
@@ -85,10 +97,10 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
             return (
               <div
                 key={layer.id}
-                className={`p-3 rounded-2xl border text-left transition-all duration-300 ${
+                className={`p-3 rounded-2xl border text-left ${
                   isHighlighted
-                    ? "bg-blue-600 text-white border-blue-400 shadow-xl shadow-blue-500/30 scale-105 ring-2 ring-blue-400/50"
-                    : "bg-white/80 dark:bg-slate-900/80 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white backdrop-blur-sm"
+                    ? "bg-blue-600 text-white border-blue-400 shadow-lg shadow-blue-500/30 scale-105 ring-2 ring-blue-400/50"
+                    : "bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white"
                 }`}
                 style={{
                   opacity: Math.min(1, appearNorm * (idx + 1) * 0.25),
@@ -118,7 +130,7 @@ export function DiagnosisScene({ progress }: DiagnosisSceneProps) {
 
       {/* Bottom Subtitle */}
       <div 
-        className="mt-6 max-w-lg text-center transition-all duration-300"
+        className="mt-6 max-w-lg text-center"
         style={{ opacity: norm > 0.30 && norm < 0.88 ? 1 : 0 }}
       >
         <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">

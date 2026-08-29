@@ -6,13 +6,13 @@ import { useToast } from "../../../context/ToastContext";
 import { sound } from "../../../utils/sound";
 
 interface FormSceneProps {
-  progress: number; // 0.88 to 1.00
+  progress: number; // Normalized 0.0 to 1.0
   onOpenServiceModal?: () => void;
   onOpenProjectsModal?: () => void;
   onOpenFaqModal?: () => void;
 }
 
-export function FormScene({ progress, onOpenServiceModal, onOpenProjectsModal, onOpenFaqModal }: FormSceneProps) {
+export function FormScene({ progress: norm, onOpenServiceModal, onOpenProjectsModal, onOpenFaqModal }: FormSceneProps) {
   const { language } = useLanguage();
   const { showToast } = useToast();
   const isSr = language === "sr";
@@ -83,14 +83,10 @@ export function FormScene({ progress, onOpenServiceModal, onOpenProjectsModal, o
     }, 1200);
   };
 
-  const norm = Math.min(1, Math.max(0, (progress - 0.88) / 0.12));
-  const sceneOpacity = Math.min(1, norm / 0.08);
-
   return (
     <div 
       id="form-scene-anchor" 
-      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none overflow-hidden transition-opacity duration-200"
-      style={{ opacity: sceneOpacity }}
+      className="absolute inset-0 flex flex-col items-center justify-center p-4 sm:p-8 text-center select-none overflow-hidden"
     >
       
       {/* Dynamic Ambient Horizon Light */}

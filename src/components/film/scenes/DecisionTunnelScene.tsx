@@ -3,23 +3,14 @@ import { Check, Star, ShieldCheck, Sparkles, Calendar, ArrowRight, Phone } from 
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface DecisionTunnelSceneProps {
-  progress: number; // 0.18 to 0.30
+  progress: number; // Normalized 0.0 to 1.0
 }
 
-export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
+export function DecisionTunnelScene({ progress: norm }: DecisionTunnelSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  // Normalize 0.0 to 1.0 within 0.18 - 0.30
-  const norm = Math.min(1, Math.max(0, (progress - 0.18) / 0.12));
-
   // Determine active internal question (0 to 3) based on scroll progress:
-  // 0.00 - 0.22: Q1 "Da li radite ono što mi treba?" -> Highlights Services
-  // 0.22 - 0.44: Q2 "Da li mogu da vam verujem?" -> Highlights Reviews & Proof
-  // 0.44 - 0.66: Q3 "Koliko me ovo približno košta?" -> Highlights Pricing
-  // 0.66 - 0.88: Q4 "Kako da napravim sledeći korak?" -> Highlights Booking Action
-  // 0.88 - 1.00: Exit & Handoff to Fracture Scene
-
   const activeQuestionIndex = Math.min(3, Math.floor(norm * 4.2));
 
   const questions = [
@@ -53,17 +44,8 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
     }
   ];
 
-  const sceneOpacity = norm < 0.08 
-    ? norm / 0.08 
-    : norm > 0.88 
-    ? Math.max(0, (1 - norm) / 0.12) 
-    : 1;
-
   return (
-    <div 
-      className="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-4 sm:p-8 gap-8 select-none pointer-events-none transition-opacity duration-200"
-      style={{ opacity: sceneOpacity }}
-    >
+    <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-4 sm:p-8 gap-8 select-none pointer-events-none">
       
       {/* Left Column: The Customer's Internal Mental Monologue */}
       <div className="w-full md:w-5/12 space-y-6 text-left">
@@ -85,11 +67,11 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
             return (
               <div
                 key={idx}
-                className={`p-3.5 sm:p-4 rounded-2xl border transition-all duration-300 flex items-start gap-3.5 ${
+                className={`p-3.5 sm:p-4 rounded-2xl border flex items-start gap-3.5 ${
                   isActive
-                    ? "bg-white dark:bg-slate-900 border-blue-500 shadow-lg shadow-blue-500/20 scale-[1.02]"
+                    ? "bg-white dark:bg-slate-900 border-blue-500 shadow-md scale-[1.01]"
                     : isPassed
-                    ? "bg-slate-50/50 dark:bg-white/5 border-slate-200 dark:border-white/5 opacity-40"
+                    ? "bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/5 opacity-40"
                     : "bg-transparent border-transparent opacity-20"
                 }`}
               >
@@ -100,7 +82,7 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
                 </div>
 
                 <div className="space-y-0.5">
-                  <div className={`text-sm sm:text-base font-bold transition-colors ${
+                  <div className={`text-sm sm:text-base font-bold ${
                     isActive ? "text-blue-600 dark:text-blue-400 font-display" : "text-slate-700 dark:text-slate-300"
                   }`}>
                     {isSr ? q.qSr : q.qEn}
@@ -117,7 +99,7 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
 
       {/* Right Column: Morphing Browser Window with Active Highlight Layers */}
       <div className="w-full md:w-7/12 max-w-xl">
-        <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-white/15 shadow-2xl shadow-blue-500/10 overflow-hidden">
+        <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-950 border border-slate-300 dark:border-white/15 shadow-xl overflow-hidden">
           
           {/* Browser Top Bar */}
           <div className="px-4 py-3 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
@@ -150,9 +132,9 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
             </div>
 
             {/* Layer 2: Services (Highlight on Q1) */}
-            <div className={`p-3 rounded-xl border transition-all duration-300 ${
+            <div className={`p-3 rounded-xl border ${
               activeQuestionIndex === 0 
-                ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500 shadow-md ring-2 ring-blue-500/20" 
+                ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500 shadow-sm ring-1 ring-blue-500/30" 
                 : "bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-white/5 opacity-70"
             }`}>
               <div className="flex items-center justify-between mb-1.5">
@@ -166,9 +148,9 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
             </div>
 
             {/* Layer 3: Proof & Reviews (Highlight on Q2) */}
-            <div className={`p-3 rounded-xl border transition-all duration-300 ${
+            <div className={`p-3 rounded-xl border ${
               activeQuestionIndex === 1
-                ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500 shadow-md ring-2 ring-blue-500/20" 
+                ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500 shadow-sm ring-1 ring-blue-500/30" 
                 : "bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-white/5 opacity-70"
             }`}>
               <div className="flex items-center justify-between mb-1">
@@ -181,9 +163,9 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
             </div>
 
             {/* Layer 4: Pricing (Highlight on Q3) */}
-            <div className={`p-3 rounded-xl border transition-all duration-300 ${
+            <div className={`p-3 rounded-xl border ${
               activeQuestionIndex === 2
-                ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500 shadow-md ring-2 ring-blue-500/20" 
+                ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500 shadow-sm ring-1 ring-blue-500/30" 
                 : "bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-white/5 opacity-70"
             }`}>
               <div className="flex items-center justify-between mb-1">
@@ -197,9 +179,9 @@ export function DecisionTunnelScene({ progress }: DecisionTunnelSceneProps) {
             </div>
 
             {/* Layer 5: Booking Action (Highlight on Q4) */}
-            <div className={`p-3.5 rounded-xl border transition-all duration-300 ${
+            <div className={`p-3.5 rounded-xl border ${
               activeQuestionIndex === 3
-                ? "bg-blue-600 text-white border-blue-400 shadow-lg shadow-blue-500/30 scale-[1.02]" 
+                ? "bg-blue-600 text-white border-blue-400 shadow-md scale-[1.01]" 
                 : "bg-slate-900 text-white border-slate-800"
             }`}>
               <div className="flex items-center justify-between">

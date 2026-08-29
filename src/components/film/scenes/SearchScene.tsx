@@ -2,23 +2,12 @@ import { Star, MapPin, Sparkles, Clock, Compass } from "lucide-react";
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface SearchSceneProps {
-  progress: number; // 0.075 to 0.185
+  progress: number; // Normalized 0.0 to 1.0
 }
 
-export function SearchScene({ progress }: SearchSceneProps) {
+export function SearchScene({ progress: norm }: SearchSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
-
-  // Normalize progress 0.0 to 1.0 within 0.075 - 0.185
-  const norm = Math.min(1, Math.max(0, (progress - 0.075) / 0.11));
-
-  // Subphases:
-  // 0.00 - 0.18: Factor 1 - Reviews ("Gleda ocene.") -> Card 0 focus
-  // 0.18 - 0.36: Factor 2 - Photos/Work ("Gleda rad.") -> Card 1 focus
-  // 0.36 - 0.54: Factor 3 - Location ("Gleda gde ste.") -> Card 2 focus
-  // 0.54 - 0.72: Factor 4 - Offer ("Pokušava da razume šta nudite.") -> Card 1
-  // 0.72 - 0.86: Factor 5 - Booking ("Traži najlakši sledeći korak.") -> Card 1
-  // 0.86 - 1.00: Climax ("Vaš klijent već bira. A još nije ni otvorio vaš sajt.")
 
   const searchResults = [
     {
@@ -88,22 +77,12 @@ export function SearchScene({ progress }: SearchSceneProps) {
 
   const isFinalChoice = norm >= 0.86;
 
-  // Scene-level opacity transitions
-  const sceneOpacity = norm < 0.10 
-    ? norm / 0.10 
-    : norm > 0.88 
-    ? Math.max(0, (1 - norm) / 0.12) 
-    : 1;
-
   return (
-    <div 
-      className="absolute inset-0 flex flex-col items-center justify-center p-4 select-none pointer-events-none transition-opacity duration-200"
-      style={{ opacity: sceneOpacity }}
-    >
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 select-none pointer-events-none">
       
       {/* Top Single Focal Point Headline */}
       <div 
-        className="absolute top-16 sm:top-20 max-w-4xl text-center space-y-2 transition-all duration-300"
+        className="absolute top-16 sm:top-20 max-w-4xl text-center space-y-2 px-4"
         style={{
           transform: `translateY(${norm < 0.5 ? 0 : -8}px)`
         }}
@@ -115,7 +94,7 @@ export function SearchScene({ progress }: SearchSceneProps) {
           {isSr ? factorLabelSr : factorLabelEn}
         </h2>
         {isFinalChoice && (
-          <p className="text-sm sm:text-xl font-mono text-blue-600 dark:text-blue-400 font-bold pt-1 animate-fade-in">
+          <p className="text-sm sm:text-xl font-mono text-blue-600 dark:text-blue-400 font-bold pt-1">
             {isSr ? "A još nije ni otvorio vaš sajt." : "And they haven't even opened your website yet."}
           </p>
         )}
@@ -123,9 +102,9 @@ export function SearchScene({ progress }: SearchSceneProps) {
 
       {/* The 3 Materialized Search Cards */}
       <div 
-        className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-4 transition-all duration-500 mt-16"
+        className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-4 mt-16"
         style={{
-          transform: `perspective(1000px) rotateX(${isFinalChoice ? 6 : 0}deg) scale(${isFinalChoice ? 1.02 : 0.98})`
+          transform: `perspective(1000px) rotateX(${isFinalChoice ? 4 : 0}deg) scale(${isFinalChoice ? 1.01 : 0.99})`
         }}
       >
         {searchResults.map((res, i) => {
@@ -141,10 +120,10 @@ export function SearchScene({ progress }: SearchSceneProps) {
           return (
             <div
               key={res.id}
-              className={`w-full md:w-80 p-4 sm:p-5 rounded-2xl border transition-all duration-300 relative flex flex-col justify-between ${
+              className={`w-full md:w-80 p-4 sm:p-5 rounded-2xl border relative flex flex-col justify-between ${
                 isCurrentActive
-                  ? "bg-white/95 dark:bg-slate-900/95 border-blue-500 shadow-2xl shadow-blue-500/25 ring-2 ring-blue-500/30 scale-105 z-20"
-                  : "bg-white/70 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 z-10 scale-95"
+                  ? "bg-white dark:bg-slate-900 border-blue-500 shadow-xl shadow-blue-500/20 ring-1 ring-blue-500/30 scale-105 z-20"
+                  : "bg-white dark:bg-slate-900/90 border-slate-200 dark:border-white/10 z-10 scale-95"
               }`}
               style={{
                 transform: `translateX(${spreadX}px)`,

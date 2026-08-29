@@ -3,25 +3,19 @@ import { Laptop, Search, Sparkles, Smartphone, Megaphone, Calendar, Bot, HelpCir
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface WrongPrescriptionSceneProps {
-  progress: number; // 0.38 to 0.46
+  progress: number; // Normalized 0.0 to 1.0
 }
 
-export function WrongPrescriptionScene({ progress }: WrongPrescriptionSceneProps) {
+export function WrongPrescriptionScene({ progress: norm }: WrongPrescriptionSceneProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
-
-  // Normalize 0.0 to 1.0 within 0.38 - 0.46
-  const norm = Math.min(1, Math.max(0, (progress - 0.38) / 0.08));
-
-  // Subphases:
-  // 0.00 - 0.20: Tools fly inward and FREEZE in mid-air ("Ako ne znamo šta je problem...")
-  // 0.20 - 0.50: Tools freeze around question center
-  // 0.50 - 0.82: Tools collapse into tangled knot ("...svako rešenje je samo nagađanje.")
-  // 0.82 - 1.00: Clean complete dissolution to clear stage for Diagnosis Radar
 
   const isFreezing = norm < 0.45;
   const isCollapsing = norm >= 0.45 && norm < 0.82;
   const isDissolving = norm >= 0.82;
+
+  const head1Opacity = norm < 0.40 ? 1 : Math.max(0, 1 - (norm - 0.40) / 0.10);
+  const head2Opacity = norm < 0.42 ? 0 : Math.min(1, (norm - 0.42) / 0.10);
 
   const tools = [
     { nameSr: "NOVI SAJT", nameEn: "NEW WEBSITE", icon: <Laptop size={14} />, startX: -320, startY: -160 },
@@ -33,36 +27,45 @@ export function WrongPrescriptionScene({ progress }: WrongPrescriptionSceneProps
     { nameSr: "AUTOMATIZACIJA", nameEn: "AUTOMATION", icon: <Bot size={14} />, startX: 0, startY: -220 }
   ];
 
-  const sceneOpacity = norm < 0.10 
-    ? norm / 0.10 
-    : norm > 0.86 
-    ? Math.max(0, (1 - norm) / 0.14) 
-    : 1;
-
   return (
-    <div 
-      className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none pointer-events-none overflow-hidden transition-opacity duration-200"
-      style={{ opacity: sceneOpacity }}
-    >
+    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none pointer-events-none overflow-hidden">
       
-      {/* Dynamic Dramatic Typography */}
-      <div className="space-y-4 max-w-4xl z-20 transition-all duration-300">
+      {/* Dynamic Dramatic Typography with smooth crossfade */}
+      <div className="space-y-4 max-w-4xl z-20 px-4">
         <div className="text-xs font-mono text-amber-500 font-bold uppercase tracking-widest">
           {isSr ? "05 / POGREŠNA TERAPIJA" : "05 / THE WRONG PRESCRIPTION"}
         </div>
 
-        <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-          {norm < 0.50 
-            ? (isSr ? "Ako ne znamo šta je problem..." : "If we don't know the problem...")
-            : (isSr ? "...svako rešenje je samo nagađanje." : "...every solution is just guesswork.")}
-        </h2>
+        <div className="relative min-h-[60px] sm:min-h-[90px] flex items-center justify-center">
+          <h2 
+            className="absolute text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight"
+            style={{
+              opacity: head1Opacity,
+              transform: `translateY(${(1 - head1Opacity) * -10}px)`,
+              visibility: head1Opacity > 0.001 ? "visible" : "hidden"
+            }}
+          >
+            {isSr ? "Ako ne znamo šta je problem..." : "If we don't know the problem..."}
+          </h2>
+
+          <h2 
+            className="absolute text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight"
+            style={{
+              opacity: head2Opacity,
+              transform: `translateY(${(1 - head2Opacity) * 10}px)`,
+              visibility: head2Opacity > 0.001 ? "visible" : "hidden"
+            }}
+          >
+            {isSr ? "...svako rešenje je samo nagađanje." : "...every solution is just guesswork."}
+          </h2>
+        </div>
       </div>
 
       {/* The Frozen Flying Tools / Collapsing Tangled Cluster */}
       <div className="relative w-72 h-72 flex items-center justify-center my-8">
         
         {/* Center Target Point */}
-        <div className={`w-12 h-12 rounded-full border-2 border-dashed border-amber-500/50 flex items-center justify-center transition-all duration-300 ${
+        <div className={`w-12 h-12 rounded-full border-2 border-dashed border-amber-500/50 flex items-center justify-center ${
           isCollapsing ? "scale-75 bg-amber-500/20" : "scale-100"
         }`}>
           <HelpCircle size={20} className="text-amber-500 animate-pulse" />
@@ -95,7 +98,7 @@ export function WrongPrescriptionScene({ progress }: WrongPrescriptionSceneProps
           return (
             <div
               key={idx}
-              className="absolute px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white shadow-xl flex items-center gap-1.5 text-xs font-mono font-bold whitespace-nowrap transition-all duration-200"
+              className="absolute px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white shadow-md flex items-center gap-1.5 text-xs font-mono font-bold whitespace-nowrap"
               style={{
                 transform: `translate(${currentX}px, ${currentY}px) scale(${scale})`,
                 opacity
@@ -110,7 +113,7 @@ export function WrongPrescriptionScene({ progress }: WrongPrescriptionSceneProps
 
       {/* Insight Subtitle */}
       <div 
-        className="max-w-xl text-center transition-all duration-300"
+        className="max-w-xl text-center"
         style={{ opacity: norm > 0.20 && norm < 0.84 ? 1 : 0 }}
       >
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
