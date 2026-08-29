@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { scrollToTarget } from "../SmoothScroll";
 import { useLanguage } from "../../context/LanguageContext";
 
-interface SceneItem {
+export interface SceneItem {
   id: string;
   number: string;
   titleSr: string;
@@ -11,15 +11,19 @@ interface SceneItem {
 
 export const SCENES: SceneItem[] = [
   { id: "scene-01", number: "01", titleSr: "Uvod", titleEn: "Opening" },
-  { id: "scene-02", number: "02", titleSr: "Put klijenta", titleEn: "Customer Journey" },
-  { id: "scene-03", number: "03", titleSr: "Gde nastaje problem", titleEn: "Friction" },
-  { id: "scene-04", number: "04", titleSr: "Dijagnostika", titleEn: "Diagnosis" },
-  { id: "scene-05", number: "05", titleSr: "Izbor alata", titleEn: "Tools & Scope" },
-  { id: "scene-06", number: "06", titleSr: "Proces rada", titleEn: "Process" },
-  { id: "scene-07", number: "07", titleSr: "Dokazi & Radovi", titleEn: "Proof" },
-  { id: "scene-08", number: "08", titleSr: "Filozofija", titleEn: "Philosophy" },
-  { id: "scene-09", number: "09", titleSr: "Besplatna analiza", titleEn: "Audit" },
-  { id: "scene-10", number: "10", titleSr: "Kvalifikaciona forma", titleEn: "Form" },
+  { id: "scene-02", number: "02", titleSr: "Perspektiva kupca", titleEn: "Customer Perspective" },
+  { id: "scene-03", number: "03", titleSr: "Put kroz odluku", titleEn: "Conversion Journey" },
+  { id: "scene-04", number: "04", titleSr: "Prepoznavanje", titleEn: "Problem Recognition" },
+  { id: "scene-05", number: "05", titleSr: "Dijagnostički sistem", titleEn: "Diagnostic System" },
+  { id: "scene-06", number: "06", titleSr: "Dijagnoza pre terapije", titleEn: "Diagnosis Pipeline" },
+  { id: "scene-07", number: "07", titleSr: "Matrica rešenja", titleEn: "Solution System" },
+  { id: "scene-08", number: "08", titleSr: "Proces rada", titleEn: "Process" },
+  { id: "scene-09", number: "09", titleSr: "Podela odgovornosti", titleEn: "Division of Roles" },
+  { id: "scene-10", number: "10", titleSr: "Dokazi & Radovi", titleEn: "Verified Proof" },
+  { id: "scene-11", number: "11", titleSr: "Filozofija rada", titleEn: "Core Blueprint" },
+  { id: "scene-12", number: "12", titleSr: "Iskrena procena", titleEn: "Risk Reversal" },
+  { id: "scene-13", number: "13", titleSr: "Početna analiza", titleEn: "Initial Audit" },
+  { id: "scene-14", number: "14", titleSr: "Kvalifikacija", titleEn: "Qualification" },
 ];
 
 export function SceneProgress() {
@@ -64,17 +68,17 @@ export function SceneProgress() {
 
       {/* Desktop side scene indicator */}
       <div 
-        className="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-end gap-2 pointer-events-auto"
+        className="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col items-end gap-1.5 pointer-events-auto"
         aria-label="Story Progress"
       >
-        <div className="p-2 rounded-2xl bg-slate-900/75 dark:bg-black/75 backdrop-blur-md border border-slate-200/20 dark:border-white/10 shadow-xl flex flex-col gap-2">
-          {SCENES.map((scene, idx) => {
+        <div className="p-1.5 rounded-2xl bg-slate-900/80 dark:bg-black/80 backdrop-blur-md border border-slate-200/20 dark:border-white/10 shadow-xl flex flex-col gap-1.5">
+          {SCENES.map((scene) => {
             const isActive = activeScene === scene.id;
             return (
               <button
                 key={scene.id}
                 onClick={() => scrollToTarget(`#${scene.id}`, 60)}
-                className="group relative flex items-center justify-end gap-2 cursor-pointer focus:outline-hidden"
+                className="group relative flex items-center justify-end gap-2 cursor-pointer focus:outline-hidden p-0.5"
                 aria-label={`Jump to scene ${scene.number}: ${isSr ? scene.titleSr : scene.titleEn}`}
               >
                 {/* Hover Label */}
@@ -86,8 +90,8 @@ export function SceneProgress() {
                 <div
                   className={`transition-all duration-300 rounded-full ${
                     isActive
-                      ? "w-6 h-2 bg-blue-500 shadow-md shadow-blue-500/50"
-                      : "w-2 h-2 bg-slate-500/40 hover:bg-slate-400"
+                      ? "w-5 h-1.5 bg-blue-500 shadow-md shadow-blue-500/50"
+                      : "w-1.5 h-1.5 bg-slate-500/40 hover:bg-slate-300"
                   }`}
                 />
               </button>
@@ -96,8 +100,8 @@ export function SceneProgress() {
         </div>
 
         {/* Minimal current scene badge */}
-        <div className="px-2 py-1 rounded-md bg-slate-900/60 dark:bg-black/60 backdrop-blur-xs text-[10px] font-mono text-slate-400 border border-white/5">
-          {currentScene.number} / 10
+        <div className="px-2 py-0.5 rounded-md bg-slate-900/70 dark:bg-black/70 backdrop-blur-xs text-[10px] font-mono text-slate-400 border border-white/5">
+          {currentScene.number} / 14
         </div>
       </div>
     </>

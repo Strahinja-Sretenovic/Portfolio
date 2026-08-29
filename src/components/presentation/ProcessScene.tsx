@@ -91,7 +91,7 @@ export function ProcessScene() {
 
   return (
     <section
-      id="scene-06"
+      id="scene-08"
       className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 bg-white dark:bg-[#07090e] border-t border-slate-200 dark:border-white/5 overflow-hidden transition-colors duration-500"
     >
       <div className="max-w-6xl mx-auto space-y-16">
@@ -99,7 +99,7 @@ export function ProcessScene() {
         {/* Scene Header */}
         <div className="space-y-4 max-w-3xl">
           <div className="text-xs sm:text-sm font-mono text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest">
-            {isSr ? "06 / STRUKTURIRANI PROCES" : "06 / STRUCTURED LIFECYCLE"}
+            {isSr ? "08 / STRUKTURIRANI PROCES" : "08 / STRUCTURED LIFECYCLE"}
           </div>
 
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">

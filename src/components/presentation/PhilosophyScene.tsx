@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { motion } from "motion/react";
 import { 
+  Check, 
+  Layers, 
   Cpu, 
   Users, 
-  Sparkles, 
-  ShieldCheck, 
-  Lightbulb, 
-  Workflow,
-  ArrowRight,
-  UserCheck
+  BarChart, 
+  Briefcase,
+  Sparkles,
+  ArrowRight
 } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 
@@ -16,131 +15,81 @@ export function PhilosophyScene() {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  const formulaComponents = [
-    { label: "BUSINESS", descSr: "Poslovni model", descEn: "Commercial Goal" },
-    { label: "CUSTOMER", descSr: "Ponašanje kupca", descEn: "Buyer Context" },
-    { label: "UX", descSr: "Iskustvo & Jasnoća", descEn: "Clear Navigation" },
-    { label: "TECHNOLOGY", descSr: "Brz kod & SEO", descEn: "Fast Engine" },
-    { label: "DATA", descSr: "Merenje & CRO", descEn: "Telemetry" },
+  const pillars = [
+    { nameSr: "BUSINESS", nameEn: "BUSINESS", descSr: "Poslovni model i marže", descEn: "Commercial model & margins", icon: <Briefcase size={16} /> },
+    { nameSr: "CUSTOMER", nameEn: "CUSTOMER", descSr: "Psihologija i navike kupca", descEn: "Buyer psychology & behavior", icon: <Users size={16} /> },
+    { nameSr: "DESIGN", nameEn: "DESIGN", descSr: "Jasnoća, tipografija, UX", descEn: "Hierarchy, typography, UX", icon: <Layers size={16} /> },
+    { nameSr: "TECHNOLOGY", nameEn: "TECHNOLOGY", descSr: "Čist TypeScript & 0.4s brzina", descEn: "Clean TypeScript & 0.4s speed", icon: <Cpu size={16} /> },
+    { nameSr: "DATA", nameEn: "DATA", descSr: "Stvarna merenja & analitika", descEn: "Real telemetry & conversion data", icon: <BarChart size={16} /> },
   ];
 
   return (
     <section
-      id="scene-08"
-      className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 bg-[#07090e] text-white border-t border-white/5 overflow-hidden transition-colors duration-500"
+      id="scene-11"
+      className="relative min-h-[85vh] sm:min-h-screen py-24 sm:py-32 px-4 sm:px-6 bg-white dark:bg-[#07090e] border-t border-slate-200 dark:border-white/5 overflow-hidden transition-colors duration-500 flex flex-col justify-center"
     >
-      <div className="max-w-6xl mx-auto space-y-20">
+      <div className="max-w-6xl mx-auto w-full space-y-16">
 
         {/* Scene Header */}
         <div className="space-y-4 max-w-3xl">
-          <div className="text-xs sm:text-sm font-mono text-cyan-400 font-bold uppercase tracking-widest">
-            {isSr ? "08 / NAŠA FILOZOFIJA" : "08 / CORE PHILOSOPHY"}
+          <div className="text-xs sm:text-sm font-mono text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest">
+            {isSr ? "11 / NAŠ PROSTOR DELOVANJA" : "11 / WHERE WE OPERATE"}
           </div>
 
-          <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-extrabold text-white tracking-tight leading-tight">
-            {isSr ? "Kod je često najlakši deo." : "Code is often the easiest part."}
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+            {isSr ? "Dobar digitalni projekat nije zbir lepih ekrana." : "A great digital project is not just a sum of pretty screens."}
           </h2>
+
+          <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
+            {isSr
+              ? "Mora da poveže poslovni cilj, ponašanje korisnika i tehničku realizaciju."
+              : "It must connect commercial objectives, customer psychology, and rigorous technical execution."}
+          </p>
         </div>
 
-        {/* The 4 Core Intellectual Questions */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          
-          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <div className="text-xs font-mono text-blue-400 font-bold">01 / ARHITEKTURA</div>
-            <div className="text-xl font-bold text-white">
-              {isSr ? "Teže je odlučiti šta treba napraviti." : "The hard part is deciding WHAT to build."}
-            </div>
-            <p className="text-xs text-slate-400">
-              {isSr ? "Izbeći nepotrebne funkcije i fokusirati se samo na one koje donose novac." : "Cutting unnecessary clutter and focusing strictly on high-impact features."}
-            </p>
+        {/* The Holistic Formula Matrix */}
+        <div className="p-6 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-8">
+          <div className="text-xs font-mono text-slate-400 uppercase tracking-wider text-center">
+            {isSr ? "FORMULA ODRŽIVOG REZULTATA" : "THE EQUATION FOR MEASURABLE IMPACT"}
           </div>
 
-          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <div className="text-xs font-mono text-indigo-400 font-bold">02 / PUBLIKA</div>
-            <div className="text-xl font-bold text-white">
-              {isSr ? "Za koga tačno pravimo." : "Understanding WHO you are building for."}
-            </div>
-            <p className="text-xs text-slate-400">
-              {isSr ? "Razumeti motive, sumnje i brzinu donošenja odluka vašeg idealnog kupca." : "Understanding buyer psychology, skepticism, and decision speed."}
-            </p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <div className="text-xs font-mono text-cyan-400 font-bold">03 / SVRHA</div>
-            <div className="text-xl font-bold text-white">
-              {isSr ? "Zašto je to najbolje rešenje." : "Clarifying WHY this is the best path."}
-            </div>
-            <p className="text-xs text-slate-400">
-              {isSr ? "Imati jasan razlog za svaki element, naslov, sliku i dugme na sajtu." : "Justifying every heading, layout block, image, and CTA."}
-            </p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-2">
-            <div className="text-xs font-mono text-emerald-400 font-bold">04 / MERENJE</div>
-            <div className="text-xl font-bold text-white">
-              {isSr ? "I kako ćemo znati da li radi." : "Knowing HOW we verify success."}
-            </div>
-            <p className="text-xs text-slate-400">
-              {isSr ? "Postaviti preciznu analitiku i telemetriju konverzija od prvog dana." : "Configuring precise telemetry and conversion tracking from day one."}
-            </p>
-          </div>
-
-        </div>
-
-        {/* Visual Formula Synthesis */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-900 via-[#0c111d] to-slate-900 border border-slate-800 space-y-8">
-          <div className="max-w-2xl space-y-2">
-            <h3 className="text-2xl sm:text-4xl font-display font-extrabold text-white">
-              {isSr
-                ? "Zato povezujemo poslovno razmišljanje, UX i development u jedan proces."
-                : "That is why we unite business strategy, UX, and development into a single flow."}
-            </h3>
-            <p className="text-sm text-slate-400">
-              {isSr
-                ? "Kada ovi elementi rade u sinergiji, nastaje digitalni sistem koji donosi klijente:"
-                : "When these pillars work in unison, you get a digital system that consistently generates business:"}
-            </p>
-          </div>
-
-          {/* Formula Line */}
-          <div className="flex flex-wrap items-center justify-start gap-2 sm:gap-3 text-xs sm:text-sm font-mono">
-            {formulaComponents.map((item, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                <div className="px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-200">
-                  <span className="font-bold text-white">{item.label}</span>
-                  <span className="hidden sm:inline text-slate-400 ml-1.5 text-xs font-sans">({isSr ? item.descSr : item.descEn})</span>
+          <div className="flex flex-wrap items-center justify-center gap-3 max-w-5xl mx-auto">
+            {pillars.map((p, idx) => (
+              <div key={idx} className="flex items-center gap-3">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/10 text-center space-y-1 shadow-xs min-w-[130px] sm:min-w-[160px]">
+                  <div className="flex justify-center text-blue-500 mb-1">{p.icon}</div>
+                  <div className="font-mono font-bold text-xs sm:text-sm text-slate-900 dark:text-white">{isSr ? p.nameSr : p.nameEn}</div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400">{isSr ? p.descSr : p.descEn}</div>
                 </div>
-                {idx < formulaComponents.length - 1 && (
-                  <span className="text-blue-400 font-bold text-base">+</span>
+
+                {idx < pillars.length - 1 && (
+                  <span className="text-blue-500 font-mono font-bold text-lg sm:text-xl">×</span>
                 )}
               </div>
             ))}
-            <span className="text-cyan-400 font-bold text-base">=</span>
-            <div className="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/30">
-              {isSr ? "POSLOVNI REZULTAT" : "COMMERCIAL RESULT"}
+          </div>
+
+          <div className="flex justify-center pt-2">
+            <div className="p-4 sm:p-6 rounded-2xl bg-blue-600 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-blue-500/25 flex items-center gap-2 border-2 border-blue-400">
+              <Sparkles className="w-5 h-5" />
+              <span>{isSr ? "= MERLJIV POSLOVNI REZULTAT" : "= MEASURABLE COMMERCIAL RESULT"}</span>
             </div>
           </div>
         </div>
 
-        {/* Real Human Trust Anchor (Plural voice) */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold">
-              <UserCheck size={14} />
-              <span>{isSr ? "DIREKTNA ODGOVORNOST" : "DIRECT ACCOUNTABILITY"}</span>
+        {/* Climax Statement */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-slate-900 text-white border border-slate-800 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1">
+            <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
+              {isSr ? "AUTORITET BEZ SAMOHVALISANJA" : "MEASURED CONFIDENCE"}
             </div>
-            <h4 className="text-xl sm:text-2xl font-bold text-white">
-              {isSr ? "Iza sistema i procesa ipak stoje ljudi." : "Behind the systems and process, real experts do the work."}
-            </h4>
-            <p className="text-sm text-slate-300 leading-relaxed">
-              {isSr
-                ? "Sa klijentima radimo direktno, bez slojeva komunikacije i bez neiskusnih posrednika između poslovnog problema, strategije i inženjerske implementacije."
-                : "You partner directly with senior engineers and strategists — no account manager filters or lost-in-translation handoffs between problem diagnosis and code."}
-            </p>
+            <h3 className="text-xl sm:text-3xl font-display font-extrabold text-white">
+              {isSr ? "To je prostor u kojem radimo." : "This is the space in which we operate."}
+            </h3>
           </div>
 
-          <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-xs font-mono text-slate-300 shrink-0">
-            {isSr ? "BEZ POSREDNIKA • DIREKTNA SARADNJA" : "DIRECT PARTNERSHIP • NO INTERMEDIARIES"}
+          <div className="p-3.5 rounded-2xl bg-white/10 border border-white/20 text-xs font-mono font-bold shrink-0">
+            {isSr ? "STRATEGIJA • UX • INŽENJERING" : "STRATEGY • UX • ENGINEERING"}
           </div>
         </div>
 

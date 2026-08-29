@@ -5,14 +5,13 @@ import {
   MapPin, 
   Star, 
   Phone, 
-  ExternalLink, 
-  Eye, 
-  CheckCircle2, 
-  ShieldCheck, 
   Calendar,
-  AlertTriangle,
-  ArrowRight,
-  Sparkles
+  Sparkles,
+  Camera,
+  Layers,
+  Globe,
+  Tag,
+  CheckCircle2
 } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 
@@ -20,18 +19,10 @@ export function CustomerJourneyScene() {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
-  const searchScenarios = [
-    { query: isSr ? "frizerski salon Čačak" : "hair salon nearby", category: isSr ? "Uslužni biznis" : "Service Business" },
-    { query: isSr ? "stomatolog centar cena" : "dental clinic pricing", category: isSr ? "Zdravstvo" : "Healthcare" },
-    { query: isSr ? "građevinska firma reference" : "construction contractor", category: isSr ? "B2B / Industrija" : "B2B / Industry" }
-  ];
-
-  const [activeScenarioIdx, setActiveScenarioIdx] = useState(0);
+  const defaultQuery = isSr ? "frizerski salon Čačak" : "hair salon nearby";
   const [typedText, setTypedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
-  const [activeFactorIndex, setActiveFactorIndex] = useState<number | null>(null);
-
-  const currentQuery = searchScenarios[activeScenarioIdx].query;
+  const [selectedCompetitor, setSelectedCompetitor] = useState<number | null>(0);
 
   useEffect(() => {
     let index = 0;
@@ -39,68 +30,93 @@ export function CustomerJourneyScene() {
     setIsTyping(true);
 
     const interval = setInterval(() => {
-      if (index < currentQuery.length) {
-        setTypedText(currentQuery.slice(0, index + 1));
+      if (index < defaultQuery.length) {
+        setTypedText(defaultQuery.slice(0, index + 1));
         index++;
       } else {
         setIsTyping(false);
         clearInterval(interval);
       }
-    }, 60);
+    }, 55);
 
     return () => clearInterval(interval);
-  }, [activeScenarioIdx, currentQuery]);
+  }, [defaultQuery]);
 
-  const factors = [
+  const searchResults = [
     {
-      id: "vidljivost",
-      step: "01",
-      name: isSr ? "Vidljivost" : "Visibility",
-      desc: isSr ? "Da li vas uopšte pronalaze kada traže vašu uslugu?" : "Are you easily discovered on Google Search & Maps?",
-      icon: <Search className="w-4 h-4 text-blue-500" />
+      id: 0,
+      name: isSr ? "Frizerski Salon Stevan" : "Stevan Hair Studio",
+      badgeSr: "1. Mesto na mapi • Preporučen",
+      badgeEn: "Top Search Rank • Recommended",
+      rating: 4.9,
+      reviewCount: 128,
+      positionSr: "Pozicija #1",
+      positionEn: "Rank #1",
+      photosCount: "48 stvarnih fotografija radova",
+      photosCountEn: "48 verified client photos",
+      offerSr: "Kompletan muški & ženski stil, moderna nega, tačne cene",
+      offerEn: "Full styling & haircut service with upfront pricing",
+      siteSpeedSr: "Brz mobilni sajt (0.4s učitavanje)",
+      siteSpeedEn: "Blazing fast mobile site (0.4s load)",
+      priceSr: "Cenovnik javan i transparentan",
+      priceEn: "Public and transparent pricing",
+      bookingSr: "Online zakazivanje + Poziv jednim dodirom",
+      bookingEn: "Online booking + 1-tap phone call",
+      highlight: true
     },
     {
-      id: "prvi-utisak",
-      step: "02",
-      name: isSr ? "Prvi utisak" : "First Impression",
-      desc: isSr ? "Da li dizajn i brzina ulivaju sigurnost u prvih 5 sekundi?" : "Does your mobile UX establish instant professionalism?",
-      icon: <Eye className="w-4 h-4 text-indigo-500" />
+      id: 1,
+      name: isSr ? "Salon Lepote Elegance" : "Elegance Beauty Care",
+      badgeSr: "2. Mesto na mapi",
+      badgeEn: "2nd Search Rank",
+      rating: 4.2,
+      reviewCount: 19,
+      positionSr: "Pozicija #2",
+      positionEn: "Rank #2",
+      photosCount: "3 generičke slike enterijera",
+      photosCountEn: "3 generic stock images",
+      offerSr: "Široka ponuda, nejasno šta je glavna specijalnost",
+      offerEn: "Vague list of treatments without clear specialty",
+      siteSpeedSr: "Spor WordPress šablon bez cenovnika",
+      siteSpeedEn: "Slow template without online pricing",
+      priceSr: "Cene nisu navedene (zvati za info)",
+      priceEn: "Pricing hidden (call for details)",
+      bookingSr: "Nema zakazivanja, samo fiksni telefon",
+      bookingEn: "Landline only, no instant booking",
+      highlight: false
     },
     {
-      id: "poverenje",
-      step: "03",
-      name: isSr ? "Poverenje" : "Trust & Social Proof",
-      desc: isSr ? "Ocene, recenzije i fotografije stvarnih radova." : "Verified reviews, photos, and authoritative social proof.",
-      icon: <ShieldCheck className="w-4 h-4 text-emerald-500" />
-    },
-    {
-      id: "ponuda",
-      step: "04",
-      name: isSr ? "Jasna Ponuda" : "Clear Offer",
-      desc: isSr ? "Razume li posetilac tačno šta dobija i po kojim uslovima?" : "Does the visitor immediately understand what you provide?",
-      icon: <CheckCircle2 className="w-4 h-4 text-cyan-500" />
-    },
-    {
-      id: "cena",
-      step: "05",
-      name: isSr ? "Cena / Očekivanja" : "Pricing Expectation",
-      desc: isSr ? "Uklanjanje neizvesnosti oko troškova pre poziva." : "Eliminating friction and ambiguity around service costs.",
-      icon: <Sparkles className="w-4 h-4 text-amber-500" />
-    },
-    {
-      id: "kontakt",
-      step: "06",
-      name: isSr ? "Kontakt" : "Direct Contact",
-      desc: isSr ? "Jedan klik za poziv, WhatsApp ili email bez lutanja." : "One-tap phone call, WhatsApp, or instant direction map.",
-      icon: <Phone className="w-4 h-4 text-teal-500" />
-    },
-    {
-      id: "zakazivanje",
-      step: "07",
-      name: isSr ? "Zakazivanje" : "Booking / Conversion",
-      desc: isSr ? "Jednostavan proces bez čekanja i zastoja." : "Frictionless online scheduling or lead dispatch.",
-      icon: <Calendar className="w-4 h-4 text-purple-500" />
+      id: 2,
+      name: isSr ? "Studio M & Studio Stil" : "Studio M & Style",
+      badgeSr: "3. Mesto na mapi",
+      badgeEn: "3rd Search Rank",
+      rating: 3.8,
+      reviewCount: 6,
+      positionSr: "Pozicija #3",
+      positionEn: "Rank #3",
+      photosCount: "Nema novih fotografija (od 2021.)",
+      photosCountEn: "No recent photos (since 2021)",
+      offerSr: "Nema opisa usluga",
+      offerEn: "No service description available",
+      siteSpeedSr: "Nema sajt (samo neažuriran Facebook profil)",
+      siteSpeedEn: "No website (outdated social link)",
+      priceSr: "Nepoznato",
+      priceEn: "Unknown",
+      bookingSr: "Samo dolazak na lice mesta",
+      bookingEn: "Walk-in only",
+      highlight: false
     }
+  ];
+
+  const decisionFactors = [
+    { nameSr: "Pozicija u pretrazi", nameEn: "Search Position", icon: <Search size={14} className="text-blue-500" /> },
+    { nameSr: "Ocena (Rating)", nameEn: "Rating Score", icon: <Star size={14} className="text-amber-500" /> },
+    { nameSr: "Broj recenzija", nameEn: "Review Count", icon: <CheckCircle2 size={14} className="text-emerald-500" /> },
+    { nameSr: "Fotografije radova", nameEn: "Work Photography", icon: <Camera size={14} className="text-purple-500" /> },
+    { nameSr: "Jasna ponuda", nameEn: "Clear Offer", icon: <Layers size={14} className="text-indigo-500" /> },
+    { nameSr: "Sajt & Brzina", nameEn: "Website & Speed", icon: <Globe size={14} className="text-cyan-500" /> },
+    { nameSr: "Cena / Očekivanja", nameEn: "Pricing Expectation", icon: <Tag size={14} className="text-teal-500" /> },
+    { nameSr: "Zakazivanje & Kontakt", nameEn: "Booking & Contact", icon: <Calendar size={14} className="text-rose-500" /> },
   ];
 
   return (
@@ -113,175 +129,176 @@ export function CustomerJourneyScene() {
         {/* Scene Header */}
         <div className="space-y-4 max-w-3xl">
           <div className="text-xs sm:text-sm font-mono text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest">
-            {isSr ? "02 / PUT VAŠEG KUPCA" : "02 / THE BUYER'S JOURNEY"}
+            {isSr ? "02 / PERSPEKTIVA KUPCA" : "02 / CUSTOMER PERSPECTIVE"}
           </div>
 
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-            {isSr ? "Vaš potencijalni klijent već bira." : "Your potential customer is already deciding."}
+            {isSr ? "Zamislite da ste vaš klijent." : "Put yourself in your customer's shoes."}
           </h2>
 
           <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
             {isSr
-              ? "Pre nego što vas pozove ili poseti vašu radnju, posetilac prolazi kroz niz brzih mikropresuda. Pogledajte kako to izgleda u realnom vremenu:"
-              : "Before making a call or booking an appointment, a visitor goes through a rapid series of micro-decisions. Here is the realistic simulation:"}
+              ? "Uzmimo jednostavan primer iz svakodnevnog života. Potreban vam je frizer u gradu. Otvarate pretragu na telefonu:"
+              : "Let's take a relatable everyday example. You need a haircut in town. You open search on your mobile phone:"}
           </p>
         </div>
 
-        {/* Interactive Search Simulator Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Simulated Search Environment */}
+        <div className="space-y-8">
           
-          {/* Left Column: Simulated Search Environment Mockup (7 cols) */}
-          <div className="lg:col-span-7 space-y-4">
-            
-            {/* Search Shell Mockup */}
-            <div className="rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 p-5 sm:p-7 shadow-xl shadow-slate-900/5 space-y-6">
-              
-              {/* Simulated Search Bar */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
-                  <span>{isSr ? "SIMULACIJA PRETRAGE KUPCA" : "BUYER SEARCH SIMULATION"}</span>
-                  <div className="flex gap-1.5">
-                    {searchScenarios.map((sc, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setActiveScenarioIdx(i)}
-                        className={`px-2 py-0.5 rounded-md text-[10px] font-semibold cursor-pointer transition-colors ${
-                          activeScenarioIdx === i
-                            ? "bg-blue-600 text-white"
-                            : "bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-slate-900 dark:hover:text-white"
-                        }`}
-                      >
-                        {sc.category}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-slate-100 dark:bg-black/50 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200">
-                  <Search size={18} className="text-blue-500 shrink-0" />
-                  <span className="font-mono text-sm sm:text-base font-medium">
-                    {typedText}
-                    {isTyping && <span className="inline-block w-0.5 h-4 bg-blue-500 ml-1 animate-pulse" />}
-                  </span>
-                </div>
-              </div>
-
-              {/* Simulated Result Card (The Decision Stage) */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 space-y-4">
-                
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
-                      <MapPin size={12} />
-                      <span>{isSr ? "Top Lokalni Rezultat • Centar" : "Top Local Result • Downtown"}</span>
-                    </div>
-                    <div className="text-lg font-bold text-slate-900 dark:text-white">
-                      {activeScenarioIdx === 0 && "Frizerski Salon Stevan"}
-                      {activeScenarioIdx === 1 && "Stomatološki Centar dr Jovanović"}
-                      {activeScenarioIdx === 2 && "Inženjering & Gradnja d.o.o."}
-                    </div>
-                  </div>
-
-                  {/* Rating Badge */}
-                  <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold text-xs">
-                    <Star size={13} className="fill-amber-500" />
-                    <span>4.9 (128)</span>
-                  </div>
-                </div>
-
-                {/* Micro preview elements */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-                  <div className="p-2.5 rounded-xl bg-white dark:bg-black/30 border border-slate-200/60 dark:border-white/5">
-                    <div className="text-slate-400 text-[10px]">{isSr ? "Prvi Utisak" : "First View"}</div>
-                    <div className="font-semibold text-slate-800 dark:text-slate-200">{isSr ? "Učitavanje 0.4s" : "Load 0.4s"}</div>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-white dark:bg-black/30 border border-slate-200/60 dark:border-white/5">
-                    <div className="text-slate-400 text-[10px]">{isSr ? "Cenovnik" : "Pricing"}</div>
-                    <div className="font-semibold text-slate-800 dark:text-slate-200">{isSr ? "Transparentan" : "Transparent"}</div>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-white dark:bg-black/30 border border-slate-200/60 dark:border-white/5 col-span-2 sm:col-span-1">
-                    <div className="text-slate-400 text-[10px]">{isSr ? "Radno Vreme" : "Hours"}</div>
-                    <div className="font-semibold text-emerald-600 dark:text-emerald-400">{isSr ? "Otvoreno danas" : "Open now"}</div>
-                  </div>
-                </div>
-
-                {/* Instant Action CTA Row */}
-                <div className="pt-2 flex flex-wrap gap-2">
-                  <div className="flex-1 min-w-[130px] py-2.5 px-3 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs">
-                    <Phone size={13} />
-                    <span>{isSr ? "Pozovite odmah" : "Call Business"}</span>
-                  </div>
-                  <div className="flex-1 min-w-[130px] py-2.5 px-3 rounded-xl bg-slate-900 dark:bg-white/10 text-white font-bold text-xs flex items-center justify-center gap-1.5">
-                    <Calendar size={13} />
-                    <span>{isSr ? "Zakažite online" : "Book Online"}</span>
-                  </div>
-                </div>
-
-              </div>
-
+          {/* Mock Search Bar */}
+          <div className="max-w-2xl mx-auto p-4 sm:p-5 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
+            <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>{isSr ? "GENERISANI PRETRAŽIVAČ" : "SEARCH ENGINE INTERFACE"}</span>
+              <span className="px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold">
+                {isSr ? "Edukativni primer" : "Educational Example"}
+              </span>
             </div>
 
+            <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-100 dark:bg-black/50 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white">
+              <Search size={18} className="text-blue-500 shrink-0" />
+              <span className="font-mono text-base font-medium">
+                {typedText}
+                {isTyping && <span className="inline-block w-0.5 h-4 bg-blue-500 ml-1 animate-pulse" />}
+              </span>
+            </div>
           </div>
 
-          {/* Right Column: The 7 Crucial Decision Factors (5 cols) */}
-          <div className="lg:col-span-5 space-y-4">
-            
-            <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-              {isSr ? "7 FAKTORA KOJI LOME ODLUKU" : "7 FACTORS SHAPING THE DECISION"}
-            </div>
+          {/* Core Decision Prompt: "Koga biste izabrali?" */}
+          <div className="text-center space-y-2">
+            <h3 className="text-2xl sm:text-4xl font-display font-extrabold text-slate-900 dark:text-white">
+              {isSr ? "Koga biste izabrali?" : "Who would you choose?"}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              {isSr ? "Uporedite 3 stvarna rezultata koja se pojavljuju pred kupcem:" : "Compare 3 real-world results presented to the customer:"}
+            </p>
+          </div>
 
-            <div className="space-y-2">
-              {factors.map((f, idx) => (
+          {/* 3 Result Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {searchResults.map((res) => {
+              const isSelected = selectedCompetitor === res.id;
+              return (
                 <div
-                  key={f.id}
-                  onMouseEnter={() => setActiveFactorIndex(idx)}
-                  onMouseLeave={() => setActiveFactorIndex(null)}
-                  className={`p-3.5 rounded-2xl border transition-all duration-200 cursor-default ${
-                    activeFactorIndex === idx
-                      ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-700/60 shadow-xs translate-x-1"
-                      : "bg-white dark:bg-slate-900/60 border-slate-200 dark:border-slate-800"
+                  key={res.id}
+                  onClick={() => setSelectedCompetitor(res.id)}
+                  className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-6 ${
+                    res.highlight
+                      ? "bg-white dark:bg-slate-900 border-blue-500 shadow-xl shadow-blue-500/10 ring-2 ring-blue-500/20"
+                      : "bg-white/70 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-xl bg-slate-100 dark:bg-white/5 shrink-0">
-                      {f.icon}
-                    </div>
-                    <div className="flex-1 min-w-0">
+                  <div className="space-y-4">
+                    
+                    {/* Header */}
+                    <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-bold text-slate-900 dark:text-white">
-                          {f.name}
+                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md ${
+                          res.highlight ? "bg-blue-600 text-white" : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                        }`}>
+                          {isSr ? res.positionSr : res.positionEn}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-400">
-                          {f.step}
-                        </span>
+
+                        <div className="flex items-center gap-1 text-xs font-bold text-amber-500">
+                          <Star size={13} className="fill-amber-500" />
+                          <span>{res.rating}</span>
+                          <span className="text-slate-400 font-normal">({res.reviewCount})</span>
+                        </div>
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                        {f.desc}
-                      </p>
+
+                      <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                        {res.name}
+                      </h4>
                     </div>
+
+                    {/* Breakdown of Elements */}
+                    <div className="space-y-2.5 text-xs">
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 space-y-0.5">
+                        <span className="text-[10px] text-slate-400 font-mono uppercase">{isSr ? "Fotografije" : "Photos"}</span>
+                        <div className="font-semibold text-slate-800 dark:text-slate-200">
+                          {isSr ? res.photosCount : res.photosCountEn}
+                        </div>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 space-y-0.5">
+                        <span className="text-[10px] text-slate-400 font-mono uppercase">{isSr ? "Ponuda & Sajt" : "Offer & Site"}</span>
+                        <div className="font-semibold text-slate-800 dark:text-slate-200">
+                          {isSr ? res.offerSr : res.offerEn}
+                        </div>
+                        <div className="text-slate-500 dark:text-slate-400 text-[11px] pt-1">
+                          {isSr ? res.siteSpeedSr : res.siteSpeedEn}
+                        </div>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 space-y-0.5">
+                        <span className="text-[10px] text-slate-400 font-mono uppercase">{isSr ? "Cenovnik & Zakazivanje" : "Pricing & Booking"}</span>
+                        <div className="font-semibold text-slate-800 dark:text-slate-200">
+                          {isSr ? res.priceSr : res.priceEn}
+                        </div>
+                        <div className="text-emerald-600 dark:text-emerald-400 font-semibold text-[11px] pt-0.5">
+                          {isSr ? res.bookingSr : res.bookingEn}
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
+
+                  {/* Choice indicator */}
+                  <div className={`py-2 px-3 rounded-xl text-xs font-bold text-center ${
+                    res.highlight
+                      ? "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800"
+                      : "bg-slate-100 dark:bg-white/5 text-slate-500"
+                  }`}>
+                    {res.highlight
+                      ? (isSr ? "✓ Prirodan prvi izbor kupca" : "✓ Natural first choice")
+                      : (isSr ? "Posetilac prelazi na sledeći link" : "Visitor skips to next")}
+                  </div>
+
+                </div>
+              );
+            })}
+          </div>
+
+          {/* 8 Crucial Decision Factors Ribbon */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+            <div className="text-xs font-mono text-slate-400 uppercase tracking-wider text-center">
+              {isSr ? "8 ELEMENATA KOJI LOME ODLUKU PRE POZIVA" : "8 ELEMENTS SHAPING THE DECISION BEFORE A CALL"}
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
+              {decisionFactors.map((df, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/70 dark:border-white/5 flex flex-col items-center text-center gap-1.5"
+                >
+                  <div className="p-1.5 rounded-lg bg-white dark:bg-black/40 shadow-xs">
+                    {df.icon}
+                  </div>
+                  <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200">
+                    {isSr ? df.nameSr : df.nameEn}
+                  </span>
                 </div>
               ))}
             </div>
-
           </div>
 
         </div>
 
         {/* Scene Climax Statement */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-slate-900 text-white border border-slate-800 relative overflow-hidden">
+        <div className="p-8 sm:p-12 rounded-3xl bg-slate-900 text-white border border-slate-800 relative overflow-hidden text-center sm:text-left space-y-3">
           <div className="absolute right-0 top-0 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
           
-          <div className="relative z-10 space-y-3">
-            <h3 className="text-xl sm:text-3xl font-display font-extrabold text-white">
-              {isSr ? "Svaki korak utiče na odluku." : "Every step impacts the customer decision."}
-            </h3>
-            <p className="text-base sm:text-xl text-blue-300 font-medium">
-              {isSr
-                ? "A svaki od njih može biti mesto gde gubite klijenta."
-                : "And every single step can be the precise place where you lose the sale."}
-            </p>
-          </div>
+          <h3 className="text-2xl sm:text-4xl font-display font-extrabold text-white">
+            {isSr
+              ? "Odluka je počela mnogo pre nego što je neko otvorio vaš sajt."
+              : "The decision began long before anyone even opened your website."}
+          </h3>
+
+          <p className="text-base sm:text-xl text-blue-300 font-medium max-w-2xl">
+            {isSr
+              ? "Sajt je samo jedna karika u celom lancu poverenja i akcije."
+              : "The website is merely one link in an entire chain of trust and decision-making."}
+          </p>
         </div>
 
       </div>

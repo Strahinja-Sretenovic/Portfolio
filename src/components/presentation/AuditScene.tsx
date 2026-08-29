@@ -37,16 +37,16 @@ export function AuditScene() {
     },
     {
       number: "03",
-      titleSr: "Dolazimo pripremljeni",
-      titleEn: "We arrive prepared",
+      titleSr: "Dolazimo sa zapažanjima",
+      titleEn: "We arrive with observations",
       descSr: "Na kratkom razgovoru (15–30 min) preskačemo prodajne fraze i prelazimo na zapažanja.",
       descEn: "On our 15–30 min call, we skip sales pitches and review actionable diagnostic findings.",
       icon: <Briefcase className="w-5 h-5 text-cyan-500" />
     },
     {
       number: "04",
-      titleSr: "Dobijate preporuku za sledeći korak",
-      titleEn: "You get clear next steps",
+      titleSr: "Predlažemo sledeći korak",
+      titleEn: "We propose the next move",
       descSr: "Znaćete tačno šta ima smisla raditi, a šta ne — bez pritiska i bez obaveze.",
       descEn: "You receive unambiguous guidance on what to build or what to leave alone — zero pressure.",
       icon: <FileCheck2 className="w-5 h-5 text-emerald-500" />
@@ -55,17 +55,17 @@ export function AuditScene() {
 
   const handleStartAudit = () => {
     trackConsultationCtaClick({
-      location: "AuditScene_Scene09",
+      location: "AuditScene_Scene13",
       ctaText: "Zatražite besplatnu analizu",
-      target: "#scene-10",
+      target: "#scene-14",
       serviceContext: "free_initial_audit",
     });
-    scrollToTarget("#scene-10", 60);
+    scrollToTarget("#scene-14", 60);
   };
 
   return (
     <section
-      id="scene-09"
+      id="scene-13"
       className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 bg-white dark:bg-[#07090e] border-t border-slate-200 dark:border-white/5 overflow-hidden transition-colors duration-500"
     >
       <div className="max-w-6xl mx-auto space-y-16">
@@ -73,21 +73,17 @@ export function AuditScene() {
         {/* Scene Header */}
         <div className="space-y-4 max-w-3xl">
           <div className="text-xs sm:text-sm font-mono text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest">
-            {isSr ? "09 / BESPLATNA POČETNA ANALIZA" : "09 / FREE INITIAL DIAGNOSIS"}
+            {isSr ? "13 / BESPLATNA POČETNA ANALIZA" : "13 / FREE INITIAL AUDIT"}
           </div>
 
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-            {isSr ? "Ne morate da znate šta vam treba." : "You don't need to know what you need."}
+            {isSr ? "Hajde da pogledamo vaš biznis." : "Let's take a look at your business."}
           </h2>
-
-          <p className="text-2xl sm:text-4xl font-display font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
-            {isSr ? "To je deo našeg posla." : "That is our job."}
-          </p>
 
           <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
             {isSr
-              ? "Pošaljite nam svoj sajt, Instagram, Google profil ili naziv firme. Pre razgovora ćemo pogledati vaš trenutni digitalni nastup i pripremiti nekoliko konkretnih zapažanja."
-              : "Share your website, Instagram, Google profile, or business name. Prior to our conversation, we will inspect your digital presence and prepare concrete, actionable insights."}
+              ? "Pre prvog razgovora pregledaćemo vaš trenutni digitalni nastup kako ne bismo trošili vreme na generičku prodajnu prezentaciju."
+              : "Before our first call, we will inspect your current digital footprint so we don't waste time on generic sales presentations."}
           </p>
         </div>
 
@@ -125,7 +121,7 @@ export function AuditScene() {
           ))}
         </div>
 
-        {/* Big Trust Promise Banner (Plural Voice) */}
+        {/* Big Trust Promise Banner */}
         <div className="p-8 sm:p-12 rounded-3xl bg-slate-900 text-white border border-slate-800 space-y-6">
           <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase">
             <ShieldCheck size={16} />
@@ -140,8 +136,8 @@ export function AuditScene() {
 
           <p className="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
             {isSr
-              ? "Početna analiza nije kompletan plaćeni audit. Cilj je da pre prvog razgovora razumemo kontekst i izdvojimo nekoliko najvažnijih zapažanja kako biste imali jasnu sliku."
-              : "The initial analysis is not an exhaustive paid audit. The objective is to understand your commercial context and highlight high-leverage findings before our first conversation."}
+              ? "Početna analiza nije kompletan UX/SEO audit, već pregled ključnih tačaka pre razgovora. Cilj je da odmah identifikujemo gde nastaje prekid i predložimo najisplativiji potez."
+              : "The initial analysis is not an exhaustive audit, but a review of critical decision nodes before we talk. The goal is to immediately identify bottlenecks and propose the most leverage-driven move."}
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
@@ -150,11 +146,11 @@ export function AuditScene() {
               className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xl shadow-blue-500/25 transition-all cursor-pointer"
             >
               <Sparkles size={18} />
-              <span>{isSr ? "Zatražite besplatnu analizu" : "Request Free Diagnosis"}</span>
+              <span>{isSr ? "ZATRAŽITE BESPLATNU POČETNU ANALIZU" : "REQUEST FREE INITIAL AUDIT"}</span>
               <ArrowRight size={16} />
             </button>
             <span className="text-xs text-slate-400">
-              {isSr ? "100% besplatno • Bez obaveze • Odgovor u najkraćem roku" : "100% Free • Zero Obligation"}
+              {isSr ? "Bez obaveze. Bez generičke prezentacije." : "Zero obligation. No generic sales pitches."}
             </span>
           </div>
         </div>

@@ -201,7 +201,7 @@ export function QualificationForm() {
 
   return (
     <section
-      id="scene-10"
+      id="scene-14"
       className="relative min-h-screen py-24 sm:py-32 px-4 sm:px-6 bg-slate-50 dark:bg-[#07090e] border-t border-slate-200 dark:border-white/5 overflow-hidden transition-colors duration-500"
     >
       <div className="max-w-4xl mx-auto space-y-12">
@@ -209,7 +209,7 @@ export function QualificationForm() {
         {/* Scene Header */}
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <div className="text-xs sm:text-sm font-mono text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest">
-            {isSr ? "10 / KVALIFIKACIONI RAZGOVOR" : "10 / QUALIFICATION CONVERSATION"}
+            {isSr ? "14 / KVALIFIKACIONI RAZGOVOR" : "14 / QUALIFICATION CONVERSATION"}
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
