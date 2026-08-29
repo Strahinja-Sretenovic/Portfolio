@@ -127,7 +127,7 @@ export function CustomerJourney() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-white tracking-tight">
-            {isSr ? "Ne gledamo samo sajt. Gledamo ceo put do klijenta." : "We don't just look at the website. We look at the entire journey to the client."}
+            {isSr ? "Ne gledam samo sajt. Gledam ceo put do klijenta." : "I don't just look at the website. I look at the entire journey to the client."}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto">

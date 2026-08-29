@@ -161,12 +161,12 @@ export function Process() {
           <div className="space-y-1 text-center sm:text-left">
             <div className="text-base sm:text-lg font-bold text-white flex items-center gap-2 justify-center sm:justify-start">
               <Sparkles size={18} className="text-blue-400" />
-              <span>{isSr ? "Ne preskačemo korake, jer svaki korak štiti vašu investiciju." : "We don't skip steps, because every step protects your investment."}</span>
+              <span>{isSr ? "Launch nije kraj. Tek tada dobijamo stvarne podatke." : "Launch is not the finish line. That's when real telemetry begins."}</span>
             </div>
             <p className="text-xs sm:text-sm text-slate-300">
               {isSr 
-                ? "Od prvog razgovora do merenja rezultata nakon lansiranja, radimo planski i transparentno."
-                : "From the initial conversation to post-launch telemetry, we execute with structured transparency."}
+                ? "Nakon puštanja u rad, pratimo kako se stvarni kupci ponašaju i vršimo fina podešavanja za maksimalan rezultat."
+                : "Post-launch, we analyze real visitor journeys and perform high-leverage CRO adjustments."}
             </p>
           </div>
 

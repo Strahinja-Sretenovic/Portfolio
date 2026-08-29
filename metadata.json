@@ -1,6 +1,6 @@
 {
-  "name": "SSolutions — Web Strategija, UX & Razvoj Digitalnih Rešenja",
-  "description": "Strateški web i UX konsalting i inženjerski razvoj digitalnih rešenja koja prepoznaju poslovne probleme i donose merljive rezultate.",
+  "name": "SSolutions — Web Strategija, UX & Inženjerski Razvoj",
+  "description": "Ne počinjem kodom. Počinjem problemom. Pre nego što napravim sajt, prvo utvrđujem šta taj sajt treba da popravi u vašem biznisu.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

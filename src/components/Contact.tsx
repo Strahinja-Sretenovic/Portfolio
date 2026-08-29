@@ -85,13 +85,13 @@ export function Contact() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-white tracking-tight">
-            {isSr ? "Zakažite analizu vašeg digitalnog nastupa" : "Schedule your strategic business assessment"}
+            {isSr ? "Ne morate da znate šta vam treba. To je deo mog posla." : "You don't need to know what you need. That is part of my job."}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
             {isSr
-              ? "15–30 minuta. Bez obaveze. Pre razgovora ćemo pogledati vaš sajt ili profile kako bismo pričali konkretno o vašem biznisu, a ne o praznim teorijama."
-              : "15–30 minutes. Zero obligation. We audit your website and channels beforehand so our conversation focuses purely on actionable opportunities."}
+              ? "15–30 minuta. Bez obaveze. Pre razgovora pregledam vaš sajt ili profile kako bismo pričali konkretno o vašem biznisu, a ne o praznim teorijama."
+              : "15–30 minutes. Zero obligation. I review your website and profiles beforehand so our conversation focuses specifically on your business, not generic theory."}
           </p>
         </div>
 

@@ -23,13 +23,13 @@ export function WhyChooseUs() {
   const trustSignals = [
     {
       icon: <UserCheck className="w-5 h-5 text-blue-500" />,
-      title: isSr ? "Direktan rad sa inženjerima" : "Direct engineer collaboration",
+      title: isSr ? "Direktan rad sa inženjerom" : "Direct engineer collaboration",
       desc: isSr ? "Bez posrednika, juniora i prenošenja poruka kroz account managere." : "No intermediaries, junior handoffs, or lost context."
     },
     {
       icon: <Target className="w-5 h-5 text-indigo-500" />,
       title: isSr ? "Prvo problem, onda tehnologija" : "Problem diagnosis first",
-      desc: isSr ? "Ne biramo alate dok ne definišemo šta tačno treba da popravimo u poslovanju." : "We never prescribe code frameworks before identifying the commercial friction."
+      desc: isSr ? "Ne biram alate dok ne definišemo šta tačno treba da popravimo u poslovanju." : "We never prescribe code frameworks before identifying the commercial friction."
     },
     {
       icon: <Code2 className="w-5 h-5 text-cyan-500" />,
@@ -46,7 +46,7 @@ export function WhyChooseUs() {
   const fitFor = [
     isSr ? "Biznisi koji žele ozbiljnu digitalnu prezentaciju ili web aplikaciju" : "Businesses needing an authoritative digital foundation or web application",
     isSr ? "Firme koje razumeju da sajt treba da donosi upite, a ne samo da 'postoji'" : "Companies that understand a website must convert visitors, not just exist",
-    isSr ? "Vlasnici koji žele direktnu, iskrenu komunikaciju sa inženjerima i konsultantima" : "Owners who appreciate direct, transparent partnership with engineers and consultants",
+    isSr ? "Vlasnici koji žele direktnu, iskrenu komunikaciju sa inženjerom i konsultantom" : "Owners who appreciate direct, transparent partnership with the consultant",
     isSr ? "Biznisi koji žele sistem koji dugoročno radi, a ne jeftinu privremenu zakrpu" : "Businesses investing in a sustainable system rather than a cheap cosmetic fix"
   ];
 
@@ -69,7 +69,7 @@ export function WhyChooseUs() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Da li smo dobar fit za saradnju?" : "Are we a good fit to work together?"}
+            {isSr ? "Da li smo dobar fit?" : "Are we a good fit?"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">

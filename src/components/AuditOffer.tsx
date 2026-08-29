@@ -21,24 +21,24 @@ export function AuditOffer() {
   const fourSteps = [
     {
       step: "01",
-      title: isSr ? "Pošaljete nam svoj biznis" : "Send us your business details",
+      title: isSr ? "Pošaljete svoj biznis" : "Send your business details",
       desc: isSr 
         ? "Website, Instagram, Google profil ili naziv firme."
         : "Website, Instagram, Google Business profile, or company name."
     },
     {
       step: "02",
-      title: isSr ? "Pregledamo kako trenutno izgledate online" : "We review your current online presence",
+      title: isSr ? "Pregledam kako trenutno izgledate online" : "I review your current online presence",
       desc: isSr 
-        ? "Pregledamo website, mobile UX, Google prisustvo, ponudu, konkurenciju, osnovni SEO, customer journey i očigledne conversion prepreke."
-        : "We inspect your website, mobile UX, Google presence, offer, competitors, basic SEO, customer journey, and obvious conversion barriers."
+        ? "Pregledam website, mobile UX, Google prisustvo, ponudu, konkurenciju, osnovni SEO, customer journey i očigledne conversion prepreke."
+        : "I inspect your website, mobile UX, Google presence, offer, competitors, basic SEO, customer journey, and obvious conversion barriers."
     },
     {
       step: "03",
-      title: isSr ? "Dolazimo pripremljeni" : "We come fully prepared",
+      title: isSr ? "Dolazim pripremljen" : "I come fully prepared",
       desc: isSr 
-        ? "Na razgovoru pričamo o konkretnim stvarima koje smo primetili kod vašeg biznisa."
-        : "On the call, we discuss specific observations we noted about your business."
+        ? "Na razgovoru pričamo o konkretnim stvarima koje sam primetio kod vašeg biznisa."
+        : "On our call, we discuss specific observations I noted about your business."
     },
     {
       step: "04",
@@ -74,8 +74,8 @@ export function AuditOffer() {
 
               <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
                 {isSr
-                  ? "Ne dolazimo na razgovor sa generičkom prodajnom prezentacijom. Pre razgovora radimo domaći."
-                  : "We don't show up with a generic sales pitch. We do our homework before we speak."}
+                  ? "Ne dolazim na razgovor sa generičkom prodajnom prezentacijom. Pre razgovora radim domaći."
+                  : "I don't show up with a generic sales pitch. I do my homework before we speak."}
               </p>
             </div>
 
@@ -108,12 +108,12 @@ export function AuditOffer() {
                   </div>
                   <p className="text-base sm:text-lg font-bold text-white">
                     {isSr
-                      ? "Ako mislimo da vam novi sajt trenutno nije potreban, reći ćemo vam."
-                      : "If we think you don't need a new website right now, we will tell you."}
+                      ? "Ako mislim da vam novi sajt trenutno nije potreban, reći ću vam."
+                      : "If I think you don't need a new website right now, I will tell you."}
                   </p>
                   <p className="text-xs text-slate-300">
                     {isSr 
-                      ? "Cilj prvog razgovora je da razumemo gde nastaje problem, a ne da vam prodamo nešto po svaku cenu." 
+                      ? "Cilj prvog razgovora je da razumem gde nastaje problem, a ne da vam prodam nešto po svaku cenu." 
                       : "The goal of our first conversation is to understand where the problem arises, not to sell you something at all costs."}
                   </p>
                 </div>

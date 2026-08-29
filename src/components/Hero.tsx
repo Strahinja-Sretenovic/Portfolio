@@ -83,16 +83,16 @@ export function Hero() {
         >
           {isSr ? (
             <>
-              Ne počinjemo kodom. <br className="hidden sm:inline" />
+              Ne počinjem kodom. <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 dark:from-blue-400 dark:via-indigo-300 dark:to-cyan-400">
-                Počinjemo problemom.
+                Počinjem problemom.
               </span>
             </>
           ) : (
             <>
-              We don't start with code. <br className="hidden sm:inline" />
+              I don't start with code. <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 dark:from-blue-400 dark:via-indigo-300 dark:to-cyan-400">
-                We start with the problem.
+                I start with the problem.
               </span>
             </>
           )}
@@ -106,8 +106,8 @@ export function Hero() {
           className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 max-w-3xl mx-auto mb-4"
         >
           {isSr
-            ? "Pre nego što napravimo sajt, prvo utvrđujemo šta taj sajt treba da popravi u vašem biznisu."
-            : "Before we build a website, we first determine what problem that website needs to solve for your business."}
+            ? "Pre nego što napravim sajt, prvo utvrđujem šta taj sajt treba da popravi u vašem biznisu."
+            : "Before I build a website, I first determine what problem that website needs to solve in your business."}
         </motion.h2>
 
         {/* Supporting Copy */}
@@ -118,8 +118,8 @@ export function Hero() {
           className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal"
         >
           {isSr
-            ? "Analiziramo kako vas potencijalni klijenti pronalaze, šta vide kada vas pronađu i gde odustaju — zatim projektujemo i razvijamo rešenje koje uklanja te prepreke."
-            : "We analyze how prospective clients find you, what they see when they land, and where they drop off — then engineer the solution that removes those obstacles."}
+            ? "Analiziram kako vas potencijalni klijenti pronalaze, šta vide kada vas pronađu i gde odustaju — zatim projektujem i razvijam rešenje koje uklanja te prepreke."
+            : "I analyze how prospective clients find you, what they see when they land, and where they drop off — then engineer and develop the solution that eliminates those obstacles."}
         </motion.p>
 
         {/* Primary and Secondary CTAs */}
@@ -149,14 +149,14 @@ export function Hero() {
             onClick={() => {
               trackEvent("select_content", {
                 content_type: "Navigation_CTA",
-                item_name: "Hero_View_How_We_Work",
+                item_name: "Hero_View_How_I_Work",
                 destination: "#how-we-think"
               });
               scrollToTarget("#how-we-think", 80);
             }}
             className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
           >
-            <span>{isSr ? "Pogledajte kako radimo" : "See How We Work"}</span>
+            <span>{isSr ? "Pogledaj kako radim" : "See How I Work"}</span>
           </button>
         </motion.div>
 
@@ -168,8 +168,8 @@ export function Hero() {
           className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mb-12"
         >
           {isSr 
-            ? "Pre razgovora pregledamo vaš trenutni digitalni nastup kako bismo pričali konkretno o vašem biznisu." 
-            : "Before our call, we review your current digital channels so our conversation focuses on your specific business."}
+            ? "Pre razgovora pregledam vaš trenutni digitalni nastup kako bismo pričali konkretno o vašem biznisu." 
+            : "Before our call, I review your current digital presence so our conversation focuses specifically on your business."}
         </motion.p>
 
         {/* Interactive Live Diagnostic Pulse Preview */}
