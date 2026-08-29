@@ -34,7 +34,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
       return;
     }
 
-    const sections = ["problem-recognition", "how-i-think", "services", "process", "projects", "why-ssolutions", "estimator", "about", "faq", "contact"];
+    const sections = ["scene-01", "scene-02", "scene-03", "scene-04", "scene-05", "scene-06", "scene-07", "scene-08", "scene-09", "scene-10", "faq"];
     const handleScrollObserver = () => {
       const scrollPosition = window.scrollY + 200;
 
@@ -59,11 +59,10 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
   const isSr = language === "sr";
 
   const navLinks = [
-    { id: "services", name: isSr ? "Usluge" : "Services", href: "#services" },
-    { id: "process", name: isSr ? "Proces" : "Process", href: "#process" },
-    { id: "projects", name: isSr ? "Studije Slučaja" : "Case Studies", href: "#projects", isProjects: true },
-    { id: "why-ssolutions", name: isSr ? "Zašto SSolutions" : "Why Us", href: "#why-ssolutions" },
-    { id: "about", name: isSr ? "O nama" : "About Us", href: "#about" },
+    { id: "scene-05", name: isSr ? "Alati & Usluge" : "Tools & Services", href: "#scene-05" },
+    { id: "scene-06", name: isSr ? "Proces" : "Process", href: "#scene-06" },
+    { id: "scene-07", name: isSr ? "Dokazi & Radovi" : "Proof & Work", href: "#scene-07", isProjects: true },
+    { id: "scene-08", name: isSr ? "Filozofija" : "Philosophy", href: "#scene-08" },
     { id: "faq", name: isSr ? "FAQ" : "FAQ", href: "#faq" },
   ];
 
@@ -181,7 +180,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
 
           {/* Primary Navigation CTA */}
           <button
-            onClick={() => scrollToTarget("#contact", 80)}
+            onClick={() => scrollToTarget("#scene-10", 60)}
             className="px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-blue-500/20 cursor-pointer"
           >
             <span>{isSr ? "Besplatna analiza" : "Free Audit"}</span>
@@ -247,7 +246,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  scrollToTarget("#contact", 80);
+                  scrollToTarget("#scene-10", 60);
                 }}
                 className="w-full py-3 rounded-xl bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2"
               >

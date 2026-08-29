@@ -3,19 +3,19 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider } from "./context/LanguageContext";
 import { ToastProvider } from "./context/ToastContext";
 import { Header } from "./components/Header";
-import { Hero } from "./components/Hero";
-import { ProblemRecognition } from "./components/ProblemRecognition";
-import { CustomerJourney } from "./components/CustomerJourney";
-import { Services } from "./components/Services";
-import { AuditExample } from "./components/AuditExample";
-import { AuditOffer } from "./components/AuditOffer";
-import { Process } from "./components/Process";
-import { Projects } from "./components/Projects";
-import { WhyChooseUs } from "./components/WhyChooseUs";
-import { ProjectEstimator } from "./components/ProjectEstimator";
-import { About } from "./components/About";
+import { SceneProgress } from "./components/presentation/SceneProgress";
+import { HeroScene } from "./components/presentation/HeroScene";
+import { CustomerJourneyScene } from "./components/presentation/CustomerJourneyScene";
+import { FrictionScene } from "./components/presentation/FrictionScene";
+import { DiagnosisScene } from "./components/presentation/DiagnosisScene";
+import { SolutionsScene } from "./components/presentation/SolutionsScene";
+import { ProcessScene } from "./components/presentation/ProcessScene";
+import { ProofScene } from "./components/presentation/ProofScene";
+import { PhilosophyScene } from "./components/presentation/PhilosophyScene";
+import { AuditScene } from "./components/presentation/AuditScene";
+import { QualificationForm } from "./components/presentation/QualificationForm";
+import { ServiceDetailsModal } from "./components/presentation/ServiceDetailsModal";
 import { Faq } from "./components/Faq";
-import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { FloatingContact } from "./components/FloatingContact";
 import { SmoothScroll } from "./components/SmoothScroll";
@@ -24,10 +24,17 @@ import { trackPageView } from "./utils/analytics";
 
 export default function App() {
   const [introCompleted, setIntroCompleted] = useState(false);
+  const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
+  const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    trackPageView("/", "SSolutions — Web Strategija, UX i Development Partner");
+    trackPageView("/", "SSolutions — Immersive Interactive Sales Experience");
   }, []);
+
+  const handleOpenServiceModal = (serviceId?: string) => {
+    setSelectedServiceId(serviceId);
+    setIsServiceModalOpen(true);
+  };
 
   return (
     <ThemeProvider>
@@ -35,50 +42,56 @@ export default function App() {
         <ToastProvider>
           {!introCompleted && <IntroLoader onComplete={() => setIntroCompleted(true)} />}
           <SmoothScroll>
-            <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between bg-white dark:bg-[#07090e] text-slate-900 dark:text-slate-100">
+            <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between bg-white dark:bg-[#07090e] text-slate-900 dark:text-slate-100 relative">
               
+              {/* Header Navigation */}
               <Header />
+
+              {/* Discreet Story Progress Indicator (01 - 10) */}
+              <SceneProgress />
               
+              {/* Main 10-Scene Storytelling Presentation */}
               <main className="flex-1">
-                {/* 1. Hero: Strategic Value Proposition */}
-                <Hero />
+                {/* SCENE 01 — OPENING: Ne počinjemo kodom. Počinjemo problemom. */}
+                <HeroScene />
 
-                {/* 2. Problem Recognition: "Možda vam ne treba novi sajt" */}
-                <ProblemRecognition />
+                {/* SCENE 02 — CUSTOMER JOURNEY: Vaš potencijalni klijent već bira. */}
+                <CustomerJourneyScene />
 
-                {/* 3. Customer Journey: "Ne gledamo samo sajt. Gledam ceo put do klijenta." */}
-                <CustomerJourney />
+                {/* SCENE 03 — WHERE VALUE IS LOST: Problem možda nije vaš sajt. */}
+                <FrictionScene />
 
-                {/* 4. Free Initial Audit Offer */}
-                <AuditOffer />
+                {/* SCENE 04 — DIAGNOSIS: Prvo nalazimo gde nastaje problem. */}
+                <DiagnosisScene />
 
-                {/* 5. Diagnostic Case Walkthrough: "Kako izgleda kada analiziram jedan biznis" */}
-                <AuditExample />
+                {/* SCENE 05 — WHAT WE ACTUALLY DO: Tek kada razumemo problem, biramo alat. */}
+                <SolutionsScene onOpenServiceModal={handleOpenServiceModal} />
 
-                {/* 6. 6-Stage Consulting & Engineering Lifecycle */}
-                <Process />
+                {/* SCENE 06 — HOW WE WORK: Od problema do rešenja. Launch nije kraj. */}
+                <ProcessScene />
 
-                {/* 7. Services: 6 Business Need-Based Categories */}
-                <Services />
+                {/* SCENE 07 — PROOF: Ne želimo da nam verujete samo na reč. */}
+                <ProofScene />
 
-                {/* 8. Case Studies & Evidence */}
-                <Projects />
+                {/* SCENE 08 — WHY THIS APPROACH: Kod je često najlakši deo. */}
+                <PhilosophyScene />
 
-                {/* 9. Authentic Consulting Philosophy & About: "Ko stoji iza SSolutions-a?" */}
-                <About />
+                {/* SCENE 09 — FREE ANALYSIS: Ne morate da znate šta vam treba. To je deo našeg posla. */}
+                <AuditScene />
 
-                {/* 10. Fit Matrix: "Da li smo dobar fit?" */}
-                <WhyChooseUs />
+                {/* SCENE 10 — INTERACTIVE QUALIFICATION FORM: Hajde da prvo upoznamo vaš biznis. */}
+                <QualificationForm />
 
-                {/* 11. Scope & Investment Planning Advisor */}
-                <ProjectEstimator />
-
-                {/* 12. Honest Objection Handling FAQ */}
+                {/* Secondary Accessible FAQ Layer */}
                 <Faq />
-
-                {/* 13. Final CTA & Qualifying Lead Consultation Form */}
-                <Contact />
               </main>
+
+              {/* Service Capabilities Modal */}
+              <ServiceDetailsModal
+                isOpen={isServiceModalOpen}
+                onClose={() => setIsServiceModalOpen(false)}
+                initialServiceId={selectedServiceId}
+              />
 
               <Footer />
               <FloatingContact />
