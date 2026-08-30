@@ -39,13 +39,14 @@ export function InteractiveAuditForm() {
   const [phone, setPhone] = useState("");
 
   const goalOptions = [
-    { id: "queries", label: isSr ? "Više upita" : "More inquiries" },
+    { id: "queries", label: isSr ? "Više kvalitetnih upita" : "More qualified inquiries" },
     { id: "google", label: isSr ? "Google vidljivost" : "Google visibility" },
-    { id: "website", label: isSr ? "Novi / bolji sajt" : "New / better website" },
+    { id: "new_website", label: isSr ? "Novi sajt" : "New website" },
+    { id: "existing_website", label: isSr ? "Postojeći sajt" : "Existing website" },
     { id: "sales", label: isSr ? "Online prodaja" : "Online sales" },
-    { id: "booking", label: isSr ? "Sistem zakazivanja" : "Booking system" },
+    { id: "booking", label: isSr ? "Booking" : "Booking" },
     { id: "automation", label: isSr ? "Automatizacija" : "Automation" },
-    { id: "app", label: isSr ? "Web aplikacija" : "Web app" },
+    { id: "app", label: isSr ? "Web aplikacija" : "Web application" },
     { id: "unsure", label: isSr ? "Nismo sigurni" : "Not sure" },
   ];
 

@@ -64,11 +64,12 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
   const isSr = language === "sr";
 
   const navLinks = [
-    { id: "journey", name: isSr ? "Put kupca" : "Customer Journey", href: "#act-2-customer-journey" },
-    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", href: "#act-3-diagnosis" },
-    { id: "proc", name: isSr ? "Proces" : "Process", href: "#act-4-process" },
-    { id: "work", name: isSr ? "Radovi" : "Work", href: "#act-5-proof", isProjects: true },
-    { id: "audit", name: isSr ? "Analiza" : "Audit", href: "#interactive-form-section" },
+    { id: "journey", name: isSr ? "Put kupca" : "Customer Journey", href: "#act-2-perspective" },
+    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", href: "#act-5-diagnosis" },
+    { id: "recommend", name: isSr ? "Rešenja" : "Solutions", href: "#act-6-recommendation" },
+    { id: "proc", name: isSr ? "Proces" : "Process", href: "#act-7-method" },
+    { id: "work", name: isSr ? "Radovi" : "Work", href: "#act-8-proof", isProjects: true },
+    { id: "audit", name: isSr ? "Analiza" : "Audit", href: "#act-10-action" },
     { id: "faq", name: isSr ? "FAQ" : "FAQ", href: "#faq" },
   ];
 
