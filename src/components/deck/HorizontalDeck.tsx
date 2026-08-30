@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../../context/LanguageContext";
 import { Slide01TheQuestion } from "./Slide01TheQuestion";
 import { Slide02YourCustomer } from "./Slide02YourCustomer";
@@ -21,45 +22,97 @@ interface HorizontalDeckProps {
   onSlideChange?: (index: number) => void;
 }
 
+const slideVariants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? "40vw" : "-40vw",
+    opacity: 0,
+    scale: 0.94,
+    rotateY: dir > 0 ? 3 : -3,
+    filter: "blur(4px)",
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotateY: 0,
+    filter: "blur(0px)",
+    transition: {
+      x: { type: "spring", stiffness: 220, damping: 26, mass: 0.8 },
+      scale: { type: "spring", stiffness: 220, damping: 26 },
+      rotateY: { duration: 0.4, ease: "easeOut" },
+      opacity: { duration: 0.35, ease: "easeOut" },
+      filter: { duration: 0.3 },
+    },
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? "-40vw" : "40vw",
+    opacity: 0,
+    scale: 0.94,
+    rotateY: dir > 0 ? -3 : 3,
+    filter: "blur(4px)",
+    transition: {
+      x: { type: "spring", stiffness: 220, damping: 26, mass: 0.8 },
+      scale: { type: "spring", stiffness: 220, damping: 26 },
+      rotateY: { duration: 0.3, ease: "easeIn" },
+      opacity: { duration: 0.25, ease: "easeIn" },
+      filter: { duration: 0.25 },
+    },
+  }),
+};
+
 export function HorizontalDeck({ 
   onOpenProjectsModal, 
-  onOpenServiceModal,
+  onOpenServiceModal: _onOpenServiceModal,
   activeSlide,
   onSlideChange
 }: HorizontalDeckProps) {
-  const { language } = useLanguage();
-  const isSr = language === "sr";
+  const { language: _language } = useLanguage();
 
   const TOTAL_SLIDES = 12;
   const [internalSlide, setInternalSlide] = useState<number>(0);
+  const [direction, setDirection] = useState<number>(1);
   const currentSlide = activeSlide !== undefined ? activeSlide : internalSlide;
+  const prevSlideRef = useRef<number>(currentSlide);
 
-  const setCurrentSlide = useCallback((index: number) => {
-    setInternalSlide(index);
-    if (onSlideChange) {
-      onSlideChange(index);
+  // Sync direction when activeSlide is controlled externally
+  useEffect(() => {
+    if (activeSlide !== undefined && activeSlide !== prevSlideRef.current) {
+      setDirection(activeSlide >= prevSlideRef.current ? 1 : -1);
+      prevSlideRef.current = activeSlide;
     }
-  }, [onSlideChange]);
+  }, [activeSlide]);
 
   const isTransitioningRef = useRef<boolean>(false);
   const touchStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
+  const navigateTo = useCallback((newIndex: number, dir?: number) => {
+    if (newIndex < 0 || newIndex >= TOTAL_SLIDES) return;
+    const computedDir = dir !== undefined ? dir : (newIndex >= currentSlide ? 1 : -1);
+    setDirection(computedDir);
+    prevSlideRef.current = newIndex;
+
+    if (onSlideChange) {
+      onSlideChange(newIndex);
+    } else {
+      setInternalSlide(newIndex);
+    }
+  }, [TOTAL_SLIDES, currentSlide, onSlideChange]);
+
   const goToSlide = useCallback((index: number) => {
-    if (index < 0 || index >= TOTAL_SLIDES) return;
-    setCurrentSlide(index);
-  }, [TOTAL_SLIDES]);
+    navigateTo(index);
+  }, [navigateTo]);
 
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => Math.min(prev + 1, TOTAL_SLIDES - 1));
-  }, [TOTAL_SLIDES]);
+    navigateTo(Math.min(currentSlide + 1, TOTAL_SLIDES - 1), 1);
+  }, [navigateTo, currentSlide, TOTAL_SLIDES]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => Math.max(prev - 1, 0));
-  }, []);
+    navigateTo(Math.max(currentSlide - 1, 0), -1);
+  }, [navigateTo, currentSlide]);
 
   const jumpToForm = useCallback(() => {
-    setCurrentSlide(11);
-  }, []);
+    navigateTo(11, 1);
+  }, [navigateTo]);
 
   // Wheel and Trackpad navigation with debounce lock
   useEffect(() => {
@@ -151,79 +204,59 @@ export function HorizontalDeck({
     }
   };
 
+  const renderSlide = (index: number) => {
+    switch (index) {
+      case 0:
+        return <Slide01TheQuestion onNext={nextSlide} onJumpToForm={jumpToForm} />;
+      case 1:
+        return <Slide02YourCustomer onNext={nextSlide} onPrev={prevSlide} />;
+      case 2:
+        return <Slide03CustomerJourney onNext={nextSlide} onPrev={prevSlide} />;
+      case 3:
+        return <Slide04WhereItBreaks onNext={nextSlide} onPrev={prevSlide} />;
+      case 4:
+        return <Slide05Diagnosis onNext={nextSlide} onPrev={prevSlide} />;
+      case 5:
+        return <Slide06ProblemSolutionMatrix onNext={nextSlide} onPrev={prevSlide} />;
+      case 6:
+        return <Slide07Process onNext={nextSlide} onPrev={prevSlide} />;
+      case 7:
+        return <Slide08ProjectStevan onNext={nextSlide} onPrev={prevSlide} />;
+      case 8:
+        return <Slide09ProjectsSplit onNext={nextSlide} onPrev={prevSlide} onOpenProjects={onOpenProjectsModal} />;
+      case 9:
+        return <Slide10RadicalHonesty onNext={nextSlide} onPrev={prevSlide} />;
+      case 10:
+        return <Slide11TurnToVisitor onNext={nextSlide} onPrev={prevSlide} />;
+      case 11:
+        return <Slide12Form onPrev={prevSlide} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div
       id="presentation-deck-container"
-      className="relative w-screen h-[100dvh] max-h-[100dvh] overflow-hidden bg-white dark:bg-[#07090e] select-none"
+      className="relative w-screen h-[100dvh] max-h-[100dvh] overflow-hidden bg-white dark:bg-[#07090e] select-none [perspective:1200px]"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Horizontal Deck Track (TranslateX Engine) */}
-      <div
-        className="flex w-[1200vw] h-full transition-transform duration-500 ease-out will-change-transform"
-        style={{
-          transform: `translateX(-${currentSlide * 100}vw)`,
-        }}
-      >
-        {/* Slide 01: The Question */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 01: The Question">
-          <Slide01TheQuestion onNext={nextSlide} onJumpToForm={jumpToForm} />
-        </section>
-
-        {/* Slide 02: Your Customer */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 02: Your Customer">
-          <Slide02YourCustomer onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 03: Customer Journey */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 03: Customer Journey">
-          <Slide03CustomerJourney onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 04: Where it Breaks */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 04: Where it Breaks">
-          <Slide04WhereItBreaks onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 05: Diagnosis */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 05: Diagnosis">
-          <Slide05Diagnosis onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 06: Solutions Matrix */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 06: Problem Solution Matrix">
-          <Slide06ProblemSolutionMatrix onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 07: Process */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 07: Our Process">
-          <Slide07Process onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 08: Real Project 01 */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 08: Real Project 01">
-          <Slide08ProjectStevan onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 09: Real Projects 02 & 03 */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 09: Real Projects 02 and 03">
-          <Slide09ProjectsSplit onNext={nextSlide} onPrev={prevSlide} onOpenProjects={onOpenProjectsModal} />
-        </section>
-
-        {/* Slide 10: Radical Honesty */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 10: Radical Honesty">
-          <Slide10RadicalHonesty onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 11: Your Business */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 11: Your Business">
-          <Slide11TurnToVisitor onNext={nextSlide} onPrev={prevSlide} />
-        </section>
-
-        {/* Slide 12: Qualification Form */}
-        <section className="w-screen h-full shrink-0 flex-none" aria-label="Slide 12: Qualification Form">
-          <Slide12Form onPrev={prevSlide} />
-        </section>
+      {/* Animated Slide Viewport */}
+      <div className="relative w-full h-full overflow-hidden">
+        <AnimatePresence custom={direction} mode="popLayout" initial={false}>
+          <motion.div
+            key={currentSlide}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0 w-full h-full will-change-transform"
+          >
+            {renderSlide(currentSlide)}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Walking Robot Progress Bar */}
