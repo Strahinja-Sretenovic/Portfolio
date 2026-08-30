@@ -183,7 +183,7 @@ export function Slide12Form({ onPrev }: Slide12Props) {
                   type="text"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  placeholder={isSr ? "Npr. Salon Stevan / Alfa Sistemi d.o.o." : "e.g. Acme Corp / Studio Design"}
+                  placeholder={isSr ? "Npr. Ada Studio / Alfa Sistemi d.o.o." : "e.g. Acme Corp / Studio Design"}
                   className="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none text-white text-base"
                   autoFocus
                 />

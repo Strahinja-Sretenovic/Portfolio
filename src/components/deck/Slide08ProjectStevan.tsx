@@ -1,5 +1,5 @@
 import React from "react";
-import { ExternalLink, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ExternalLink, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 
 interface Slide08Props {
@@ -7,7 +7,7 @@ interface Slide08Props {
   onPrev: () => void;
 }
 
-export function Slide08ProjectStevan({ onNext, onPrev }: Slide08Props) {
+export function Slide08ProjectStevan({ onNext: _onNext, onPrev: _onPrev }: Slide08Props) {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
@@ -18,16 +18,16 @@ export function Slide08ProjectStevan({ onNext, onPrev }: Slide08Props) {
       <div className="w-full max-w-5xl mx-auto my-auto z-10 space-y-5 py-2">
         <div className="text-center space-y-1.5 max-w-3xl mx-auto">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono font-bold">
-            STVARNI PROJEKAT • LOKALNI USLUŽNI BIZNIS
+            {isSr ? "STVARNI PROJEKAT • AGENCISKI WEB & CMS" : "REAL PROJECT • AGENCY PLATFORM & CMS"}
           </span>
 
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-black tracking-tight text-white leading-tight">
-            {isSr ? "Frizerski Salon Stevan" : "Stevan Hair Salon"}
+            Ada Studio
           </h2>
           <p className="text-xs sm:text-sm text-slate-400">
             {isSr 
-              ? "Rešavanje konkretnog problema lokalnog biznisa kroz jasan mobilni UX." 
-              : "Solving a tangible local business challenge through clear mobile UX."}
+              ? "Rešavanje problema premijum pozicioniranja i automatizacije sadržaja." 
+              : "Solving premium brand positioning and automated portfolio management."}
           </p>
         </div>
 
@@ -39,8 +39,8 @@ export function Slide08ProjectStevan({ onNext, onPrev }: Slide08Props) {
             </span>
             <p className="text-xs text-slate-300 leading-relaxed font-medium">
               {isSr 
-                ? "Klijenti su stalno zvali tokom rada sa istim pitanjima o cenama, lokaciji i radnom vremenu." 
-                : "Clients repeatedly interrupted work with repetitive questions about prices, location, and hours."}
+                ? "Prethodna prezentacija nije odražavala visok estetski nivo i radove je bilo teško redovno ažurirati." 
+                : "Previous presentation failed to reflect their high aesthetic caliber and was tedious to update."}
             </p>
           </div>
 
@@ -50,8 +50,8 @@ export function Slide08ProjectStevan({ onNext, onPrev }: Slide08Props) {
             </span>
             <p className="text-xs text-slate-300 leading-relaxed font-medium">
               {isSr 
-                ? "Postaviti pregledan cenovnik, tačnu lokaciju i 1-klik poziv u prvi plan na telefonu." 
-                : "Put clear pricing, map location, and one-tap call immediately into focus on mobile."}
+                ? "Kreirati minimalističku galeriju fokusiranu na visoku rezoluciju radova i intuitivan CMS." 
+                : "Build a minimalist gallery focused on high-resolution projects with an intuitive CMS."}
             </p>
           </div>
 
@@ -61,8 +61,8 @@ export function Slide08ProjectStevan({ onNext, onPrev }: Slide08Props) {
             </span>
             <p className="text-xs text-slate-300 leading-relaxed font-medium">
               {isSr 
-                ? "Brz i čist sajt prilagođen telefonu, usklađen sa Google profilom i mapom." 
-                : "Fast, minimal mobile-first web presence aligned with Google Business and Maps."}
+                ? "Prilagođena arhitektura, brzo učitavanje slika, automatizovan prijem upita i SEO optimizacija." 
+                : "Custom architecture, lightning-fast media delivery, automated inquiry funnel, and strong SEO."}
             </p>
           </div>
 
@@ -73,8 +73,8 @@ export function Slide08ProjectStevan({ onNext, onPrev }: Slide08Props) {
             </span>
             <p className="text-xs text-emerald-200 leading-relaxed font-medium">
               {isSr 
-                ? "Znatno manje ponavljajućih poziva; klijenti dolaze unapred informisani." 
-                : "Significantly fewer repetitive calls; clients arrive pre-informed with clarity."}
+                ? "Prezentacija koja odmah gradi poverenje kod premijum klijenata uz stalan priliv novih upita." 
+                : "Instant credibility with high-ticket clients and a steady flow of inbound organic inquiries."}
             </p>
           </div>
         </div>
@@ -82,12 +82,12 @@ export function Slide08ProjectStevan({ onNext, onPrev }: Slide08Props) {
         {/* Live link info */}
         <div className="text-center pt-0.5">
           <a
-            href="https://www.frizerskisalonstevan.rs"
+            href="https://adastudio.rs/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-blue-400 hover:text-blue-300 transition-colors"
           >
-            <span>frizerskisalonstevan.rs</span>
+            <span>adastudio.rs</span>
             <ExternalLink className="w-3 h-3" />
           </a>
         </div>

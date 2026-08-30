@@ -44,31 +44,11 @@ export function Slide09ProjectsSplit({ onNext, onPrev, onOpenProjects }: Slide09
         {/* 2 Controlled Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-w-5xl mx-auto">
           
-          {/* Ada Studio */}
-          <div className="p-4 sm:p-5 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 space-y-2 shadow-md">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono text-blue-600 dark:text-blue-400 font-bold">
-                KREATIVNI STUDIO & PORTFOLIO
-              </span>
-              <span className="text-xs font-mono text-slate-500">Ada Studio</span>
-            </div>
-
-            <h3 className="text-lg sm:text-xl font-display font-bold text-slate-900 dark:text-white">
-              {isSr ? "Premijum vizuelni identitet" : "Authoritative visual portfolio"}
-            </h3>
-
-            <div className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
-              <p><strong>Problem:</strong> {isSr ? "Prethodna prezentacija nije odražavala visok estetski nivo i radove je bilo teško ažurirati." : "Previous site didn't match their caliber and was hard to maintain."}</p>
-              <p><strong>Odluka:</strong> {isSr ? "Kreirati minimalističku galeriju fokusiranu na visoku rezoluciju radova i jednostavan CMS." : "Build a high-res minimalist gallery with ultra-simple CMS."}</p>
-              <p className="text-emerald-600 dark:text-emerald-400 font-medium"><strong>Ishod:</strong> {isSr ? "Prezentacija koja odmah gradi poverenje kod premijum klijenata." : "Direct trust building with enterprise design clients."}</p>
-            </div>
-          </div>
-
           {/* Altara Inmo / Platforms */}
           <div className="p-4 sm:p-5 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 space-y-2 shadow-md">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-bold">
-                WEB APLIKACIJA & NEKRETNINE
+                {isSr ? "WEB APLIKACIJA & NEKRETNINE" : "REAL ESTATE PLATFORM"}
               </span>
               <span className="text-xs font-mono text-slate-500">Altara Inmo</span>
             </div>
@@ -81,6 +61,26 @@ export function Slide09ProjectsSplit({ onNext, onPrev, onOpenProjects }: Slide09
               <p><strong>Problem:</strong> {isSr ? "Posetioci su teško pronalazili odgovarajuće nekretnine zbog sporog filtriranja." : "Buyers struggled to filter listings due to bloated latency."}</p>
               <p><strong>Odluka:</strong> {isSr ? "Projektovati sistem sa instant filtriranjem, mapom i direktnim kontaktom agenata." : "Engineer real-time client-side filter engine with fast direct inquiries."}</p>
               <p className="text-emerald-600 dark:text-emerald-400 font-medium"><strong>Ishod:</strong> {isSr ? "Brza pretraga bez čekanja i znatno više zakazanih razgledanja." : "Zero-lag search and direct increase in booked viewings."}</p>
+            </div>
+          </div>
+
+          {/* Taxi Pro GPS */}
+          <div className="p-4 sm:p-5 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 space-y-2 shadow-md">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono text-blue-600 dark:text-blue-400 font-bold">
+                {isSr ? "SOFTVERSKI SISTEM & FLOTE" : "FLEET GPS & TELEMETRY"}
+              </span>
+              <span className="text-xs font-mono text-slate-500">Taxi Pro GPS</span>
+            </div>
+
+            <h3 className="text-lg sm:text-xl font-display font-bold text-slate-900 dark:text-white">
+              {isSr ? "Praćenje u realnom vremenu" : "Real-time dispatch telemetry"}
+            </h3>
+
+            <div className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
+              <p><strong>Problem:</strong> {isSr ? "Vlasnici vozila su gubili vreme i novac zbog manuelnih izveštaja i nepreciznog praćenja." : "Fleet owners lost thousands on manual logs and imprecise dispatching."}</p>
+              <p><strong>Odluka:</strong> {isSr ? "Izraditi stabilan sistem sa 24/7 telemetrijom, istorijom kretanja i analitikom troškova." : "Deploy sub-second GPS tracking with automated route analytics."}</p>
+              <p className="text-emerald-600 dark:text-emerald-400 font-medium"><strong>Ishod:</strong> {isSr ? "99.9% pouzdanost rada, smanjenje troškova goriva i ušteda desetina sati mesečno." : "99.9% system uptime, lower fuel spend, and automated fleet logs."}</p>
             </div>
           </div>
 
