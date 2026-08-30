@@ -1,332 +1,267 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Search, Instagram, Users, Star, Phone, Calendar, ArrowRight, AlertTriangle, ShieldCheck, CheckCircle2 } from "lucide-react";
+import React, { useState } from "react";
+import { 
+  Search, 
+  Star, 
+  Image as ImageIcon, 
+  MapPin, 
+  Scissors, 
+  Calendar, 
+  Phone,
+  Eye,
+  HelpCircle,
+  ShieldCheck,
+  Scale,
+  ArrowRightCircle,
+  CheckCircle2,
+  AlertTriangle
+} from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 
-interface Act2Props {
-  onContinueClick?: () => void;
-}
-
-export function Act2CustomerJourney({ onContinueClick }: Act2Props) {
+export function Act2CustomerJourney() {
   const { language } = useLanguage();
   const isSr = language === "sr";
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [progress, setProgress] = useState(0);
+  const [activeStep, setActiveStep] = useState<number>(0);
 
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (containerRef.current) {
-            const rect = containerRef.current.getBoundingClientRect();
-            const totalScrollable = containerRef.current.offsetHeight - window.innerHeight;
-            if (totalScrollable > 0) {
-              const currentScroll = -rect.top;
-              const rawProgress = currentScroll / totalScrollable;
-              const clamped = Math.min(1, Math.max(0, rawProgress));
-              setProgress(clamped);
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+  const discoverySteps = [
+    {
+      id: "search",
+      title: isSr ? "1. Pretraga na telefonu" : "1. Search on phone",
+      example: isSr ? "„frizerski salon Čačak”" : "“hair salon downtown”",
+      detail: isSr 
+        ? "Kupac ima konkretnu potrebu i u nekoliko sekundi traži najbliže i najbolje opcije." 
+        : "The customer has an immediate need and quickly searches for the best options."
+    },
+    {
+      id: "reviews",
+      title: isSr ? "2. Ocene & Iskustva" : "2. Ratings & Reviews",
+      example: isSr ? "4.9 ★ (140+ ocena)" : "4.9 ★ (140+ reviews)",
+      detail: isSr 
+        ? "Prvi filter je poverenje. Ako profil nema ocene ili ima loše komentare, prelazi dalje." 
+        : "Trust is the first filter. Without fresh positive reviews, they move on."
+    },
+    {
+      id: "photos",
+      title: isSr ? "3. Fotografije radova" : "3. Photos of work",
+      example: isSr ? "Stvarni radovi, enterijer i atmosfera" : "Real results & salon interior",
+      detail: isSr 
+        ? "Kupac želi vizuelni dokaz kvaliteta i urednosti pre nego što donese odluku." 
+        : "Visual proof of quality and atmosphere is required before choosing."
+    },
+    {
+      id: "offer",
+      title: isSr ? "4. Cenovnik & Usluge" : "4. Pricing & Offer",
+      example: isSr ? "Jasno istaknut cenovnik po uslugama" : "Transparent service pricing",
+      detail: isSr 
+        ? "Ako ne može lako da vidi cene ili šta usluga tačno uključuje, nastaje odustajanje." 
+        : "Unclear pricing causes hesitation and leads them to competitors."
+    },
+    {
+      id: "booking",
+      title: isSr ? "5. Zakazivanje / Poziv" : "5. Booking / Call",
+      example: isSr ? "1-klik poziv ili online termin" : "1-tap call or instant appointment",
+      detail: isSr 
+        ? "Pobeđuje biznis koji mu omogući najjednostavniji i najbrži sledeći korak." 
+        : "The business that provides the lowest friction to book wins the customer."
+    }
+  ];
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const journeyNodes = [
+    { num: "01", title: isSr ? "PRONALAZI VAS" : "FINDS YOU", icon: Eye },
+    { num: "02", title: isSr ? "RAZUME PONUDU" : "UNDERSTANDS OFFER", icon: HelpCircle },
+    { num: "03", title: isSr ? "STIČE POVERENJE" : "BUILDS TRUST", icon: ShieldCheck },
+    { num: "04", title: isSr ? "POREDI" : "COMPARES", icon: Scale },
+    { num: "05", title: isSr ? "PRAVI SLEDEĆI KORAK" : "TAKES NEXT STEP", icon: ArrowRightCircle },
+    { num: "06", title: isSr ? "POSTAJE KLIJENT" : "BECOMES CLIENT", icon: CheckCircle2 }
+  ];
 
-  // Map progress into 5 distinct sequential stages:
-  // Stage 1 (0.00 - 0.22): PRONALAZI VAS
-  // Stage 2 (0.22 - 0.44): POKUŠAVA DA VAS RAZUME
-  // Stage 3 (0.44 - 0.66): TRAŽI RAZLOG DA VAM VERUJE
-  // Stage 4 (0.66 - 0.82): ODLUČUJE DA LI ĆE NAPRAVITI SLEDEĆI KORAK
-  // Stage 5 (0.82 - 1.00): PREKID / THE BREAK ("I negde na ovom putu možete da ga izgubite.")
-
-  const currentStage = 
-    progress < 0.22 ? 1 :
-    progress < 0.44 ? 2 :
-    progress < 0.66 ? 3 :
-    progress < 0.82 ? 4 : 5;
+  const problemExamples = [
+    isSr ? "Možda vas ne pronalazi." : "Maybe they don't find you.",
+    isSr ? "Možda vas pronađe, ali ne razume ponudu." : "Maybe they find you, but don't understand the offer.",
+    isSr ? "Možda razume ponudu, ali vam još ne veruje." : "Maybe they understand the offer, but don't trust you yet.",
+    isSr ? "Možda želi da vas kontaktira, ali je sledeći korak komplikovan." : "Maybe they want to reach out, but the next step is friction-heavy.",
+    isSr ? "Možda dobijate upite, ali vaš interni proces gubi vreme." : "Maybe you get inquiries, but your internal workflow wastes time."
+  ];
 
   return (
-    <div
-      ref={containerRef}
-      id="act-2-customer-journey"
-      className="relative w-full bg-slate-950 text-white"
-      style={{ height: "280vh" }} // Pinned storytelling distance (~280vh is optimal)
+    <section 
+      id="act-2-the-customer-journey"
+      className="relative py-24 sm:py-36 px-6 sm:px-12 bg-slate-900 dark:bg-[#05070c] text-white border-t border-slate-800 dark:border-white/10"
     >
-      {/* Sticky Pinned Viewport Stage */}
-      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex flex-col justify-between p-6 sm:p-10 z-20">
+      <div className="max-w-5xl mx-auto space-y-20">
         
-        {/* Subtle grid pattern background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40" />
+        {/* Act 2 Opening */}
+        <div className="text-center max-w-3xl mx-auto space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono font-bold">
+            EDUKATIVNI PRIMER • AKT 02
+          </div>
 
-        {/* Top Header: Step Indicator */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold">
-              AKT 02 • PUT KUPCA
+          <h2 className="text-3xl sm:text-5xl font-display font-black tracking-tight text-white">
+            {isSr ? "Zamislite da ste vaš klijent." : "Imagine you are your own client."}
+          </h2>
+
+          <p className="text-base sm:text-lg text-slate-400 max-w-xl mx-auto">
+            {isSr 
+              ? "Tražite uslugu. Imate nekoliko opcija. Koga ćete izabrati?" 
+              : "You are looking for a service. You have multiple options. Who do you choose?"}
+          </p>
+        </div>
+
+        {/* Discovery Simulation Box */}
+        <div className="p-6 sm:p-10 rounded-3xl bg-slate-950/90 border border-white/10 shadow-2xl space-y-8">
+          
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <span className="text-xs font-mono text-blue-400 uppercase tracking-widest font-bold">
+              {isSr ? "Primer pretrage: frizerski salon Čačak" : "Search example: Hair Salon Downtown"}
             </span>
-            <span className="hidden sm:inline-block text-xs font-mono text-slate-400">
-              {currentStage < 5 ? `KORAK 0${currentStage} / 04` : "DIJAGNOSTIČKI PREKID"}
+            <span className="text-[11px] font-mono text-slate-500">
+              EDUKATIVNI SCENARIO
             </span>
           </div>
 
-          {/* Minimal 4-stage indicator bar */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            {[1, 2, 3, 4].map((step) => {
-              const isActive = currentStage === step;
-              const isPast = currentStage > step;
+          {/* Stepped Navigation */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+            {discoverySteps.map((step, idx) => (
+              <button
+                key={step.id}
+                onClick={() => setActiveStep(idx)}
+                className={`p-3 rounded-xl text-left text-xs font-semibold transition-all cursor-pointer ${
+                  activeStep === idx 
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20" 
+                    : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {step.title}
+              </button>
+            ))}
+          </div>
+
+          {/* Active Detail Display */}
+          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 text-xs font-mono text-blue-400">
+                <Search className="w-3.5 h-3.5" />
+                <span>{discoverySteps[activeStep].example}</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
+                {discoverySteps[activeStep].title}
+              </h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {discoverySteps[activeStep].detail}
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-900 border border-white/10 space-y-2 text-xs">
+              <div className="text-slate-400 font-mono text-[11px] uppercase tracking-wider">
+                {isSr ? "Šta kupac ocenjuje u ovom trenutku:" : "What the buyer evaluates here:"}
+              </div>
+              <ul className="space-y-1.5 text-slate-300">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <span>{isSr ? "Vidljivost i pozicija na pretrazi" : "Search visibility & ranking"}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <span>{isSr ? "Kvalitet i svežina recenzija" : "Freshness & quality of reviews"}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <span>{isSr ? "Jasnoća ponude i cene" : "Clarity of offer & pricing"}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  <span>{isSr ? "Lakoća kontakta ili zakazivanja" : "Ease of contact & booking"}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Core Discovery Takeaway */}
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <h3 className="text-2xl sm:text-4xl font-display font-black text-white">
+            {isSr ? "Vaš potencijalni klijent već bira." : "Your potential client is already choosing."}
+          </h3>
+          <p className="text-lg sm:text-xl font-display font-medium text-blue-400">
+            {isSr ? "I to često pre nego što je razgovarao sa vama." : "And often before they have even spoken to you."}
+          </p>
+        </div>
+
+        {/* Customer Journey Model: 6 Nodes */}
+        <div className="space-y-8 pt-6">
+          <div className="text-center space-y-2">
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">
+              {isSr ? "Model puta kupca" : "Customer journey model"}
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-display font-bold text-white">
+              {isSr ? "Put od pretrage do klijenta" : "The path from search to customer"}
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {journeyNodes.map((node, index) => {
+              const Icon = node.icon;
               return (
                 <div
-                  key={step}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    currentStage === 5 
-                      ? "w-4 bg-rose-500/60" 
-                      : isActive 
-                        ? "w-8 bg-blue-500" 
-                        : isPast 
-                          ? "w-4 bg-blue-500/40" 
-                          : "w-4 bg-white/10"
-                  }`}
-                />
+                  key={node.num}
+                  className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center space-y-2"
+                >
+                  <span className="text-[10px] font-mono text-blue-400 font-bold">{node.num}</span>
+                  <div className="w-8 h-8 mx-auto rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div className="text-xs font-display font-bold text-slate-200">
+                    {node.title}
+                  </div>
+                </div>
               );
             })}
           </div>
         </div>
 
-        {/* CENTER STAGE: Visual & Headline Choreography */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto my-auto flex flex-col items-center justify-center text-center px-4">
-          
-          {/* =========================================================================
-              STAGE 1: PRONALAZI VAS (0.00 - 0.22)
-             ========================================================================= */}
-          {currentStage === 1 && (
-            <div className="space-y-6 animate-fadeIn transition-all duration-500">
-              <span className="text-xs font-mono tracking-widest text-blue-400 uppercase">
-                1. Prvi kontakt
-              </span>
+        {/* Break Point Takeaway */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-rose-950/30 border border-rose-500/30 text-center space-y-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-mono font-bold">
+            <AlertTriangle className="w-3.5 h-3.5" />
+            <span>{isSr ? "PREKID PUTA" : "PATH DROP-OFF"}</span>
+          </div>
 
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight">
-                {isSr ? "Prvo mora da vas pronađe." : "First, they need to find you."}
-              </h2>
+          <h3 className="text-3xl sm:text-5xl font-display font-black text-white tracking-tight leading-tight">
+            {isSr ? "Negde na ovom putu možete da ga izgubite." : "Somewhere along this path, you might lose them."}
+          </h3>
 
-              {/* Minimal Clean Visual: 3 discovery channels */}
-              <div className="pt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
-                <div className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2.5 text-sm font-medium text-slate-200">
-                  <Search className="w-4 h-4 text-blue-400" />
-                  <span>Google Pretraga</span>
-                </div>
-                <div className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2.5 text-sm font-medium text-slate-200">
-                  <Instagram className="w-4 h-4 text-pink-400" />
-                  <span>Instagram</span>
-                </div>
-                <div className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2.5 text-sm font-medium text-slate-200">
-                  <Users className="w-4 h-4 text-emerald-400" />
-                  <span>Preporuka</span>
-                </div>
-              </div>
-
-              <p className="text-sm sm:text-base text-slate-400 max-w-md mx-auto pt-2">
-                {isSr 
-                  ? "Kupac ima problem i traži rešenje tamo gde se trenutno nalazi." 
-                  : "The client has a problem and looks for a solution wherever they are."}
-              </p>
-            </div>
-          )}
-
-          {/* =========================================================================
-              STAGE 2: POKUŠAVA DA VAS RAZUME (0.22 - 0.44)
-             ========================================================================= */}
-          {currentStage === 2 && (
-            <div className="space-y-6 animate-fadeIn transition-all duration-500">
-              <span className="text-xs font-mono tracking-widest text-blue-400 uppercase">
-                2. Prvi utisak
-              </span>
-
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight">
-                {isSr ? "Zatim pokušava da shvati šta nudite." : "Then they try to grasp what you offer."}
-              </h2>
-
-              {/* Visual: Business profile / Website representation */}
-              <div className="pt-4 max-w-md mx-auto w-full">
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-left space-y-2.5 shadow-2xl">
-                  <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
-                      <span className="text-xs font-mono text-slate-300">vas-biznis.rs</span>
-                    </div>
-                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-                      Učitano za 0.8s
-                    </span>
-                  </div>
-                  <div className="space-y-1.5">
-                    <div className="h-3 w-3/4 bg-white/20 rounded" />
-                    <div className="h-2.5 w-1/2 bg-white/10 rounded" />
-                  </div>
-                  <div className="flex gap-2 pt-1">
-                    <div className="h-6 w-20 bg-blue-500/30 border border-blue-500/50 rounded-lg" />
-                    <div className="h-6 w-24 bg-white/10 rounded-lg" />
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-base sm:text-lg text-slate-300 font-medium max-w-md mx-auto">
-                {isSr 
-                  ? "Ako nije jasno za nekoliko sekundi, odlazi dalje." 
-                  : "If it's not crystal clear within seconds, they leave."}
-              </p>
-            </div>
-          )}
-
-          {/* =========================================================================
-              STAGE 3: TRAŽI RAZLOG DA VAM VERUJE (0.44 - 0.66)
-             ========================================================================= */}
-          {currentStage === 3 && (
-            <div className="space-y-6 animate-fadeIn transition-all duration-500">
-              <span className="text-xs font-mono tracking-widest text-blue-400 uppercase">
-                3. Izgradnja poverenja
-              </span>
-
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight">
-                {isSr ? "Onda traži razlog da vam veruje." : "Then they look for a reason to trust you."}
-              </h2>
-
-              {/* Visual: Trust indicators */}
-              <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-lg mx-auto w-full">
-                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-center space-y-1">
-                  <div className="flex justify-center text-amber-400 gap-0.5">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star key={s} className="w-3.5 h-3.5 fill-amber-400" />
-                    ))}
-                  </div>
-                  <div className="text-xs font-bold text-slate-200">Google Ocene</div>
-                  <div className="text-[10px] text-slate-400">5.0 Zvezdica</div>
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 text-center space-y-1">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400 mx-auto" />
-                  <div className="text-xs font-bold text-slate-200">Stvarni Radovi</div>
-                  <div className="text-[10px] text-slate-400">Fotografije & Dokazi</div>
-                </div>
-
-                <div className="col-span-2 sm:col-span-1 p-3.5 rounded-xl bg-white/5 border border-white/10 text-center space-y-1">
-                  <CheckCircle2 className="w-4 h-4 text-blue-400 mx-auto" />
-                  <div className="text-xs font-bold text-slate-200">Jasne Cene</div>
-                  <div className="text-[10px] text-slate-400">Bez skrivenih troškova</div>
-                </div>
-              </div>
-
-              <p className="text-sm sm:text-base text-slate-400 max-w-md mx-auto pt-1">
-                {isSr 
-                  ? "Kupac upoređuje vašu ponudu sa alternativama pre nego što prelomi." 
-                  : "The client weighs your offer against alternatives before taking action."}
-              </p>
-            </div>
-          )}
-
-          {/* =========================================================================
-              STAGE 4: ODLUČUJE DA LI ĆE NAPRAVITI KORAK (0.66 - 0.82)
-             ========================================================================= */}
-          {currentStage === 4 && (
-            <div className="space-y-6 animate-fadeIn transition-all duration-500">
-              <span className="text-xs font-mono tracking-widest text-blue-400 uppercase">
-                4. Završna konverzija
-              </span>
-
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight">
-                {isSr ? "Na kraju odlučuje da li će vas kontaktirati." : "Finally, they decide whether to reach out."}
-              </h2>
-
-              {/* Visual: Action triggers */}
-              <div className="pt-4 flex flex-wrap justify-center gap-3 max-w-md mx-auto w-full">
-                <div className="px-5 py-3 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center gap-2.5 text-sm font-semibold text-blue-300">
-                  <Phone className="w-4 h-4 text-blue-400" />
-                  <span>Direktan Poziv</span>
-                </div>
-                <div className="px-5 py-3 rounded-xl bg-emerald-600/20 border border-emerald-500/40 flex items-center gap-2.5 text-sm font-semibold text-emerald-300">
-                  <Calendar className="w-4 h-4 text-emerald-400" />
-                  <span>Online Zakazivanje</span>
-                </div>
-              </div>
-
-              <p className="text-sm sm:text-base text-slate-400 max-w-md mx-auto pt-1">
-                {isSr 
-                  ? "Sve vodi do jednog cilja: da posetilac postane vaš klijent." 
-                  : "Everything leads to one goal: turning a visitor into a client."}
-              </p>
-            </div>
-          )}
-
-          {/* =========================================================================
-              STAGE 5: THE BREAK / IMPORTANT PUNCHLINE (0.82 - 1.00)
-             ========================================================================= */}
-          {currentStage === 5 && (
-            <div className="space-y-6 animate-scaleIn transition-all duration-500 max-w-2xl mx-auto">
-              {/* Visual Line Break indicator */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-400 text-xs font-mono font-bold">
-                <AlertTriangle className="w-4 h-4" />
-                <span>USKO GRLO NA PUTU KUPCA</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tight text-white leading-[1.15]">
-                {isSr 
-                  ? "I negde na ovom putu možete da ga izgubite." 
-                  : "And somewhere along this path, you can lose them."}
-              </h2>
-
-              <div className="pt-2 text-xl sm:text-3xl font-display font-bold text-blue-400">
-                {isSr 
-                  ? "Naš posao je da pronađemo gde." 
-                  : "Our job is to find exactly where."}
-              </div>
-
-              <div className="pt-6">
-                <button
-                  onClick={onContinueClick}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-slate-950 font-bold text-sm hover:bg-slate-100 transition-all cursor-pointer"
-                >
-                  <span>{isSr ? "Pogledajte dijagnostiku ↓" : "See diagnosis ↓"}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          )}
-
+          <p className="text-base sm:text-lg text-rose-200/80 max-w-xl mx-auto">
+            {isSr 
+              ? "Problem je što mesto na kojem ga gubite nije uvek očigledno." 
+              : "The problem is that the drop-off point is not always obvious."}
+          </p>
         </div>
 
-        {/* Bottom Connecting SVG Path */}
-        <div className="relative z-10 w-full max-w-3xl mx-auto flex items-center justify-center">
-          <svg className="w-full h-8 overflow-visible" viewBox="0 0 600 24">
-            {/* Background baseline rail */}
-            <line x1="20" y1="12" x2="580" y2="12" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
-            
-            {/* Active Drawing Line */}
-            {currentStage < 5 ? (
-              <line 
-                x1="20" 
-                y1="12" 
-                x2={20 + Math.min(1, progress / 0.82) * 560} 
-                y2="12" 
-                stroke="#3b82f6" 
-                strokeWidth="3" 
-                strokeLinecap="round"
-              />
-            ) : (
-              /* Broken Line at Stage 5 */
-              <>
-                <line x1="20" y1="12" x2="280" y2="12" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
-                <line x1="320" y1="12" x2="580" y2="12" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeDasharray="4 4" />
-                <circle cx="300" cy="12" r="6" fill="#ef4444" className="animate-pulse" />
-              </>
-            )}
-          </svg>
+        {/* Problem Possibilities List */}
+        <div className="space-y-3 max-w-3xl mx-auto">
+          {problemExamples.map((item, idx) => (
+            <div 
+              key={idx}
+              className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/10 text-sm sm:text-base text-slate-300 font-medium flex items-center gap-3"
+            >
+              <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Climax Conclusion */}
+        <div className="text-center py-6 space-y-4 max-w-2xl mx-auto border-t border-white/10 pt-10">
+          <h3 className="text-3xl sm:text-5xl font-display font-black text-white tracking-tight leading-tight">
+            {isSr ? "Zato „treba nam novi sajt“ još nije dijagnoza." : "That is why 'we need a new website' is not yet a diagnosis."}
+          </h3>
+          <p className="text-base sm:text-lg text-slate-400">
+            {isSr 
+              ? "Sajt je samo sredstvo. Moramo prvo utvrditi gde tačno nastaje prepreka." 
+              : "A website is merely a medium. We must first identify the exact bottleneck."}
+          </p>
         </div>
 
       </div>
-    </div>
+    </section>
   );
 }

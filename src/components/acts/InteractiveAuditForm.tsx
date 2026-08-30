@@ -125,12 +125,11 @@ export function InteractiveAuditForm() {
   };
 
   return (
-    <section id="interactive-form-section" className="py-24 sm:py-32 px-6 sm:px-12 bg-slate-900 dark:bg-[#07090e] text-white border-t border-slate-800 dark:border-white/10">
-      <div className="max-w-3xl mx-auto">
-        
+    <div id="interactive-form-container" className="w-full max-w-3xl mx-auto text-white">
+      <div>
         {/* SUCCESS SCREEN */}
         {isSubmitted ? (
-          <div className="p-10 sm:p-14 rounded-3xl bg-slate-950 border border-white/10 text-center space-y-6 shadow-2xl">
+          <div className="p-8 sm:p-14 rounded-3xl bg-slate-900 dark:bg-slate-950 border border-slate-200 dark:border-white/10 text-center space-y-6 shadow-2xl">
             <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30">
               <CheckCircle2 className="w-8 h-8" />
             </div>
@@ -155,7 +154,7 @@ export function InteractiveAuditForm() {
           </div>
         ) : (
           /* STEPPED FORM */
-          <div className="p-8 sm:p-12 rounded-3xl bg-slate-950 border border-white/10 shadow-2xl space-y-8">
+          <div className="p-6 sm:p-12 rounded-3xl bg-slate-900 dark:bg-slate-950 border border-slate-800 dark:border-white/10 shadow-2xl space-y-8">
             
             {/* Form Progress Header */}
             <div className="flex items-center justify-between border-b border-white/10 pb-5">
@@ -409,6 +408,6 @@ export function InteractiveAuditForm() {
         )}
 
       </div>
-    </section>
+    </div>
   );
 }

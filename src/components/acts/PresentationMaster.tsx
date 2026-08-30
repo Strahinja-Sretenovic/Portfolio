@@ -1,14 +1,9 @@
 import React from "react";
-import { Act1Opening } from "./Act1Opening";
-import { Act2BuyerPerspective } from "./Act2BuyerPerspective";
-import { Act3CustomerJourney } from "./Act3CustomerJourney";
-import { Act4ProblemRecognition } from "./Act4ProblemRecognition";
-import { Act5Diagnosis } from "./Act5Diagnosis";
-import { Act6Recommendation } from "./Act6Recommendation";
-import { Act7Method } from "./Act7Method";
-import { Act8Proof } from "./Act8Proof";
-import { Act9RiskReduction } from "./Act9RiskReduction";
-import { Act10Action } from "./Act10Action";
+import { Act1TheQuestion } from "./Act1TheQuestion";
+import { Act2CustomerJourney } from "./Act2CustomerJourney";
+import { Act3Diagnosis } from "./Act3Diagnosis";
+import { Act4TheProof } from "./Act4TheProof";
+import { Act5YourBusiness } from "./Act5YourBusiness";
 
 interface PresentationMasterProps {
   onOpenServiceModal?: (serviceId?: string) => void;
@@ -21,14 +16,14 @@ export function PresentationMaster({
 }: PresentationMasterProps) {
 
   const scrollToAct2 = () => {
-    const el = document.getElementById("act-2-perspective");
+    const el = document.getElementById("act-2-the-customer-journey");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const scrollToForm = () => {
-    const el = document.getElementById("act-10-action");
+    const el = document.getElementById("act-5-your-business");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
@@ -37,40 +32,25 @@ export function PresentationMaster({
   return (
     <div className="relative w-full bg-white dark:bg-[#05070c] text-slate-900 dark:text-slate-100 overflow-x-hidden selection:bg-blue-600/30 selection:text-white">
       
-      {/* ACT 1: THE OPENING (Ne počinjemo sajtom -> Počinjemo pitanjem) */}
-      <Act1Opening 
+      {/* ACT 1: THE QUESTION (Ne počinjemo sajtom. Počinjemo problemom.) */}
+      <Act1TheQuestion 
         onExploreClick={scrollToAct2} 
         onCtaClick={scrollToForm} 
       />
 
-      {/* ACT 2: SHOW THE BUYER THEIR OWN CUSTOMER (Educational Discovery Simulation) */}
-      <Act2BuyerPerspective />
+      {/* ACT 2: THE CUSTOMER JOURNEY (Educational Discovery Simulation & Friction Break) */}
+      <Act2CustomerJourney />
 
-      {/* ACT 3: THE CUSTOMER JOURNEY (The 6-stage path + Deliberate Break) */}
-      <Act3CustomerJourney />
+      {/* ACT 3: THE DIAGNOSIS (6 Dimensions, Solution Logic, Method) */}
+      <Act3Diagnosis />
 
-      {/* ACT 4: PROBLEM RECOGNITION (Where is the real constraint) */}
-      <Act4ProblemRecognition />
-
-      {/* ACT 5: DIAGNOSIS (6 Dimensions model) */}
-      <Act5Diagnosis />
-
-      {/* ACT 6: RECOMMENDATION (Problem -> Response) */}
-      <Act6Recommendation />
-
-      {/* ACT 7: METHOD (Discovery to Measurement) */}
-      <Act7Method />
-
-      {/* ACT 8: PROOF (3 Real Case Studies) */}
-      <Act8Proof 
+      {/* ACT 4: THE PROOF (3 Real Projects + Radical Honesty & Risk Reversal) */}
+      <Act4TheProof 
         onOpenProjectsModal={onOpenProjectsModal} 
       />
 
-      {/* ACT 9: RISK REDUCTION & RADICAL HONESTY */}
-      <Act9RiskReduction />
-
-      {/* ACT 10: ACTION (Your Business + Conversational Stepped Form) */}
-      <Act10Action />
+      {/* ACT 5: YOUR BUSINESS (Qualification Stepped Form + Clear Context) */}
+      <Act5YourBusiness />
 
     </div>
   );

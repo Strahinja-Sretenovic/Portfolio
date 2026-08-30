@@ -64,12 +64,10 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
   const isSr = language === "sr";
 
   const navLinks = [
-    { id: "journey", name: isSr ? "Put kupca" : "Customer Journey", href: "#act-2-perspective" },
-    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", href: "#act-5-diagnosis" },
-    { id: "recommend", name: isSr ? "Rešenja" : "Solutions", href: "#act-6-recommendation" },
-    { id: "proc", name: isSr ? "Proces" : "Process", href: "#act-7-method" },
-    { id: "work", name: isSr ? "Radovi" : "Work", href: "#act-8-proof", isProjects: true },
-    { id: "audit", name: isSr ? "Analiza" : "Audit", href: "#act-10-action" },
+    { id: "journey", name: isSr ? "Put kupca" : "Customer Journey", href: "#act-2-the-customer-journey" },
+    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", href: "#act-3-the-diagnosis" },
+    { id: "work", name: isSr ? "Rezultati" : "Results", href: "#act-4-the-proof", isProjects: true },
+    { id: "audit", name: isSr ? "Vaš biznis" : "Your Business", href: "#act-5-your-business" },
     { id: "faq", name: isSr ? "FAQ" : "FAQ", href: "#faq" },
   ];
 
@@ -86,7 +84,7 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
   };
 
   const handleCtaClick = () => {
-    scrollToTarget("#interactive-form-section", 80);
+    scrollToTarget("#act-5-your-business", 80);
   };
 
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
