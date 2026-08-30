@@ -70,16 +70,16 @@ export function FloatingContact() {
       {/* Primary Floating Action Toggle */}
       <motion.button
         onClick={handleToggle}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
-        className="w-13 h-13 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-600/30 hover:bg-blue-500 transition-colors cursor-pointer border-2 border-white/20"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-600/30 hover:bg-blue-500 transition-colors cursor-pointer border border-white/20"
         aria-label={isSr ? "Otvori kontakt meni" : "Open contact menu"}
       >
         <motion.div
           animate={{ rotate: isOpen ? 90 : 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+          {isOpen ? <X size={20} /> : <MessageSquare size={20} />}
         </motion.div>
       </motion.button>
     </div>

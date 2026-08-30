@@ -3,25 +3,24 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider } from "./context/LanguageContext";
 import { ToastProvider } from "./context/ToastContext";
 import { Header } from "./components/Header";
-import { PresentationMaster } from "./components/acts/PresentationMaster";
+import { IntroLoader } from "./components/IntroLoader";
+import { HorizontalDeck } from "./components/deck/HorizontalDeck";
 import { ServiceDetailsModal } from "./components/presentation/ServiceDetailsModal";
 import { AllProjects } from "./components/AllProjects";
-import { Faq } from "./components/Faq";
-import { Footer } from "./components/Footer";
+import { FaqModal } from "./components/FaqModal";
 import { FloatingContact } from "./components/FloatingContact";
-import { SmoothScroll } from "./components/SmoothScroll";
-import { IntroLoader } from "./components/IntroLoader";
 import { trackPageView } from "./utils/analytics";
 
 export default function App() {
-  const [introCompleted, setIntroCompleted] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
   const [currentView, setCurrentView] = useState<"home" | "all-projects">("home");
+  const [activeSlide, setActiveSlide] = useState<number>(0);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>(undefined);
   const [isFaqOpen, setIsFaqOpen] = useState(false);
 
   useEffect(() => {
-    trackPageView("/", "SSolutions — Full Cinematic Scroll Experience & Interactive Sales Film");
+    trackPageView("/", "SSolutions — Horizontal Interactive Sales Presentation");
   }, []);
 
   const handleOpenServiceModal = (serviceId?: string) => {
@@ -31,61 +30,69 @@ export default function App() {
 
   const handleOpenProjects = () => {
     setCurrentView("all-projects");
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleNavigateHome = () => {
     setCurrentView("home");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleJumpToSlide = (index: number) => {
+    if (currentView === "all-projects") {
+      setCurrentView("home");
+    }
+    setActiveSlide(index);
   };
 
   return (
     <ThemeProvider>
       <LanguageProvider>
         <ToastProvider>
-          {!introCompleted && <IntroLoader onComplete={() => setIntroCompleted(true)} />}
-          
-          <SmoothScroll>
-            <div className="min-h-screen font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white flex flex-col justify-between bg-white dark:bg-[#05070c] text-slate-900 dark:text-slate-100 relative">
-              
-              {/* Header Navigation */}
-              <Header
-                currentView={currentView}
-                onNavigateHome={handleNavigateHome}
-                onOpenProjects={handleOpenProjects}
-              />
+          {showIntro && <IntroLoader onComplete={() => setShowIntro(false)} />}
+          <div className="w-screen h-[100dvh] max-h-[100dvh] overflow-hidden font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white bg-white dark:bg-[#05070c] text-slate-900 dark:text-slate-100 relative">
+            
+            {/* Header Navigation */}
+            <Header
+              currentView={currentView}
+              onNavigateHome={handleNavigateHome}
+              onOpenProjects={handleOpenProjects}
+              onJumpToSlide={handleJumpToSlide}
+              onOpenFaq={() => setIsFaqOpen(true)}
+            />
 
-              {/* Main Content Area */}
-              <main className="flex-1">
-                {currentView === "all-projects" ? (
-                  <div className="pt-24 pb-16">
-                    <AllProjects onBack={handleNavigateHome} />
-                  </div>
-                ) : (
-                  /* FIVE PREMIUM INTERACTIVE ACTS SALES PRESENTATION */
-                  <PresentationMaster
-                    onOpenServiceModal={handleOpenServiceModal}
-                    onOpenProjectsModal={handleOpenProjects}
-                  />
-                )}
-
-                {/* Crawlable Semantic FAQ Layer for Search & Deep Questions */}
-                <div id="faq" className="border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-[#07090e]">
-                  <Faq />
+            {/* Main Application Area: Fullscreen Horizontal Deck or All Projects */}
+            <main className="w-full h-full">
+              {currentView === "all-projects" ? (
+                <div className="w-full h-full overflow-y-auto pt-20 pb-16 px-4 sm:px-6">
+                  <AllProjects onBack={handleNavigateHome} />
                 </div>
-              </main>
+              ) : (
+                /* 12-SLIDE FULLSCREEN HORIZONTAL INTERACTIVE SALES PRESENTATION */
+                <HorizontalDeck
+                  activeSlide={activeSlide}
+                  onSlideChange={setActiveSlide}
+                  onOpenProjectsModal={handleOpenProjects}
+                  onOpenServiceModal={handleOpenServiceModal}
+                />
+              )}
+            </main>
 
-              {/* Comprehensive Service Specs Modal */}
-              <ServiceDetailsModal
-                isOpen={isServiceModalOpen}
-                onClose={() => setIsServiceModalOpen(false)}
-                initialServiceId={selectedServiceId}
-              />
+            {/* FAQ Modal */}
+            <FaqModal
+              isOpen={isFaqOpen}
+              onClose={() => setIsFaqOpen(false)}
+              onJumpToForm={() => handleJumpToSlide(11)}
+            />
 
-              <Footer onOpenProjects={handleOpenProjects} />
-              <FloatingContact />
-            </div>
-          </SmoothScroll>
+            {/* Comprehensive Service Specs Modal */}
+            <ServiceDetailsModal
+              isOpen={isServiceModalOpen}
+              onClose={() => setIsServiceModalOpen(false)}
+              initialServiceId={selectedServiceId}
+            />
+
+            {/* Compact Floating Contact Helper */}
+            <FloatingContact />
+          </div>
         </ToastProvider>
       </LanguageProvider>
     </ThemeProvider>

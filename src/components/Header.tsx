@@ -9,90 +9,77 @@ interface HeaderProps {
   currentView?: "home" | "all-projects";
   onNavigateHome?: () => void;
   onOpenProjects?: () => void;
+  onJumpToSlide?: (slideIndex: number) => void;
+  onOpenFaq?: () => void;
 }
 
-export function Header({ currentView = "home", onNavigateHome, onOpenProjects }: HeaderProps) {
+export function Header({ 
+  currentView = "home", 
+  onNavigateHome, 
+  onOpenProjects,
+  onJumpToSlide,
+  onOpenFaq
+}: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const { language, setLanguage } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Track active section on scroll
-  useEffect(() => {
-    if (currentView === "all-projects") {
-      setActiveSection("projects");
-      return;
-    }
-
-    const sections = [
-      "scene-01", "scene-02", "scene-03", "scene-04", 
-      "scene-05", "scene-06", "scene-07", "scene-08", 
-      "scene-09", "scene-10", "scene-11", "scene-12", 
-      "scene-13", "scene-14", "faq"
-    ];
-    const handleScrollObserver = () => {
-      const scrollPosition = window.scrollY + 200;
-
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScrollObserver);
-    handleScrollObserver();
-    return () => window.removeEventListener("scroll", handleScrollObserver);
-  }, [currentView]);
-
   const isSr = language === "sr";
 
   const navLinks = [
-    { id: "journey", name: isSr ? "Put kupca" : "Customer Journey", href: "#act-2-the-customer-journey" },
-    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", href: "#act-3-the-diagnosis" },
-    { id: "work", name: isSr ? "Rezultati" : "Results", href: "#act-4-the-proof", isProjects: true },
-    { id: "audit", name: isSr ? "Vaš biznis" : "Your Business", href: "#act-5-your-business" },
-    { id: "faq", name: isSr ? "FAQ" : "FAQ", href: "#faq" },
+    { id: "journey", name: isSr ? "Put kupca" : "Customer Journey", href: "#", slideIndex: 2 },
+    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", href: "#", slideIndex: 4 },
+    { id: "proc", name: isSr ? "Proces" : "Process", href: "#", slideIndex: 6 },
+    { id: "work", name: isSr ? "Rezultati" : "Results", href: "#", isProjects: true },
+    { id: "audit", name: isSr ? "Vaš biznis" : "Your Business", href: "#", slideIndex: 11 },
+    { id: "faq", name: isSr ? "FAQ" : "FAQ", href: "#", isFaq: true },
   ];
 
-  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>, link: typeof navLinks[0]) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
+
     if (link.isProjects && onOpenProjects) {
       onOpenProjects();
       return;
     }
+
+    if (link.isFaq && onOpenFaq) {
+      onOpenFaq();
+      return;
+    }
     
-    if (link.href) {
-      scrollToTarget(link.href, 80);
+    if (link.slideIndex !== undefined) {
+      if (currentView === "all-projects" && onNavigateHome) {
+        onNavigateHome();
+      }
+      if (onJumpToSlide) {
+        onJumpToSlide(link.slideIndex);
+      }
     }
   };
 
   const handleCtaClick = () => {
-    scrollToTarget("#act-5-your-business", 80);
+    setIsMobileMenuOpen(false);
+    if (currentView === "all-projects" && onNavigateHome) {
+      onNavigateHome();
+    }
+    if (onJumpToSlide) {
+      onJumpToSlide(11);
+    }
   };
 
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
     if (currentView === "all-projects" && onNavigateHome) {
       onNavigateHome();
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (onJumpToSlide) {
+      onJumpToSlide(0);
+    }
   };
 
   return (
