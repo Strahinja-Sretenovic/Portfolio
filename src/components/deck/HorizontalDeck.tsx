@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 import { Slide01TheQuestion } from "./Slide01TheQuestion";
 import { Slide02YourCustomer } from "./Slide02YourCustomer";
@@ -13,6 +12,7 @@ import { Slide09ProjectsSplit } from "./Slide09ProjectsSplit";
 import { Slide10RadicalHonesty } from "./Slide10RadicalHonesty";
 import { Slide11TurnToVisitor } from "./Slide11TurnToVisitor";
 import { Slide12Form } from "./Slide12Form";
+import { DeckRobotProgress } from "./DeckRobotProgress";
 
 interface HorizontalDeckProps {
   onOpenProjectsModal: () => void;
@@ -43,21 +43,6 @@ export function HorizontalDeck({
 
   const isTransitioningRef = useRef<boolean>(false);
   const touchStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-
-  const slideTitles = [
-    isSr ? "01 — Pitanje" : "01 — The Question",
-    isSr ? "02 — Vaš kupac" : "02 — Your Customer",
-    isSr ? "03 — Put kupca" : "03 — Customer Journey",
-    isSr ? "04 — Prekid puta" : "04 — Where it Breaks",
-    isSr ? "05 — Dijagnostika" : "05 — Diagnosis",
-    isSr ? "06 — Preporuka" : "06 — Solutions Matrix",
-    isSr ? "07 — Proces rada" : "07 — Our Process",
-    isSr ? "08 — Projekat 01" : "08 — Real Project 01",
-    isSr ? "09 — Projekti 02 & 03" : "09 — Real Projects 02/03",
-    isSr ? "10 — Iskrenost" : "10 — Radical Honesty",
-    isSr ? "11 — Vaš biznis" : "11 — Your Business",
-    isSr ? "12 — Analiza & Forma" : "12 — Qualification Form",
-  ];
 
   const goToSlide = useCallback((index: number) => {
     if (index < 0 || index >= TOTAL_SLIDES) return;
@@ -241,67 +226,12 @@ export function HorizontalDeck({
         </section>
       </div>
 
-      {/* Floating Bottom Deck HUD & Navigation Bar */}
-      <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-4xl px-3 sm:px-5 py-2.5 rounded-full bg-slate-950/80 dark:bg-[#07090e]/90 backdrop-blur-xl border border-white/10 text-white shadow-2xl flex items-center justify-between gap-3">
-        
-        {/* Left: Previous Arrow & Counter */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={prevSlide}
-            disabled={currentSlide === 0}
-            aria-label="Previous slide"
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:hover:bg-white/5 flex items-center justify-center transition-all cursor-pointer"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-
-          <div className="font-mono text-xs text-slate-300 font-bold px-1 min-w-[52px] text-center">
-            {String(currentSlide + 1).padStart(2, "0")} / {String(TOTAL_SLIDES).padStart(2, "0")}
-          </div>
-        </div>
-
-        {/* Center: 12 Interactive Slide Indicators */}
-        <div className="hidden sm:flex items-center gap-1.5 overflow-x-auto max-w-[420px] py-1 px-1">
-          {Array.from({ length: TOTAL_SLIDES }).map((_, idx) => {
-            const isActive = currentSlide === idx;
-            return (
-              <button
-                key={idx}
-                onClick={() => goToSlide(idx)}
-                title={slideTitles[idx]}
-                aria-label={`Jump to slide ${idx + 1}`}
-                className={`h-2 rounded-full transition-all cursor-pointer ${
-                  isActive
-                    ? "w-7 bg-blue-500 shadow-sm shadow-blue-400"
-                    : "w-2 bg-white/20 hover:bg-white/40"
-                }`}
-              />
-            );
-          })}
-        </div>
-
-        {/* Right: Next Arrow & Direct Skip to Form CTA */}
-        <div className="flex items-center gap-2">
-          {currentSlide < TOTAL_SLIDES - 1 ? (
-            <button
-              onClick={jumpToForm}
-              className="hidden md:inline-flex items-center gap-1 text-[11px] font-mono text-blue-400 hover:text-blue-300 transition-colors pr-1 cursor-pointer"
-            >
-              <span>{isSr ? "Preskočite na analizu" : "Skip to audit"}</span>
-              <ArrowRight className="w-3 h-3" />
-            </button>
-          ) : null}
-
-          <button
-            onClick={nextSlide}
-            disabled={currentSlide === TOTAL_SLIDES - 1}
-            aria-label="Next slide"
-            className="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-500 disabled:opacity-30 disabled:hover:bg-blue-600 flex items-center justify-center transition-all shadow-md shadow-blue-500/20 cursor-pointer"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
+      {/* Walking Robot Progress Bar */}
+      <DeckRobotProgress
+        currentSlide={currentSlide}
+        totalSlides={TOTAL_SLIDES}
+        onGoTo={goToSlide}
+      />
     </div>
   );
 }
