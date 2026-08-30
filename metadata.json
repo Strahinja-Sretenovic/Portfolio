@@ -1,6 +1,6 @@
 {
-  "name": "SSolutions — Web Strategija, UX & Inženjerski Razvoj",
-  "description": "Ne počinjemo kodom. Počinjemo problemom. Pre nego što napravimo sajt, prvo utvrđujemo šta taj sajt treba da popravi u vašem biznisu.",
+  "name": "SSolutions — Digitalna Strategija, UX & Razvoj Sajtova",
+  "description": "Ne počinjemo sajtom. Počinjemo pitanjem gde trenutno gubite klijenta. SSolutions dijagnostikuje digitalni nastup pre bilo kakve izrade.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

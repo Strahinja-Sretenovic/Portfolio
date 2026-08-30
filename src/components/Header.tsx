@@ -64,11 +64,11 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
   const isSr = language === "sr";
 
   const navLinks = [
-    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", progress: 0.48 },
-    { id: "sol", name: isSr ? "Rešenja" : "Solutions", progress: 0.58 },
-    { id: "proc", name: isSr ? "Proces" : "Process", progress: 0.67 },
-    { id: "work", name: isSr ? "Radovi" : "Work", progress: 0.76, isProjects: true },
-    { id: "audit", name: isSr ? "Analiza" : "Audit", progress: 0.92 },
+    { id: "journey", name: isSr ? "Put kupca" : "Customer Journey", href: "#act-2-customer-journey" },
+    { id: "diag", name: isSr ? "Dijagnostika" : "Diagnosis", href: "#act-3-diagnosis" },
+    { id: "proc", name: isSr ? "Proces" : "Process", href: "#act-4-process" },
+    { id: "work", name: isSr ? "Radovi" : "Work", href: "#act-5-proof", isProjects: true },
+    { id: "audit", name: isSr ? "Analiza" : "Audit", href: "#interactive-form-section" },
     { id: "faq", name: isSr ? "FAQ" : "FAQ", href: "#faq" },
   ];
 
@@ -79,19 +79,13 @@ export function Header({ currentView = "home", onNavigateHome, onOpenProjects }:
       return;
     }
     
-    if (link.progress !== undefined) {
-      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const targetY = scrollableHeight * link.progress;
-      window.scrollTo({ top: targetY, behavior: "smooth" });
-    } else if (link.href) {
+    if (link.href) {
       scrollToTarget(link.href, 80);
     }
   };
 
   const handleCtaClick = () => {
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const targetY = scrollableHeight * 0.92;
-    window.scrollTo({ top: targetY, behavior: "smooth" });
+    scrollToTarget("#interactive-form-section", 80);
   };
 
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {

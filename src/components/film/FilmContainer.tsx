@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { Volume2, VolumeX, Eye, EyeOff, Sparkles, ChevronDown } from "lucide-react";
+import { Volume2, VolumeX, Eye, Sparkles, ChevronDown } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 import { sound } from "../../utils/sound";
+import { CustomerPathCanvas } from "./CustomerPathCanvas";
 import { PrologueScene } from "./scenes/PrologueScene";
 import { SearchScene } from "./scenes/SearchScene";
 import { DecisionTunnelScene } from "./scenes/DecisionTunnelScene";
@@ -14,7 +15,6 @@ import { RealWorkScene } from "./scenes/RealWorkScene";
 import { RiskReversalScene } from "./scenes/RiskReversalScene";
 import { FormScene } from "./scenes/FormScene";
 import { ReducedMotionNarrative } from "./ReducedMotionNarrative";
-import { scrollToTarget } from "../SmoothScroll";
 
 interface FilmContainerProps {
   onOpenServiceModal?: (serviceId?: string) => void;
@@ -43,7 +43,7 @@ export function FilmContainer({
     }
   }, []);
 
-  // Synchronized ultra-performant scroll tracking for the pinned master stage
+  // Synchronized ultra-performant 1:1 scroll tracking for the pinned master stage
   useEffect(() => {
     if (reducedMotion) return;
 
@@ -58,7 +58,7 @@ export function FilmContainer({
         const currentScroll = -rect.top;
         const rawProgress = currentScroll / totalScrollable;
         const clamped = Math.min(1, Math.max(0, rawProgress));
-        setScrollProgress(prev => (Math.abs(prev - clamped) > 0.0001 ? clamped : prev));
+        setScrollProgress(prev => (Math.abs(prev - clamped) > 0.0002 ? clamped : prev));
       }
       ticking = false;
     };
@@ -207,16 +207,19 @@ export function FilmContainer({
     <div
       ref={containerRef}
       className="relative bg-white dark:bg-[#05070c] text-slate-900 dark:text-slate-100 selection:bg-blue-600/30 selection:text-white"
-      style={{ height: "2600vh" }} // Continuous deep scroll timeline
+      style={{ height: "2000vh" }} // Optimized responsive timeline distance (eliminates dead scroll)
     >
       {/* THE MASTER PINNED VIEWPORT STAGE */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between">
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex flex-col justify-between">
         
-        {/* Deep ambient background texture & grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.06)_0,transparent_70%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40" />
+        {/* Z-0: Deep ambient background texture & subtle grid */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0,transparent_70%)] pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40 z-0" />
 
-        {/* Top Control Overlay (Sound toggle & chapter badge) */}
+        {/* Z-10: Optimized Trajectory Canvas */}
+        <CustomerPathCanvas progress={scrollProgress} />
+
+        {/* Z-40: Top Control Overlay (Sound toggle & chapter badge) */}
         <div className="absolute top-20 inset-x-0 px-6 sm:px-10 flex items-center justify-between z-40 pointer-events-none">
           {/* Chapter Indicator */}
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/60 dark:bg-black/40 backdrop-blur-md border border-slate-200 dark:border-white/10 text-[11px] font-mono font-bold">
@@ -249,9 +252,9 @@ export function FilmContainer({
         </div>
 
         {/* ===================================================================
-            CONTINUOUS FILM SCENES WITH SEAMLESS CROSS-DISSOLVE
+            Z-20: CONTINUOUS FILM SCENES WITH SEAMLESS CROSS-DISSOLVE
            =================================================================== */}
-        <div className="relative flex-1 w-full h-full flex items-center justify-center overflow-hidden">
+        <div className="relative flex-1 w-full h-full flex items-center justify-center overflow-hidden z-20">
           {sceneList.map((scene) => {
             const isVisible =
               scrollProgress >= scene.start - fadeMargin &&
@@ -291,10 +294,10 @@ export function FilmContainer({
             let translateY = 0;
             let scale = 1;
             if (scrollProgress < scene.start && scene.start > 0) {
-              translateY = (1 - opacity) * 26;
-              scale = 0.97 + 0.03 * opacity;
+              translateY = (1 - opacity) * 20;
+              scale = 0.98 + 0.02 * opacity;
             } else if (scrollProgress > scene.end && scene.end < 1) {
-              translateY = -(1 - opacity) * 26;
+              translateY = -(1 - opacity) * 20;
               scale = 1.00 - 0.02 * (1 - opacity);
             }
 
@@ -305,7 +308,7 @@ export function FilmContainer({
                 style={{
                   opacity,
                   transform: `translate3d(0, ${translateY}px, 0) scale(${scale})`,
-                  pointerEvents: opacity > 0.4 ? "auto" : "none",
+                  pointerEvents: opacity > 0.5 ? "auto" : "none",
                   visibility: opacity > 0.001 ? "visible" : "hidden",
                   willChange: "transform, opacity"
                 }}
@@ -316,8 +319,8 @@ export function FilmContainer({
           })}
         </div>
 
-        {/* Global Bottom Cinematic Progress Baseline Bar */}
-        <div className="relative w-full px-6 sm:px-12 pb-4 z-40 flex items-center justify-between text-[11px] font-mono text-slate-400">
+        {/* Z-40: Global Bottom Cinematic Progress Baseline Bar */}
+        <div className="relative w-full px-6 sm:px-12 pb-4 z-40 flex items-center justify-between text-[11px] font-mono text-slate-400 pointer-events-none">
           <div className="flex items-center gap-2">
             <span>01</span>
             <div className="w-24 sm:w-48 h-1 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
@@ -339,3 +342,4 @@ export function FilmContainer({
     </div>
   );
 }
+

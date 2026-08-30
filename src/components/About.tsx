@@ -49,8 +49,8 @@ export function About() {
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             {isSr
-              ? "Od prvog razgovora do realizacije radite direktno sa osobom koja razume i poslovni problem i tehničko rešenje — bez posrednika i bez pokvarenog telefona."
-              : "From the initial conversation to final execution, you work directly with the person who understands both the commercial problem and the technical solution — no middlemen, no lost context."}
+              ? "Od prvog razgovora do realizacije radite direktno sa timom koji razume i poslovni problem i tehničko rešenje — bez posrednika i bez pokvarenog telefona."
+              : "From the initial conversation to final execution, you work directly with the team who understands both the commercial problem and the technical solution — no middlemen, no lost context."}
           </p>
         </div>
 
@@ -61,19 +61,19 @@ export function About() {
           <div className="lg:col-span-7 space-y-6">
             <div className="p-7 sm:p-9 rounded-3xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-5">
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
-                {isSr ? "Počeo sam iz softverskog inženjeringa — ali sam shvatio šta zapravo pravi razliku" : "Started in software engineering — realized what truly drives commercial impact"}
+                {isSr ? "Krenuli smo iz softverskog inženjeringa — i shvatili šta zapravo pravi razliku" : "Started in software engineering — realized what truly drives commercial impact"}
               </h3>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {isSr
-                  ? "Godinama sam gledao kako se novac ulaže u skupe web sajtove koji izgledaju lepo na prezentacijama, ali u praksi ne donose rezultate. Problem nikada nije bio u izboru šablona ili animacija, već u tome što niko nije pitao: 'Ko je kupac i šta ga sprečava da se javi?'"
-                  : "For years I watched businesses invest in flashy websites that looked fine in presentations but generated zero inquiries. The breakdown was never aesthetics — it was that nobody asked: 'Who is the buyer and what stops them from reaching out?'"}
+                  ? "Godinama smo gledali kako se novac ulaže u skupe web sajtove koji izgledaju lepo na prezentacijama, ali u praksi ne donose rezultate. Problem nikada nije bio u izboru šablona ili animacija, već u tome što niko nije pitao: 'Ko je kupac i šta ga sprečava da se javi?'"
+                  : "For years we watched businesses invest in flashy websites that looked fine in presentations but generated zero inquiries. The breakdown was never aesthetics — it was that nobody asked: 'Who is the buyer and what stops them from reaching out?'"}
               </p>
 
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {isSr
-                  ? "U SSolutions-u spajam duboko tehničko inženjerstvo (brz TypeScript kod, web aplikacije, automatizacije) sa poslovnom strategijom i psihologijom kupaca. Zato svaki projekat počinjem dijagnostikom, a ne šablonom."
-                  : "At SSolutions, I unite deep technical engineering (blazing fast TypeScript, custom web apps, automation) with business strategy and buyer psychology. That is why every project starts with diagnosis, not a template."}
+                  ? "U SSolutions-u spajamo duboko tehničko inženjerstvo (brz TypeScript kod, web aplikacije, automatizacije) sa poslovnom strategijom i psihologijom kupaca. Zato svaki projekat počinjemo dijagnostikom, a ne šablonom."
+                  : "At SSolutions, we unite deep technical engineering (fast TypeScript, custom web apps, automation) with business strategy and buyer psychology. That is why every project starts with diagnosis, not a template."}
               </p>
 
               {/* 3 Pillars */}

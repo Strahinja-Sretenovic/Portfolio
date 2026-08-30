@@ -95,7 +95,7 @@ export function AuditExample() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isSr ? "Kako izgleda kada analiziram jedan biznis?" : "What does it look like when I analyze a business?"}
+            {isSr ? "Kako izgleda kada analiziramo jedan biznis?" : "What does it look like when we analyze a business?"}
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">

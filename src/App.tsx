@@ -3,7 +3,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider } from "./context/LanguageContext";
 import { ToastProvider } from "./context/ToastContext";
 import { Header } from "./components/Header";
-import { FilmContainer } from "./components/film/FilmContainer";
+import { PresentationMaster } from "./components/acts/PresentationMaster";
 import { ServiceDetailsModal } from "./components/presentation/ServiceDetailsModal";
 import { AllProjects } from "./components/AllProjects";
 import { Faq } from "./components/Faq";
@@ -14,7 +14,7 @@ import { IntroLoader } from "./components/IntroLoader";
 import { trackPageView } from "./utils/analytics";
 
 export default function App() {
-  const [introCompleted, setIntroCompleted] = useState(false);
+  const [introCompleted, setIntroCompleted] = useState(true);
   const [currentView, setCurrentView] = useState<"home" | "all-projects">("home");
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>(undefined);
@@ -62,14 +62,10 @@ export default function App() {
                     <AllProjects onBack={handleNavigateHome} />
                   </div>
                 ) : (
-                  /* THE ONE CONTINUOUS PINNED INTERACTIVE SALES FILM */
-                  <FilmContainer
+                  /* FIVE PREMIUM INTERACTIVE ACTS SALES PRESENTATION */
+                  <PresentationMaster
                     onOpenServiceModal={handleOpenServiceModal}
                     onOpenProjectsModal={handleOpenProjects}
-                    onOpenFaqModal={() => {
-                      const faqEl = document.getElementById("faq");
-                      if (faqEl) faqEl.scrollIntoView({ behavior: "smooth" });
-                    }}
                   />
                 )}
 
