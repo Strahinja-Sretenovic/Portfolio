@@ -76,19 +76,38 @@ export function HorizontalDeck({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [nextSlide, prevSlide]);
 
-  // Debounced Wheel Navigation (Desktop)
+  // Debounced Wheel Navigation (Desktop & Laptop)
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      const target = e.target as HTMLElement;
-      if (target && target.closest("textarea, input, .overflow-y-auto")) {
+      const target = e.target as HTMLElement | null;
+
+      // Ignore when focused inside text input or textarea
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
         return;
+      }
+
+      // Check if user is inside a scrollable modal or inner container that actually has active scroll room
+      if (target) {
+        let el: HTMLElement | null = target;
+        while (el && el !== document.body && el !== document.documentElement) {
+          // If it's a modal dialog or projects list, let it scroll normally
+          if (el.classList.contains("modal-scrollable") || el.getAttribute("role") === "dialog") {
+            const hasVerticalScroll = el.scrollHeight > el.clientHeight + 4;
+            if (hasVerticalScroll) {
+              if (e.deltaY > 0 && el.scrollTop + el.clientHeight < el.scrollHeight - 5) return;
+              if (e.deltaY < 0 && el.scrollTop > 5) return;
+            }
+          }
+          el = el.parentElement;
+        }
       }
 
       if (isTransitioningRef.current) return;
 
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
 
-      if (Math.abs(delta) > 35) {
+      // Sensitive and reliable threshold for mouse wheel & touchpad
+      if (Math.abs(delta) > 18) {
         isTransitioningRef.current = true;
         if (delta > 0) {
           nextSlide();
@@ -98,7 +117,7 @@ export function HorizontalDeck({
 
         setTimeout(() => {
           isTransitioningRef.current = false;
-        }, 450);
+        }, 420);
       }
     };
 
