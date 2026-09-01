@@ -62,11 +62,11 @@ export default function App() {
             {/* Main Application Area: Fullscreen Horizontal Deck or All Projects */}
             <main className="w-full h-full">
               {currentView === "all-projects" ? (
-                <div className="w-full h-full overflow-y-auto pt-20 pb-16 px-4 sm:px-6">
+                <div className="w-full h-full overflow-y-auto pt-16 pb-16 px-3.5 sm:px-6">
                   <AllProjects onBack={handleNavigateHome} />
                 </div>
               ) : (
-                /* 12-SLIDE FULLSCREEN HORIZONTAL INTERACTIVE SALES PRESENTATION */
+                /* 10-SLIDE FULLSCREEN HORIZONTAL INTERACTIVE SALES PRESENTATION */
                 <HorizontalDeck
                   activeSlide={activeSlide}
                   onSlideChange={setActiveSlide}
@@ -80,7 +80,7 @@ export default function App() {
             <FaqModal
               isOpen={isFaqOpen}
               onClose={() => setIsFaqOpen(false)}
-              onJumpToForm={() => handleJumpToSlide(11)}
+              onJumpToForm={() => handleJumpToSlide(9)}
             />
 
             {/* Comprehensive Service Specs Modal */}

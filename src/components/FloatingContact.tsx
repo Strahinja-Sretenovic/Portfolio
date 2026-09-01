@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Mail, X, Calendar, MessageSquare } from "lucide-react";
+import { Mail, X, MessageSquare, Phone } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
-import { trackConsultationCtaClick, trackDirectContact, trackEvent } from "../utils/analytics";
+import { trackDirectContact, trackEvent } from "../utils/analytics";
 
 export function FloatingContact() {
-  const { language } = useLanguage();
-  const isSr = language === "sr";
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const contact = t.contact;
 
   const handleToggle = () => {
     const nextState = !isOpen;
@@ -18,72 +18,72 @@ export function FloatingContact() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-40">
+    <div className="fixed bottom-12 sm:bottom-4 right-2.5 sm:right-5 z-40">
       {/* Expanded Quick Options */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: 15, scale: 0.9 }}
+            initial={{ opacity: 0, y: 12, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 15, scale: 0.9 }}
+            exit={{ opacity: 0, y: 12, scale: 0.92 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="mb-3 flex flex-col gap-2.5 items-end"
+            className="mb-2 flex flex-col gap-1.5 items-end"
           >
             <motion.a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=ssolutionsrs@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:ssolutionsrs@gmail.com"
               onClick={() => {
-                trackDirectContact({ channel: "gmail", target: "ssolutionsrs@gmail.com", location: "Floating Quick Menu" });
+                trackDirectContact({ channel: "email", target: "ssolutionsrs@gmail.com", location: "Floating Quick Menu" });
                 setIsOpen(false);
               }}
-              whileHover={{ scale: 1.05, x: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-blue-600 text-white font-medium text-xs sm:text-sm shadow-lg hover:bg-blue-500 transition-colors cursor-pointer"
+              whileHover={{ scale: 1.04, x: -2 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-blue-600 text-white font-display font-bold text-xs shadow-lg hover:bg-blue-500 transition-colors cursor-pointer"
             >
-              <span>{isSr ? "Pošaljite Gmail" : "Open Gmail"}</span>
-              <Mail size={16} />
+              <span>{contact.emailUs}</span>
+              <Mail size={13} />
             </motion.a>
 
             <motion.a
-              href="#contact"
+              href="tel:+381659911997"
               onClick={() => {
-                trackConsultationCtaClick({
-                  location: "Floating_Menu",
-                  ctaText: isSr ? "Zakaži Konsultaciju" : "Book Meeting",
-                  target: "#contact",
-                  serviceContext: "Floating Quick Menu Consultation CTA"
-                });
+                trackDirectContact({ channel: "phone", target: "+381659911997", location: "Floating Quick Menu" });
                 setIsOpen(false);
               }}
-              whileHover={{ scale: 1.05, x: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-xs sm:text-sm shadow-lg hover:bg-slate-800 transition-colors border border-white/10 cursor-pointer"
+              whileHover={{ scale: 1.04, x: -2 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-display font-bold text-xs shadow-lg transition-colors cursor-pointer border border-white/10"
             >
-              <span>{isSr ? "Zakaži Konsultaciju" : "Book Meeting"}</span>
-              <Calendar size={16} />
+              <span>+381 65 991 1997</span>
+              <Phone size={13} />
             </motion.a>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Primary Floating Action Toggle */}
+      {/* Main Trigger Floating Button */}
       <motion.button
         onClick={handleToggle}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-600/30 hover:bg-blue-500 transition-colors cursor-pointer border border-white/20"
-        aria-label={isSr ? "Otvori kontakt meni" : "Open contact menu"}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        aria-label={isOpen ? t.common.close : contact.title}
+        className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shadow-xl transition-all cursor-pointer ${
+          isOpen
+            ? "bg-slate-800 text-white"
+            : "bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/25"
+        }`}
       >
-        <motion.div
-          animate={{ rotate: isOpen ? 90 : 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-          {isOpen ? <X size={20} /> : <MessageSquare size={20} />}
-        </motion.div>
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+              <X size={16} />
+            </motion.div>
+          ) : (
+            <motion.div key="chat" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+              <MessageSquare size={16} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.button>
     </div>
   );
 }
-
-

@@ -1,270 +1,255 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { usePresentationEdit } from "../../hooks/usePresentationEdit";
 import { useLanguage } from "../../context/LanguageContext";
-import { Slide01TheQuestion } from "./Slide01TheQuestion";
-import { Slide02YourCustomer } from "./Slide02YourCustomer";
+
+// Slide Components
+import { Slide01Opening } from "./Slide01Opening";
+import { Slide02Choice } from "./Slide02Choice";
 import { Slide03CustomerJourney } from "./Slide03CustomerJourney";
-import { Slide04WhereItBreaks } from "./Slide04WhereItBreaks";
+import { Slide04Break } from "./Slide04Break";
 import { Slide05Diagnosis } from "./Slide05Diagnosis";
-import { Slide06ProblemSolutionMatrix } from "./Slide06ProblemSolutionMatrix";
+import { Slide06RightTool } from "./Slide06RightTool";
 import { Slide07Process } from "./Slide07Process";
-import { Slide08ProjectStevan } from "./Slide08ProjectStevan";
-import { Slide09ProjectsSplit } from "./Slide09ProjectsSplit";
-import { Slide10RadicalHonesty } from "./Slide10RadicalHonesty";
-import { Slide11TurnToVisitor } from "./Slide11TurnToVisitor";
-import { Slide12Form } from "./Slide12Form";
-import { DeckRobotProgress } from "./DeckRobotProgress";
+import { Slide08Proof } from "./Slide08Proof";
+import { Slide09RadicalHonesty } from "./Slide09RadicalHonesty";
+import { Slide10YourBusiness } from "./Slide10YourBusiness";
 
 interface HorizontalDeckProps {
+  activeSlide: number;
+  onSlideChange: (index: number) => void;
   onOpenProjectsModal: () => void;
-  onOpenServiceModal: (id?: string) => void;
-  activeSlide?: number;
-  onSlideChange?: (index: number) => void;
+  onOpenServiceModal?: (serviceId?: string) => void;
 }
 
-const slideVariants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? "40vw" : "-40vw",
-    opacity: 0,
-    scale: 0.94,
-    rotateY: dir > 0 ? 3 : -3,
-    filter: "blur(4px)",
-  }),
-  center: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    rotateY: 0,
-    filter: "blur(0px)",
-    transition: {
-      x: { type: "spring", stiffness: 220, damping: 26, mass: 0.8 },
-      scale: { type: "spring", stiffness: 220, damping: 26 },
-      rotateY: { duration: 0.4, ease: "easeOut" },
-      opacity: { duration: 0.35, ease: "easeOut" },
-      filter: { duration: 0.3 },
-    },
-  },
-  exit: (dir: number) => ({
-    x: dir > 0 ? "-40vw" : "40vw",
-    opacity: 0,
-    scale: 0.94,
-    rotateY: dir > 0 ? -3 : 3,
-    filter: "blur(4px)",
-    transition: {
-      x: { type: "spring", stiffness: 220, damping: 26, mass: 0.8 },
-      scale: { type: "spring", stiffness: 220, damping: 26 },
-      rotateY: { duration: 0.3, ease: "easeIn" },
-      opacity: { duration: 0.25, ease: "easeIn" },
-      filter: { duration: 0.25 },
-    },
-  }),
-};
-
-export function HorizontalDeck({ 
-  onOpenProjectsModal, 
-  onOpenServiceModal: _onOpenServiceModal,
+export function HorizontalDeck({
   activeSlide,
-  onSlideChange
+  onSlideChange,
+  onOpenProjectsModal
 }: HorizontalDeckProps) {
-  const { language: _language } = useLanguage();
+  const { totalSlides, isMobile, isTablet, isLaptop, isWide } = usePresentationEdit();
+  const { t } = useLanguage();
 
-  const TOTAL_SLIDES = 12;
-  const [internalSlide, setInternalSlide] = useState<number>(0);
-  const [direction, setDirection] = useState<number>(1);
-  const currentSlide = activeSlide !== undefined ? activeSlide : internalSlide;
-  const prevSlideRef = useRef<number>(currentSlide);
+  const isTransitioningRef = useRef(false);
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
-  // Sync direction when activeSlide is controlled externally
-  useEffect(() => {
-    if (activeSlide !== undefined && activeSlide !== prevSlideRef.current) {
-      setDirection(activeSlide >= prevSlideRef.current ? 1 : -1);
-      prevSlideRef.current = activeSlide;
-    }
-  }, [activeSlide]);
-
-  const isTransitioningRef = useRef<boolean>(false);
-  const touchStartRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-
-  const navigateTo = useCallback((newIndex: number, dir?: number) => {
-    if (newIndex < 0 || newIndex >= TOTAL_SLIDES) return;
-    const computedDir = dir !== undefined ? dir : (newIndex >= currentSlide ? 1 : -1);
-    setDirection(computedDir);
-    prevSlideRef.current = newIndex;
-
-    if (onSlideChange) {
-      onSlideChange(newIndex);
-    } else {
-      setInternalSlide(newIndex);
-    }
-  }, [TOTAL_SLIDES, currentSlide, onSlideChange]);
+  // Clamp activeSlide within current totalSlides
+  const safeActiveSlide = Math.min(Math.max(0, activeSlide), totalSlides - 1);
 
   const goToSlide = useCallback((index: number) => {
-    navigateTo(index);
-  }, [navigateTo]);
+    if (index >= 0 && index < totalSlides) {
+      onSlideChange(index);
+    }
+  }, [totalSlides, onSlideChange]);
 
   const nextSlide = useCallback(() => {
-    navigateTo(Math.min(currentSlide + 1, TOTAL_SLIDES - 1), 1);
-  }, [navigateTo, currentSlide, TOTAL_SLIDES]);
+    if (safeActiveSlide < totalSlides - 1) {
+      goToSlide(safeActiveSlide + 1);
+    }
+  }, [safeActiveSlide, totalSlides, goToSlide]);
 
   const prevSlide = useCallback(() => {
-    navigateTo(Math.max(currentSlide - 1, 0), -1);
-  }, [navigateTo, currentSlide]);
-
-  const jumpToForm = useCallback(() => {
-    navigateTo(11, 1);
-  }, [navigateTo]);
-
-  // Wheel and Trackpad navigation with debounce lock
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // If user is scrolling inside an element with standard overflow, allow it
-      const target = e.target as HTMLElement;
-      if (target && target.closest("textarea, input, select")) {
-        return;
-      }
-
-      // Check dominant delta
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-
-      if (Math.abs(delta) < 25) return;
-
-      if (isTransitioningRef.current) return;
-
-      if (delta > 0) {
-        // Move Right / Next
-        if (currentSlide < TOTAL_SLIDES - 1) {
-          isTransitioningRef.current = true;
-          nextSlide();
-          setTimeout(() => {
-            isTransitioningRef.current = false;
-          }, 450);
-        }
-      } else {
-        // Move Left / Prev
-        if (currentSlide > 0) {
-          isTransitioningRef.current = true;
-          prevSlide();
-          setTimeout(() => {
-            isTransitioningRef.current = false;
-          }, 450);
-        }
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: true });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [currentSlide, nextSlide, prevSlide, TOTAL_SLIDES]);
+    if (safeActiveSlide > 0) {
+      goToSlide(safeActiveSlide - 1);
+    }
+  }, [safeActiveSlide, goToSlide]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const activeTag = document.activeElement?.tagName.toLowerCase();
-      if (activeTag === "input" || activeTag === "textarea" || activeTag === "select") {
+      const target = e.target as HTMLElement;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
         return;
       }
 
-      if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") {
+      if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
         e.preventDefault();
         nextSlide();
-      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "PageUp") {
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         e.preventDefault();
         prevSlide();
-      } else if (e.key === "Home") {
-        e.preventDefault();
-        goToSlide(0);
-      } else if (e.key === "End") {
-        e.preventDefault();
-        goToSlide(TOTAL_SLIDES - 1);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextSlide, prevSlide, goToSlide, TOTAL_SLIDES]);
+  }, [nextSlide, prevSlide]);
 
-  // Touch swipe navigation
+  // Debounced Wheel Navigation (Desktop)
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      const target = e.target as HTMLElement;
+      if (target && target.closest("textarea, input, .overflow-y-auto")) {
+        return;
+      }
+
+      if (isTransitioningRef.current) return;
+
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+
+      if (Math.abs(delta) > 35) {
+        isTransitioningRef.current = true;
+        if (delta > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+
+        setTimeout(() => {
+          isTransitioningRef.current = false;
+        }, 450);
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [nextSlide, prevSlide]);
+
+  // Touch Swipe Handlers for mobile & tablet
   const handleTouchStart = (e: React.TouchEvent) => {
+    const target = e.target as HTMLElement;
+    // Don't intercept swipe inside text inputs, textareas or interactive buttons with specific handlers
+    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) {
+      touchStartRef.current = null;
+      return;
+    }
+
     touchStartRef.current = {
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
+      time: Date.now()
     };
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
-    const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
+    if (!touchStartRef.current) return;
 
-    // Dominant horizontal swipe
-    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40) {
-      if (deltaX < 0) {
+    const diffX = touchStartRef.current.x - e.changedTouches[0].clientX;
+    const diffY = touchStartRef.current.y - e.changedTouches[0].clientY;
+    const elapsed = Date.now() - touchStartRef.current.time;
+
+    // Must be predominantly horizontal and quick or decisive
+    if (Math.abs(diffX) > Math.abs(diffY) * 1.2 && Math.abs(diffX) > 35 && elapsed < 800) {
+      if (diffX > 0) {
         nextSlide();
       } else {
         prevSlide();
       }
     }
+
+    touchStartRef.current = null;
   };
 
-  const renderSlide = (index: number) => {
-    switch (index) {
+  // Render the current slide based on safeActiveSlide
+  const renderSlide = () => {
+    const commonProps = {
+      isMobile,
+      isTablet,
+      isLaptop,
+      isWide,
+      onNext: nextSlide,
+      onPrev: prevSlide,
+      onGoToForm: () => goToSlide(9)
+    };
+
+    switch (safeActiveSlide) {
       case 0:
-        return <Slide01TheQuestion onNext={nextSlide} onJumpToForm={jumpToForm} />;
+        return <Slide01Opening {...commonProps} />;
       case 1:
-        return <Slide02YourCustomer onNext={nextSlide} onPrev={prevSlide} />;
+        return <Slide02Choice {...commonProps} />;
       case 2:
-        return <Slide03CustomerJourney onNext={nextSlide} onPrev={prevSlide} />;
+        return <Slide03CustomerJourney {...commonProps} />;
       case 3:
-        return <Slide04WhereItBreaks onNext={nextSlide} onPrev={prevSlide} />;
+        return <Slide04Break {...commonProps} />;
       case 4:
-        return <Slide05Diagnosis onNext={nextSlide} onPrev={prevSlide} />;
+        return <Slide05Diagnosis {...commonProps} />;
       case 5:
-        return <Slide06ProblemSolutionMatrix onNext={nextSlide} onPrev={prevSlide} />;
+        return <Slide06RightTool {...commonProps} />;
       case 6:
-        return <Slide07Process onNext={nextSlide} onPrev={prevSlide} />;
+        return <Slide07Process {...commonProps} />;
       case 7:
-        return <Slide08ProjectStevan onNext={nextSlide} onPrev={prevSlide} />;
+        return <Slide08Proof {...commonProps} onOpenProjects={onOpenProjectsModal} />;
       case 8:
-        return <Slide09ProjectsSplit onNext={nextSlide} onPrev={prevSlide} onOpenProjects={onOpenProjectsModal} />;
+        return <Slide09RadicalHonesty {...commonProps} />;
       case 9:
-        return <Slide10RadicalHonesty onNext={nextSlide} onPrev={prevSlide} />;
-      case 10:
-        return <Slide11TurnToVisitor onNext={nextSlide} onPrev={prevSlide} />;
-      case 11:
-        return <Slide12Form onPrev={prevSlide} />;
       default:
-        return null;
+        return <Slide10YourBusiness {...commonProps} />;
     }
   };
 
+  const formattedCurrent = safeActiveSlide + 1 < 10 ? `0${safeActiveSlide + 1}` : `${safeActiveSlide + 1}`;
+  const formattedTotal = totalSlides < 10 ? `0${totalSlides}` : `${totalSlides}`;
+
   return (
     <div
-      id="presentation-deck-container"
-      className="relative w-screen h-[100dvh] max-h-[100dvh] overflow-hidden bg-white dark:bg-[#07090e] select-none [perspective:1200px]"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      className="w-full h-full relative overflow-hidden bg-white dark:bg-[#07090e]"
     >
-      {/* Animated Slide Viewport */}
-      <div className="relative w-full h-full overflow-hidden">
-        <AnimatePresence custom={direction} mode="popLayout" initial={false}>
+      {/* Slide Container with Smooth Lateral Transition */}
+      <div className="w-full h-full relative overflow-hidden">
+        <AnimatePresence mode="wait">
           <motion.div
-            key={currentSlide}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0 w-full h-full will-change-transform"
+            key={safeActiveSlide}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
+            className="w-full h-full"
           >
-            {renderSlide(currentSlide)}
+            {renderSlide()}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Walking Robot Progress Bar */}
-      <DeckRobotProgress
-        currentSlide={currentSlide}
-        totalSlides={TOTAL_SLIDES}
-        onGoTo={goToSlide}
-      />
+      {/* Floating Bottom Presentation Navigation Bar */}
+      <div className="fixed bottom-2.5 sm:bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 sm:gap-3 px-2.5 sm:px-4 py-1 sm:py-2 rounded-full bg-slate-900/90 dark:bg-black/90 backdrop-blur-md border border-white/15 text-white shadow-2xl">
+        
+        {/* Prev Arrow */}
+        <button
+          onClick={prevSlide}
+          disabled={safeActiveSlide === 0}
+          aria-label={t.common.prevSlide}
+          className="p-2 sm:p-1.5 rounded-full hover:bg-white/10 active:scale-95 disabled:opacity-25 disabled:cursor-not-allowed transition-all cursor-pointer"
+        >
+          <ChevronLeft className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+        </button>
+
+        {/* Slide Counter (e.g. 03 / 10) */}
+        <div className="text-[11px] sm:text-xs font-mono font-bold tracking-wider px-1 text-slate-300 select-none">
+          <span className="text-blue-400">{formattedCurrent}</span>
+          <span className="mx-1 text-slate-600">/</span>
+          <span>{formattedTotal}</span>
+        </div>
+
+        {/* Waypoint Dots (Tablet & Desktop) */}
+        <div className="hidden sm:flex items-center gap-1 px-1">
+          {Array.from({ length: totalSlides }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => goToSlide(idx)}
+              aria-label={`Slajd ${idx + 1}`}
+              className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                safeActiveSlide === idx
+                  ? "w-4 bg-blue-500 shadow-sm"
+                  : "w-1.5 bg-white/20 hover:bg-white/40"
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Next Arrow */}
+        <button
+          onClick={nextSlide}
+          disabled={safeActiveSlide === totalSlides - 1}
+          aria-label={t.common.nextSlide}
+          className="p-2 sm:p-1.5 rounded-full hover:bg-white/10 active:scale-95 disabled:opacity-25 disabled:cursor-not-allowed transition-all cursor-pointer"
+        >
+          <ChevronRight className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+        </button>
+
+      </div>
     </div>
   );
 }

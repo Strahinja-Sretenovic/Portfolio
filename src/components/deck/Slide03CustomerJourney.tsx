@@ -1,78 +1,105 @@
 import React from "react";
-import { Eye, HelpCircle, ShieldCheck, Scale, MousePointerClick, CheckCircle2, ArrowRight } from "lucide-react";
+import { Search, Compass, ShieldCheck, MousePointerClick, CheckCircle2, ArrowRight } from "lucide-react";
+import { motion } from "motion/react";
 import { useLanguage } from "../../context/LanguageContext";
 
 interface Slide03Props {
   onNext: () => void;
   onPrev: () => void;
+  isMobile?: boolean;
+  isTablet?: boolean;
+  isLaptop?: boolean;
+  isWide?: boolean;
 }
 
-export function Slide03CustomerJourney({ onNext, onPrev }: Slide03Props) {
-  const { language } = useLanguage();
-  const isSr = language === "sr";
+export function Slide03CustomerJourney({ onNext: _onNext, onPrev: _onPrev, isMobile, isWide }: Slide03Props) {
+  const { t } = useLanguage();
+  const copy = t.deck.journey;
 
-  const nodes = [
-    { num: "01", title: isSr ? "PRONALAZI VAS" : "FINDS YOU", sub: isSr ? "Google, mapa, preporuka" : "Search, Maps, Referral", icon: Eye },
-    { num: "02", title: isSr ? "RAZUME PONUDU" : "UNDERSTANDS OFFER", sub: isSr ? "Šta tačno nudite" : "What you offer", icon: HelpCircle },
-    { num: "03", title: isSr ? "STIČE POVERENJE" : "BUILDS TRUST", sub: isSr ? "Dokazi i recenzije" : "Proof and credibility", icon: ShieldCheck },
-    { num: "04", title: isSr ? "POREDI" : "COMPARES", sub: isSr ? "Cena i profesionalnost" : "Pricing vs alternatives", icon: Scale },
-    { num: "05", title: isSr ? "KONTAKTIRA" : "CONTACTS", sub: isSr ? "Poziv, booking, forma" : "Call, booking, form", icon: MousePointerClick },
-    { num: "06", title: isSr ? "POSTAJE KLIJENT" : "BECOMES CLIENT", sub: isSr ? "Završena konverzija" : "Successful deal", icon: CheckCircle2 }
-  ];
+  const stepIcons = [Search, Compass, ShieldCheck, MousePointerClick, CheckCircle2];
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-8 md:px-12 pt-16 sm:pt-20 pb-24 sm:pb-28 relative overflow-y-auto bg-white dark:bg-[#07090e] text-slate-900 dark:text-white select-none">
+    <div className="w-full h-full overflow-y-auto overscroll-contain flex flex-col justify-start sm:justify-center items-center px-3.5 sm:px-8 md:px-12 lg:px-16 pt-14 sm:pt-16 pb-16 sm:pb-20 relative bg-white dark:bg-[#07090e] text-slate-900 dark:text-white select-none">
       
-      {/* Main Slide Content */}
-      <div className="w-full max-w-5xl mx-auto my-auto z-10 space-y-6 sm:space-y-8 py-2">
-        <div className="text-center space-y-2.5 max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-600 dark:text-slate-400 font-bold">
-            PUT KUPCA • 6 KLJUČNIH FAZA ODLUKE
-          </span>
-
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-black tracking-tight text-slate-950 dark:text-white leading-tight">
-            {isSr 
-              ? "Vaš klijent prolazi kroz više odluka pre nego što postane klijent." 
-              : "Your client goes through multiple decisions before becoming a customer."}
-          </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-            {isSr 
-              ? "Sajt i digitalni nastup nisu izolovani — oni su karike u ovom neprekidnom lancu." 
-              : "A website is not isolated — it is a vital link in this continuous chain."}
+      <div className={`w-full ${isWide ? "max-w-6xl" : "max-w-5xl"} mx-auto space-y-3 sm:space-y-6 my-auto py-2`}>
+        
+        {/* Headline */}
+        <div className="text-center space-y-1 sm:space-y-2 max-w-3xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`font-display font-black tracking-tight text-slate-950 dark:text-white leading-tight ${
+              isMobile ? "text-xl sm:text-2xl" : "text-3xl sm:text-4xl md:text-5xl"
+            }`}
+          >
+            {copy.title}
+          </motion.h2>
+          <p className="text-[11px] sm:text-sm text-slate-600 dark:text-slate-300">
+            {copy.subtitle}
           </p>
         </div>
 
-        {/* Horizontal Path Deck Component */}
-        <div className="relative p-5 sm:p-7 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 shadow-xl">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 relative z-10">
-            {nodes.map((node) => {
-              const Icon = node.icon;
-              return (
-                <div
-                  key={node.num}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-center space-y-2 hover:border-blue-500 transition-all shadow-sm"
-                >
-                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 font-bold">
-                    {node.num}
-                  </span>
-                  
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 mx-auto rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                    <Icon className="w-4 h-4" />
-                  </div>
+        {/* 5-Step Path */}
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 sm:gap-3 relative">
+          {copy.steps.map((step, idx) => {
+            const Icon = stepIcons[idx] || CheckCircle2;
+            const isLast = idx === copy.steps.length - 1;
 
-                  <div className="text-xs font-display font-bold text-slate-900 dark:text-white leading-snug">
-                    {node.title}
+            return (
+              <motion.div
+                key={step.num}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: idx * 0.06 }}
+                className={`p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border text-left flex sm:flex-col justify-between sm:justify-start items-center sm:items-stretch gap-2.5 sm:gap-2 relative transition-all ${
+                  isLast
+                    ? "bg-blue-600 border-blue-500 text-white shadow-md shadow-blue-500/20"
+                    : "bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200"
+                }`}
+              >
+                {/* Header / Icon */}
+                <div className="flex sm:items-center justify-between shrink-0 sm:shrink">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <span className={`text-[10px] font-mono font-bold ${isLast ? "text-blue-200" : "text-blue-600 dark:text-blue-400"}`}>
+                      {step.num}
+                    </span>
+                    <div className={`p-1.5 rounded-lg ${isLast ? "bg-white/20 text-white" : "bg-blue-500/10 text-blue-600 dark:text-blue-400"}`}>
+                      <Icon className="w-3.5 h-3.5" />
+                    </div>
                   </div>
+                </div>
 
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {node.sub}
+                {/* Text Content */}
+                <div className="space-y-0.5 flex-1 text-left">
+                  <h3 className={`font-display font-bold text-xs sm:text-sm leading-snug tracking-tight ${
+                    isLast ? "text-white" : "text-slate-900 dark:text-white"
+                  }`}>
+                    {step.label}
+                  </h3>
+                  <p className={`text-[10px] sm:text-[11px] leading-relaxed line-clamp-2 sm:line-clamp-none ${
+                    isLast ? "text-blue-100" : "text-slate-500 dark:text-slate-400"
+                  }`}>
+                    {step.desc}
                   </p>
                 </div>
-              );
-            })}
-          </div>
+              </motion.div>
+            );
+          })}
         </div>
+
+        {/* Path connector line on desktop */}
+        <div className="hidden sm:flex items-center justify-center gap-2 text-xs font-mono text-slate-400">
+          <span>{copy.steps[0].label}</span>
+          <ArrowRight className="w-3.5 h-3.5 text-blue-500" />
+          <span>{copy.steps[1].label}</span>
+          <ArrowRight className="w-3.5 h-3.5 text-blue-500" />
+          <span>{copy.steps[2].label}</span>
+          <ArrowRight className="w-3.5 h-3.5 text-blue-500" />
+          <span>{copy.steps[3].label}</span>
+          <ArrowRight className="w-3.5 h-3.5 text-blue-500" />
+          <span className="text-blue-600 dark:text-blue-400 font-bold">{copy.steps[4].label}</span>
+        </div>
+
       </div>
     </div>
   );

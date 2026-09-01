@@ -1,5 +1,5 @@
-import React from "react";
-import { AlertTriangle, ArrowRight, XCircle } from "lucide-react";
+import React, { useState } from "react";
+import { AlertTriangle, MapPin, EyeOff, FileText, Smartphone, CalendarX, ZapOff } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 
 interface Slide04Props {
@@ -7,62 +7,120 @@ interface Slide04Props {
   onPrev: () => void;
 }
 
-export function Slide04WhereItBreaks({ onNext, onPrev }: Slide04Props) {
+export function Slide04WhereItBreaks({ onNext: _onNext, onPrev: _onPrev }: Slide04Props) {
   const { language } = useLanguage();
   const isSr = language === "sr";
+  const [activeFriction, setActiveFriction] = useState<number>(0);
 
   const frictionPoints = [
-    isSr ? "Možda vas ne pronalazi na pretragama." : "Maybe they cannot find you on search.",
-    isSr ? "Možda vas pronađe, ali ne razume šta tačno nudite." : "Maybe they find you, but do not understand your offer.",
-    isSr ? "Možda razume ponudu, ali vam još ne veruje dovoljno." : "Maybe they understand, but do not trust you enough.",
-    isSr ? "Možda želi da vas kontaktira, ali je proces komplikovan." : "Maybe they want to reach out, but the step is cumbersome.",
-    isSr ? "Možda dobijate upite, ali gubite previše vremena na ručni rad." : "Maybe you get inquiries, but waste hours on manual overhead."
+    {
+      id: "google_profile",
+      icon: MapPin,
+      title: isSr ? "Loš Google profil" : "Poor Google Profile",
+      desc: isSr ? "Netačno radno vreme, malo recenzija ili loše fotografije." : "Outdated hours, few reviews, or blurry low-quality photos.",
+      solution: isSr ? "Optimizacija Google Business profila" : "Google Business Profile optimization"
+    },
+    {
+      id: "no_proof",
+      icon: EyeOff,
+      title: isSr ? "Nema dokaza rada" : "No Proof of Work",
+      desc: isSr ? "Posetilac ne vidi stvarne rezultate niti utiske prethodnih kupaca." : "Visitor cannot see actual past results or customer testimonials.",
+      solution: isSr ? "Strukturiran portfolio i svedočanstva" : "Structured portfolio & social proof"
+    },
+    {
+      id: "confusing_offer",
+      icon: FileText,
+      title: isSr ? "Nejasna ponuda" : "Confusing Offer",
+      desc: isSr ? "Tekst je preopširan, a cene ili osnovne usluge su sakrivene." : "Text is verbose and confusing; pricing or packages are obscured.",
+      solution: isSr ? "Jasna struktura stranice i pregledan cenovnik" : "Clear page hierarchy & structured pricing"
+    },
+    {
+      id: "mobile_bad",
+      icon: Smartphone,
+      title: isSr ? "Loše na telefonu" : "Broken on Mobile",
+      desc: isSr ? "Sajt je spor, nepregledan ili težak za klik na telefonu gde je 80% posetilaca." : "Site is slow or hard to tap on mobile where 80%+ traffic lives.",
+      solution: isSr ? "Moderan, brz 'mobile-first' interfejs" : "Modern fast mobile-first interface"
+    },
+    {
+      id: "hard_to_contact",
+      icon: CalendarX,
+      title: isSr ? "Komplikovan kontakt" : "Friction in Booking",
+      desc: isSr ? "Kupac mora da popunjava 10 polja umesto 1-klik poziva ili termina." : "Client must fill 10 tedious fields instead of 1-tap call/booking.",
+      solution: isSr ? "Jednostavan sistem zakazivanja ili direktan poziv" : "1-tap booking or direct WhatsApp/call link"
+    },
+    {
+      id: "slow_loading",
+      icon: ZapOff,
+      title: isSr ? "Sporo učitavanje" : "Slow Load Speed",
+      desc: isSr ? "Ako se stranica učitava duže od 3 sekunde, 50% kupaca jednostavno ode." : "If the page takes over 3 seconds to load, half the buyers bounce.",
+      solution: isSr ? "Tehnička optimizacija brzine i keširanja" : "Technical speed & asset optimization"
+    }
   ];
 
+  const currentFriction = frictionPoints[activeFriction] || frictionPoints[0];
+
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-8 md:px-12 pt-16 sm:pt-20 pb-24 sm:pb-28 relative overflow-y-auto bg-slate-900 dark:bg-[#05070c] text-white select-none">
+    <div className="w-full h-full overflow-y-auto overflow-x-hidden overscroll-y-contain flex flex-col justify-start sm:justify-center items-center px-4 sm:px-8 md:px-12 pt-14 sm:pt-16 pb-20 sm:pb-24 relative bg-slate-950 text-white">
       
       {/* Main Slide Content */}
-      <div className="w-full max-w-4xl mx-auto my-auto z-10 space-y-5 sm:space-y-6 py-2">
-        
-        {/* Top badge */}
-        <div className="text-center">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono font-bold">
-            <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
-            <span>PREKID PUTA • PREPOZNAVANJE PROBLEMA</span>
-          </span>
-        </div>
-
-        {/* Dominant Headline */}
-        <div className="text-center space-y-2">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-display font-black tracking-tight text-white leading-tight">
-            {isSr ? "Negde ovde možete da ga izgubite." : "Somewhere here, you might lose them."}
+      <div className="w-full max-w-5xl mx-auto my-auto z-10 space-y-4 sm:space-y-5 py-2">
+        <div className="text-center space-y-1 sm:space-y-2 max-w-3xl mx-auto">
+          <h2 className="text-xl sm:text-4xl md:text-5xl font-display font-black tracking-tight text-white leading-tight">
+            {isSr ? "Gde najčešće puca veza?" : "Where does the connection usually break?"}
           </h2>
-          
-          <p className="text-sm sm:text-base text-rose-200/80 max-w-xl mx-auto">
+
+          <p className="text-xs sm:text-base text-slate-300">
             {isSr 
-              ? "Problem je što mesto na kojem ga gubite nije uvek očigledno." 
-              : "The issue is that the exact drop-off point is not always obvious."}
+              ? "Problem često nije u 'lepoti' sajta, već u tačkama frikcije gde gubite poverenje ili pažnju." 
+              : "The issue is rarely just visuals; it is specific points of friction where attention is lost."}
           </p>
         </div>
 
-        {/* 5 Friction Points Cards */}
-        <div className="space-y-2 max-w-2xl mx-auto">
-          {frictionPoints.map((point, idx) => (
-            <div
-              key={idx}
-              className="p-3 sm:p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center gap-3 text-xs sm:text-sm font-medium text-slate-200"
-            >
-              <XCircle className="w-4 h-4 text-rose-400 shrink-0" />
-              <span>{point}</span>
-            </div>
-          ))}
+        {/* 6 Problem Interactive Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+          {frictionPoints.map((item, idx) => {
+            const Icon = item.icon;
+            const isSelected = activeFriction === idx;
+            return (
+              <div
+                key={item.id}
+                onClick={() => setActiveFriction(idx)}
+                className={`p-3 rounded-xl sm:rounded-2xl border transition-all cursor-pointer space-y-1 ${
+                  isSelected
+                    ? "bg-rose-950/40 border-rose-500 shadow-md shadow-rose-950/30"
+                    : "bg-white/[0.02] border-white/10 hover:border-white/20"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center">
+                    <Icon className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-500">0{idx + 1}</span>
+                </div>
+
+                <div className="text-xs sm:text-sm font-display font-bold text-white leading-snug">
+                  {item.title}
+                </div>
+
+                <p className="text-[10px] sm:text-xs text-slate-400 line-clamp-2">
+                  {item.desc}
+                </p>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Climax Conclusion Statement */}
-        <div className="text-center pt-1">
-          <div className="inline-block p-3.5 sm:p-5 rounded-2xl bg-slate-950 border border-rose-500/30 text-rose-200 font-display font-black text-lg sm:text-2xl shadow-xl">
-            {isSr ? "Zato „treba nam novi sajt“ još nije dijagnoza." : "That is why 'we need a new website' is not yet a diagnosis."}
+        {/* Focused Diagnostic Insight Box */}
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-rose-950/20 border border-rose-500/30 flex items-start gap-2.5 sm:gap-3">
+          <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-rose-400 shrink-0 mt-0.5" />
+          <div className="space-y-0.5">
+            <span className="text-[11px] sm:text-xs font-mono font-bold text-rose-400 uppercase tracking-wider">
+              {isSr ? "CILJANA INTERVENCIJA:" : "TARGETED INTERVENTION:"} {currentFriction.title}
+            </span>
+            <p className="text-xs sm:text-sm text-slate-300 leading-snug">
+              <span className="font-semibold text-white">{isSr ? "Pravi lek: " : "Right remedy: "}</span>
+              {currentFriction.solution}
+            </p>
           </div>
         </div>
 

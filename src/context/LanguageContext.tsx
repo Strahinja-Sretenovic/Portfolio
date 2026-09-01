@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { translations, TranslationSchema, Language } from "../locales/translations";
 
-export type Language = "sr" | "en";
+export type { Language };
 
 interface LanguageContextType {
   language: Language;
+  t: TranslationSchema;
   setLanguage: (lang: Language) => void;
   toggleLanguage: () => void;
 }
@@ -27,10 +29,22 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     localStorage.setItem("app_lang", language);
+    // Sync document language attribute and title
+    document.documentElement.lang = language;
+    const currentT = translations[language];
+    if (currentT) {
+      document.title = currentT.meta.title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute("content", currentT.meta.description);
+      }
+    }
   }, [language]);
 
+  const t = translations[language] || translations.sr;
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage }}>
+    <LanguageContext.Provider value={{ language, t, setLanguage, toggleLanguage }}>
       {children}
     </LanguageContext.Provider>
   );
@@ -43,3 +57,4 @@ export const useLanguage = () => {
   }
   return context;
 };
+
