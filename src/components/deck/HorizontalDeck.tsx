@@ -127,9 +127,18 @@ export function HorizontalDeck({
 
   // Touch Swipe Handlers for mobile & tablet
   const handleTouchStart = (e: React.TouchEvent) => {
-    const target = e.target as HTMLElement;
-    // Don't intercept swipe inside text inputs, textareas or interactive buttons with specific handlers
-    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) {
+    const target = e.target as HTMLElement | null;
+    
+    // Don't intercept swipe inside text inputs, textareas, buttons, or designated interactive areas
+    if (
+      target &&
+      (target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable ||
+        target.closest("[data-prevent-deck-swipe]") ||
+        target.closest("button") ||
+        target.closest(".modal-scrollable"))
+    ) {
       touchStartRef.current = null;
       return;
     }

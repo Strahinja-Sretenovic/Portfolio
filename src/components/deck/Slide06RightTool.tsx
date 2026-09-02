@@ -51,7 +51,7 @@ export function Slide06RightTool({ onNext: _onNext, onPrev: _onPrev, isMobile, i
                 <span className="text-[9px] sm:text-[10px] font-mono text-rose-400 uppercase font-bold">
                   PROBLEM
                 </span>
-                <p className="font-display font-bold text-slate-200 text-[11px] sm:text-sm leading-tight line-clamp-2">
+                <p className="font-display font-bold text-slate-200 text-[11px] sm:text-sm leading-tight break-words">
                   {item.problem}
                 </p>
               </div>
@@ -62,7 +62,7 @@ export function Slide06RightTool({ onNext: _onNext, onPrev: _onPrev, isMobile, i
                 <span className="text-[9px] sm:text-[10px] font-mono text-blue-400 uppercase font-bold">
                   REŠENJE
                 </span>
-                <p className="font-display font-bold text-blue-400 text-[11px] sm:text-sm leading-tight line-clamp-2">
+                <p className="font-display font-bold text-blue-400 text-[11px] sm:text-sm leading-tight break-words">
                   {item.solution}
                 </p>
               </div>

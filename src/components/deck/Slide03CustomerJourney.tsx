@@ -76,7 +76,7 @@ export function Slide03CustomerJourney({ onNext: _onNext, onPrev: _onPrev, isMob
                   }`}>
                     {step.label}
                   </h3>
-                  <p className={`text-[10px] sm:text-[11px] leading-relaxed line-clamp-2 sm:line-clamp-none ${
+                  <p className={`text-[10px] sm:text-[11px] leading-relaxed ${
                     isLast ? "text-blue-100" : "text-slate-500 dark:text-slate-400"
                   }`}>
                     {step.desc}
