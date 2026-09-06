@@ -34,10 +34,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const currentT = translations[language];
     if (currentT) {
       document.title = currentT.meta.title;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute("content", currentT.meta.description);
-      }
+      
+      const setMeta = (selector: string, content: string) => {
+        const el = document.querySelector(selector);
+        if (el) el.setAttribute("content", content);
+      };
+
+      setMeta('meta[name="description"]', currentT.meta.description);
+      setMeta('meta[property="og:title"]', currentT.meta.title);
+      setMeta('meta[property="og:description"]', currentT.meta.description);
+      setMeta('meta[name="twitter:title"]', currentT.meta.title);
+      setMeta('meta[name="twitter:description"]', currentT.meta.description);
     }
   }, [language]);
 

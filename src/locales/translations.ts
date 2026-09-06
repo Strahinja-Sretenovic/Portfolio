@@ -311,8 +311,8 @@ export const translations: Record<Language, TranslationSchema> = {
       backToHome: "Nazad na prezentaciju"
     },
     meta: {
-      title: "SSolutions — Web Strategija, UX & Razvoj",
-      description: "Ne počinjemo sajtom. Počinjemo problemom. Otkrijte gde gubite potencijalne klijente i implementirajte pravo rešenje."
+      title: "Izrada Sajtova Čačak & Beograd | Web Dizajn, SEO & Razvoj | SSolutions",
+      description: "Profesionalna izrada modernih web sajtova, web prodavnica i aplikacija. Web dizajn, tehnički SEO i digitalna strategija u Čačku, Beogradu i Srbiji."
     },
     common: {
       swipeHint: "Prevucite ulevo za nastavak →",
@@ -748,8 +748,8 @@ export const translations: Record<Language, TranslationSchema> = {
       backToHome: "Back to Presentation"
     },
     meta: {
-      title: "SSolutions — Web Strategy, UX & Modern Development",
-      description: "We don't start with a website. We start with the problem. Discover where you are losing potential customers and implement the right solution."
+      title: "Web Development & Design Serbia | SEO & Digital Strategy | SSolutions",
+      description: "Custom web development, high-conversion UI/UX design, and technical SEO in Serbia and worldwide. Fast, responsive, and search-optimized websites."
     },
     common: {
       swipeHint: "Swipe left to continue →",

@@ -11,6 +11,7 @@ import { FaqModal } from "./components/FaqModal";
 import { FloatingContact } from "./components/FloatingContact";
 import { LegalModal, LegalDocType } from "./components/legal/LegalModal";
 import { CookieBanner } from "./components/legal/CookieBanner";
+import { SemanticSEOContent } from "./components/seo/SemanticSEOContent";
 import { trackPageView } from "./utils/analytics";
 
 export default function App() {
@@ -78,6 +79,9 @@ export default function App() {
 
             {/* Main Application Area: Fullscreen Horizontal Deck or All Projects */}
             <main className="w-full h-full">
+              {/* Accessible Semantic HTML for Search Spiders & Screen Readers */}
+              <SemanticSEOContent />
+
               {currentView === "all-projects" ? (
                 <div className="w-full h-full overflow-y-auto pt-16 pb-16 px-3.5 sm:px-6">
                   <AllProjects

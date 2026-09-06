@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage & Core Presentation -->
   <url>
     <loc>https://www.ssolutions.click/</loc>
     <xhtml:link rel="alternate" hreflang="sr" href="https://www.ssolutions.click/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ssolutions.click/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ssolutions.click/" />
-    <lastmod>2026-08-28T00:00:00+01:00</lastmod>
+    <lastmod>2026-09-06T12:00:00+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.ssolutions.click/og-image.svg</image:loc>
+      <image:title>Izrada Sajtova Čačak &amp; Beograd — SSolutions</image:title>
+      <image:caption>Profesionalna izrada web sajtova, internet prodavnica i SEO optimizacija</image:caption>
+    </image:image>
   </url>
 </urlset>
-

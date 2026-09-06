@@ -7,51 +7,71 @@ interface IntroLoaderProps {
 }
 
 export function IntroLoader({ onComplete }: IntroLoaderProps) {
+  // Immediately bypass for search engine bots, crawlers, or users with reduced motion
+  const isBotOrSeen = () => {
+    if (typeof window === "undefined") return true;
+    const ua = navigator.userAgent.toLowerCase();
+    const isBot = /googlebot|bingbot|yandex|duckduckbot|baiduspider|slurp|crawler|spider|bot|lighthouse|screaming/i.test(ua);
+    const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const alreadySeen = sessionStorage.getItem("ssolutions_intro_seen") === "true";
+    return isBot || prefersReduced || alreadySeen;
+  };
+
+  const [phase, setPhase] = useState<"typing" | "cursor-appear" | "clicking" | "clicked" | "done">(() => {
+    return isBotOrSeen() ? "done" : "typing";
+  });
+
   const fullText = "SSolutions";
-  const [displayedText, setDisplayedText] = useState("");
-  const [phase, setPhase] = useState<"typing" | "cursor-appear" | "clicking" | "clicked" | "done">("typing");
+  const [displayedText, setDisplayedText] = useState(() => (isBotOrSeen() ? "SSolutions" : ""));
 
   useEffect(() => {
+    if (isBotOrSeen()) {
+      onComplete();
+      return;
+    }
+  }, [onComplete]);
+
+  useEffect(() => {
+    if (phase === "done") return;
     // 1. Typing animation for "SSolutions"
     if (displayedText.length < fullText.length) {
       const timeout = setTimeout(() => {
         setDisplayedText(fullText.slice(0, displayedText.length + 1));
-      }, 120);
+      }, 70);
       return () => clearTimeout(timeout);
     } else if (phase === "typing") {
-      // Finished typing, transition to cursor appear
       const timeout = setTimeout(() => {
         setPhase("cursor-appear");
-      }, 300);
+      }, 200);
       return () => clearTimeout(timeout);
     }
   }, [displayedText, phase]);
 
   useEffect(() => {
+    if (phase === "done") return;
     if (phase === "cursor-appear") {
-      // Move cursor towards text and click
       const timeout = setTimeout(() => {
         setPhase("clicking");
-      }, 600);
+      }, 350);
       return () => clearTimeout(timeout);
     } else if (phase === "clicking") {
-      // Perform click action
       const timeout = setTimeout(() => {
         setPhase("clicked");
-      }, 400);
+      }, 250);
       return () => clearTimeout(timeout);
     } else if (phase === "clicked") {
-      // Fade out and finish loader
       const timeout = setTimeout(() => {
+        sessionStorage.setItem("ssolutions_intro_seen", "true");
         setPhase("done");
-        setTimeout(onComplete, 400);
-      }, 500);
+        setTimeout(onComplete, 250);
+      }, 300);
       return () => clearTimeout(timeout);
     }
   }, [phase, onComplete]);
 
   // Click anywhere to skip animation
   const handleSkip = () => {
+    sessionStorage.setItem("ssolutions_intro_seen", "true");
     setPhase("done");
     onComplete();
   };
