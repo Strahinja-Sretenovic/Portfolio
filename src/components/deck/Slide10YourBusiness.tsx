@@ -7,14 +7,16 @@ import { trackAuditRequestSubmit } from "../../utils/analytics";
 
 interface Slide10Props {
   onPrev: () => void;
+  onOpenLegal?: (doc: "privacy" | "terms" | "cookies" | "refund" | "business") => void;
   isMobile?: boolean;
   isTablet?: boolean;
   isLaptop?: boolean;
   isWide?: boolean;
 }
 
-export function Slide10YourBusiness({ onPrev: _onPrev, isMobile, isWide }: Slide10Props) {
-  const { t } = useLanguage();
+export function Slide10YourBusiness({ onPrev: _onPrev, onOpenLegal, isMobile, isWide }: Slide10Props) {
+  const { language, t } = useLanguage();
+  const isSr = language === "sr";
   const formCopy = t.deck.form;
   const slideCopy = t.deck.yourBusiness;
   const { showToast } = useToast();
@@ -31,6 +33,7 @@ export function Slide10YourBusiness({ onPrev: _onPrev, isMobile, isWide }: Slide
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [consentAgreed, setConsentAgreed] = useState(false);
 
   const toggleGoal = (id: string) => {
     setSelectedGoals((prev) =>
@@ -54,6 +57,16 @@ export function Slide10YourBusiness({ onPrev: _onPrev, isMobile, isWide }: Slide
     e.preventDefault();
     if (!contactName.trim() || !contactEmail.trim()) {
       showToast(formCopy.errors.contactRequired, "error");
+      return;
+    }
+
+    if (!consentAgreed) {
+      showToast(
+        isSr
+          ? "Molimo označite saglasnost sa Politikom privatnosti pre slanja upita."
+          : "Please accept the Privacy Policy before submitting your inquiry.",
+        "error"
+      );
       return;
     }
 
@@ -274,32 +287,107 @@ export function Slide10YourBusiness({ onPrev: _onPrev, isMobile, isWide }: Slide
                   </h3>
                 </div>
 
-                <div className="space-y-2">
-                  <input
-                    type="text"
-                    value={contactName}
-                    onChange={(e) => setContactName(e.target.value)}
-                    placeholder={formCopy.step5.namePlaceholder}
-                    className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none text-white text-xs sm:text-sm transition-colors"
-                    required
-                  />
+                <div className="space-y-2.5 text-left">
+                  <div>
+                    <label htmlFor="slide10-contact-name" className="block text-[11px] font-mono text-slate-300 mb-1">
+                      {isSr ? "Vaše ime i prezime *" : "Your Name *"}
+                    </label>
+                    <input
+                      id="slide10-contact-name"
+                      type="text"
+                      value={contactName}
+                      onChange={(e) => setContactName(e.target.value)}
+                      placeholder={formCopy.step5.namePlaceholder}
+                      className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none text-white text-xs sm:text-sm transition-colors"
+                      required
+                      aria-required="true"
+                    />
+                  </div>
 
-                  <input
-                    type="email"
-                    value={contactEmail}
-                    onChange={(e) => setContactEmail(e.target.value)}
-                    placeholder={formCopy.step5.emailPlaceholder}
-                    className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none text-white text-xs sm:text-sm transition-colors"
-                    required
-                  />
+                  <div>
+                    <label htmlFor="slide10-contact-email" className="block text-[11px] font-mono text-slate-300 mb-1">
+                      {isSr ? "Poslovna email adresa *" : "Business Email Address *"}
+                    </label>
+                    <input
+                      id="slide10-contact-email"
+                      type="email"
+                      value={contactEmail}
+                      onChange={(e) => setContactEmail(e.target.value)}
+                      placeholder={formCopy.step5.emailPlaceholder}
+                      className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none text-white text-xs sm:text-sm transition-colors"
+                      required
+                      aria-required="true"
+                    />
+                  </div>
 
-                  <input
-                    type="tel"
-                    value={contactPhone}
-                    onChange={(e) => setContactPhone(e.target.value)}
-                    placeholder={formCopy.step5.phonePlaceholder}
-                    className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500 focus:outline-none text-white text-xs sm:text-sm transition-colors"
-                  />
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label htmlFor="slide10-contact-phone" className="block text-[11px] font-mono text-slate-300">
+                        {isSr ? "Broj telefona" : "Phone Number"}
+                      </label>
+                      <span className="text-[10px] font-mono text-slate-500">
+                        {isSr ? "(opciono)" : "(optional)"}
+                      </span>
+                    </div>
+                    <input
+                      id="slide10-contact-phone"
+                      type="tel"
+                      value={contactPhone}
+                      onChange={(e) => setContactPhone(e.target.value)}
+                      placeholder={formCopy.step5.phonePlaceholder}
+                      className="w-full px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none text-white text-xs sm:text-sm transition-colors"
+                    />
+                  </div>
+
+                  {/* GDPR & Serbian ZZPL Mandatory Consent Checkbox */}
+                  <div className="pt-1.5 border-t border-white/10">
+                    <label className="flex items-start gap-2.5 cursor-pointer text-left select-none group">
+                      <input
+                        id="slide10-consent-checkbox"
+                        type="checkbox"
+                        checked={consentAgreed}
+                        onChange={(e) => setConsentAgreed(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 rounded border-white/20 bg-white/5 text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-900 cursor-pointer"
+                        required
+                        aria-required="true"
+                      />
+                      <span className="text-[11px] text-slate-300 leading-snug">
+                        {isSr ? (
+                          <>
+                            Saglasan/na sam sa obradom podataka radi odgovora na upit i pripreme analize, u skladu sa{" "}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                onOpenLegal?.("privacy");
+                              }}
+                              className="text-blue-400 hover:text-blue-300 underline font-semibold cursor-pointer"
+                            >
+                              Politikom Privatnosti
+                            </button>
+                            . Podaci se ne dele sa trećim licima.
+                          </>
+                        ) : (
+                          <>
+                            I consent to the processing of my contact details for audit preparation in accordance with the{" "}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                onOpenLegal?.("privacy");
+                              }}
+                              className="text-blue-400 hover:text-blue-300 underline font-semibold cursor-pointer"
+                            >
+                              Privacy Policy
+                            </button>
+                            . No spam, zero third-party sharing.
+                          </>
+                        )}
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </div>
             )}

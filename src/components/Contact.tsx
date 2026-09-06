@@ -20,7 +20,11 @@ import { useLanguage } from "../context/LanguageContext";
 import { useToast } from "../context/ToastContext";
 import { trackAuditRequestSubmit, trackEvent } from "../utils/analytics";
 
-export function Contact() {
+interface ContactProps {
+  onOpenLegal?: (doc: "privacy" | "terms" | "cookies" | "refund" | "business") => void;
+}
+
+export function Contact({ onOpenLegal }: ContactProps = {}) {
   const { language } = useLanguage();
   const isSr = language === "sr";
   const { showToast } = useToast();
@@ -38,6 +42,7 @@ export function Contact() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [consentAgreed, setConsentAgreed] = useState(false);
 
   const goalOptions = [
     { id: "analysis", label: isSr ? "Ne znam tačno — želim analizu" : "Not sure — I want an audit" },
@@ -49,6 +54,16 @@ export function Contact() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!consentAgreed) {
+      showToast(
+        isSr ? "Potrebna je saglasnost" : "Consent Required",
+        isSr ? "Molimo označite saglasnost sa Politikom privatnosti pre slanja." : "Please accept the Privacy Policy before submitting.",
+        "error"
+      );
+      return;
+    }
+
     setIsSubmitting(true);
 
     trackAuditRequestSubmit({
@@ -300,8 +315,58 @@ export function Contact() {
                       />
                     </div>
 
-                    {/* Submit Button */}
+                    {/* Consent Checkbox */}
                     <div className="pt-2">
+                      <label className="flex items-start gap-2.5 cursor-pointer text-left select-none group">
+                        <input
+                          id="contact-consent-checkbox"
+                          type="checkbox"
+                          checked={consentAgreed}
+                          onChange={(e) => setConsentAgreed(e.target.checked)}
+                          className="mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-950 cursor-pointer"
+                          required
+                          aria-required="true"
+                        />
+                        <span className="text-xs text-slate-400 leading-snug">
+                          {isSr ? (
+                            <>
+                              Saglasan/na sam sa obradom podataka radi odgovora na upit i pripreme analize, u skladu sa{" "}
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  onOpenLegal?.("privacy");
+                                }}
+                                className="text-blue-400 hover:text-blue-300 underline font-semibold cursor-pointer"
+                              >
+                                Politikom Privatnosti
+                              </button>
+                              . Podaci se ne dele sa trećim licima.
+                            </>
+                          ) : (
+                            <>
+                              I agree to the processing of my contact information in accordance with the{" "}
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  onOpenLegal?.("privacy");
+                                }}
+                                className="text-blue-400 hover:text-blue-300 underline font-semibold cursor-pointer"
+                              >
+                                Privacy Policy
+                              </button>
+                              . Zero third-party sharing.
+                            </>
+                          )}
+                        </span>
+                      </label>
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="pt-1">
                       <button
                         type="submit"
                         disabled={isSubmitting}

@@ -2,7 +2,12 @@ import { ArrowRight, Mail, Phone, MapPin, ShieldCheck, Heart, Sparkles } from "l
 import { useLanguage } from "../context/LanguageContext";
 import { scrollToTarget } from "./SmoothScroll";
 
-export function Footer() {
+interface FooterProps {
+  onOpenLegal?: (doc: "privacy" | "terms" | "cookies" | "refund" | "business") => void;
+  onOpenCookieSettings?: () => void;
+}
+
+export function Footer({ onOpenLegal, onOpenCookieSettings }: FooterProps = {}) {
   const { language } = useLanguage();
   const isSr = language === "sr";
 
@@ -79,56 +84,65 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Navigation & Case Studies */}
+          {/* Navigation & Legal Links */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white font-mono">
-              {isSr ? "Navigacija" : "Navigation"}
+              {isSr ? "Pravno & Uslovi" : "Legal & Privacy"}
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a 
-                  href="#how-i-think" 
-                  onClick={(e) => { e.preventDefault(); scrollToTarget("#how-i-think", 80); }}
-                  className="hover:text-white transition-colors"
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal?.("privacy")}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
                 >
-                  {isSr ? "Kako radimo (Put)" : "How We Think"}
-                </a>
+                  {isSr ? "Politika privatnosti" : "Privacy Policy"}
+                </button>
               </li>
               <li>
-                <a 
-                  href="#process" 
-                  onClick={(e) => { e.preventDefault(); scrollToTarget("#process", 80); }}
-                  className="hover:text-white transition-colors"
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal?.("terms")}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
                 >
-                  {isSr ? "Proces u 6 faza" : "6-Stage Process"}
-                </a>
+                  {isSr ? "Uslovi korišćenja" : "Terms & Conditions"}
+                </button>
               </li>
               <li>
-                <a 
-                  href="#projects" 
-                  onClick={(e) => { e.preventDefault(); scrollToTarget("#projects", 80); }}
-                  className="hover:text-white transition-colors"
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal?.("cookies")}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
                 >
-                  {isSr ? "Studije slučaja" : "Case Studies"}
-                </a>
+                  {isSr ? "Politika kolačića" : "Cookie Policy"}
+                </button>
               </li>
               <li>
-                <a 
-                  href="#why-ssolutions" 
-                  onClick={(e) => { e.preventDefault(); scrollToTarget("#why-ssolutions", 80); }}
-                  className="hover:text-white transition-colors"
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal?.("refund")}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
                 >
-                  {isSr ? "Zašto SSolutions" : "Why Choose Us"}
-                </a>
+                  {isSr ? "Povraćaj & Garancija" : "Refund Policy"}
+                </button>
               </li>
               <li>
-                <a 
-                  href="#faq" 
-                  onClick={(e) => { e.preventDefault(); scrollToTarget("#faq", 80); }}
-                  className="hover:text-white transition-colors"
+                <button
+                  type="button"
+                  onClick={() => onOpenLegal?.("business")}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
                 >
-                  {isSr ? "Česta pitanja (FAQ)" : "FAQ"}
-                </a>
+                  {isSr ? "Podaci o poslovanju" : "Business Details (Impressum)"}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenCookieSettings}
+                  className="text-blue-400 hover:text-blue-300 transition-colors text-left cursor-pointer flex items-center gap-1 font-mono pt-1"
+                >
+                  <span>⚙️ {isSr ? "Podešavanje kolačića" : "Cookie Settings"}</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -139,11 +153,14 @@ export function Footer() {
               {isSr ? "Kontakt" : "Contact"}
             </h4>
             <div className="space-y-2 text-xs">
-              <a href="mailto:ssolutionsrs@gmail.com" className="block text-slate-300 hover:text-white transition-colors">
+              <a href="mailto:ssolutionsrs@gmail.com" className="block text-slate-300 hover:text-white transition-colors font-mono">
                 ssolutionsrs@gmail.com
               </a>
               <div className="text-slate-500">
                 Čačak • Beograd • Srbija & Remote
+              </div>
+              <div className="text-[11px] text-slate-600">
+                {isSr ? "Registrovano u skladu sa zakonima RS" : "Registered in compliance with RS law"}
               </div>
             </div>
 
@@ -160,20 +177,44 @@ export function Footer() {
 
         </div>
 
-        {/* Bottom Copyright & Disclaimer */}
+        {/* Bottom Copyright & Legal Links */}
         <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © {currentYear} SSolutions. {isSr ? "Sva prava zadržana." : "All rights reserved."}
+            © {currentYear} SSolutions. {isSr ? "Sva prava zadržana. Usklađeno sa GDPR & ZZPL." : "All rights reserved. GDPR & ZZPL compliant."}
           </div>
 
-          <div className="flex items-center gap-4">
-            <a 
-              href="#contact" 
-              onClick={(e) => { e.preventDefault(); scrollToTarget("#contact", 80); }}
-              className="hover:text-slate-400 transition-colors"
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <button
+              type="button"
+              onClick={() => onOpenLegal?.("privacy")}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              {isSr ? "Besplatna početna analiza" : "Free Initial Audit"}
-            </a>
+              {isSr ? "Privatnost" : "Privacy"}
+            </button>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={() => onOpenLegal?.("terms")}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
+            >
+              {isSr ? "Uslovi" : "Terms"}
+            </button>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={() => onOpenLegal?.("cookies")}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
+            >
+              {isSr ? "Kolačići" : "Cookies"}
+            </button>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={() => onOpenLegal?.("business")}
+              className="hover:text-slate-300 transition-colors cursor-pointer"
+            >
+              {isSr ? "Impressum" : "Company"}
+            </button>
           </div>
         </div>
 

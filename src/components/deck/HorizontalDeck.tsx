@@ -21,12 +21,14 @@ interface HorizontalDeckProps {
   onSlideChange: (index: number) => void;
   onOpenProjectsModal: () => void;
   onOpenServiceModal?: (serviceId?: string) => void;
+  onOpenLegal?: (doc: "privacy" | "terms" | "cookies" | "refund" | "business") => void;
 }
 
 export function HorizontalDeck({
   activeSlide,
   onSlideChange,
-  onOpenProjectsModal
+  onOpenProjectsModal,
+  onOpenLegal
 }: HorizontalDeckProps) {
   const { totalSlides, isMobile, isTablet, isLaptop, isWide } = usePresentationEdit();
   const { t } = useLanguage();
@@ -202,7 +204,7 @@ export function HorizontalDeck({
         return <Slide09RadicalHonesty {...commonProps} />;
       case 9:
       default:
-        return <Slide10YourBusiness {...commonProps} />;
+        return <Slide10YourBusiness {...commonProps} onOpenLegal={onOpenLegal} />;
     }
   };
 

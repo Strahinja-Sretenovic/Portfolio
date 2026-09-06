@@ -2,6 +2,8 @@
  * Google Analytics 4 (GA4) Analytics & Conversion Tracking Service
  */
 
+import { hasAnalyticsConsent, removeAnalyticsCookies } from "./cookieConsent";
+
 declare global {
   interface Window {
     dataLayer: any[];
@@ -14,8 +16,26 @@ export const GA_MEASUREMENT_ID = (import.meta.env.VITE_GA_MEASUREMENT_ID as stri
 
 let isInitialized = false;
 
+// Setup runtime listener for consent changes
+if (typeof window !== "undefined") {
+  window.addEventListener("cookieConsentUpdated", (e: any) => {
+    const consent = e.detail;
+    if (consent?.analytics) {
+      initGA4();
+    } else {
+      isInitialized = false;
+      removeAnalyticsCookies();
+    }
+  });
+}
+
 export function initGA4(measurementId: string = GA_MEASUREMENT_ID): void {
   if (typeof window === "undefined" || isInitialized) return;
+
+  // Strict GDPR / ZZPL check: do not inject script or track unless consent is granted
+  if (!hasAnalyticsConsent()) {
+    return;
+  }
 
   window.dataLayer = window.dataLayer || [];
   
@@ -35,6 +55,10 @@ export function initGA4(measurementId: string = GA_MEASUREMENT_ID): void {
     document.head.appendChild(script);
   }
 
+  window.gtag("consent", "update", {
+    analytics_storage: "granted",
+  });
+
   window.gtag("config", measurementId, {
     send_page_view: true,
     page_path: window.location.pathname + window.location.hash,
@@ -47,6 +71,11 @@ export function initGA4(measurementId: string = GA_MEASUREMENT_ID): void {
 
 export function trackEvent(eventName: string, params: Record<string, any> = {}): void {
   if (typeof window === "undefined") return;
+
+  // Do not track any personal/behavioral events if analytics consent is not granted
+  if (!hasAnalyticsConsent()) {
+    return;
+  }
 
   const eventPayload = {
     ...params,

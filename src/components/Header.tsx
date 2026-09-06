@@ -10,6 +10,7 @@ interface HeaderProps {
   onOpenProjects?: () => void;
   onJumpToSlide?: (slideIndex: number) => void;
   onOpenFaq?: () => void;
+  onOpenLegal?: (doc?: "privacy" | "terms" | "cookies" | "refund" | "business") => void;
 }
 
 export function Header({ 
@@ -17,7 +18,8 @@ export function Header({
   onNavigateHome, 
   onOpenProjects,
   onJumpToSlide,
-  onOpenFaq
+  onOpenFaq,
+  onOpenLegal
 }: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
@@ -243,6 +245,30 @@ export function Header({
               >
                 <span>{nav.ctaButton}</span>
                 <ArrowRight size={14} />
+              </button>
+            </div>
+
+            {/* Accessible Legal Links */}
+            <div className="pt-2 flex items-center justify-between text-xs text-slate-500 px-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenLegal?.("privacy");
+                }}
+                className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
+              >
+                {language === "sr" ? "Privatnost & Pravno" : "Privacy & Legal"}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenLegal?.("cookies");
+                }}
+                className="hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
+              >
+                {language === "sr" ? "Kolačići" : "Cookies"}
               </button>
             </div>
           </motion.div>

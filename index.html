@@ -1,14 +1,17 @@
 <!doctype html>
 <html lang="sr">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JBLF6ZPTQ2"></script>
+    <!-- Privacy-Preserving Consent Mode v2 Default Configuration (GDPR & Serbian ZZPL) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-JBLF6ZPTQ2');
+      // Default to strictly denied until explicit user consent is given via Cookie Consent Banner
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+      });
     </script>
 
     <meta charset="UTF-8" />
@@ -121,13 +124,6 @@
             { "@type": "City", "name": "Užice" },
             { "@type": "AdministrativeArea", "name": "Worldwide / Diaspora" }
           ],
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": "28",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "consulting & customer support",

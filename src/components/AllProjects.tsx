@@ -4,15 +4,18 @@ import { ExternalLink, ArrowLeft, Search, FolderGit2, ChevronLeft, ChevronRight 
 import { projectsData, getLocalizedProject } from "../data/projectsData";
 import { useLanguage } from "../context/LanguageContext";
 import { trackProjectClick, trackEvent } from "../utils/analytics";
+import { Footer } from "./Footer";
 
 interface AllProjectsProps {
   onBack: () => void;
+  onOpenLegal?: (doc: "privacy" | "terms" | "cookies" | "refund" | "business") => void;
+  onOpenCookieSettings?: () => void;
 }
 
 
 const ITEMS_PER_PAGE = 9;
 
-export function AllProjects({ onBack }: AllProjectsProps) {
+export function AllProjects({ onBack, onOpenLegal, onOpenCookieSettings }: AllProjectsProps) {
   const { language } = useLanguage();
   const isSr = language === "sr";
   const [searchQuery, setSearchQuery] = useState("");
@@ -252,6 +255,9 @@ export function AllProjects({ onBack }: AllProjectsProps) {
           </>
         )}
       </div>
+
+      {/* Global Footer with Compliance & Legal Links */}
+      <Footer onOpenLegal={onOpenLegal} onOpenCookieSettings={onOpenCookieSettings} />
     </div>
   );
 }

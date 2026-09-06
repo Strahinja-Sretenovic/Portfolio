@@ -154,7 +154,7 @@ export function DecisionTunnelScene({ progress: norm }: DecisionTunnelSceneProps
                 : "bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-white/5 opacity-70"
             }`}>
               <div className="flex items-center justify-between mb-1">
-                <span className="font-bold text-slate-900 dark:text-white">Poverenje & Ocene (4.9 ★)</span>
+                <span className="font-bold text-slate-900 dark:text-white">Primer: Ocene klijenata (Simulacija)</span>
                 {activeQuestionIndex === 1 && <span className="text-[10px] font-mono text-blue-500 font-bold">FAKTOR 02 ✓</span>}
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">

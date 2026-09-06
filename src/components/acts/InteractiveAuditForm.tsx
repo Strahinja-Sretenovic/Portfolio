@@ -37,6 +37,7 @@ export function InteractiveAuditForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [consentAgreed, setConsentAgreed] = useState(false);
 
   const goalOptions = [
     { id: "queries", label: isSr ? "Više kvalitetnih upita" : "More qualified inquiries" },
@@ -84,6 +85,16 @@ export function InteractiveAuditForm() {
     e.preventDefault();
     if (!name.trim() || !email.trim()) {
       showToast(isSr ? "Molimo unesite vaše ime i email." : "Please enter your name and email.", "error");
+      return;
+    }
+
+    if (!consentAgreed) {
+      showToast(
+        isSr
+          ? "Molimo označite saglasnost sa obradom podataka pre slanja."
+          : "Please accept the privacy consent checkbox before submitting.",
+        "error"
+      );
       return;
     }
 
@@ -363,6 +374,25 @@ export function InteractiveAuditForm() {
                         placeholder={isSr ? "Broj telefona (opciono)" : "Phone number (optional)"}
                         className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder:text-slate-500 text-sm sm:text-base focus:outline-none focus:border-blue-500 transition-all"
                       />
+                    </div>
+
+                    <div className="pt-2">
+                      <label className="flex items-start gap-2.5 cursor-pointer text-left select-none group">
+                        <input
+                          id="audit-form-consent"
+                          type="checkbox"
+                          checked={consentAgreed}
+                          onChange={(e) => setConsentAgreed(e.target.checked)}
+                          className="mt-0.5 w-4 h-4 rounded border-white/20 bg-white/5 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                          required
+                          aria-required="true"
+                        />
+                        <span className="text-xs text-slate-400 leading-snug">
+                          {isSr
+                            ? "Saglasan/na sam sa obradom mojih podataka isključivo u svrhu pripreme preliminarne analize. Bez spama i bez ustupanja trećim licima."
+                            : "I consent to the processing of my contact information solely for preparing the preliminary audit. Zero spam or third-party sharing."}
+                        </span>
+                      </label>
                     </div>
                   </div>
                 </div>

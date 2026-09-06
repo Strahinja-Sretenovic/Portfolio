@@ -9,6 +9,8 @@ import { ServiceDetailsModal } from "./components/presentation/ServiceDetailsMod
 import { AllProjects } from "./components/AllProjects";
 import { FaqModal } from "./components/FaqModal";
 import { FloatingContact } from "./components/FloatingContact";
+import { LegalModal, LegalDocType } from "./components/legal/LegalModal";
+import { CookieBanner } from "./components/legal/CookieBanner";
 import { trackPageView } from "./utils/analytics";
 
 export default function App() {
@@ -19,9 +21,23 @@ export default function App() {
   const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>(undefined);
   const [isFaqOpen, setIsFaqOpen] = useState(false);
 
+  // Legal & Cookie Compliance State
+  const [isLegalOpen, setIsLegalOpen] = useState(false);
+  const [activeLegalDoc, setActiveLegalDoc] = useState<LegalDocType>("privacy");
+  const [isCookieSettingsOpen, setIsCookieSettingsOpen] = useState(false);
+
   useEffect(() => {
     trackPageView("/", "SSolutions — Horizontal Interactive Sales Presentation");
   }, []);
+
+  const handleOpenLegal = (doc: LegalDocType = "privacy") => {
+    setActiveLegalDoc(doc);
+    setIsLegalOpen(true);
+  };
+
+  const handleOpenCookieSettings = () => {
+    setIsCookieSettingsOpen(true);
+  };
 
   const handleOpenServiceModal = (serviceId?: string) => {
     setSelectedServiceId(serviceId);
@@ -57,13 +73,18 @@ export default function App() {
               onOpenProjects={handleOpenProjects}
               onJumpToSlide={handleJumpToSlide}
               onOpenFaq={() => setIsFaqOpen(true)}
+              onOpenLegal={handleOpenLegal}
             />
 
             {/* Main Application Area: Fullscreen Horizontal Deck or All Projects */}
             <main className="w-full h-full">
               {currentView === "all-projects" ? (
                 <div className="w-full h-full overflow-y-auto pt-16 pb-16 px-3.5 sm:px-6">
-                  <AllProjects onBack={handleNavigateHome} />
+                  <AllProjects
+                    onBack={handleNavigateHome}
+                    onOpenLegal={handleOpenLegal}
+                    onOpenCookieSettings={handleOpenCookieSettings}
+                  />
                 </div>
               ) : (
                 /* 10-SLIDE FULLSCREEN HORIZONTAL INTERACTIVE SALES PRESENTATION */
@@ -72,6 +93,7 @@ export default function App() {
                   onSlideChange={setActiveSlide}
                   onOpenProjectsModal={handleOpenProjects}
                   onOpenServiceModal={handleOpenServiceModal}
+                  onOpenLegal={handleOpenLegal}
                 />
               )}
             </main>
@@ -92,6 +114,21 @@ export default function App() {
 
             {/* Compact Floating Contact Helper */}
             <FloatingContact />
+
+            {/* Legal Pages Modal (Privacy, Terms, Cookies, Refund, Business Details) */}
+            <LegalModal
+              isOpen={isLegalOpen}
+              onClose={() => setIsLegalOpen(false)}
+              initialDoc={activeLegalDoc}
+              onOpenCookieSettings={handleOpenCookieSettings}
+            />
+
+            {/* Cookie Consent Banner & Granular Preferences Modal */}
+            <CookieBanner
+              onOpenCookiePolicy={() => handleOpenLegal("cookies")}
+              forceOpenSettings={isCookieSettingsOpen}
+              onCloseSettings={() => setIsCookieSettingsOpen(false)}
+            />
           </div>
         </ToastProvider>
       </LanguageProvider>
