@@ -37,7 +37,7 @@ function Site() {
   const [cookieSettings, setCookieSettings] = useState(false);
 
   useEffect(() => {
-    trackPageView("/", "Strahinja Sretenović — SSolutions");
+    trackPageView("/", "SSolutions");
   }, []);
 
   // Recalculate pinned sections after fonts/images settle or language changes

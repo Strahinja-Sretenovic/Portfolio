@@ -1,5 +1,5 @@
 import { FormEvent, useLayoutEffect, useRef, useState } from "react";
-import { ArrowUpRight, Copy, Check, Linkedin, Github, FileText } from "lucide-react";
+import { ArrowUpRight, Copy, Check } from "lucide-react";
 import { gsap } from "./motion";
 import { Content, CONTACT } from "../content";
 import { Magnetic } from "./Magnetic";
@@ -138,23 +138,10 @@ export function Contact({ t, onPrivacy }: { t: Content; onPrivacy: () => void })
               </div>
             </div>
             <div className="ct-fade flex flex-col">
-              {[
-                { href: CONTACT.linkedin, label: "LinkedIn", icon: Linkedin },
-                { href: CONTACT.github, label: "GitHub", icon: Github },
-                { href: CONTACT.resume, label: "CV / Resume", icon: FileText },
-              ].map(({ href, label, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => label.startsWith("CV") && trackDirectContact({ channel: "resume_download", location: "contact_section" })}
-                  className="group flex items-center justify-between py-5 border-t text-lg font-display"
-                  style={{ borderColor: "var(--line)" }}
-                >
-                  <span className="flex items-center gap-3"><Icon size={18} /> {label}</span>
-                  <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:rotate-45" />
-                </a>
+              {[t.contact.location, t.contact.languages].map((line) => (
+                <div key={line} className="py-5 border-t text-lg font-display" style={{ borderColor: "var(--line)" }}>
+                  {line}
+                </div>
               ))}
             </div>
           </div>

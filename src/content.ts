@@ -1,10 +1,7 @@
 export type Lang = "sr" | "en";
 
 export const CONTACT = {
-  email: "sretenovic0315@gmail.com",
-  linkedin: "https://www.linkedin.com/in/strahinja-sretenovic",
-  github: "https://github.com/Strahinja-Sretenovic",
-  resume: "/folders/resume.pdf",
+  email: "ssolutionsrs@gmail.com",
 };
 
 export interface Project {
@@ -89,30 +86,30 @@ export const stackRows = [
 ];
 
 const sr = {
-  nav: { about: "O meni", work: "Radovi", services: "Usluge", process: "Proces", contact: "Kontakt", cta: "Započnimo" },
+  nav: { about: "O nama", work: "Radovi", services: "Usluge", process: "Proces", contact: "Kontakt", cta: "Započnimo" },
   hero: {
-    eyebrow: "Strahinja Sretenović — web developer",
-    lines: ["Pravim sajtove", "koji donose"],
+    eyebrow: "SSolutions — web studio, Čačak",
+    lines: ["Pravimo sajtove", "koji donose"],
     accent: "klijente.",
     sub: "Dizajn, kod i SEO — od ideje do sajta koji radi za vaš posao.",
     ctaWork: "Pogledaj radove",
     ctaTalk: "Započnimo projekat",
-    status: "Slobodan za nove projekte",
+    status: "Primamo nove projekte",
     scroll: "Skroluj",
     location: "Čačak, Srbija",
   },
   marquee: ["Web sajtovi", "Web aplikacije", "Landing stranice", "SEO", "Backend sistemi", "Redizajn"],
   about: {
-    label: "O meni",
+    label: "O nama",
     statement:
-      "Ja sam Strahinja — developer iz Čačka. Spajam backend inženjering i dizajn da bih pravio sajtove koji su brzi, lepi i jednostavni. Bez šablona. Bez komplikacija.",
+      "Mi smo SSolutions — web studio iz Čačka. Spajamo backend inženjering i dizajn da bismo pravili sajtove koji su brzi, lepi i jednostavni. Bez šablona. Bez komplikacija.",
     facts: [
-      { value: "FTN", label: "Master studije, Novi Sad" },
-      { value: "1+", label: "godina iskustva u firmi" },
       { value: "4", label: "projekta uživo" },
+      { value: "2", label: "zemlje — Srbija i Španija" },
       { value: "20+", label: "tehnologija" },
+      { value: "1+", label: "godina iskustva" },
     ],
-    resume: "Preuzmi CV",
+    cta: "Pogledaj radove",
   },
   work: {
     label: "Izabrani radovi",
@@ -122,7 +119,7 @@ const sr = {
   },
   services: {
     label: "Usluge",
-    title: "Šta mogu da napravim za vas",
+    title: "Šta pravimo za vas",
     items: [
       { title: "Web sajtovi", text: "Brzi, moderni sajtovi napravljeni da posetioce pretvore u upite." },
       { title: "Web aplikacije", text: "Rezervacije, katalozi, admin paneli — softver po meri vašeg posla." },
@@ -134,13 +131,13 @@ const sr = {
     label: "Proces",
     title: "Od razgovora do lansiranja",
     steps: [
-      { title: "Razgovor", text: "Upoznam vaš posao, klijente i cilj." },
+      { title: "Razgovor", text: "Upoznajemo vaš posao, klijente i cilj." },
       { title: "Plan i dizajn", text: "Struktura i izgled — pre prve linije koda." },
-      { title: "Razvoj", text: "Gradim i testiram, vi pratite napredak." },
-      { title: "Lansiranje", text: "Sajt ide uživo, a ja ostajem tu za podršku." },
+      { title: "Razvoj", text: "Gradimo i testiramo, vi pratite napredak." },
+      { title: "Lansiranje", text: "Sajt ide uživo, a mi ostajemo tu za podršku." },
     ],
   },
-  stack: { label: "Alati koje koristim" },
+  stack: { label: "Alati koje koristimo" },
   contact: {
     label: "Kontakt",
     kicker: "Imate ideju?",
@@ -157,6 +154,8 @@ const sr = {
     required: "Unesite ime i email.",
     privacyPre: "Slanjem upita prihvatate obradu podataka u skladu sa",
     privacyLink: "Politikom privatnosti",
+    location: "Čačak, Srbija — radimo i online",
+    languages: "Srpski · English",
   },
   footer: {
     rights: "Sva prava zadržana.",
@@ -171,30 +170,30 @@ const sr = {
 };
 
 const en: typeof sr = {
-  nav: { about: "About", work: "Work", services: "Services", process: "Process", contact: "Contact", cta: "Let's talk" },
+  nav: { about: "About us", work: "Work", services: "Services", process: "Process", contact: "Contact", cta: "Let's talk" },
   hero: {
-    eyebrow: "Strahinja Sretenović — web developer",
-    lines: ["I build websites", "that bring in"],
+    eyebrow: "SSolutions — web studio, Čačak",
+    lines: ["We build websites", "that bring in"],
     accent: "clients.",
     sub: "Design, code and SEO — from an idea to a site that works for your business.",
-    ctaWork: "See my work",
+    ctaWork: "See our work",
     ctaTalk: "Start a project",
-    status: "Available for new projects",
+    status: "Taking on new projects",
     scroll: "Scroll",
     location: "Čačak, Serbia",
   },
   marquee: ["Websites", "Web apps", "Landing pages", "SEO", "Backend systems", "Redesigns"],
   about: {
-    label: "About",
+    label: "About us",
     statement:
-      "I'm Strahinja — a developer from Čačak, Serbia. I combine backend engineering with design to build websites that are fast, beautiful and simple. No templates. No fuss.",
+      "We're SSolutions — a web studio from Čačak, Serbia. We combine backend engineering with design to build websites that are fast, beautiful and simple. No templates. No fuss.",
     facts: [
-      { value: "FTN", label: "Master's student, Novi Sad" },
-      { value: "1+", label: "year in industry" },
       { value: "4", label: "live projects" },
+      { value: "2", label: "countries — Serbia & Spain" },
       { value: "20+", label: "technologies" },
+      { value: "1+", label: "years of experience" },
     ],
-    resume: "Download CV",
+    cta: "See our work",
   },
   work: {
     label: "Selected work",
@@ -204,7 +203,7 @@ const en: typeof sr = {
   },
   services: {
     label: "Services",
-    title: "What I can build for you",
+    title: "What we build for you",
     items: [
       { title: "Websites", text: "Fast, modern sites built to turn visitors into inquiries." },
       { title: "Web apps", text: "Bookings, catalogues, admin panels — software shaped to your business." },
@@ -216,13 +215,13 @@ const en: typeof sr = {
     label: "Process",
     title: "From first call to launch",
     steps: [
-      { title: "Talk", text: "I learn your business, clients and goals." },
+      { title: "Talk", text: "We learn your business, clients and goals." },
       { title: "Plan & design", text: "Structure and look — before a line of code." },
-      { title: "Build", text: "I build and test while you follow along." },
-      { title: "Launch", text: "Your site goes live, and I stay around for support." },
+      { title: "Build", text: "We build and test while you follow along." },
+      { title: "Launch", text: "Your site goes live, and we stay around for support." },
     ],
   },
-  stack: { label: "Tools I use" },
+  stack: { label: "Tools we use" },
   contact: {
     label: "Contact",
     kicker: "Got an idea?",
@@ -239,6 +238,8 @@ const en: typeof sr = {
     required: "Please enter your name and email.",
     privacyPre: "By sending an inquiry you agree to the processing of your data under the",
     privacyLink: "Privacy Policy",
+    location: "Čačak, Serbia — working remotely too",
+    languages: "Serbian · English",
   },
   footer: {
     rights: "All rights reserved.",

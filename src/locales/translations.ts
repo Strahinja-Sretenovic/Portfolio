@@ -7,16 +7,16 @@ export interface TranslationSchema {
 export const translations: Record<Language, TranslationSchema> = {
   sr: {
     meta: {
-      title: "Strahinja Sretenović — Izrada sajtova i web aplikacija | SSolutions",
+      title: "SSolutions — Izrada sajtova i web aplikacija | Čačak",
       description:
-        "Web developer iz Čačka. Pravim brze, moderne sajtove i web aplikacije koji donose klijente — dizajn, kod i SEO na jednom mestu.",
+        "Web studio iz Čačka. Pravimo brze, moderne sajtove i web aplikacije koji donose klijente — dizajn, kod i SEO na jednom mestu.",
     },
   },
   en: {
     meta: {
-      title: "Strahinja Sretenović — Websites & Web Apps | SSolutions",
+      title: "SSolutions — Websites & Web Apps | Čačak, Serbia",
       description:
-        "Web developer from Čačak, Serbia. I build fast, modern websites and web apps that bring in clients — design, code and SEO in one place.",
+        "Web studio from Čačak, Serbia. We build fast, modern websites and web apps that bring in clients — design, code and SEO in one place.",
     },
   },
 };

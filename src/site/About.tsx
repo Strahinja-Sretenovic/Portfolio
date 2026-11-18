@@ -1,18 +1,19 @@
 import { useLayoutEffect, useRef } from "react";
-import { Download } from "lucide-react";
-import { gsap, ScrollTrigger } from "./motion";
-import { Content, CONTACT } from "../content";
+import { ArrowUpRight } from "lucide-react";
+import { gsap, ScrollTrigger, useSmooth } from "./motion";
+import { Content } from "../content";
 
 const TERMINAL = [
-  ["whoami", "strahinja.sretenovic"],
-  ["cat role.txt", "full-stack · backend · web design"],
+  ["whoami", "ssolutions"],
+  ["cat about.txt", "web studio · Čačak, Srbija"],
+  ["ls ./services", "websites  web-apps  seo  redesign"],
   ["ls ./stack", "react  typescript  node  java  go  php"],
-  ["echo $EDUCATION", "FTN Novi Sad — M.Sc. ECE (in progress)"],
-  ["status --now", "available_for_work = true"],
+  ["status --now", "accepting_projects = true"],
 ];
 
 export function About({ t }: { t: Content }) {
   const root = useRef<HTMLElement>(null);
+  const { scrollTo } = useSmooth();
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -107,7 +108,7 @@ export function About({ t }: { t: Content }) {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-                <span className="ml-3 text-xs muted font-mono">~/strahinja</span>
+                <span className="ml-3 text-xs muted font-mono">~/ssolutions</span>
               </div>
               <div className="p-5 font-mono text-[13px] leading-relaxed space-y-2.5 min-h-[260px]">
                 {TERMINAL.map(([cmd, out]) => (
@@ -122,15 +123,9 @@ export function About({ t }: { t: Content }) {
                 <span className="inline-block w-2 h-4 align-middle animate-pulse" style={{ background: "var(--accent)" }} />
               </div>
             </div>
-            <a
-              href={CONTACT.resume}
-              target="_blank"
-              rel="noopener"
-              className="btn btn-ghost mt-5 w-full justify-center"
-              data-cursor="link"
-            >
-              <Download size={16} /> {t.about.resume}
-            </a>
+            <button onClick={() => scrollTo("#work")} className="btn btn-ghost mt-5 w-full justify-center" data-cursor="link">
+              {t.about.cta} <ArrowUpRight size={16} className="arrow" />
+            </button>
           </div>
         </div>
       </div>
