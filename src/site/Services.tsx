@@ -33,18 +33,18 @@ export function Services({ t }: { t: Content }) {
         </div>
 
         <div>
+        <ul>
           {t.services.items.map((s, i) => (
-            <button
+            <li
               key={s.title}
-              onClick={() => scrollTo("#contact")}
               data-cursor="link"
-              className="sv-row group relative w-full text-left block overflow-hidden"
+              className="sv-row group relative w-full text-left block overflow-hidden rounded-sm has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--accent)]"
             >
               <div className="sv-line absolute top-0 inset-x-0 h-px origin-left" style={{ background: "var(--line)" }} />
               {/* fill sweep */}
               <div className="absolute inset-0 origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(.7,0,.2,1)]" style={{ background: "var(--accent)" }} />
-              <div className="relative grid grid-cols-12 items-center gap-4 py-8 sm:py-10 px-1 sm:px-4 transition-colors duration-500 group-hover:text-white">
-                <span className="sv-in col-span-2 sm:col-span-1 font-display text-sm tabular-nums opacity-60">0{i + 1}</span>
+              <div className="relative grid grid-cols-12 items-center gap-4 py-8 sm:py-10 px-1 sm:px-4 transition-colors duration-500 group-hover:text-[var(--accent-ink)]">
+                <span className="sv-in col-span-2 sm:col-span-1 font-display text-sm tabular-nums opacity-60" aria-hidden="true">0{i + 1}</span>
                 <div className="sv-in col-span-10 sm:col-span-6 lg:col-span-5">
                   <h3 className="display font-semibold text-[clamp(2rem,4.6vw,4.4rem)] transition-transform duration-500 group-hover:translate-x-3">
                     {s.title}
@@ -53,14 +53,23 @@ export function Services({ t }: { t: Content }) {
                 <p className="sv-in col-span-10 col-start-3 sm:col-start-auto sm:col-span-5 text-base sm:text-lg max-w-md">
                   {s.text}
                 </p>
-                <span className="sv-in hidden lg:block col-span-1 justify-self-end">
-                  <span className="w-12 h-12 rounded-full border grid place-items-center transition-all duration-500 group-hover:rotate-45 group-hover:border-white" style={{ borderColor: "var(--line)" }}>
-                    <ArrowUpRight size={18} />
-                  </span>
+                {/* Whole row is clickable through this button's stretched hit area */}
+                <span className="sv-in col-span-1 justify-self-end">
+                  <button
+                    type="button"
+                    onClick={() => scrollTo("#contact")}
+                    aria-label={`${t.a11y.serviceCta} ${s.title}`}
+                    className="after:absolute after:inset-0 focus-visible:outline-none"
+                  >
+                    <span className="hidden lg:grid w-12 h-12 rounded-full border place-items-center transition-all duration-500 group-hover:rotate-45 group-hover:border-[var(--accent-ink)]" style={{ borderColor: "var(--line)" }}>
+                      <ArrowUpRight size={18} aria-hidden="true" />
+                    </span>
+                  </button>
                 </span>
               </div>
-            </button>
+            </li>
           ))}
+        </ul>
           <div className="h-px" style={{ background: "var(--line)" }} />
         </div>
       </div>

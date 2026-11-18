@@ -1,10 +1,10 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider, useLanguage } from "./context/LanguageContext";
 import { ToastProvider } from "./context/ToastContext";
-import { LegalModal, LegalDocType } from "./components/legal/LegalModal";
-import { CookieBanner } from "./components/legal/CookieBanner";
+import type { LegalDocType } from "./components/legal/LegalModal";
+import { ErrorBoundary } from "./site/ErrorBoundary";
 import { trackPageView } from "./utils/analytics";
 import { content } from "./content";
 import { SmoothScrollProvider, ScrollTrigger, prefersReducedMotion } from "./site/motion";
@@ -21,6 +21,10 @@ import { Stack } from "./site/Stack";
 import { Contact } from "./site/Contact";
 import { Footer } from "./site/Footer";
 
+// Legal texts and the cookie UI are split into their own chunks so they don't slow down the first paint
+const LegalModal = lazy(() => import("./components/legal/LegalModal").then((m) => ({ default: m.LegalModal })));
+const CookieBanner = lazy(() => import("./components/legal/CookieBanner").then((m) => ({ default: m.CookieBanner })));
+
 const seenIntro = () => {
   try {
     return sessionStorage.getItem("intro_seen") === "1";
@@ -34,6 +38,7 @@ function Site() {
   const t = content[language];
   const [loading, setLoading] = useState(() => !seenIntro() && !prefersReducedMotion());
   const [legalOpen, setLegalOpen] = useState(false);
+  const [legalLoaded, setLegalLoaded] = useState(false);
   const [legalDoc, setLegalDoc] = useState<LegalDocType>("privacy");
   const [cookieSettings, setCookieSettings] = useState(false);
 
@@ -62,18 +67,20 @@ function Site() {
 
   const openLegal = (doc: LegalDocType) => {
     setLegalDoc(doc);
+    setLegalLoaded(true);
     setLegalOpen(true);
   };
 
   return (
-    <>
+    <ErrorBoundary message={t.a11y.error}>
+      <a href="#main" className="skip-link">{t.a11y.skip}</a>
       {loading && <Loader onDone={done} />}
       <Cursor label={t.work.visit.split(" ")[0]} />
       <div className="grain" aria-hidden="true" />
       <Nav />
       {/* Remount on language change so pinned scroll sections are rebuilt in document order */}
       <Fragment key={language}>
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero t={t} ready={!loading} />
         <Marquee items={t.marquee} />
         <About t={t} />
@@ -86,18 +93,22 @@ function Site() {
       <Footer t={t} onLegal={openLegal} onCookies={() => setCookieSettings(true)} />
       </Fragment>
 
-      <LegalModal
-        isOpen={legalOpen}
-        onClose={() => setLegalOpen(false)}
-        initialDoc={legalDoc}
-        onOpenCookieSettings={() => setCookieSettings(true)}
-      />
-      <CookieBanner
-        onOpenCookiePolicy={() => openLegal("cookies")}
-        forceOpenSettings={cookieSettings}
-        onCloseSettings={() => setCookieSettings(false)}
-      />
-    </>
+      <Suspense fallback={null}>
+        {legalLoaded && (
+          <LegalModal
+            isOpen={legalOpen}
+            onClose={() => setLegalOpen(false)}
+            initialDoc={legalDoc}
+            onOpenCookieSettings={() => setCookieSettings(true)}
+          />
+        )}
+        <CookieBanner
+          onOpenCookiePolicy={() => openLegal("cookies")}
+          forceOpenSettings={cookieSettings}
+          onCloseSettings={() => setCookieSettings(false)}
+        />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 

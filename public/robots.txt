@@ -1,7 +1,4 @@
-# SSolutions Robots.txt for Search Engines & Crawlers
 User-agent: *
 Allow: /
 
-# Direct Sitemap URL for Googlebot, Bingbot, DuckDuckBot
 Sitemap: https://www.ssolutions.click/sitemap.xml
-Host: https://www.ssolutions.click

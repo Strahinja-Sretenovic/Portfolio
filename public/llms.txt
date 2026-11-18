@@ -1,0 +1,18 @@
+# SSolutions
+
+> Web studio iz Čačka, Srbija. Pravimo brze, moderne web sajtove, web aplikacije, tehnički SEO i redizajn postojećih sajtova.
+
+## Usluge
+- Web sajtovi i landing stranice
+- Web aplikacije i softver po meri (rezervacije, katalozi, admin paneli)
+- SEO i brzina sajta
+- Redizajn
+
+## Radovi
+- [Frizerski salon Stevan](https://frizerski-salon-stevan.vercel.app/): sajt za salon
+- [Ada Studio](https://adastudio.rs/): agencijska platforma i CMS
+- [Altara Inmo](https://www.altarainmo.com/): portal za nekretnine
+- [Taxi Pro GPS](https://www.taxiprogps.com/): softver za praćenje flote
+
+## Kontakt
+- Email: ssolutionsrs@gmail.com

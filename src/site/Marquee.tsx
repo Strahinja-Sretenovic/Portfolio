@@ -1,11 +1,12 @@
 import { useLayoutEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "./motion";
+import { gsap, ScrollTrigger, prefersReducedMotion } from "./motion";
 
 /** Giant text band that speeds up, reverses and skews with scroll velocity. */
 export function Marquee({ items }: { items: string[] }) {
   const root = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       const loop = gsap.to(".mq-track", { xPercent: -50, duration: 38, ease: "none", repeat: -1 });
       const skew = gsap.quickTo(".mq-track", "skewX", { duration: 0.5, ease: "power3.out" });

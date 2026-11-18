@@ -23,7 +23,7 @@ export function About({ t }: { t: Content }) {
       mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
           ".ab-word",
-          { opacity: 0.12 },
+          { opacity: 0.2 },
           {
             opacity: 1,
             stagger: 0.1,
@@ -35,7 +35,7 @@ export function About({ t }: { t: Content }) {
       mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
           ".ab-word",
-          { opacity: 0.12 },
+          { opacity: 0.2 },
           { opacity: 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: ".ab-statement", start: "top 80%", end: "bottom 45%", scrub: 0.6 } }
         );
       });
@@ -92,8 +92,9 @@ export function About({ t }: { t: Content }) {
       <div className="ab-pin lg:min-h-[100svh] flex items-center">
         <div className="container-x py-24 grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-8">
-            <span className="label mb-8">{t.about.label}</span>
-            <p className="ab-statement display font-medium text-[clamp(1.9rem,4.4vw,4.4rem)] !leading-[1.04] mt-6">
+            <h2 className="label mb-8">{t.about.label}</h2>
+            <p className="sr-only">{t.about.statement}</p>
+            <p aria-hidden="true" className="ab-statement display font-medium text-[clamp(1.9rem,4.4vw,4.4rem)] !leading-[1.04] mt-6">
               {words.map((w, i) => (
                 <span key={i} className="ab-word" style={i < 3 ? { color: "var(--accent)" } : undefined}>
                   {w}{" "}

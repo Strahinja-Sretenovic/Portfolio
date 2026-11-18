@@ -13,16 +13,16 @@ export function Loader({ onDone }: { onDone: () => void }) {
       tl.from(".ld-c", { yPercent: 110, duration: 0.8, ease: "power4.out", stagger: 0.03 })
         .to(counter, {
           v: 100,
-          duration: 1.3,
+          duration: 0.9,
           ease: "power2.inOut",
           onUpdate: () => {
             if (count.current) count.current.textContent = String(Math.round(counter.v)).padStart(3, "0");
           },
         }, 0)
-        .to(".ld-bar", { scaleX: 1, duration: 1.3, ease: "power2.inOut" }, 0)
-        .to(".ld-c", { yPercent: -110, duration: 0.6, ease: "power3.in", stagger: 0.02 }, 1.35)
-        .to(".ld-meta", { opacity: 0, duration: 0.3 }, 1.35)
-        .to(root.current, { clipPath: "inset(0 0 100% 0)", duration: 0.9, ease: "expo.inOut" }, 1.7);
+        .to(".ld-bar", { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, 0)
+        .to(".ld-c", { yPercent: -110, duration: 0.5, ease: "power3.in", stagger: 0.02 }, 0.95)
+        .to(".ld-meta", { opacity: 0, duration: 0.3 }, 0.95)
+        .to(root.current, { clipPath: "inset(0 0 100% 0)", duration: 0.8, ease: "expo.inOut" }, 1.2);
     }, root);
     return () => ctx.revert();
   }, [onDone]);

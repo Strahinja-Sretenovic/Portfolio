@@ -72,7 +72,8 @@ export function Contact({ t, onPrivacy }: { t: Content; onPrivacy: () => void })
       <div className="container-x relative">
         <span className="label">{t.contact.label}</span>
         <p className="serif text-3xl sm:text-5xl mt-8" style={{ color: "var(--accent)" }}>{t.contact.kicker}</p>
-        <h2 className="ct-title display font-semibold text-[clamp(3.2rem,11vw,11rem)] mt-2" aria-label={t.contact.title.join(" ")}>
+        <h2 className="ct-title display font-semibold text-[clamp(3.2rem,11vw,11rem)] mt-2">
+          <span className="sr-only">{t.contact.title.join(" ")}</span>
           {t.contact.title.map((line, i) => (
             <span key={i} className="block" aria-hidden="true">{chars(line)}</span>
           ))}
@@ -106,11 +107,11 @@ export function Contact({ t, onPrivacy }: { t: Content; onPrivacy: () => void })
             </label>
             <div className="ct-fade flex flex-wrap items-center gap-5">
               <Magnetic>
-                <button type="submit" className="btn btn-primary !h-14 !px-8 !text-base" data-cursor="link">
+                <button type="submit" aria-describedby="ct-note" className="btn btn-primary !h-14 !px-8 !text-base" data-cursor="link">
                   {t.contact.send} <ArrowUpRight size={18} className="arrow" />
                 </button>
               </Magnetic>
-              <span className="text-sm muted max-w-xs">{t.contact.note}</span>
+              <span id="ct-note" className="text-sm muted max-w-xs">{t.contact.note}</span>
             </div>
             <p className="ct-fade text-xs muted max-w-lg">
               {t.contact.privacyPre}{" "}
@@ -132,7 +133,7 @@ export function Contact({ t, onPrivacy }: { t: Content; onPrivacy: () => void })
                 >
                   {CONTACT.email}
                 </a>
-                <button onClick={copy} className="shrink-0 w-10 h-10 rounded-full border grid place-items-center" style={{ borderColor: "var(--line)" }} aria-label="Copy email">
+                <button onClick={copy} className="shrink-0 w-10 h-10 rounded-full border grid place-items-center" style={{ borderColor: "var(--line)" }} aria-label={t.a11y.copyEmail}>
                   {copied ? <Check size={16} /> : <Copy size={16} />}
                 </button>
               </div>

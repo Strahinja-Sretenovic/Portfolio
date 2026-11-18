@@ -35,7 +35,7 @@ function ProjectCard({ p, i, lang, t }: { p: Project; i: number; lang: Lang; t: 
             data-cursor="link"
             onClick={() => trackProjectClick({ projectName: p.name, projectType: p.category.en, projectUrl: p.link, action: "open_external_demo" })}
           >
-            {t.work.visit} <ArrowUpRight size={17} className="arrow" />
+            {t.work.visit} <ArrowUpRight size={17} className="arrow" aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -56,7 +56,16 @@ function ProjectCard({ p, i, lang, t }: { p: Project; i: number; lang: Lang; t: 
           <span className="mx-auto text-[11px] muted font-mono truncate">{p.link.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</span>
         </div>
         <div className="wk-img absolute inset-0 pt-9 overflow-hidden">
-          <img src={p.image} alt={`${p.name} — screenshot`} loading="lazy" className="shot scale-[1.12] group-hover:scale-100 transition-transform duration-[1.2s]" />
+          <img
+            src={p.image}
+            srcSet={`${p.image.replace(".webp", "-640.webp")} 640w, ${p.image} 1200w`}
+            sizes="(min-width: 1024px) 52vw, 92vw"
+            width={1200}
+            height={2500}
+            alt={lang === "sr" ? `Snimak ekrana sajta ${p.name}` : `${p.name} website screenshot`}
+            loading="lazy"
+            decoding="async"
+            className="shot scale-[1.12] group-hover:scale-100 transition-transform duration-[1.2s]" />
         </div>
         <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: `inset 0 0 0 2px ${p.accent}` }} />
       </a>

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 }
 
@@ -52,6 +52,29 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 ::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* Visible keyboard focus everywhere (mouse clicks don't show it) */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.field:focus-visible { outline: none; }
+
+/* Skip link: hidden until focused with the keyboard */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 300;
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* Decorative film grain is skipped on phones to save battery and CPU */
+@media (max-width: 767px), (pointer: coarse) { .grain { display: none; } }
 
 @layer components {
 .display { font-family: var(--font-display); letter-spacing: -0.045em; line-height: 0.92; }
@@ -110,7 +133,7 @@ body {
   transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
 }
 .btn:hover::after { transform: translateY(0); }
-.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
 .btn-primary::after { background: var(--fg); }
 .btn-primary:hover { color: var(--bg); }
 .btn-ghost { border: 1px solid var(--line); color: var(--fg); }

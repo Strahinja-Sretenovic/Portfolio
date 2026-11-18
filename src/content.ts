@@ -86,6 +86,17 @@ export const stackRows = [
 ];
 
 const sr = {
+  a11y: {
+    skip: "Preskoči na sadržaj",
+    mainNav: "Glavna navigacija",
+    theme: "Promeni temu (svetla / tamna)",
+    menuOpen: "Otvori meni",
+    menuClose: "Zatvori meni",
+    language: "Jezik",
+    copyEmail: "Kopiraj email adresu",
+    serviceCta: "Započnite projekat:",
+    error: "Nešto nije u redu. Osvežite stranicu ili nam pišite na",
+  },
   nav: { about: "O nama", work: "Radovi", services: "Usluge", process: "Proces", contact: "Kontakt", cta: "Započnimo" },
   hero: {
     eyebrow: "SSolutions — web studio, Čačak",
@@ -170,6 +181,17 @@ const sr = {
 };
 
 const en: typeof sr = {
+  a11y: {
+    skip: "Skip to content",
+    mainNav: "Main navigation",
+    theme: "Toggle theme (light / dark)",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+    language: "Language",
+    copyEmail: "Copy email address",
+    serviceCta: "Start a project:",
+    error: "Something went wrong. Refresh the page or email us at",
+  },
   nav: { about: "About us", work: "Work", services: "Services", process: "Process", contact: "Contact", cta: "Let's talk" },
   hero: {
     eyebrow: "SSolutions — web studio, Čačak",

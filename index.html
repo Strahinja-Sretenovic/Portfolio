@@ -1,54 +1,45 @@
 <!doctype html>
-<html lang="sr">
+<html lang="sr" dir="ltr">
   <head>
-    <!-- Privacy-Preserving Consent Mode v2 Default Configuration (GDPR & Serbian ZZPL) -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      // Default to strictly denied until explicit user consent is given via Cookie Consent Banner
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied'
-      });
-    </script>
-
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Primary Browser Title & High-Intent SEO -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SSolutions — Izrada sajtova i web aplikacija | Čačak</title>
     <meta name="description" content="Web studio iz Čačka. Pravimo brze, moderne sajtove i web aplikacije koji donose klijente — dizajn, kod i SEO na jednom mestu." />
-    <meta name="keywords" content="izrada sajtova, izrada sajtova cacak, izrada sajtova beograd, izrada sajtova srbija, web dizajn cacak, izrada internet prodavnice, seo optimizacija sajta, izrada web aplikacija, web development srbija, ssolutions cacak, ssolutions, cene izrade sajta" />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" />
+
+    <!-- Google Consent Mode v2: everything denied until the visitor accepts in the cookie banner -->
+    <script src="/consent.js"></script>
 
     <link rel="canonical" href="https://www.ssolutions.click/" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#08090c" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)" />
+    <meta name="format-detection" content="telephone=no" />
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.ssolutions.click/" />
     <meta property="og:title" content="SSolutions — Izrada sajtova i web aplikacija | Čačak" />
     <meta property="og:description" content="Web studio iz Čačka. Dizajn, kod i SEO — sajtovi i web aplikacije koji donose klijente." />
-    <meta property="og:image" content="https://www.ssolutions.click/og-image.svg" />
+    <meta property="og:image" content="https://www.ssolutions.click/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SSolutions — Pravimo sajtove koji donose klijente" />
     <meta property="og:site_name" content="SSolutions" />
     <meta property="og:locale" content="sr_RS" />
     <meta property="og:locale:alternate" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="SSolutions — Izrada sajtova i web aplikacija | Čačak" />
     <meta name="twitter:description" content="Web studio iz Čačka. Dizajn, kod i SEO — sajtovi i web aplikacije koji donose klijente." />
-    <meta name="twitter:image" content="https://www.ssolutions.click/og-image.svg" />
+    <meta name="twitter:image" content="https://www.ssolutions.click/og-image.png" />
+    <meta name="twitter:image:alt" content="SSolutions — Pravimo sajtove koji donose klijente" />
 
+    <!-- Icons & PWA -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="preload" as="image" href="/work/stevan.webp" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <script type="application/ld+json">
       [
@@ -58,11 +49,22 @@
           "@id": "https://www.ssolutions.click/#business",
           "name": "SSolutions",
           "url": "https://www.ssolutions.click/",
-          "image": "https://www.ssolutions.click/og-image.svg",
+          "image": "https://www.ssolutions.click/og-image.png",
+          "logo": "https://www.ssolutions.click/icon-512.png",
           "description": "Izrada web sajtova, web aplikacija, SEO i redizajn — Čačak i cela Srbija.",
           "email": "mailto:ssolutionsrs@gmail.com",
           "address": { "@type": "PostalAddress", "addressLocality": "Čačak", "addressCountry": "RS" },
-          "areaServed": "RS"
+          "areaServed": "RS",
+          "knowsLanguage": ["sr", "en"]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "@id": "https://www.ssolutions.click/#website",
+          "url": "https://www.ssolutions.click/",
+          "name": "SSolutions",
+          "inLanguage": "sr-Latn-RS",
+          "publisher": { "@id": "https://www.ssolutions.click/#business" }
         }
       ]
     </script>

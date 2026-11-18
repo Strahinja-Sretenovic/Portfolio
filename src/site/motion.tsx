@@ -57,30 +57,36 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
 export const useSmooth = () => useContext(Ctx);
 
-/** Splits a sentence into masked words for slide-up reveals. */
+/** Splits a sentence into masked words for slide-up reveals. Screen readers get the plain sentence. */
 export function Words({ text, className = "", wordClass = "w" }: { text: string; className?: string; wordClass?: string }) {
   const words = text.split(" ");
   return (
-    <span className={className} aria-label={text}>
-      {words.map((w, i) => (
-        <span key={i} className="mask" aria-hidden="true">
-          <span className={wordClass}>{w}</span>
-          {i < words.length - 1 ? " " : ""}
-        </span>
-      ))}
+    <span className={className}>
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {words.map((w, i) => (
+          <span key={i} className="mask">
+            <span className={wordClass}>{w}</span>
+            {i < words.length - 1 ? "\u00A0" : ""}
+          </span>
+        ))}
+      </span>
     </span>
   );
 }
 
-/** Splits text into masked characters. */
+/** Splits text into masked characters. Screen readers get the plain text. */
 export function Chars({ text, className = "", charClass = "c" }: { text: string; className?: string; charClass?: string }) {
   return (
-    <span className={className} aria-label={text}>
-      {Array.from(text).map((ch, i) => (
-        <span key={i} className="mask" aria-hidden="true">
-          <span className={charClass}>{ch === " " ? " " : ch}</span>
-        </span>
-      ))}
+    <span className={className}>
+      <span className="sr-only">{text}</span>
+      <span aria-hidden="true">
+        {Array.from(text).map((ch, i) => (
+          <span key={i} className="mask">
+            <span className={charClass}>{ch === " " ? "\u00A0" : ch}</span>
+          </span>
+        ))}
+      </span>
     </span>
   );
 }

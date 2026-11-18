@@ -13,14 +13,11 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem("app_lang");
-    return (saved === "en" || saved === "sr") ? saved : "sr";
-  });
+  // Serbian is always the first language on every visit; English is an in-session switch only.
+  const [language, setLanguageState] = useState<Language>("sr");
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem("app_lang", lang);
   };
 
   const toggleLanguage = () => {
@@ -28,7 +25,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   useEffect(() => {
-    localStorage.setItem("app_lang", language);
     // Sync document language attribute and title
     document.documentElement.lang = language;
     const currentT = translations[language];

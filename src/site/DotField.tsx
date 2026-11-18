@@ -1,11 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "./motion";
 
 /** Interactive dot grid: dots swell and drift away from the cursor, with a slow ambient wave. */
 export function DotField() {
   const canvas = useRef<HTMLCanvasElement>(null);
+  // Touch devices and small screens get a static CSS dot pattern instead of a running canvas (saves CPU/battery)
+  const [interactive] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(pointer: fine) and (min-width: 768px)").matches
+  );
 
   useEffect(() => {
+    if (!interactive) return;
     const c = canvas.current!;
     const ctx = c.getContext("2d")!;
     const reduced = prefersReducedMotion();
@@ -83,7 +88,16 @@ export function DotField() {
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerleave", onLeave);
     };
-  }, []);
+  }, [interactive]);
 
+  if (!interactive) {
+    return (
+      <div
+        className="absolute inset-0"
+        aria-hidden="true"
+        style={{ backgroundImage: "radial-gradient(var(--dot) 1.2px, transparent 1.4px)", backgroundSize: "30px 30px" }}
+      />
+    );
+  }
   return <canvas ref={canvas} className="absolute inset-0 w-full h-full" aria-hidden="true" />;
 }

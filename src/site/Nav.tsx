@@ -33,11 +33,20 @@ export function Nav() {
     return () => st.kill();
   }, []);
 
+  // Close the mobile menu with Escape
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   // Mobile menu animation
   useEffect(() => {
     const el = menuRef.current;
     if (!el) return;
     if (open) {
+      setTimeout(() => el.querySelector<HTMLButtonElement>("button")?.focus(), 400);
       stop();
       gsap.set(el, { display: "flex" });
       gsap.fromTo(el, { clipPath: "circle(0% at 100% 0%)" }, { clipPath: "circle(150% at 100% 0%)", duration: 0.8, ease: "expo.inOut" });
@@ -58,11 +67,12 @@ export function Nav() {
       <div className="fixed top-0 left-0 right-0 h-[2px] z-[70] origin-left" ref={progress} style={{ background: "var(--accent)", transform: "scaleX(0)" }} />
       <header ref={bar} className="fixed top-0 inset-x-0 z-[65] transition-colors duration-500" style={open ? { color: "var(--bg)" } : undefined}>
         <div className="container-x flex items-center justify-between h-[72px]">
-          <button onClick={() => scrollTo(0)} className="font-display font-bold text-lg tracking-tight flex items-baseline gap-2" aria-label="Home">
+          <button onClick={() => scrollTo(0)} className="font-display font-bold text-lg tracking-tight flex items-baseline gap-2" >
             SSolutions<span style={{ color: "var(--accent)" }}>.</span>
           </button>
 
           <nav
+            aria-label={t.a11y.mainNav}
             className="hidden lg:flex items-center gap-1 rounded-full px-2 py-1.5 border backdrop-blur-xl"
             style={{ borderColor: "var(--line)", background: "color-mix(in srgb, var(--bg) 70%, transparent)" }}
           >
@@ -78,7 +88,7 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <div className="flex rounded-full border p-1 text-xs font-semibold font-display" style={{ borderColor: "var(--line)" }}>
+            <div role="group" aria-label={t.a11y.language} className="flex rounded-full border p-1 text-xs font-semibold font-display" style={{ borderColor: "var(--line)" }}>
               {(["sr", "en"] as const).map((l) => (
                 <button
                   key={l}
@@ -86,6 +96,8 @@ export function Nav() {
                   className="px-2.5 py-1.5 rounded-full uppercase transition-colors"
                   style={language === l ? { background: "var(--fg)", color: "var(--bg)" } : undefined}
                   aria-pressed={language === l}
+                  title={l === "sr" ? "Srpski" : "English"}
+                  lang={l}
                 >
                   {l}
                 </button>
@@ -95,7 +107,7 @@ export function Nav() {
               onClick={() => setTheme(isDark ? "light" : "dark")}
               className="w-9 h-9 rounded-full border grid place-items-center transition-transform hover:rotate-45"
               style={{ borderColor: "var(--line)" }}
-              aria-label="Toggle theme"
+              aria-label={t.a11y.theme}
             >
               {isDark ? <Sun size={15} /> : <Moon size={15} />}
             </button>
@@ -106,7 +118,8 @@ export function Nav() {
               onClick={() => setOpen((o) => !o)}
               className="lg:hidden w-9 h-9 rounded-full grid place-items-center relative z-[80]"
               style={{ background: "var(--fg)", color: "var(--bg)" }}
-              aria-label="Menu"
+              aria-label={open ? t.a11y.menuClose : t.a11y.menuOpen}
+              aria-controls="mobile-menu"
               aria-expanded={open}
             >
               <span className="relative w-4 h-3 block">
@@ -120,10 +133,11 @@ export function Nav() {
 
       <div
         ref={menuRef}
+        id="mobile-menu"
         className="fixed inset-0 z-[64] hidden flex-col justify-end p-6 pb-10"
         style={{ background: "var(--fg)", color: "var(--bg)", clipPath: "circle(0% at 100% 0%)" }}
       >
-        <nav className="flex flex-col gap-1">
+        <nav aria-label={t.a11y.mainNav} className="flex flex-col gap-1">
           {SECTIONS.map((id, i) => (
             <button key={id} onClick={() => go(id)} className="text-left">
               <span className="mask">
