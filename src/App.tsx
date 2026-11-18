@@ -1,139 +1,113 @@
-import { useState, useEffect } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { ThemeProvider } from "./components/ThemeProvider";
-import { LanguageProvider } from "./context/LanguageContext";
+import { LanguageProvider, useLanguage } from "./context/LanguageContext";
 import { ToastProvider } from "./context/ToastContext";
-import { Header } from "./components/Header";
-import { IntroLoader } from "./components/IntroLoader";
-import { HorizontalDeck } from "./components/deck/HorizontalDeck";
-import { ServiceDetailsModal } from "./components/presentation/ServiceDetailsModal";
-import { AllProjects } from "./components/AllProjects";
-import { FaqModal } from "./components/FaqModal";
-import { FloatingContact } from "./components/FloatingContact";
 import { LegalModal, LegalDocType } from "./components/legal/LegalModal";
 import { CookieBanner } from "./components/legal/CookieBanner";
-import { SemanticSEOContent } from "./components/seo/SemanticSEOContent";
 import { trackPageView } from "./utils/analytics";
+import { content } from "./content";
+import { SmoothScrollProvider, ScrollTrigger, prefersReducedMotion } from "./site/motion";
+import { Loader } from "./site/Loader";
+import { Nav } from "./site/Nav";
+import { Cursor } from "./site/Cursor";
+import { Hero } from "./site/Hero";
+import { Marquee } from "./site/Marquee";
+import { About } from "./site/About";
+import { Work } from "./site/Work";
+import { Services } from "./site/Services";
+import { Process } from "./site/Process";
+import { Stack } from "./site/Stack";
+import { Contact } from "./site/Contact";
+import { Footer } from "./site/Footer";
 
-export default function App() {
-  const [showIntro, setShowIntro] = useState(true);
-  const [currentView, setCurrentView] = useState<"home" | "all-projects">("home");
-  const [activeSlide, setActiveSlide] = useState<number>(0);
-  const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
-  const [selectedServiceId, setSelectedServiceId] = useState<string | undefined>(undefined);
-  const [isFaqOpen, setIsFaqOpen] = useState(false);
+const seenIntro = () => {
+  try {
+    return sessionStorage.getItem("intro_seen") === "1";
+  } catch {
+    return false;
+  }
+};
 
-  // Legal & Cookie Compliance State
-  const [isLegalOpen, setIsLegalOpen] = useState(false);
-  const [activeLegalDoc, setActiveLegalDoc] = useState<LegalDocType>("privacy");
-  const [isCookieSettingsOpen, setIsCookieSettingsOpen] = useState(false);
+function Site() {
+  const { language } = useLanguage();
+  const t = content[language];
+  const [loading, setLoading] = useState(() => !seenIntro() && !prefersReducedMotion());
+  const [legalOpen, setLegalOpen] = useState(false);
+  const [legalDoc, setLegalDoc] = useState<LegalDocType>("privacy");
+  const [cookieSettings, setCookieSettings] = useState(false);
 
   useEffect(() => {
-    trackPageView("/", "SSolutions — Horizontal Interactive Sales Presentation");
+    trackPageView("/", "Strahinja Sretenović — SSolutions");
   }, []);
 
-  const handleOpenLegal = (doc: LegalDocType = "privacy") => {
-    setActiveLegalDoc(doc);
-    setIsLegalOpen(true);
-  };
+  // Recalculate pinned sections after fonts/images settle or language changes
+  useEffect(() => {
+    const refresh = () => ScrollTrigger.refresh();
+    document.fonts?.ready.then(refresh);
+    window.addEventListener("load", refresh);
+    const id = setTimeout(refresh, 300);
+    return () => {
+      window.removeEventListener("load", refresh);
+      clearTimeout(id);
+    };
+  }, [language]);
 
-  const handleOpenCookieSettings = () => {
-    setIsCookieSettingsOpen(true);
-  };
+  const done = useCallback(() => {
+    setLoading(false);
+    try {
+      sessionStorage.setItem("intro_seen", "1");
+    } catch {}
+  }, []);
 
-  const handleOpenServiceModal = (serviceId?: string) => {
-    setSelectedServiceId(serviceId);
-    setIsServiceModalOpen(true);
-  };
-
-  const handleOpenProjects = () => {
-    setCurrentView("all-projects");
-  };
-
-  const handleNavigateHome = () => {
-    setCurrentView("home");
-  };
-
-  const handleJumpToSlide = (index: number) => {
-    if (currentView === "all-projects") {
-      setCurrentView("home");
-    }
-    setActiveSlide(index);
+  const openLegal = (doc: LegalDocType) => {
+    setLegalDoc(doc);
+    setLegalOpen(true);
   };
 
   return (
-    <ThemeProvider>
+    <>
+      {loading && <Loader onDone={done} />}
+      <Cursor label={t.work.visit.split(" ")[0]} />
+      <div className="grain" aria-hidden="true" />
+      <Nav />
+      {/* Remount on language change so pinned scroll sections are rebuilt in document order */}
+      <Fragment key={language}>
+      <main>
+        <Hero t={t} ready={!loading} />
+        <Marquee items={t.marquee} />
+        <About t={t} />
+        <Work t={t} lang={language} />
+        <Services t={t} />
+        <Process t={t} />
+        <Stack label={t.stack.label} />
+        <Contact t={t} />
+      </main>
+      <Footer t={t} onLegal={openLegal} onCookies={() => setCookieSettings(true)} />
+      </Fragment>
+
+      <LegalModal
+        isOpen={legalOpen}
+        onClose={() => setLegalOpen(false)}
+        initialDoc={legalDoc}
+        onOpenCookieSettings={() => setCookieSettings(true)}
+      />
+      <CookieBanner
+        onOpenCookiePolicy={() => openLegal("cookies")}
+        forceOpenSettings={cookieSettings}
+        onCloseSettings={() => setCookieSettings(false)}
+      />
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider defaultTheme="dark">
       <LanguageProvider>
         <ToastProvider>
-          {showIntro && <IntroLoader onComplete={() => setShowIntro(false)} />}
-          <div className="w-screen h-[100dvh] max-h-[100dvh] overflow-hidden font-sans selection:bg-blue-600/30 selection:text-slate-900 dark:selection:text-white bg-white dark:bg-[#05070c] text-slate-900 dark:text-slate-100 relative">
-            
-            {/* Header Navigation */}
-            <Header
-              currentView={currentView}
-              onNavigateHome={handleNavigateHome}
-              onOpenProjects={handleOpenProjects}
-              onJumpToSlide={handleJumpToSlide}
-              onOpenFaq={() => setIsFaqOpen(true)}
-              onOpenLegal={handleOpenLegal}
-            />
-
-            {/* Main Application Area: Fullscreen Horizontal Deck or All Projects */}
-            <main className="w-full h-full">
-              {/* Accessible Semantic HTML for Search Spiders & Screen Readers */}
-              <SemanticSEOContent />
-
-              {currentView === "all-projects" ? (
-                <div className="w-full h-full overflow-y-auto pt-16 pb-16 px-3.5 sm:px-6">
-                  <AllProjects
-                    onBack={handleNavigateHome}
-                    onOpenLegal={handleOpenLegal}
-                    onOpenCookieSettings={handleOpenCookieSettings}
-                  />
-                </div>
-              ) : (
-                /* 10-SLIDE FULLSCREEN HORIZONTAL INTERACTIVE SALES PRESENTATION */
-                <HorizontalDeck
-                  activeSlide={activeSlide}
-                  onSlideChange={setActiveSlide}
-                  onOpenProjectsModal={handleOpenProjects}
-                  onOpenServiceModal={handleOpenServiceModal}
-                  onOpenLegal={handleOpenLegal}
-                />
-              )}
-            </main>
-
-            {/* FAQ Modal */}
-            <FaqModal
-              isOpen={isFaqOpen}
-              onClose={() => setIsFaqOpen(false)}
-              onJumpToForm={() => handleJumpToSlide(9)}
-            />
-
-            {/* Comprehensive Service Specs Modal */}
-            <ServiceDetailsModal
-              isOpen={isServiceModalOpen}
-              onClose={() => setIsServiceModalOpen(false)}
-              initialServiceId={selectedServiceId}
-            />
-
-            {/* Compact Floating Contact Helper */}
-            <FloatingContact />
-
-            {/* Legal Pages Modal (Privacy, Terms, Cookies, Refund, Business Details) */}
-            <LegalModal
-              isOpen={isLegalOpen}
-              onClose={() => setIsLegalOpen(false)}
-              initialDoc={activeLegalDoc}
-              onOpenCookieSettings={handleOpenCookieSettings}
-            />
-
-            {/* Cookie Consent Banner & Granular Preferences Modal */}
-            <CookieBanner
-              onOpenCookiePolicy={() => handleOpenLegal("cookies")}
-              forceOpenSettings={isCookieSettingsOpen}
-              onCloseSettings={() => setIsCookieSettingsOpen(false)}
-            />
-          </div>
+          <SmoothScrollProvider>
+            <Site />
+          </SmoothScrollProvider>
         </ToastProvider>
       </LanguageProvider>
     </ThemeProvider>
