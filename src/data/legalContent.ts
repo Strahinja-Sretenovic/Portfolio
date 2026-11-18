@@ -72,6 +72,7 @@ export const legalContentSr: Record<string, LegalDocument> = {
             items: [
               "Tehnički izbori (izabrana tema, izabrani jezik, status pristanka na kolačiće) — čuvaju se lokalno u vašem pretraživaču (localStorage) radi funkcionisanja sajta.",
               "Anonimni analitički podaci (Google Analytics 4) — prikupljaju se ISKLJUČIVO ukoliko ste dali eksplicitni pristanak putem banera za kolačiće. Podaci su agregirani i IP adrese su anonimizirane.",
+              "Statistika poseta (Vercel Web Analytics) — ne koristi kolačiće i ne čuva lične podatke; broji posete i pregledane stranice preko anonimnog identifikatora koji se briše svakih 24 sata.",
             ],
           },
         ],
@@ -387,6 +388,7 @@ export const legalContentEn: Record<string, LegalDocument> = {
             items: [
               "Essential technical preferences (chosen color theme, chosen language, cookie consent status) stored locally in your browser's localStorage.",
               "Aggregated Analytics (Google Analytics 4): Activated ONLY if you explicitly consent via our cookie banner. All IP addresses are anonymized.",
+              "Visit statistics (Vercel Web Analytics): cookieless and stores no personal data; it counts visits and page views using an anonymous identifier that is discarded every 24 hours.",
             ],
           },
         ],

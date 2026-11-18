@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { LanguageProvider, useLanguage } from "./context/LanguageContext";
 import { ToastProvider } from "./context/ToastContext";
@@ -107,6 +108,7 @@ export default function App() {
         <ToastProvider>
           <SmoothScrollProvider>
             <Site />
+            <Analytics />
           </SmoothScrollProvider>
         </ToastProvider>
       </LanguageProvider>
