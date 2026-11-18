@@ -6,7 +6,7 @@ import { Magnetic } from "./Magnetic";
 import { useToast } from "../context/ToastContext";
 import { trackDirectContact, trackLeadFormSubmission } from "../utils/analytics";
 
-export function Contact({ t }: { t: Content }) {
+export function Contact({ t, onPrivacy }: { t: Content; onPrivacy: () => void }) {
   const root = useRef<HTMLElement>(null);
   const { showToast } = useToast();
   const [name, setName] = useState("");
@@ -112,6 +112,13 @@ export function Contact({ t }: { t: Content }) {
               </Magnetic>
               <span className="text-sm muted max-w-xs">{t.contact.note}</span>
             </div>
+            <p className="ct-fade text-xs muted max-w-lg">
+              {t.contact.privacyPre}{" "}
+              <button type="button" onClick={onPrivacy} className="underline underline-offset-4 hover:text-[var(--fg)]">
+                {t.contact.privacyLink}
+              </button>
+              .
+            </p>
           </form>
 
           <div className="lg:col-span-5 lg:pl-10 lg:border-l flex flex-col justify-between gap-10" style={{ borderColor: "var(--line)" }}>

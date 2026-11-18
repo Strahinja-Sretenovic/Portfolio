@@ -80,7 +80,7 @@ function Site() {
         <Services t={t} />
         <Process t={t} />
         <Stack label={t.stack.label} />
-        <Contact t={t} />
+        <Contact t={t} onPrivacy={() => openLegal("privacy")} />
       </main>
       <Footer t={t} onLegal={openLegal} onCookies={() => setCookieSettings(true)} />
       </Fragment>

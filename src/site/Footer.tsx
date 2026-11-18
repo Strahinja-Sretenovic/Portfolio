@@ -21,11 +21,14 @@ export function Footer({ t, onLegal, onCookies }: { t: Content; onLegal: (d: Leg
 
   return (
     <footer ref={root} className="relative overflow-hidden pt-16" style={{ background: "var(--fg)", color: "var(--bg)" }}>
-      <div className="container-x flex flex-col md:flex-row gap-6 md:items-center justify-between text-sm">
+      <div className="container-x flex flex-col lg:flex-row gap-6 lg:items-center justify-between text-sm">
         <div className="flex flex-wrap gap-x-6 gap-y-2 opacity-70">
           <button onClick={() => onLegal("privacy")} className="hover:opacity-100 hover:underline">{t.footer.privacy}</button>
           <button onClick={() => onLegal("terms")} className="hover:opacity-100 hover:underline">{t.footer.terms}</button>
-          <button onClick={onCookies} className="hover:opacity-100 hover:underline">{t.footer.cookies}</button>
+          <button onClick={() => onLegal("cookies")} className="hover:opacity-100 hover:underline">{t.footer.cookies}</button>
+          <button onClick={() => onLegal("refund")} className="hover:opacity-100 hover:underline">{t.footer.refund}</button>
+          <button onClick={() => onLegal("business")} className="hover:opacity-100 hover:underline">{t.footer.business}</button>
+          <button onClick={onCookies} className="hover:opacity-100 hover:underline">{t.footer.cookieSettings}</button>
         </div>
         <span className="opacity-60">© {new Date().getFullYear()} Strahinja Sretenović · SSolutions. {t.footer.rights}</span>
         <button onClick={() => scrollTo(0)} className="flex items-center gap-2 font-display uppercase tracking-[0.18em] text-xs">
