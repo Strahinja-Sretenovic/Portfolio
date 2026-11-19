@@ -36,7 +36,6 @@ export const legalContentSr: Record<string, LegalDocument> = {
         content: [
           "Rukovalac vašim ličnim podacima je:",
           "Naziv: SSolutions (Digitalna Strategija, UX Arhitektura & Web Inženjering)",
-          "Osnivač & Glavni konsultant: Stevan Sretenović",
           "Sedište: Novi Sad, Republika Srbija",
           "Email za zahteve o zaštiti podataka: ssolutionsrs@gmail.com",
           "Za sva pitanja, uvid u vaše podatke ili povlačenje date saglasnosti možete nas u svakom trenutku kontaktirati putem navedene email adrese.",
@@ -130,7 +129,7 @@ export const legalContentSr: Record<string, LegalDocument> = {
           "Ukoliko smatrate da se obrada vaših podataka vrši suprotno odredbama ZZPL-a, imate pravo da podnesete pritužbu nadzornom organu:",
           "Poverenik za informacije od javnog značaja i zaštitu podataka o ličnosti",
           "Adresa: Bulevar kralja Aleksandra 15, 11000 Beograd, Srbija",
-          "Email: office@poverenik.rs | Telefon: +381 11 3408 900 | Web: www.poverenik.rs",
+          "Email: office@poverenik.rs | Web: www.poverenik.rs",
         ],
       },
     ],
@@ -155,7 +154,7 @@ export const legalContentSr: Record<string, LegalDocument> = {
         id: "ip",
         title: "2. Intelektualna svojina i autorska prava",
         content: [
-          "Celokupan sadržaj na sajtu — uključujući tekstove, metodološke dijagrame, UI/UX koncepte, dizajn, interaktivne prezentacije i programski kod — predstavlja intelektualnu svojinu SSolutions (Stevana Sretenovića) ili se koristi uz zakonito pravo.",
+          "Celokupan sadržaj na sajtu — uključujući tekstove, metodološke dijagrame, UI/UX koncepte, dizajn, interaktivne prezentacije i programski kod — predstavlja intelektualnu svojinu SSolutions ili se koristi uz zakonito pravo.",
           "Zabranjeno je neovlašćeno kopiranje, reprodukovanje, preprodaja ili korišćenje sadržaja sajta u komercijalne svrhe bez prethodne pisane saglasnosti.",
         ],
       },
@@ -307,12 +306,10 @@ export const legalContentSr: Record<string, LegalDocument> = {
         title: "1. Osnovni poslovni podaci",
         content: [
           "Naziv brenda / Poslovno ime: SSolutions (Web Strategija & Inženjering)",
-          "Osnivač i vodeći inženjer: Stevan Sretenović",
           "Pravna forma: Samostalna profesionalna delatnost (Web razvoj i konsalting) / Registrovani preduzetnik u postupku usklađivanja",
           "Sedište: Novi Sad, Republika Srbija",
           "Glavna delatnost: 62.01 — Računarsko programiranje i prateće konsultantske delatnosti informacionih tehnologija (62.02)",
           "Zvanični kontakt email: ssolutionsrs@gmail.com",
-          "Telefon / Direktna linija: Dostupna registrovanim klijentima putem zakazanog audio/video poziva ili WhatsApp/Viber kanala",
           "Radno vreme za upite: Ponedeljak – Petak: 09:00 – 17:00 CET",
         ],
       },
@@ -350,7 +347,6 @@ export const legalContentEn: Record<string, LegalDocument> = {
         content: [
           "The Data Controller responsible for your personal data is:",
           "Entity: SSolutions (Digital Strategy, UX Architecture & Web Engineering)",
-          "Founder & Lead Consultant: Stevan Sretenovic",
           "Location: Novi Sad, Republic of Serbia",
           "Privacy & Data Inquiries Email: ssolutionsrs@gmail.com",
           "You may reach out at any time to exercise your data subject rights, request access, or revoke consent.",
@@ -467,7 +463,7 @@ export const legalContentEn: Record<string, LegalDocument> = {
         id: "ip",
         title: "2. Intellectual Property Rights",
         content: [
-          "All intellectual property on this site—including text, diagrams, UI layouts, interactive decks, and source code—is owned by SSolutions (Stevan Sretenovic) or used under license.",
+          "All intellectual property on this site—including text, diagrams, UI layouts, interactive decks, and source code—is owned by SSolutions or used under license.",
           "Unauthorized reproduction, redistribution, or commercial reuse without written permission is strictly prohibited.",
         ],
       },
@@ -617,12 +613,10 @@ export const legalContentEn: Record<string, LegalDocument> = {
         title: "1. Official Business Information",
         content: [
           "Brand & Commercial Name: SSolutions (Web Strategy & Engineering)",
-          "Founder & Principal Consultant: Stevan Sretenovic",
           "Legal Form: Professional Consulting & Development Services / Registered Sole Proprietorship",
           "Headquarters: Novi Sad, Republic of Serbia",
           "Primary Activity: 62.01 Computer Programming & IT Consulting (62.02)",
           "Direct Contact Email: ssolutionsrs@gmail.com",
-          "Direct Line: Available to registered clients via scheduled call or WhatsApp/Viber channels",
           "Business Hours: Monday – Friday: 09:00 – 17:00 CET",
         ],
       },
