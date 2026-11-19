@@ -1,4 +1,5 @@
-import { FormEvent, useLayoutEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ESTIMATE_EVENT, EstimateDetail } from "./Pricing";
 import { ArrowUpRight, Copy, Check } from "lucide-react";
 import { gsap } from "./motion";
 import { Content, CONTACT } from "../content";
@@ -14,6 +15,17 @@ export function Contact({ t, onPrivacy }: { t: Content; onPrivacy: () => void })
   const [type, setType] = useState(t.contact.types[0]);
   const [msg, setMsg] = useState("");
   const [copied, setCopied] = useState(false);
+
+  // Prefill the form when a visitor sends an estimate from the pricing calculator
+  useEffect(() => {
+    const onEstimate = (e: Event) => {
+      const { typeIndex, message } = (e as CustomEvent<EstimateDetail>).detail;
+      setType(t.contact.types[typeIndex] ?? t.contact.types[0]);
+      setMsg(message);
+    };
+    window.addEventListener(ESTIMATE_EVENT, onEstimate);
+    return () => window.removeEventListener(ESTIMATE_EVENT, onEstimate);
+  }, [t]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -103,7 +115,7 @@ export function Contact({ t, onPrivacy }: { t: Content; onPrivacy: () => void })
             </div>
             <label className="ct-fade block">
               <span className="text-xs uppercase tracking-[0.18em] muted font-display">{t.contact.message}</span>
-              <textarea className="field resize-none" rows={3} value={msg} onChange={(e) => setMsg(e.target.value)} />
+              <textarea className="field resize-none" rows={Math.min(14, Math.max(3, msg.split("\n").length))} value={msg} onChange={(e) => setMsg(e.target.value)} />
             </label>
             <div className="ct-fade flex flex-wrap items-center gap-5">
               <Magnetic>

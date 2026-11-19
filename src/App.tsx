@@ -16,6 +16,7 @@ import { Marquee } from "./site/Marquee";
 import { About } from "./site/About";
 import { Work } from "./site/Work";
 import { Services } from "./site/Services";
+import { Pricing } from "./site/Pricing";
 import { Process } from "./site/Process";
 import { Stack } from "./site/Stack";
 import { Contact } from "./site/Contact";
@@ -86,6 +87,7 @@ function Site() {
         <About t={t} />
         <Work t={t} lang={language} />
         <Services t={t} />
+        <Pricing t={t} lang={language} />
         <Process t={t} />
         <Stack label={t.stack.label} />
         <Contact t={t} onPrivacy={() => openLegal("privacy")} />
