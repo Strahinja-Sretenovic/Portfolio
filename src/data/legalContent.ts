@@ -37,7 +37,7 @@ export const legalContentSr: Record<string, LegalDocument> = {
           "Rukovalac vašim ličnim podacima je:",
           "Naziv: SSolutions (Digitalna Strategija, UX Arhitektura & Web Inženjering)",
           "Osnivač & Glavni konsultant: Stevan Sretenović",
-          "Sedište: Čačak / Beograd, Republika Srbija",
+          "Sedište: Novi Sad, Republika Srbija",
           "Email za zahteve o zaštiti podataka: ssolutionsrs@gmail.com",
           "Za sva pitanja, uvid u vaše podatke ili povlačenje date saglasnosti možete nas u svakom trenutku kontaktirati putem navedene email adrese.",
         ],
@@ -54,17 +54,15 @@ export const legalContentSr: Record<string, LegalDocument> = {
         id: "data-collected",
         title: "3. Koje podatke prikupljamo i u koje svrhe",
         content: [
-          "Kada popunite formu za besplatnu analizu biznisa ili kontakt formu na sajtu, prikupljamo:",
+          "Kontakt forma na sajtu ne šalje podatke na naš server — ona otvara vaš email program sa pripremljenom porukom. Podatke primamo tek kada vi pošaljete taj email, i to:",
         ],
         subsections: [
           {
             title: "A. Podaci koje vi dobrovoljno unosite:",
             items: [
-              "Ime i prezime / Ime kontakt osobe — radi identifikacije i personalizovane poslovne komunikacije.",
-              "Poslovna email adresa — radi dostavljanja odgovora na upit, pripremljene analize i komunikacije.",
-              "Broj telefona (opciono polje) — isključivo radi dogovora o terminu poziva ukoliko vi to želite.",
-              "Naziv biznisa i URL sajta/Instagram profila — radi uvida u vaš trenutni digitalni nastup i pripreme analize.",
-              "Ciljevi i poslovni izazov — radi razumevanja konteksta vašeg projekta.",
+              "Ime — radi lične i poslovne komunikacije.",
+              "Email adresa — radi odgovora na vaš upit i dalje komunikacije.",
+              "Vrsta projekta i kratak opis — radi razumevanja onoga što vam treba i pripreme ponude.",
             ],
           },
           {
@@ -311,7 +309,7 @@ export const legalContentSr: Record<string, LegalDocument> = {
           "Naziv brenda / Poslovno ime: SSolutions (Web Strategija & Inženjering)",
           "Osnivač i vodeći inženjer: Stevan Sretenović",
           "Pravna forma: Samostalna profesionalna delatnost (Web razvoj i konsalting) / Registrovani preduzetnik u postupku usklađivanja",
-          "Sedište: Čačak / Beograd, Republika Srbija",
+          "Sedište: Novi Sad, Republika Srbija",
           "Glavna delatnost: 62.01 — Računarsko programiranje i prateće konsultantske delatnosti informacionih tehnologija (62.02)",
           "Zvanični kontakt email: ssolutionsrs@gmail.com",
           "Telefon / Direktna linija: Dostupna registrovanim klijentima putem zakazanog audio/video poziva ili WhatsApp/Viber kanala",
@@ -353,7 +351,7 @@ export const legalContentEn: Record<string, LegalDocument> = {
           "The Data Controller responsible for your personal data is:",
           "Entity: SSolutions (Digital Strategy, UX Architecture & Web Engineering)",
           "Founder & Lead Consultant: Stevan Sretenovic",
-          "Location: Cacak / Belgrade, Republic of Serbia",
+          "Location: Novi Sad, Republic of Serbia",
           "Privacy & Data Inquiries Email: ssolutionsrs@gmail.com",
           "You may reach out at any time to exercise your data subject rights, request access, or revoke consent.",
         ],
@@ -370,17 +368,15 @@ export const legalContentEn: Record<string, LegalDocument> = {
         id: "data-collected",
         title: "3. Data Collected & Purpose",
         content: [
-          "When you submit a business audit request or contact inquiry, we collect:",
+          "The contact form does not send data to our server — it opens your email app with a pre-filled message. We only receive data once you send that email, namely:",
         ],
         subsections: [
           {
             title: "A. Information you voluntarily provide:",
             items: [
-              "Full Name / Contact Person: To identify you and personalize our communications.",
-              "Business Email: To send audit insights, discuss technical requirements, and respond.",
-              "Phone Number (strictly optional): Only used to schedule a call if you prefer phone communication.",
-              "Company Name & Website/Social URL: To inspect your existing digital footprint prior to our call.",
-              "Project Goals & Operational Bottlenecks: To understand the commercial context of your inquiry.",
+              "Name: To address you and handle business communication.",
+              "Email address: To reply to your inquiry and follow up.",
+              "Project type and short description: To understand what you need and prepare a proposal.",
             ],
           },
           {
@@ -623,7 +619,7 @@ export const legalContentEn: Record<string, LegalDocument> = {
           "Brand & Commercial Name: SSolutions (Web Strategy & Engineering)",
           "Founder & Principal Consultant: Stevan Sretenovic",
           "Legal Form: Professional Consulting & Development Services / Registered Sole Proprietorship",
-          "Headquarters: Cacak / Belgrade, Republic of Serbia",
+          "Headquarters: Novi Sad, Republic of Serbia",
           "Primary Activity: 62.01 Computer Programming & IT Consulting (62.02)",
           "Direct Contact Email: ssolutionsrs@gmail.com",
           "Direct Line: Available to registered clients via scheduled call or WhatsApp/Viber channels",

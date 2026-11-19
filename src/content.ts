@@ -99,7 +99,7 @@ const sr = {
   },
   nav: { about: "O nama", work: "Radovi", services: "Usluge", process: "Proces", contact: "Kontakt", cta: "Započnimo" },
   hero: {
-    eyebrow: "SSolutions — web studio, Čačak",
+    eyebrow: "SSolutions — web studio, Novi Sad",
     lines: ["Pravimo sajtove", "koji donose"],
     accent: "klijente.",
     sub: "Dizajn, kod i SEO — od ideje do sajta koji radi za vaš posao.",
@@ -107,13 +107,13 @@ const sr = {
     ctaTalk: "Započnimo projekat",
     status: "Primamo nove projekte",
     scroll: "Skroluj",
-    location: "Čačak, Srbija",
+    location: "Novi Sad, Srbija",
   },
   marquee: ["Web sajtovi", "Web aplikacije", "Landing stranice", "SEO", "Backend sistemi", "Redizajn"],
   about: {
     label: "O nama",
     statement:
-      "Mi smo SSolutions — web studio iz Čačka. Spajamo backend inženjering i dizajn da bismo pravili sajtove koji su brzi, lepi i jednostavni. Bez šablona. Bez komplikacija.",
+      "Mi smo SSolutions — web studio iz Novog Sada. Spajamo backend inženjering i dizajn da bismo pravili sajtove koji su brzi, lepi i jednostavni. Bez šablona. Bez komplikacija.",
     facts: [
       { value: "4", label: "projekta uživo" },
       { value: "2", label: "zemlje — Srbija i Španija" },
@@ -165,7 +165,7 @@ const sr = {
     required: "Unesite ime i email.",
     privacyPre: "Slanjem upita prihvatate obradu podataka u skladu sa",
     privacyLink: "Politikom privatnosti",
-    location: "Čačak, Srbija — radimo i online",
+    location: "Novi Sad, Srbija — radimo i online",
     languages: "Srpski · English",
   },
   footer: {
@@ -194,7 +194,7 @@ const en: typeof sr = {
   },
   nav: { about: "About us", work: "Work", services: "Services", process: "Process", contact: "Contact", cta: "Let's talk" },
   hero: {
-    eyebrow: "SSolutions — web studio, Čačak",
+    eyebrow: "SSolutions — web studio, Novi Sad",
     lines: ["We build websites", "that bring in"],
     accent: "clients.",
     sub: "Design, code and SEO — from an idea to a site that works for your business.",
@@ -202,13 +202,13 @@ const en: typeof sr = {
     ctaTalk: "Start a project",
     status: "Taking on new projects",
     scroll: "Scroll",
-    location: "Čačak, Serbia",
+    location: "Novi Sad, Serbia",
   },
   marquee: ["Websites", "Web apps", "Landing pages", "SEO", "Backend systems", "Redesigns"],
   about: {
     label: "About us",
     statement:
-      "We're SSolutions — a web studio from Čačak, Serbia. We combine backend engineering with design to build websites that are fast, beautiful and simple. No templates. No fuss.",
+      "We're SSolutions — a web studio from Novi Sad, Serbia. We combine backend engineering with design to build websites that are fast, beautiful and simple. No templates. No fuss.",
     facts: [
       { value: "4", label: "live projects" },
       { value: "2", label: "countries — Serbia & Spain" },
@@ -260,7 +260,7 @@ const en: typeof sr = {
     required: "Please enter your name and email.",
     privacyPre: "By sending an inquiry you agree to the processing of your data under the",
     privacyLink: "Privacy Policy",
-    location: "Čačak, Serbia — working remotely too",
+    location: "Novi Sad, Serbia — working remotely too",
     languages: "Serbian · English",
   },
   footer: {
