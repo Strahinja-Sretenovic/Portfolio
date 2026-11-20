@@ -1,8 +1,8 @@
 {
-  "name": "SSolutions — Izrada sajtova i web aplikacija",
+  "name": "SSolutions — Websites & Web Apps",
   "short_name": "SSolutions",
-  "description": "Web studio iz Novog Sada. Pravimo brze, moderne sajtove i web aplikacije koji donose klijente.",
-  "lang": "sr-Latn-RS",
+  "description": "Web studio from Novi Sad, Serbia. We build fast, modern websites and web apps that bring in clients.",
+  "lang": "en",
   "dir": "ltr",
   "start_url": "/",
   "scope": "/",

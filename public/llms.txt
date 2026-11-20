@@ -1,26 +1,26 @@
 # SSolutions
 
-> Web studio iz Novog Sada, Srbija. Pravimo brze, moderne web sajtove, web aplikacije, tehnički SEO i redizajn postojećih sajtova.
+> Web studio from Novi Sad, Serbia. We build fast, modern websites, web apps, technical SEO and redesigns of existing sites. The site is in English and Serbian.
 
-## Usluge
-- Web sajtovi i landing stranice
-- Web aplikacije i softver po meri (rezervacije, katalozi, admin paneli)
-- SEO i brzina sajta
-- Redizajn
+## Services
+- Websites and landing pages
+- Web apps and custom software (bookings, catalogues, admin panels)
+- SEO and site speed
+- Redesigns
 
-## Radovi
-- [Frizerski salon Stevan](https://frizerski-salon-stevan.vercel.app/): sajt za salon
-- [Ada Studio](https://adastudio.rs/): agencijska platforma i CMS
-- [Altara Inmo](https://www.altarainmo.com/): portal za nekretnine
-- [Taxi Pro GPS](https://www.taxiprogps.com/): softver za praćenje flote
+## Work
+- [Frizerski salon Stevan](https://frizerski-salon-stevan.vercel.app/): salon website
+- [Ada Studio](https://adastudio.rs/): studio platform and CMS
+- [Altara Inmo](https://www.altarainmo.com/): real-estate portal
+- [Taxi Pro GPS](https://www.taxiprogps.com/): fleet tracking software
 
-## Kontakt
+## Starting prices (EUR, excluding third-party costs)
+- Landing page: from 350 €
+- Business website (up to 5 pages): from 700 €
+- Redesign: from 500 €
+- Online shop: from 1,500 €
+- Web application: from 3,000 €
+- Maintenance: 30 €/month or 80 €/month
+
+## Contact
 - Email: ssolutionsrs@gmail.com
-
-## Okvirne cene (EUR, bez troškova trećih strana)
-- Landing stranica: od 350 €
-- Prezentacioni sajt (do 5 strana): od 700 €
-- Redizajn: od 500 €
-- Internet prodavnica: od 1.500 €
-- Web aplikacija: od 3.000 €
-- Održavanje: 30 €/mes. ili 80 €/mes.

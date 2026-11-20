@@ -13,8 +13,8 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Serbian is always the first language on every visit; English is an in-session switch only.
-  const [language, setLanguageState] = useState<Language>("sr");
+  // English is always the first language on every visit; Serbian is an in-session switch.
+  const [language, setLanguageState] = useState<Language>("en");
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
