@@ -4,7 +4,7 @@ import { gsap, ScrollTrigger, useSmooth } from "./motion";
 import { Content } from "../content";
 
 const TERMINAL = [
-  ["whoami", "ssolutions"],
+  ["whoami", "strahinja · ssolutions"],
   ["cat about.txt", "portfolio · web development · Novi Sad"],
   ["ls ./services", "websites  web-apps  seo  redesign"],
   ["ls ./stack", "react  typescript  node  java  go  php"],

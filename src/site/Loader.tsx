@@ -53,7 +53,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
       </div>
       <div className="ld-meta">
         <div className="flex items-end justify-between font-display">
-          <span className="text-xs uppercase tracking-[0.2em] opacity-60">Web development — Novi Sad</span>
+          <span className="text-xs uppercase tracking-[0.2em] opacity-60">Strahinja Sretenović — Novi Sad</span>
           <span ref={count} className="text-5xl sm:text-7xl font-semibold tabular-nums">000</span>
         </div>
         <div className="ld-bar mt-4 h-px origin-left scale-x-0" style={{ background: "var(--bg)" }} />

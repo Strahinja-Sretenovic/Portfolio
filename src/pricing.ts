@@ -2,7 +2,7 @@ import type { Lang } from "./content";
 
 /**
  * Price estimator data. All amounts in EUR.
- * - Our services: SSolutions starting prices (edit freely).
+ * - My services: SSolutions starting prices (edit freely).
  * - Third-party costs: average Serbian / international market prices, Nov 2026
  *   (domains .rs ≈ 12–15 €/yr, .com ≈ 10–15 €/yr; shared hosting ≈ 50–150 €/yr;
  *   Google Workspace Business Starter ≈ 7 $/user/month on a yearly plan).
