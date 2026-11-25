@@ -1,6 +1,6 @@
 # SSolutions
 
-> Web studio from Novi Sad, Serbia. We build fast, modern websites, web apps, technical SEO and redesigns of existing sites. The site is in English and Serbian.
+> SSolutions is the web development portfolio of Strahinja Sretenović, Novi Sad, Serbia. We build fast, modern websites, web apps, technical SEO and redesigns of existing sites. The site is in English and Serbian.
 
 ## Services
 - Websites and landing pages

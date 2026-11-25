@@ -99,7 +99,7 @@ const sr = {
   },
   nav: { about: "O nama", work: "Radovi", services: "Usluge", pricing: "Cene", process: "Proces", contact: "Kontakt", cta: "Započnimo" },
   hero: {
-    eyebrow: "SSolutions — web studio, Novi Sad",
+    eyebrow: "SSolutions — portfolio · Novi Sad",
     lines: ["Pravimo sajtove", "koji donose"],
     accent: "klijente.",
     sub: "Dizajn, kod i SEO — od ideje do sajta koji radi za vaš posao.",
@@ -113,7 +113,7 @@ const sr = {
   about: {
     label: "O nama",
     statement:
-      "Mi smo SSolutions — web studio iz Novog Sada. Spajamo backend inženjering i dizajn da bismo pravili sajtove koji su brzi, lepi i jednostavni. Bez šablona. Bez komplikacija.",
+      "Ovo je SSolutions — portfolio web razvoja iz Novog Sada. Spajamo backend inženjering i dizajn da bismo pravili sajtove koji su brzi, lepi i jednostavni. Bez šablona. Bez komplikacija.",
     facts: [
       { value: "4", label: "projekta uživo" },
       { value: "2", label: "zemlje — Srbija i Španija" },
@@ -236,7 +236,7 @@ const en: typeof sr = {
   },
   nav: { about: "About us", work: "Work", services: "Services", pricing: "Pricing", process: "Process", contact: "Contact", cta: "Let's talk" },
   hero: {
-    eyebrow: "SSolutions — web studio, Novi Sad",
+    eyebrow: "SSolutions — portfolio · Novi Sad",
     lines: ["We build websites", "that bring in"],
     accent: "clients.",
     sub: "Design, code and SEO — from an idea to a site that works for your business.",
@@ -250,7 +250,7 @@ const en: typeof sr = {
   about: {
     label: "About us",
     statement:
-      "We're SSolutions — a web studio from Novi Sad, Serbia. We combine backend engineering with design to build websites that are fast, beautiful and simple. No templates. No fuss.",
+      "This is SSolutions — a web development portfolio from Novi Sad, Serbia. We combine backend engineering with design to build websites that are fast, beautiful and simple. No templates. No fuss.",
     facts: [
       { value: "4", label: "live projects" },
       { value: "2", label: "countries — Serbia & Spain" },

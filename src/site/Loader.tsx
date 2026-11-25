@@ -37,7 +37,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
       aria-hidden="true"
     >
       <div className="ld-meta flex justify-between text-xs uppercase tracking-[0.2em] opacity-60 font-display">
-        <span>Web studio</span>
+        <span>Portfolio</span>
         <span>Portfolio © 2026</span>
       </div>
       <div className="display text-[13vw] sm:text-[9vw] font-semibold leading-none">
@@ -53,7 +53,7 @@ export function Loader({ onDone }: { onDone: () => void }) {
       </div>
       <div className="ld-meta">
         <div className="flex items-end justify-between font-display">
-          <span className="text-xs uppercase tracking-[0.2em] opacity-60">Web studio — Novi Sad</span>
+          <span className="text-xs uppercase tracking-[0.2em] opacity-60">Web development — Novi Sad</span>
           <span ref={count} className="text-5xl sm:text-7xl font-semibold tabular-nums">000</span>
         </div>
         <div className="ld-bar mt-4 h-px origin-left scale-x-0" style={{ background: "var(--bg)" }} />

@@ -5,7 +5,7 @@ import { Content } from "../content";
 
 const TERMINAL = [
   ["whoami", "ssolutions"],
-  ["cat about.txt", "web studio · Novi Sad, Srbija"],
+  ["cat about.txt", "portfolio · web development · Novi Sad"],
   ["ls ./services", "websites  web-apps  seo  redesign"],
   ["ls ./stack", "react  typescript  node  java  go  php"],
   ["status --now", "accepting_projects = true"],

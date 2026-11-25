@@ -30,7 +30,7 @@ export function Footer({ t, onLegal, onCookies }: { t: Content; onLegal: (d: Leg
           <button onClick={() => onLegal("business")} className="hover:opacity-100 hover:underline">{t.footer.business}</button>
           <button onClick={onCookies} className="hover:opacity-100 hover:underline">{t.footer.cookieSettings}</button>
         </div>
-        <span className="opacity-60">© {new Date().getFullYear()} SSolutions. {t.footer.rights}</span>
+        <span className="opacity-60">© {new Date().getFullYear()} SSolutions · Strahinja Sretenović. {t.footer.rights}</span>
         <button onClick={() => scrollTo(0)} className="flex items-center gap-2 font-display uppercase tracking-[0.18em] text-xs">
           {t.footer.top} <span className="w-9 h-9 rounded-full border grid place-items-center" style={{ borderColor: "color-mix(in srgb, var(--bg) 25%, transparent)" }}><ArrowUp size={14} /></span>
         </button>
