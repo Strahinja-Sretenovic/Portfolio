@@ -76,7 +76,7 @@ export function Hero({ t, ready }: { t: Content; ready: boolean }) {
           <span className="text-xs sm:text-sm muted">{t.hero.eyebrow}</span>
         </div>
 
-        <h1 className="display font-semibold text-[clamp(3rem,10.5vw,10.5rem)]">
+        <h1 className="display font-semibold text-[clamp(2.1rem,8vw,8.5rem)]">
           {t.hero.lines.map((line, i) => (
             <span key={i} className="h-line block">
               <Words text={line} />

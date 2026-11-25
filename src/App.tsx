@@ -14,6 +14,7 @@ import { Cursor } from "./site/Cursor";
 import { Hero } from "./site/Hero";
 import { Marquee } from "./site/Marquee";
 import { About } from "./site/About";
+import { Journey } from "./site/Journey";
 import { Work } from "./site/Work";
 import { Services } from "./site/Services";
 import { Pricing } from "./site/Pricing";
@@ -85,6 +86,7 @@ function Site() {
         <Hero t={t} ready={!loading} />
         <Marquee items={t.marquee} />
         <About t={t} />
+        <Journey t={t} />
         <Work t={t} lang={language} />
         <Services t={t} />
         <Pricing t={t} lang={language} />

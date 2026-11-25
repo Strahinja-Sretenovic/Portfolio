@@ -7,16 +7,16 @@ export interface TranslationSchema {
 export const translations: Record<Language, TranslationSchema> = {
   sr: {
     meta: {
-      title: "SSolutions — Strahinja Sretenović | Izrada sajtova i web aplikacija, Novi Sad",
+      title: "Strahinja Sretenović — softverski inženjer i full-stack developer | SSolutions",
       description:
-        "Portfolio Strahinje Sretenovića (SSolutions), Novi Sad. Pravim brze, moderne sajtove i web aplikacije koji donose klijente — dizajn, kod i SEO na jednom mestu.",
+        "Portfolio Strahinje Sretenovića (SSolutions): softverski inženjer i full-stack developer iz Novog Sada. Master student elektrotehnike i računarstva na FTN-u, Univerzitet u Novom Sadu.",
     },
   },
   en: {
     meta: {
-      title: "SSolutions by Strahinja Sretenović — Websites & Web Apps | Novi Sad",
+      title: "Strahinja Sretenović — Software Engineer & Full-Stack Developer | SSolutions",
       description:
-        "Portfolio of Strahinja Sretenović (SSolutions), Novi Sad, Serbia. I build fast, modern websites and web apps that bring in clients — design, code and SEO in one place.",
+        "Portfolio of Strahinja Sretenović (SSolutions): software engineer and full-stack developer from Novi Sad. Master\'s student in Electrical and Computer Engineering at FTN, University of Novi Sad.",
     },
   },
 };

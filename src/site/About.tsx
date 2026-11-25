@@ -4,11 +4,11 @@ import { gsap, ScrollTrigger, useSmooth } from "./motion";
 import { Content } from "../content";
 
 const TERMINAL = [
-  ["whoami", "strahinja · ssolutions"],
-  ["cat about.txt", "portfolio · web development · Novi Sad"],
-  ["ls ./services", "websites  web-apps  seo  redesign"],
-  ["ls ./stack", "react  typescript  node  java  go  php"],
-  ["status --now", "accepting_projects = true"],
+  ["whoami", "strahinja.sretenovic  (ssolutions)"],
+  ["cat education.txt", "M.Sc. ECE (in progress) · B.Sc. Software & IT — FTN Novi Sad"],
+  ["cat role.txt", "software engineer · backend / full-stack"],
+  ["ls ./stack", "java  spring  python  fastapi  php  react  docker"],
+  ["status --now", "open_to_work = true"],
 ];
 
 export function About({ t }: { t: Content }) {

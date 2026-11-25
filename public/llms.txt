@@ -1,6 +1,6 @@
 # SSolutions
 
-> SSolutions is the web development portfolio of Strahinja Sretenović, Novi Sad, Serbia. I build fast, modern websites, web apps, technical SEO and redesigns of existing sites. The site is in English and Serbian.
+> SSolutions is the portfolio of Strahinja Sretenović — software engineer and full-stack developer from Novi Sad, Serbia. Master's student in Electrical and Computer Engineering at the Faculty of Technical Sciences (FTN), University of Novi Sad; B.Sc. in Software and Information Technologies (FTN). One year as a Software Developer (PHP/REST/MySQL backend for a GPS Android app).
 
 ## Services
 - Websites and landing pages

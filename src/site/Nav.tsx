@@ -5,7 +5,7 @@ import { useTheme } from "../components/ThemeProvider";
 import { useLanguage } from "../context/LanguageContext";
 import { content } from "../content";
 
-const SECTIONS = ["about", "work", "services", "pricing", "contact"] as const;
+const SECTIONS = ["about", "journey", "work", "pricing", "contact"] as const;
 
 export function Nav() {
   const { language, setLanguage } = useLanguage();

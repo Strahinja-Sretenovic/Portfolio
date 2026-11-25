@@ -81,8 +81,8 @@ export const projects: Project[] = [
 ];
 
 export const stackRows = [
-  ["React", "TypeScript", "Next.js", "Tailwind CSS", "Angular", "Node.js", "NestJS", "Express"],
-  ["Java · Spring Boot", "Go", "C# · .NET", "Python · FastAPI", "PHP", "PostgreSQL", "MySQL", "MongoDB", "Redis", "Docker", "Kubernetes"],
+  ["Java · Spring Boot", "Python · FastAPI", "Flask", "PHP", "C# · .NET", "JavaScript", "TypeScript", "React", "Tailwind CSS", "Material UI"],
+  ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Elasticsearch", "Neo4j", "Docker", "Kubernetes", "GitHub Actions", "Nginx", "Linux", "Prometheus · Grafana"],
 ];
 
 const sr = {
@@ -97,15 +97,15 @@ const sr = {
     serviceCta: "Započnite projekat:",
     error: "Nešto nije u redu. Osvežite stranicu ili mi pišite na",
   },
-  nav: { about: "O meni", work: "Radovi", services: "Usluge", pricing: "Cene", process: "Proces", contact: "Kontakt", cta: "Započnimo" },
+  nav: { about: "O meni", journey: "Iskustvo", work: "Radovi", services: "Usluge", pricing: "Cene", process: "Proces", contact: "Kontakt", cta: "Započnimo" },
   hero: {
     eyebrow: "Strahinja Sretenović · SSolutions · Novi Sad",
-    lines: ["Pravim sajtove", "koji donose"],
-    accent: "klijente.",
-    sub: "Dizajn, kod i SEO — od ideje do sajta koji radi za vaš posao.",
+    lines: ["Softverski inženjer", "i full-stack"],
+    accent: "developer.",
+    sub: "Master student elektrotehnike i računarstva na FTN-u u Novom Sadu. Pravim backend sisteme, web aplikacije i sajtove.",
     ctaWork: "Pogledaj radove",
-    ctaTalk: "Započnimo projekat",
-    status: "Slobodan za nove projekte",
+    ctaTalk: "Kontaktiraj me",
+    status: "Otvoren za projekte i praksu",
     scroll: "Skroluj",
     location: "Novi Sad, Srbija",
   },
@@ -113,14 +113,57 @@ const sr = {
   about: {
     label: "O meni",
     statement:
-      "Ja sam Strahinja, a SSolutions je ime pod kojim radim. Spajam backend inženjering i dizajn da bih pravio sajtove koji su brzi, lepi i jednostavni. Bez šablona. Bez komplikacija.",
+      "Ja sam Strahinja, softverski inženjer iz Novog Sada — SSolutions je ime pod kojim radim. Diplomirao sam softverske i informacione tehnologije na FTN-u, a sada sam na master studijama elektrotehnike i računarstva. Volim backend sisteme, čiste API-je i brze, jednostavne sajtove.",
     facts: [
+      { value: "M.Sc.", label: "student, elektrotehnika i računarstvo — FTN" },
+      { value: "B.Sc.", label: "softverske i informacione tehnologije — FTN" },
+      { value: "1+", label: "godina kao software developer" },
       { value: "4", label: "projekta uživo" },
-      { value: "2", label: "zemlje — Srbija i Španija" },
-      { value: "20+", label: "tehnologija" },
-      { value: "1+", label: "godina iskustva" },
     ],
     cta: "Pogledaj radove",
+  },
+  journey: {
+    label: "Iskustvo i obrazovanje",
+    title: "Moj put do sada",
+    now: "Sada",
+    items: [
+      {
+        period: "U toku",
+        title: "Master — elektrotehnika i računarstvo",
+        place: "Fakultet tehničkih nauka, Univerzitet u Novom Sadu",
+        points: [],
+        kind: "edu",
+      },
+      {
+        period: "2024 — 2025",
+        title: "Software Developer",
+        place: "Web Developer Serbia, Čačak",
+        points: [
+          "PHP backend za Android aplikaciju zasnovanu na GPS-u, sa lokacijama u realnom vremenu",
+          "Dizajn i integracija REST API-ja i komunikacionog sloja u Android aplikaciji",
+          "Strukturisani JSON podaci iz MySQL baze i optimizacija SQL upita",
+        ],
+        kind: "work",
+      },
+      {
+        period: "Diplomirao",
+        title: "Osnovne studije — softverske i informacione tehnologije",
+        place: "Fakultet tehničkih nauka, Univerzitet u Novom Sadu",
+        points: [],
+        kind: "edu",
+      },
+      {
+        period: "Srednja škola",
+        title: "Elektrotehničar elektronike",
+        place: "Tehnička škola, Čačak",
+        points: [],
+        kind: "edu",
+      },
+    ],
+    languagesLabel: "Jezici",
+    languages: ["Srpski — maternji", "Engleski — napredni (C1)"],
+    interestsLabel: "Interesovanja",
+    interests: ["Backend razvoj", "Mikroservisna arhitektura", "Web tehnologije", "Veštačka inteligencija i ML", "Open source"],
   },
   work: {
     label: "Izabrani radovi",
@@ -234,15 +277,15 @@ const en: typeof sr = {
     serviceCta: "Start a project:",
     error: "Something went wrong. Refresh the page or email me at",
   },
-  nav: { about: "About", work: "Work", services: "Services", pricing: "Pricing", process: "Process", contact: "Contact", cta: "Let's talk" },
+  nav: { about: "About", journey: "Experience", work: "Work", services: "Services", pricing: "Pricing", process: "Process", contact: "Contact", cta: "Let's talk" },
   hero: {
     eyebrow: "Strahinja Sretenović · SSolutions · Novi Sad",
-    lines: ["I build websites", "that bring in"],
-    accent: "clients.",
-    sub: "Design, code and SEO — from an idea to a site that works for your business.",
+    lines: ["Software engineer", "& full-stack"],
+    accent: "developer.",
+    sub: "Master's student in Electrical and Computer Engineering at FTN, University of Novi Sad. I build backend systems, web apps and websites.",
     ctaWork: "See my work",
-    ctaTalk: "Start a project",
-    status: "Available for new projects",
+    ctaTalk: "Get in touch",
+    status: "Open to projects & internships",
     scroll: "Scroll",
     location: "Novi Sad, Serbia",
   },
@@ -250,14 +293,57 @@ const en: typeof sr = {
   about: {
     label: "About me",
     statement:
-      "I'm Strahinja, and SSolutions is the name I work under. I combine backend engineering with design to build websites that are fast, beautiful and simple. No templates. No fuss.",
+      "I'm Strahinja, a software engineer from Novi Sad — SSolutions is the name I work under. I graduated in Software and Information Technologies at FTN and I'm now doing my master's in Electrical and Computer Engineering. I love backend systems, clean APIs and fast, simple websites.",
     facts: [
+      { value: "M.Sc.", label: "student, Electrical & Computer Eng. — FTN" },
+      { value: "B.Sc.", label: "Software & Information Technologies — FTN" },
+      { value: "1+", label: "year as a software developer" },
       { value: "4", label: "live projects" },
-      { value: "2", label: "countries — Serbia & Spain" },
-      { value: "20+", label: "technologies" },
-      { value: "1+", label: "years of experience" },
     ],
     cta: "See my work",
+  },
+  journey: {
+    label: "Experience & education",
+    title: "My path so far",
+    now: "Now",
+    items: [
+      {
+        period: "In progress",
+        title: "M.Sc. — Electrical and Computer Engineering",
+        place: "Faculty of Technical Sciences, University of Novi Sad",
+        points: [],
+        kind: "edu",
+      },
+      {
+        period: "2024 — 2025",
+        title: "Software Developer",
+        place: "Web Developer Serbia, Čačak",
+        points: [
+          "PHP backend for a GPS-based Android app, serving location data in real time",
+          "Designed and integrated REST APIs and the app's Android communication layer",
+          "Structured JSON data from MySQL and optimised SQL queries for real-time updates",
+        ],
+        kind: "work",
+      },
+      {
+        period: "Graduated",
+        title: "B.Sc. — Software and Information Technologies",
+        place: "Faculty of Technical Sciences, University of Novi Sad",
+        points: [],
+        kind: "edu",
+      },
+      {
+        period: "High school",
+        title: "Electronics Technician",
+        place: "Technical School, Čačak",
+        points: [],
+        kind: "edu",
+      },
+    ],
+    languagesLabel: "Languages",
+    languages: ["Serbian — native", "English — advanced (C1)"],
+    interestsLabel: "Interests",
+    interests: ["Backend development", "Microservices architecture", "Web technologies", "AI & machine learning", "Open source"],
   },
   work: {
     label: "Selected work",
